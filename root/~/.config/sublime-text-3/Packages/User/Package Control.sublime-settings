@@ -1,0 +1,40 @@
+{
+	"auto_upgrade": true,
+	"auto_upgrade_frequency": 1,
+	"bootstrapped": true,
+	"in_process_packages":
+	[
+	],
+	"install_missing": true,
+	"install_prereleases": true,
+	"installed_packages":
+	[
+		"ANSIescape",
+		"Better CoffeeScript",
+		"BracketHighlighter",
+		"BufferScroll",
+		"Case Conversion",
+		"Dockerfile Syntax Highlighting",
+		"Fold Python Docstrings",
+		"Increment Selection",
+		"JSON Reindent",
+		"Markdown Preview",
+		"Origami",
+		"Package Control",
+		"Puppet",
+		"Reform",
+		"RuboCop",
+		"Sass",
+		"SideBarEnhancements",
+		"Sort Lines (Numerically)",
+		"SublimeLinter",
+		"SublimeLinter-annotations",
+		"SublimeLinter-chktex",
+		"SublimeLinter-cppcheck",
+		"SublimeLinter-html-tidy",
+		"SublimeLinter-phpcs",
+		"SublimeLinter-pylint",
+		"SublimeLinter-ruby",
+		"SublimeLinter-shellcheck"
+	]
+}

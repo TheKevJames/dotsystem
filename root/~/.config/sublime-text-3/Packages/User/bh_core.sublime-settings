@@ -1,0 +1,24 @@
+{
+    "align_content_highlight_bar": true,
+    "auto_selection_threshold" : 10,
+    "bracket_string_escape_mode": "string",
+    "content_highlight_bar": false,
+    "debug_enable": false,
+    "high_visibility_color": "__bracket__",
+    "high_visibility_enabled_by_default": false,
+    "high_visibility_style": "outline",
+    "ignore_threshold": false,
+    "kill_highlight_on_threshold": true,
+    "match_only_adjacent": false,
+    "no_multi_select_icons": false,
+    "search_threshold": 5000,
+    "show_unmatched": true,
+    "show_unmatched_exceptions": [],
+    "tag_mode": {
+        "xhtml": ["XML"],
+        "html": ["HTML", "HTML 5", "PHP", "HTML (Jinja Templates)", "HTML (Rails)", "HTML (Twig)", "laravel-blade", "Handlebars", "AngularJS"],
+        "cfml": ["HTML+CFML", "ColdFusion", "ColdFusionCFC"]
+    },
+    "tag_scope_exclude": ["string", "comment"],
+    "tag_style": "tag",
+}

@@ -1,0 +1,11 @@
+#!/bin/bash
+if command -v aspell >/dev/null 2>&1; then
+    MESSAGE=$(git log -1 HEAD --pretty=format:%s)
+    WORDS=$(echo $MESSAGE | aspell list)
+
+    if [ -n "$WORDS" ]; then
+        echo "Possible spelling errors found in commit message:" $WORDS >&2
+    fi
+else
+    echo >&2 "aspell is not installed"
+fi

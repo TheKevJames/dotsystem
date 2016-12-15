@@ -1,0 +1,13 @@
+[Unit]
+Description=mpd daemon
+After=network.target sound.target
+
+[Service]
+User=kevin
+ExecStart=/usr/bin/mpd /home/kevin/.config/mpd/mpd.conf
+ExecStop=/usr/bin/mpd /home/kevin/.config/mpd/mpd.conf --kill
+Restart=always
+PIDFile=/home/kevin/.config/mpd/pid
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,106 @@
+{
+    "user": {
+        "debug": false,
+        "delay": 0.1,
+        "error_color": "D02000",
+        "gutter_theme": "Packages/SublimeLinter/gutter-themes/Default/Default.gutter-theme",
+        "gutter_theme_excludes": [],
+        "lint_mode": "background",
+        "linters": {
+            "annotations": {
+                "@disable": false,
+                "args": [],
+                "errors": [
+                    "FIXME"
+                ],
+                "excludes": [],
+                "warnings": [
+                    "README",
+                    "TODO",
+                    "XXX"
+                ]
+            },
+            "chktex": {
+                "@disable": false,
+                "args": [],
+                "erroron": [
+                    16
+                ],
+                "excludes": [],
+                "inputfiles": [
+                    0
+                ],
+                "nowarn": [
+                    22,
+                    30
+                ]
+            },
+            "htmltidy": {
+                "@disable": false,
+                "args": [],
+                "excludes": []
+            },
+            "phpcs": {
+                "@disable": true,
+                "args": [],
+                "excludes": [],
+                "standard": "PSR2"
+            },
+            "pylint": {
+                "@disable": false,
+                "args": [],
+                "disable": "W0511",
+                "enable": "",
+                "excludes": [],
+                "paths": [],
+                "rcfile": "/etc/pylintrc",
+                "show-codes": true
+            },
+            "ruby": {
+                "@disable": false,
+                "args": [],
+                "excludes": []
+            }
+        },
+        "mark_style": "outline",
+        "no_column_highlights_line": false,
+        "passive_warnings": true,
+        "paths": {
+            "linux": [],
+            "osx": [],
+            "windows": []
+        },
+        "python_paths": {
+            "linux": [],
+            "osx": [],
+            "windows": []
+        },
+        "rc_search_limit": 3,
+        "shell_timeout": 10,
+        "show_errors_on_save": false,
+        "show_marks_in_minimap": true,
+        "syntax_map": {
+            "bibtex": "tex",
+            "html": "html",
+            "html (asp)": "html",
+            "html (django)": "html",
+            "html (erlang)": "html",
+            "html (rails)": "html",
+            "html (tcl)": "html",
+            "html 5": "html",
+            "latex": "tex",
+            "latex beamer": "tex",
+            "latex log": "tex",
+            "latex memoir": "tex",
+            "php": "php",
+            "python django": "python",
+            "ruby": "ruby",
+            "ruby haml": "ruby",
+            "ruby on rails": "ruby",
+            "tex": "tex",
+            "texmath": "tex"
+        },
+        "warning_color": "DDB700",
+        "wrap_find": true
+    }
+}

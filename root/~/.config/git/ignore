@@ -1,0 +1,26 @@
+*~
+!~
+
+# cvs
+CVS/
+.cvsignore
+
+# linux
+.directory
+
+# mac
+._*
+.DS_Store
+.Spotlight-V100
+.Trashes
+
+# mercurial
+.hg/
+.hgignore
+
+# sublime
+*.sublime-project
+*.sublime-workspace
+
+# svn
+.svn/

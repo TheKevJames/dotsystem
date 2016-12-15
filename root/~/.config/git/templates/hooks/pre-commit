@@ -1,0 +1,61 @@
+#!/bin/bash
+# -------------------------------
+# PHP Linter
+# -------------------------------
+files=$(git diff --cached --name-only --diff-filter=ACMR | grep "\.php$")
+if [ "$files" != "" ]; then
+    if command -v php >/dev/null 2>&1; then
+        for file in ${files}; do
+            php -l -d display_errors=0 ${file}
+            if [ $? != 0 ]; then
+                exit 1
+            fi
+        done
+    else
+        echo >&2 "php is not installed"
+    fi
+
+    if command -v phpcs >/dev/null 2>&1; then
+        phpcs --standard=PSR2 --encoding=utf-8 -n -p $files
+        if [ $? != 0 ]; then
+            exit 1
+        fi
+    else
+        echo >&2 "phpcs is not installed"
+    fi
+fi
+
+# -------------------------------
+# Python Linter
+# -------------------------------
+if command -v python >/dev/null 2>&1; then
+    if command -v /usr/bin/pylint >/dev/null 2>&1; then
+        if command -v git-pylint-commit-hook >/dev/null 2>&1; then
+            git-pylint-commit-hook --pylint /usr/bin/pylint --pylintrc /etc/pylintrc --limit 9.9
+            if [ $? != 0 ]; then
+              exit 1
+            fi
+        else
+            echo >&2 "git-pylint-commit-hook is not installed"
+        fi
+    else
+        echo >&2 "/usr/bin/pylint is not installed"
+    fi
+else
+    echo >&2 "python is not installed"
+fi
+
+# -------------------------------
+# Ruby Linter
+# -------------------------------
+files=$(git diff --cached --name-only --diff-filter=ACMR | grep "\.rb$")
+if [ "$files" != "" ]; then
+    if command -v rubocop >/dev/null 2>&1; then
+        rubocop -D -R ${files}
+        if [ $? != 0 ]; then
+          exit 1
+        fi
+    else
+        echo >&2 "rubocop is not installed"
+    fi
+fi

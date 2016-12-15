@@ -1,0 +1,9 @@
+\set PROMPT1 '%[%033[1m%]%M %n@%/%R%[%033[0m%]%# '
+\set PROMPT2 '>'
+
+\set HISTFILE ~/.local/share/postgres/history- :DBNAME
+\set HISTCONTROL ignoredups
+
+\pset null '[NULL]'
+
+\set COMP_KEYWORD_CASE upper
