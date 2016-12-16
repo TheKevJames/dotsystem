@@ -3,8 +3,12 @@ import atexit
 import os
 import readline
 import rlcompleter
+import sys
 
-HISTORY = os.path.expanduser('~/.local/share/python/history')
+
+HISTORY = os.path.expanduser(os.path.join(
+    os.environ.get('XDG_DATA_HOME', '~/.local/share'),
+    'python{}'.format(sys.version_info[0]), 'history'))
 if not os.path.exists(HISTORY):
     open(HISTORY, 'a').close()
 
@@ -21,7 +25,7 @@ def save_history(history_path=HISTORY):
 
 atexit.register(save_history)
 
-
-del atexit, os, readline, rlcompleter
+# Remove from namespace
+del atexit, os, readline, rlcompleter, sys
 del HISTORY
 del save_history
