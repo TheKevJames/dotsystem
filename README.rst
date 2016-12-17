@@ -32,7 +32,7 @@ XDG Wall of Shame
 I am a huge fan of the `XDG Base Directory Spec`_. The following configured apps don't follow that spec:
 
 - irssi. Open PR here: `irssi XDG PR`_.
-- ngrok. See `ngrok Config Location`_. TODO: fix this be setting ``-config`` explicitly.
+- ngrok. See `ngrok Config Location`_. TODO: fix this by setting ``-config`` explicitly.
 - sqlite. My `sqlite XDG Hack`_ "fixes" this.
 
 .. _XDG Base Directory Spec: https://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html
