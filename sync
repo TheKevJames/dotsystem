@@ -104,6 +104,22 @@ if grep -q "oh-my-zsh:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     rm -f ~/.zshrc.pre-oh-my-zsh
 fi
 
+if grep -q "franz:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
+    if ! which franz >/dev/null; then
+        TEMPFILE=$(mktemp)
+        if [[ "$OSTYPE" == "darwin"* ]]; then
+            curl -fsSL "https://github.com/meetfranz/franz-app/releases/download/4.0.4/Franz-darwin-x64-4.0.4.dmg" > "${TEMPFILE}.dmg"
+            hdiutil mount "${TEMPFILE}.dmg"
+            sudo cp -R "/Volumes/Franz/Franz.app" "/Applications/Franz.app"
+            hdiutil unmount "${TEMPFILE}.dmg"
+        else
+            curl -fsSL "https://github.com/meetfranz/franz-app/releases/download/4.0.4/Franz-linux-x64-4.0.4.tgz" > "${TEMPFILE}.tgz"
+            tar xzf "${TEMPFILE}.tgz" -C /opt/franz
+            sudo ln -s /opt/franz/Franz /usr/local/bin/franz
+        fi
+    fi
+fi
+
 if grep -q "hub:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if ! which hub >/dev/null; then
         TEMPFILE=$(mktemp)

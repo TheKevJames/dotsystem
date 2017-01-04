@@ -20,6 +20,7 @@ python:python2
 python3
 
 clementine:/Applications/clementine.app/Contents/MacOS/clementine
+franz:sh
 irssi
 mpd
 ncmpc
