@@ -74,6 +74,7 @@ ensure_dir "${XDG_DATA_HOME}"
 set_dir "${DIR}/config" "${XDG_CONFIG_HOME}/dotsystem"
 
 ## Install packages
+echo "Refreshing sources..."
 ${PACMAN_REFRESH} >/dev/null
 
 packages=()
@@ -88,6 +89,7 @@ for package in $(cat "${XDG_CONFIG_HOME}/dotsystem/packages"); do
     fi
 done
 
+echo "Installing packages..."
 if [[ "${packages[@]:-}" != "" ]]; then
     ${PACMAN_INSTALL} "${packages[@]}"
 fi
@@ -101,7 +103,7 @@ if grep -q "oh-my-zsh:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if [ ! -d "${ZSH}" ]; then
         sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
     fi
-    rm -f ~/.zshrc.pre-oh-my-zsh
+    rm -f ~/.zshrc*
 fi
 
 if grep -q "franz:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
@@ -180,6 +182,7 @@ if grep -q "transmission-daemon:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; the
     fi
 fi
 
+echo "Configuring system..."
 ## Configure symlinks
 for link in $(cat "${XDG_CONFIG_HOME}/dotsystem/links"); do
     IFS=: read -a fields <<< "$link"

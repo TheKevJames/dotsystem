@@ -1,4 +1,3 @@
-source ~/.profile
 export ZSH="${XDG_CONFIG_HOME}/oh-my-zsh"
 
 ZSH_THEME="jreese"
@@ -20,8 +19,6 @@ DISABLE_UNTRACKED_FILES_DIRTY="false"
 
 HISTFILE="${XDG_DATA_HOME}/zsh/history"
 HIST_STAMPS="yyyy-mm-dd"
-
-ZSH_COMPDUMP="${XDG_DATA_HOME}/zsh/zcompdump"
 
 ZSH_CUSTOM="${XDG_CONFIG_HOME}/oh-my-zsh-custom"
 plugins=(git vi-mode)
