@@ -51,6 +51,7 @@ set_file() {
         select yn in "Yes" "No"; do
             case $yn in
                 Yes ) cp "${1}" "${DEST}" 2>/dev/null || sudo cp "${1}" "${DEST}";
+                      if [[ "${DEST}" == *"/bin/"* ]]; then sudo chmod a+x "${DEST}"; fi;
                       break;;
                 No )  break;;
             esac
