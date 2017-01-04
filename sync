@@ -114,7 +114,7 @@ if grep -q "hub:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
             curl -fsSL "https://github.com/github/hub/releases/download/v2.2.9/hub-linux-amd64-2.2.9.tgz" > "${TEMPFILE}.tgz"
         fi
         tar xzf "${TEMPFILE}.tgz" -C ${TmPDIR:-/tmp}
-        mv ${TmPDIR:-/tmp}/hub-*/bin/hub /usr/local/bin
+        sudo mv ${TmPDIR:-/tmp}/hub-*/bin/hub /usr/local/bin
     fi
 fi
 
@@ -127,7 +127,7 @@ if grep -q "ngrok:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
         else
             curl -fsSL "https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip" > "${TEMPFILE}.zip"
         fi
-        unzip "${TEMPFILE}.zip" -d /usr/local/bin
+        sudo unzip "${TEMPFILE}.zip" -d /usr/local/bin
     fi
 fi
 
@@ -148,7 +148,7 @@ if grep -q "sublime-text:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
         else
             curl -fsSL "https://download.sublimetext.com/sublime_text_3_build_3126_x64.tar.bz2" > "${TEMPFILE}.tar.bz2"
             tar xjf "${TEMPFILE}.tar.bz2" -C /opt
-            ln -s /opt/sublime_text_3 /usr/local/bin/sublime
+            sudo ln -s /opt/sublime_text_3 /usr/local/bin/sublime
         fi
     fi
 fi
