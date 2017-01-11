@@ -19,4 +19,6 @@ Plug 'neomake/neomake'  " async :make
 Plug 'vim-utils/vim-man'  " grep manpages
 Plug 'mhinz/vim-grepper'  " async grep w/ tool support
 
+Plug 'rust-lang/rust.vim'  " Rust syntax
+
 call plug#end()
