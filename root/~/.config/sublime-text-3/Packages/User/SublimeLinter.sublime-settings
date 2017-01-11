@@ -68,6 +68,15 @@
                 "args": [],
                 "excludes": []
             },
+            "rust": {
+                "@disable": false,
+                "args": [],
+                "crate-root": null,
+                "excludes": [],
+                "use-cargo": true,
+                "use-cargo-check": false,
+                "use-crate-root": false
+            },
             "shellcheck": {
                 "@disable": false,
                 "args": [],
@@ -79,9 +88,15 @@
         "no_column_highlights_line": false,
         "passive_warnings": true,
         "paths": {
-            "linux": [],
-            "osx": [],
-            "windows": []
+            "linux": [
+                "~/.cargo/bin"
+            ],
+            "osx": [
+                "~/.cargo/bin"
+            ],
+            "windows": [
+                "C:\\cargo\\bin"
+            ]
         },
         "python_paths": {
             "linux": [],

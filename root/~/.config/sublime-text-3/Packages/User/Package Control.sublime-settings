@@ -30,6 +30,7 @@
 		"SublimeLinter",
 		"SublimeLinter-annotations",
 		"SublimeLinter-chktex",
+		"SublimeLinter-contrib-rustc",
 		"SublimeLinter-cppcheck",
 		"SublimeLinter-html-tidy",
 		"SublimeLinter-phpcs",
