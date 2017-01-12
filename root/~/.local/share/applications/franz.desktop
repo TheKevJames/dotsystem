@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Franz
+GenericName=Messaging App
+Comment=Open all your chat clients in one place
+Exec=franz
+Terminal=false
+Icon=/opt/franz/resources/app.asar.unpacked/assets/franz.png
+Categories=Application;Utility;GTK
+StartupNotify=true
