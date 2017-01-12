@@ -41,8 +41,8 @@ optimize-ast=no
 # all. Valid levels: HIGH, INFERENCE, INFERENCE_FAILURE, UNDEFINED
 confidence=
 
-disable=locally-disabled,missing-docstring
-# disable=dict-iter-method,backtick,too-many-public-methods,unpacking-in-except,no-value-for-parameter,intern-builtin,coerce-builtin,buffer-builtin,raw_input-builtin,useless-suppression,old-raise-syntax,file-builtin,cmp-builtin,invalid-name,import-star-module-level,too-few-public-methods,old-octal-literal,too-many-ancestors,input-builtin,print-statement,no-init,reload-builtin,no-member,map-builtin-not-iterating,hex-method,metaclass-assignment,xrange-builtin,raising-string,too-many-arguments,suppressed-message,too-many-return-statements,import-error,too-many-branches,cmp-method,delslice-method,range-builtin-not-iterating,zip-builtin-not-iterating,broad-except,reduce-builtin,long-builtin,old-ne-operator,old-division,round-builtin,next-method-called,filter-builtin-not-iterating,oct-method,deprecated-lambda,parameter-unpacking,standarderror-builtin,no-absolute-import,indexing-exception,nonzero-method,too-many-locals,fixme,getslice-method,long-suffix,basestring-builtin,arguments-differ,coerce-method,execfile-builtin,using-cmp-argument,apply-builtin,setslice-method,unichr-builtin,unicode-builtin,dict-view-method,too-many-instance-attributes,too-many-statements
+disable=invalid-name,locally-disabled,missing-docstring
+# disable=dict-iter-method,backtick,too-many-public-methods,unpacking-in-except,no-value-for-parameter,intern-builtin,coerce-builtin,buffer-builtin,raw_input-builtin,useless-suppression,old-raise-syntax,file-builtin,cmp-builtin,import-star-module-level,too-few-public-methods,old-octal-literal,too-many-ancestors,input-builtin,print-statement,no-init,reload-builtin,no-member,map-builtin-not-iterating,hex-method,metaclass-assignment,xrange-builtin,raising-string,too-many-arguments,suppressed-message,too-many-return-statements,import-error,too-many-branches,cmp-method,delslice-method,range-builtin-not-iterating,zip-builtin-not-iterating,broad-except,reduce-builtin,long-builtin,old-ne-operator,old-division,round-builtin,next-method-called,filter-builtin-not-iterating,oct-method,deprecated-lambda,parameter-unpacking,standarderror-builtin,no-absolute-import,indexing-exception,nonzero-method,too-many-locals,fixme,getslice-method,long-suffix,basestring-builtin,arguments-differ,coerce-method,execfile-builtin,using-cmp-argument,apply-builtin,setslice-method,unichr-builtin,unicode-builtin,dict-view-method,too-many-instance-attributes,too-many-statements
 
 
 [REPORTS]
@@ -365,6 +365,5 @@ analyse-fallback-blocks=no
 
 
 [EXCEPTIONS]
-# Exceptions that will emit a warning when being caught. Defaults to
-# "Exception"
-overgeneral-exceptions=Exception
+# Exceptions that will emit a warning when being caught.
+overgeneral-exceptions=
