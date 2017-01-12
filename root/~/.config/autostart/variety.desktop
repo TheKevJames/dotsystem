@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Variety
+GenericName=Wallpaper Manager
+Comment=Variety Wallpaper Changer
+Exec=variety
+Terminal=false
+Type=Application
+Icon=variety
+X-GNOME-Autostart-Delay=20
+StartupNotify=false
