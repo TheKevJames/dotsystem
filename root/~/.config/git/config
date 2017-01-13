@@ -23,7 +23,7 @@
     pager = less -FRX
 
 [credential]
-    helper = cache --timeout=3600
+    helper = cache --timeout=3600 --socket=~/.local/share/git/creds.sock
 
 [diff]
     mnemonicprefix = true
