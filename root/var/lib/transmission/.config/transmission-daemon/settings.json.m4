@@ -88,7 +88,7 @@
     "torrent-complete-sound-enabled": false,
     "trash-can-enabled": false,
     "trash-original-torrent-files": true,
-    "umask": 18,
+    "umask": 2,
     "upload-slots-per-torrent": 14,
     "user-has-given-informed-consent": true,
     "utp-enabled": true,
