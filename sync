@@ -73,113 +73,117 @@ ensure_dir "${XDG_DATA_HOME}"
 ## Update dotsystem config
 set_dir "${DIR}/config" "${XDG_CONFIG_HOME}/dotsystem"
 
-## Install packages
-echo "Refreshing sources..."
-${PACMAN_REFRESH} >/dev/null
+if [[ "${1:-}" != "--skip-packages" ]]; then
+    ## Install packages
+    echo "Refreshing sources..."
+    ${PACMAN_REFRESH} >/dev/null
 
-packages=()
-for package in $(cat "${XDG_CONFIG_HOME}/dotsystem/packages"); do
-    IFS=: read -a fields <<< "$package"
+    packages=()
+    for package in $(cat "${XDG_CONFIG_HOME}/dotsystem/packages"); do
+        IFS=: read -a fields <<< "$package"
 
-    name="${fields[0]}"
-    binary="${fields[1]:-${fields[0]}}"
+        name="${fields[0]}"
+        binary="${fields[1]:-${fields[0]}}"
 
-    if ! which $name >/dev/null 2>&1 && ! which $binary >/dev/null 2>&1; then
-        packages+=("${name}")
+        if ! which $name >/dev/null 2>&1 && ! which $binary >/dev/null 2>&1; then
+            packages+=("${name}")
+        fi
+    done
+
+    echo "Installing packages..."
+    if [[ "${packages[@]:-}" != "" ]]; then
+        ${PACMAN_INSTALL} "${packages[@]}"
     fi
-done
-
-echo "Installing packages..."
-if [[ "${packages[@]:-}" != "" ]]; then
-    ${PACMAN_INSTALL} "${packages[@]}"
-fi
-if [[ "$OSTYPE" == "darwin"* ]]; then
-    which reattach-to-user-namespace >/dev/null || ${PACMAN_INSTALL} reattach-to-user-namespace
-fi
-
-if grep -q "oh-my-zsh:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
-    export ZSH="${XDG_CONFIG_HOME}/oh-my-zsh"
-
-    if [ ! -d "${ZSH}" ]; then
-        sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        which reattach-to-user-namespace >/dev/null || ${PACMAN_INSTALL} reattach-to-user-namespace
     fi
-    rm -f ~/.zshrc*
-fi
 
-if grep -q "franz:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
-    if ! which franz >/dev/null; then
-        TEMPFILE=$(mktemp)
-        if [[ "$OSTYPE" == "darwin"* ]]; then
-            curl -fsSL "https://github.com/meetfranz/franz-app/releases/download/4.0.4/Franz-darwin-x64-4.0.4.dmg" > "${TEMPFILE}.dmg"
-            hdiutil mount "${TEMPFILE}.dmg"
-            sudo cp -R "/Volumes/Franz/Franz.app" "/Applications/Franz.app"
-            hdiutil unmount "${TEMPFILE}.dmg"
-        else
-            curl -fsSL "https://github.com/meetfranz/franz-app/releases/download/4.0.4/Franz-linux-x64-4.0.4.tgz" > "${TEMPFILE}.tgz"
-            tar xzf "${TEMPFILE}.tgz" -C /opt/franz
-            sudo ln -s /opt/franz/Franz /usr/local/bin/franz
+    if grep -q "oh-my-zsh:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
+        export ZSH="${XDG_CONFIG_HOME}/oh-my-zsh"
+
+        if [ ! -d "${ZSH}" ]; then
+            sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+        fi
+        rm -f ~/.zshrc*
+    fi
+
+    if grep -q "franz:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
+        if ! which franz >/dev/null; then
+            TEMPFILE=$(mktemp)
+            if [[ "$OSTYPE" == "darwin"* ]]; then
+                curl -fsSL "https://github.com/meetfranz/franz-app/releases/download/4.0.4/Franz-darwin-x64-4.0.4.dmg" > "${TEMPFILE}.dmg"
+                hdiutil mount "${TEMPFILE}.dmg"
+                sudo cp -R "/Volumes/Franz/Franz.app" "/Applications/Franz.app"
+                hdiutil unmount "${TEMPFILE}.dmg"
+            else
+                curl -fsSL "https://github.com/meetfranz/franz-app/releases/download/4.0.4/Franz-linux-x64-4.0.4.tgz" > "${TEMPFILE}.tgz"
+                tar xzf "${TEMPFILE}.tgz" -C /opt/franz
+                sudo ln -s /opt/franz/Franz /usr/local/bin/franz
+            fi
         fi
     fi
-fi
 
-if grep -q "hub:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
-    if ! which hub >/dev/null; then
-        TEMPFILE=$(mktemp)
-        if [[ "$OSTYPE" == "darwin"* ]]; then
-            curl -fsSL "https://github.com/github/hub/releases/download/v2.2.9/hub-darwin-amd64-2.2.9.tgz" > "${TEMPFILE}.tgz"
-        # elif [[ "$OSTYPE" == "linux-gnu" ]]; then
-        else
-            curl -fsSL "https://github.com/github/hub/releases/download/v2.2.9/hub-linux-amd64-2.2.9.tgz" > "${TEMPFILE}.tgz"
-        fi
-        tar xzf "${TEMPFILE}.tgz" -C ${TmPDIR:-/tmp}
-        sudo mv ${TmPDIR:-/tmp}/hub-*/bin/hub /usr/local/bin
-    fi
-fi
-
-if grep -q "ngrok:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
-    if ! which ngrok >/dev/null; then
-        TEMPFILE=$(mktemp)
-        if [[ "$OSTYPE" == "darwin"* ]]; then
-            curl -fsSL "https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-darwin-amd64.zip" > "${TEMPFILE}.zip"
-        # elif [[ "$OSTYPE" == "linux-gnu" ]]; then
-        else
-            curl -fsSL "https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip" > "${TEMPFILE}.zip"
-        fi
-        sudo unzip "${TEMPFILE}.zip" -d /usr/local/bin
-    fi
-fi
-
-if grep -q "neovim:nvim"  "${XDG_CONFIG_HOME}/dotsystem/packages"; then
-    if [ ! -f "${XDG_DATA_HOME}/nvim/site/autoload/plug.vim" ]; then
-        curl -fsSLo "${XDG_DATA_HOME}/nvim/site/autoload/plug.vim" --create-dirs "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
-    fi
-fi
-
-if grep -q "sublime-text:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
-    if ! which sublime >/dev/null; then
-        TEMPFILE=$(mktemp)
-        if [[ "$OSTYPE" == "darwin"* ]]; then
-            curl -fsSL "https://download.sublimetext.com/Sublime%20Text%20Build%203126.dmg" > "${TEMPFILE}.dmg"
-            hdiutil mount "${TEMPFILE}.dmg"
-            sudo cp -R "/Volumes/Sublime Text/Sublime Text.app" "/Applications/Sublime Text.app"
-            hdiutil unmount "${TEMPFILE}.dmg"
-        else
-            curl -fsSL "https://download.sublimetext.com/sublime_text_3_build_3126_x64.tar.bz2" > "${TEMPFILE}.tar.bz2"
-            tar xjf "${TEMPFILE}.tar.bz2" -C /opt
-            sudo ln -s /opt/sublime_text_3 /usr/local/bin/sublime
+    if grep -q "hub:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
+        if ! which hub >/dev/null; then
+            TEMPFILE=$(mktemp)
+            if [[ "$OSTYPE" == "darwin"* ]]; then
+                curl -fsSL "https://github.com/github/hub/releases/download/v2.2.9/hub-darwin-amd64-2.2.9.tgz" > "${TEMPFILE}.tgz"
+            # elif [[ "$OSTYPE" == "linux-gnu" ]]; then
+            else
+                curl -fsSL "https://github.com/github/hub/releases/download/v2.2.9/hub-linux-amd64-2.2.9.tgz" > "${TEMPFILE}.tgz"
+            fi
+            tar xzf "${TEMPFILE}.tgz" -C ${TmPDIR:-/tmp}
+            sudo mv ${TmPDIR:-/tmp}/hub-*/bin/hub /usr/local/bin
         fi
     fi
-fi
 
-if grep -q "transmission-daemon:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
-    if ! which transmission-daemon >/dev/null; then
-        if [[ "$OSTYPE" == "darwin"* ]]; then
-            ${PACMAN_INSTALL} transmission
-        # elif [[ "$OSTYPE" == "linux-gnu" ]]; then
-        else
-            ${PACMAN_INSTALL} transmission-daemon
+    if grep -q "ngrok:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
+        if ! which ngrok >/dev/null; then
+            TEMPFILE=$(mktemp)
+            if [[ "$OSTYPE" == "darwin"* ]]; then
+                curl -fsSL "https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-darwin-amd64.zip" > "${TEMPFILE}.zip"
+            # elif [[ "$OSTYPE" == "linux-gnu" ]]; then
+            else
+                curl -fsSL "https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip" > "${TEMPFILE}.zip"
+            fi
+            sudo unzip "${TEMPFILE}.zip" -d /usr/local/bin
         fi
     fi
+
+    if grep -q "neovim:nvim"  "${XDG_CONFIG_HOME}/dotsystem/packages"; then
+        if [ ! -f "${XDG_DATA_HOME}/nvim/site/autoload/plug.vim" ]; then
+            curl -fsSLo "${XDG_DATA_HOME}/nvim/site/autoload/plug.vim" --create-dirs "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+        fi
+    fi
+
+    if grep -q "sublime-text:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
+        if ! which sublime >/dev/null; then
+            TEMPFILE=$(mktemp)
+            if [[ "$OSTYPE" == "darwin"* ]]; then
+                curl -fsSL "https://download.sublimetext.com/Sublime%20Text%20Build%203126.dmg" > "${TEMPFILE}.dmg"
+                hdiutil mount "${TEMPFILE}.dmg"
+                sudo cp -R "/Volumes/Sublime Text/Sublime Text.app" "/Applications/Sublime Text.app"
+                hdiutil unmount "${TEMPFILE}.dmg"
+            else
+                curl -fsSL "https://download.sublimetext.com/sublime_text_3_build_3126_x64.tar.bz2" > "${TEMPFILE}.tar.bz2"
+                tar xjf "${TEMPFILE}.tar.bz2" -C /opt
+                sudo ln -s /opt/sublime_text_3 /usr/local/bin/sublime
+            fi
+        fi
+    fi
+
+    if grep -q "transmission-daemon:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
+        if ! which transmission-daemon >/dev/null; then
+            if [[ "$OSTYPE" == "darwin"* ]]; then
+                ${PACMAN_INSTALL} transmission
+            # elif [[ "$OSTYPE" == "linux-gnu" ]]; then
+            else
+                ${PACMAN_INSTALL} transmission-daemon
+            fi
+        fi
+    fi
+else
+    echo "Skipping package management"
 fi
 
 echo "Configuring system..."
