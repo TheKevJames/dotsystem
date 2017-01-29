@@ -1,6 +1,6 @@
 export ZSH="${XDG_CONFIG_HOME}/oh-my-zsh"
 
-ZSH_THEME="jreese"
+ZSH_THEME="kevin"
 
 CASE_SENSITIVE="false"
 HYPHEN_INSENSITIVE="true"
@@ -21,7 +21,7 @@ HISTFILE="${XDG_DATA_HOME}/zsh/history"
 HIST_STAMPS="yyyy-mm-dd"
 
 ZSH_CUSTOM="${XDG_CONFIG_HOME}/oh-my-zsh-custom"
-plugins=(git vi-mode)
+plugins=(git shrink-path vi-mode)
 
 
 source $ZSH/oh-my-zsh.sh
