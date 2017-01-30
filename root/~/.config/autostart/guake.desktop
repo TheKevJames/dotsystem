@@ -2,7 +2,7 @@
 Name=Guake
 GenericName=Terminal Emulator
 Comment=Drop-down terminal emulator for GNOME
-Exec=guake
+Exec=guake -e tmux
 Terminal=false
 Type=Application
 Icon=guake
