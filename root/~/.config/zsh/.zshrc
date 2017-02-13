@@ -25,3 +25,5 @@ plugins=(git shrink-path vi-mode)
 
 
 source $ZSH/oh-my-zsh.sh
+
+export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
