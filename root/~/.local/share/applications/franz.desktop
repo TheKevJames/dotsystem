@@ -7,5 +7,4 @@ Comment=Open all your chat clients in one place
 Exec=franz
 Terminal=false
 Icon=/opt/franz/resources/app.asar.unpacked/assets/franz.png
-Categories=Application;Utility;GTK
 StartupNotify=true

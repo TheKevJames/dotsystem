@@ -6,5 +6,4 @@ Exec=guake -e tmux
 Terminal=false
 Type=Application
 Icon=guake
-Categories=Network;FileTransfer;Shell;
 StartupNotify=false

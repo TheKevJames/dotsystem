@@ -8,5 +8,4 @@ Exec=/opt/sublime_text_3/sublime_text %F
 Terminal=false
 MimeType=text/plain;
 Icon=/opt/sublime_text_3/Icon/256x256/sublime-text.png
-Categories=TextEditor;Development;
 StartupNotify=true
