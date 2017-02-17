@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="quit" mtime="1484593799" type="string">
+		<stringvalue>disabled</stringvalue>
+	</entry>
+	<entry name="toggle_hide_on_lose_focus" mtime="1484593796" type="string">
+		<stringvalue>disabled</stringvalue>
+	</entry>
+	<entry name="new_tab" mtime="1484593785" type="string">
+		<stringvalue>disabled</stringvalue>
+	</entry>
+	<entry name="close_tab" mtime="1484593784" type="string">
+		<stringvalue>disabled</stringvalue>
+	</entry>
+	<entry name="rename_current_tab" mtime="1484593783" type="string">
+		<stringvalue>disabled</stringvalue>
+	</entry>
+	<entry name="switch_tab5" mtime="1484593782" type="string">
+		<stringvalue>disabled</stringvalue>
+	</entry>
+	<entry name="switch_tab6" mtime="1484593780" type="string">
+		<stringvalue>disabled</stringvalue>
+	</entry>
+	<entry name="switch_tab4" mtime="1484593779" type="string">
+		<stringvalue>disabled</stringvalue>
+	</entry>
+	<entry name="switch_tab3" mtime="1484593778" type="string">
+		<stringvalue>disabled</stringvalue>
+	</entry>
+	<entry name="switch_tab2" mtime="1484593777" type="string">
+		<stringvalue>disabled</stringvalue>
+	</entry>
+	<entry name="switch_tab1" mtime="1484593776" type="string">
+		<stringvalue>disabled</stringvalue>
+	</entry>
+	<entry name="next_tab" mtime="1484593775" type="string">
+		<stringvalue>disabled</stringvalue>
+	</entry>
+	<entry name="previous_tab" mtime="1484593774" type="string">
+		<stringvalue>disabled</stringvalue>
+	</entry>
+	<entry name="switch_tab7" mtime="1484593772" type="string">
+		<stringvalue>disabled</stringvalue>
+	</entry>
+	<entry name="switch_tab10" mtime="1484593771" type="string">
+		<stringvalue>disabled</stringvalue>
+	</entry>
+	<entry name="switch_tab_last" mtime="1484593770" type="string">
+		<stringvalue>disabled</stringvalue>
+	</entry>
+	<entry name="switch_tab9" mtime="1484593769" type="string">
+		<stringvalue>disabled</stringvalue>
+	</entry>
+	<entry name="switch_tab8" mtime="1484593768" type="string">
+		<stringvalue>disabled</stringvalue>
+	</entry>
+	<entry name="zoom_in_alt" mtime="1484593766" type="string">
+		<stringvalue>Delete</stringvalue>
+	</entry>
+	<entry name="zoom_in" mtime="1484593765" type="string">
+		<stringvalue>disabled</stringvalue>
+	</entry>
+	<entry name="zoom_out" mtime="1484593764" type="string">
+		<stringvalue>disabled</stringvalue>
+	</entry>
+	<entry name="increase_height" mtime="1484593761" type="string">
+		<stringvalue>disabled</stringvalue>
+	</entry>
+	<entry name="decrease_height" mtime="1484593762" type="string">
+		<stringvalue>disabled</stringvalue>
+	</entry>
+	<entry name="search_on_web" mtime="1484593744" type="string">
+		<stringvalue>disabled</stringvalue>
+	</entry>
+</gconf>
