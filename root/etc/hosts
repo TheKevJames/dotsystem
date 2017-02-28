@@ -49895,7 +49895,6 @@ ff02::3         ipv6-allhosts
 0.0.0.0 s.xbox.com
 0.0.0.0 s.xp1.ru4.com
 0.0.0.0 s.yjtag.jp
-0.0.0.0 s.youtube.com
 0.0.0.0 s.zeroredirect.com
 0.0.0.0 s.zeroredirect1.com
 0.0.0.0 s.zeroredirect2.com
@@ -67130,3 +67129,6 @@ ff02::3         ipv6-allhosts
 # 0.0.0.0 nexus.ensighten.com
 # 0.0.0.0 oascentral.aeroplan.com
 # 0.0.0.0 som.aeroplan.com
+
+# Ads?... but also records youtube history
+# 0.0.0.0 s.youtube.com
