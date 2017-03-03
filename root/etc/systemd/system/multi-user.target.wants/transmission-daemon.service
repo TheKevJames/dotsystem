@@ -5,7 +5,7 @@ After=network.target
 [Service]
 User=transmission
 Group=users
-ExecStart=/usr/bin/transmission-daemon -f --blocklist
+ExecStart=/usr/bin/transmission-daemon -f --blocklist -g /var/lib/transmission/.config/transmission-daemon
 
 [Install]
 WantedBy=multi-user.target
