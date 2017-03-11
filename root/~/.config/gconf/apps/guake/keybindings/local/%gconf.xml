@@ -55,7 +55,7 @@
 		<stringvalue>disabled</stringvalue>
 	</entry>
 	<entry name="zoom_in_alt" mtime="1484593766" type="string">
-		<stringvalue>Delete</stringvalue>
+		<stringvalue>disabled</stringvalue>
 	</entry>
 	<entry name="zoom_in" mtime="1484593765" type="string">
 		<stringvalue>disabled</stringvalue>
