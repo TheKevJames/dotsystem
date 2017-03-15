@@ -1,3 +1,4 @@
+export INPUTRC=${XDG_CONFIG_HOME}/inputrc
 export IRBRC=/etc/irbrc
 export LESSHISTFILE=${XDG_DATA_HOME}/less/history
 export MYSQL_HISTFILE=${XDG_DATA_HOME}/mysql/history

@@ -37,8 +37,9 @@ I am a huge fan of the `XDG Base Directory Spec`_. The following configured apps
 - lmms. In 1.2.0 can be solved with ``--home``, but that's still a pre-release.
 - mysql. Setting ``$MYSQL_HISTFILE`` somewhat works around this.
 - ngrok. Can be overriden with ``--config``... but only for some commands. These ``--config`` arguments are applied in order. My `ngrok XDG hack`_ tries to deal with this.
-- postgres. Setting ``$PSQLRC`` works around this.
+- postgres. Setting ``$PSQLRC`` fixes this.
 - python. Setting ``$PYTHONSTARTUP`` works around this.
+- readline. Setting ``$INPUTRC`` fixes this.
 - redis. Setting ``$REDISCLI_HISTFILE`` somewhat works around this.
 - sqlite. My `sqlite XDG hack`_ "fixes" this.
 
