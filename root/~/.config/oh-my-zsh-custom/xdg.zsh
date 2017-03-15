@@ -1,9 +1,8 @@
-export PYTHONSTARTUP=/etc/pythonstart
-
 export IRBRC=/etc/irbrc
 export LESSHISTFILE=${XDG_DATA_HOME}/less/history
 export MYSQL_HISTFILE=${XDG_DATA_HOME}/mysql/history
 export PSQLRC=${XDG_CONFIG_HOME}/psqlrc
+export PYTHONSTARTUP=/etc/pythonstart
 export REDISCLI_HISTFILE=${XDG_DATA_HOME}/redis/history
 
 sqlite3() {
@@ -15,3 +14,5 @@ sqlite3() {
     command sqlite3 "$@"
     (cd; rm .sqliterc .sqlite_history)
 }
+
+alias irssi="irssi --home=${XDG_CONFIG_HOME}/irssi"

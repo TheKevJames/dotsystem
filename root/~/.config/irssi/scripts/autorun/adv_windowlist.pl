@@ -1796,7 +1796,7 @@ UNITCHECK
   }
 
   sub init {
-      $sockpath = shift // "$ENV{HOME}/.irssi/_windowlist";
+      $sockpath = shift // "$ENV{XDG_DATA_HOME}/irssi/_windowlist";
       STDOUT->autoflush(1);
       printf "\r%swaiting for %s...", Terminfo::sc, $::IRSSI{name};
 

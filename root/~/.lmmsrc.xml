@@ -10,7 +10,7 @@
   <audiopa channels="2" device="default"/>
   <midioss device="/dev/midi"/>
   <mixer framesperaudiobuffer="256" hqaudio="0" audiodev="ALSA (Advanced Linux Sound Architecture)" mididev="ALSA-Sequencer (Advanced Linux Sound Architecture)"/>
-  <paths workingdir="/home/kevin/.local/share/lmms/" fldir="/home/kevin/" stkdir="/usr/share/stk/rawwaves/" vstdir="/home/kevin/.local/share/" artwork="/usr/share/lmms/themes/default/" defaultsf2="" backgroundartwork="" laddir="/usr/lib64/ladspa/"/>
+  <paths workingdir="/home/kevin/.local/share/lmms/" fldir="/home/kevin/" stkdir="/usr/share/stk/rawwaves/" vstdir="/home/kevin/.local/share/" artwork="/usr/share/lmms/themes/default/" defaultsf2="" backgroundartwork="" laddir="/usr/bin/../lib64//ladspa/"/>
   <tooltips disabled="0"/>
   <ui smoothscroll="0" compacttrackbuttons="0" enableautosave="0" animateafp="0" displaywaveform="0" oneinstrumenttrackwindow="0" syncvstplugins="0" printnotelabels="0"/>
   <recentfiles>
