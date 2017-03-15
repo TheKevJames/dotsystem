@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE lmms-config-file>
+<lmms version="1.1.3">
+  <MidiAlsaRaw Device="default"/>
+  <Midialsaseq device="default"/>
+  <app nomsgaftersetup="0" displaydbv="0" nommpz="0" configured="1"/>
+  <audioalsa channels="2" device="default"/>
+  <audiojack channels="2" clientname="lmms"/>
+  <audiooss channels="2" device="/dev/dsp"/>
+  <audiopa channels="2" device="default"/>
+  <midioss device="/dev/midi"/>
+  <mixer framesperaudiobuffer="256" hqaudio="0" audiodev="ALSA (Advanced Linux Sound Architecture)" mididev="ALSA-Sequencer (Advanced Linux Sound Architecture)"/>
+  <paths workingdir="/home/kevin/.local/share/lmms/" fldir="/home/kevin/" stkdir="/usr/share/stk/rawwaves/" vstdir="/home/kevin/.local/share/" artwork="/usr/share/lmms/themes/default/" defaultsf2="" backgroundartwork="" laddir="/usr/lib64/ladspa/"/>
+  <tooltips disabled="0"/>
+  <ui smoothscroll="0" compacttrackbuttons="0" enableautosave="0" animateafp="0" displaywaveform="0" oneinstrumenttrackwindow="0" syncvstplugins="0" printnotelabels="0"/>
+  <recentfiles>
+    <file path="/home/kevin/.local/share/lmms/projects/my_coffee_is_too_hot.mmpz"/>
+    <file path="/home/kevin/.local/share/lmms/projects/through_the_fire_and_raves.mmp"/>
+    <file path="/home/kevin/.local/share/lmms/projects/jack_n_coffee.mmpz"/>
+    <file path="/home/kevin/.local/share/lmms/projects/adele-hello.mmpz"/>
+    <file path="/home/kevin/.local/share/lmms/projects/avicii-wake_me_up.mmpz"/>
+    <file path="/home/kevin/.local/share/lmms/projects/its_alright.mmpz"/>
+  </recentfiles>
+</lmms>

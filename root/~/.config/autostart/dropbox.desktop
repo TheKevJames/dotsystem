@@ -6,4 +6,5 @@ Exec=dropbox start -i
 Terminal=false
 Type=Application
 Icon=dropbox
+Categories=Network;FileTransfer;
 StartupNotify=false
