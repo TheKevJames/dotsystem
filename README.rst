@@ -9,7 +9,7 @@ Clone and run. To update configuration, pull and run. Changes will prompt you.
 ::
 
     git clone https://github.com/thekevjames/dotsystem.git
-    ./dotsystem/sync
+    ./dotsystem/sync [--skip-packages]
 
 Secrets
 -------
@@ -36,6 +36,7 @@ I am a huge fan of the `XDG Base Directory Spec`_. The following configured apps
 - irb. Partial support by setting ``$IRBRC``.
 - irssi. Partial support with ``--home`` flag.
 - less. Support by setting ``$LESSHISTFILE``.
+- libice. Partial support by setting ``$ICEAUTHORITY``.
 - lmms. No support. In 1.2.0 (pre-release), will have partial support with ``--home`` flag.
 - mysql. Support by setting ``$MYSQL_HISTFILE``.
 - ngrok. Support with ``--config`` flag. Because this flag has some restrictions, see my `ngrok XDG hack`_ for a "fix".
@@ -50,8 +51,8 @@ I am a huge fan of the `XDG Base Directory Spec`_. The following configured apps
 .. _XDG Base Directory Spec: https://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html
 .. _cargo is a snowflake: https://github.com/rust-lang/rfcs/pull/1615
 .. _gnupg is a snowflake: https://bugs.gnupg.org/gnupg/issue1456
-.. _ngrok XDG hack: https://github.com/TheKevJames/dotsystem/blob/master/root/~/.config/oh-my-zsh-custom/xdg.zsh#L12-L21
+.. _ngrok XDG hack: https://github.com/TheKevJames/dotsystem/blob/master/root/~/.config/oh-my-zsh-custom/xdg.zsh#L13-L22
 .. _rustup is a snowflake: https://github.com/rust-lang-nursery/rustup.rs/issues/247
 .. _special snowflakes: https://github.com/rust-lang-nursery/rustup.rs/issues/247#issuecomment-219213895
 .. _python XDG hack: https://github.com/TheKevJames/dotsystem/blob/master/root/etc/pythonstart
-.. _sqlite XDG hack: https://github.com/TheKevJames/dotsystem/blob/master/root/~/.config/oh-my-zsh-custom/xdg.zsh#L23-L28
+.. _sqlite XDG hack: https://github.com/TheKevJames/dotsystem/blob/master/root/~/.config/oh-my-zsh-custom/xdg.zsh#L24-L29
