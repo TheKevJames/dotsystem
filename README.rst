@@ -31,10 +31,12 @@ XDG Wall of Shame
 
 I am a huge fan of the `XDG Base Directory Spec`_. The following configured apps don't follow that spec:
 
+- irssi. My `irssi XDG Alias`_ works around this.
 - lmms. Solved in 1.2.0, but that's still a pre-release.
-- ngrok. See `ngrok Config Location`_. TODO: fix this by setting ``-config`` explicitly.
+- ngrok. Can be overriden with ``--config``... but only for some commands. These ``--config`` arguments are applied in order. My `ngrok XDG Hack`_ tries to deal with this.
 - sqlite. My `sqlite XDG Hack`_ "fixes" this.
 
 .. _XDG Base Directory Spec: https://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html
-.. _ngrok Config Location: https://ngrok.com/docs#config-location
-.. _sqlite XDG Hack: https://github.com/TheKevJames/dotsystem/blob/master/root/~/.config/oh-my-zsh-custom/xdg.zsh#L9-L17
+.. _irssi XDG Alias: https://github.com/TheKevJames/dotsystem/blob/master/root/~/.config/oh-my-zsh-custom/xdg.zsh#L29
+.. _ngrok XDG Hack: https://github.com/TheKevJames/dotsystem/blob/master/root/~/.config/oh-my-zsh-custom/xdg.zsh#L8-L17
+.. _sqlite XDG Hack: https://github.com/TheKevJames/dotsystem/blob/master/root/~/.config/oh-my-zsh-custom/xdg.zsh#L19-L27
