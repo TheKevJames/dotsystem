@@ -28,6 +28,7 @@ sqlite3() {
     (cd; rm .sqlite_history)
 }
 
+alias cpan="cpan -j ${XDG_CONFIG_HOME}/cpan/Config.pm"
 alias irssi="irssi --home=${XDG_CONFIG_HOME}/irssi"
 
 export PATH="${XDG_DATA_HOME}/cargo/bin:${PATH}"

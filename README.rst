@@ -32,6 +32,7 @@ XDG Wall of Shame
 I am a huge fan of the `XDG Base Directory Spec`_. The following configured apps don't follow that spec. Note that this list includes both apps that may eventually accept be fixed as well as apps that have decided they're `special snowflakes`_ and are thus above needing to implement the XDG spec.
 
 - cargo. `cargo is a snowflake`_. Partial support by setting ``$CARGO_HOME`` and adding ``${CARGO_HOME}/bin`` to your ``$PATH``.
+- cpan. Partial support with ``-j`` flag and setting values in your ``Config.pm`` to XDG-compliant ones.
 - gnupg. `gnupg is a snowflake`_. Partial support by setting ``$GNUPGHOME``.
 - irb. Partial support by setting ``$IRBRC``.
 - irssi. Partial support with ``--home`` flag.
