@@ -1,3 +1,4 @@
+export CARGO_HOME=${XDG_DATA_HOME}/cargo
 export INPUTRC=${XDG_CONFIG_HOME}/inputrc
 export IRBRC=/etc/irbrc
 export LESSHISTFILE=${XDG_DATA_HOME}/less/history
@@ -5,6 +6,7 @@ export MYSQL_HISTFILE=${XDG_DATA_HOME}/mysql/history
 export PSQLRC=${XDG_CONFIG_HOME}/psqlrc
 export PYTHONSTARTUP=/etc/pythonstart
 export REDISCLI_HISTFILE=${XDG_DATA_HOME}/redis/history
+export RUSTUP_HOME=${XDG_DATA_HOME}/rustup
 
 ngrok() {
     if echo "authtoken http start tcp tls" | grep -w "${1:-DEFAULT}" >/dev/null; then
@@ -18,11 +20,12 @@ ngrok() {
 }
 
 sqlite3() {
-    rm -f ~/.sqliterc && ln -s ${XDG_CONFIG_HOME}/sqlite ~/.sqliterc
     rm -f ~/.sqlite_history && ln -s ${XDG_DATA_HOME}/sqlite/history ~/.sqlite_history
 
-    command sqlite3 "$@"
-    (cd; rm .sqliterc .sqlite_history)
+    command sqlite3 -init ${XDG_CONFIG_HOME}/sqlite "$@"
+    (cd; rm .sqlite_history)
 }
 
 alias irssi="irssi --home=${XDG_CONFIG_HOME}/irssi"
+
+export PATH="${XDG_DATA_HOME}/cargo/bin:${PATH}"

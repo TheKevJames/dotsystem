@@ -23,7 +23,6 @@ HIST_STAMPS="yyyy-mm-dd"
 ZSH_CUSTOM="${XDG_CONFIG_HOME}/oh-my-zsh-custom"
 plugins=(git shrink-path vi-mode)
 
+export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 source $ZSH/oh-my-zsh.sh
-
-export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin

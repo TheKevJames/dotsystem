@@ -29,21 +29,27 @@ Sample ``secrets.m4``::
 XDG Wall of Shame
 -----------------
 
-I am a huge fan of the `XDG Base Directory Spec`_. The following configured apps don't follow that spec:
+I am a huge fan of the `XDG Base Directory Spec`_. The following configured apps don't follow that spec. Note that this list includes both apps that may eventually accept be fixed as well as apps that have decided they're `special snowflakes`_ and are thus above needing to implement the XDG spec.
 
-- irb. Setting ``$IRBRC`` works around this.
-- irssi. My `irssi XDG alias`_ works around this.
-- less. Setting ``$LESSHISTFILE`` somewhat works around this.
-- lmms. In 1.2.0 can be solved with ``--home``, but that's still a pre-release.
-- mysql. Setting ``$MYSQL_HISTFILE`` somewhat works around this.
-- ngrok. Can be overriden with ``--config``... but only for some commands. These ``--config`` arguments are applied in order. My `ngrok XDG hack`_ tries to deal with this.
-- postgres. Setting ``$PSQLRC`` fixes this.
-- python. Setting ``$PYTHONSTARTUP`` works around this.
-- readline. Setting ``$INPUTRC`` fixes this.
-- redis. Setting ``$REDISCLI_HISTFILE`` somewhat works around this.
-- sqlite. My `sqlite XDG hack`_ "fixes" this.
+- cargo. `cargo is a snowflake`_. Partial support by setting ``$CARGO_HOME`` and adding ``${CARGO_HOME}/bin`` to your ``$PATH``.
+- irb. Partial support by setting ``$IRBRC``.
+- irssi. Partial support with ``--home`` flag.
+- less. Support by setting ``$LESSHISTFILE``.
+- lmms. No support. In 1.2.0 (pre-release), will have partial support with ``--home`` flag.
+- mysql. Support by setting ``$MYSQL_HISTFILE``.
+- ngrok. Support with ``--config`` flag. Because this flag has some restrictions, see my `ngrok XDG hack`_ for a "fix".
+- postgres. Support by setting ``$PSQLRC``.
+- python. Technical support by setting ``$PYTHONSTARTUP`` to a script which modifies your history file location (note: for both python2 and python3). See my `python XDG hack`_.
+- readline. Support by setting ``$INPUTRC``.
+- redis. Support by setting ``$REDISCLI_HISTFILE``.
+- rustup. `rustup is a snowflake`_. Partial support by setting ``$RUSTUP_HOME``.
+- sqlite. Support for config file with ``-init`` flag. History file is hardcoded. See my `sqlite XDG hack`_.
+- zsh. Partial support by setting ``$ZDOTDIR`` and ``$HISTFILE``. Your ``~/.zshenv`` file is effectively hardcoded.
 
 .. _XDG Base Directory Spec: https://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html
-.. _irssi XDG alias: https://github.com/TheKevJames/dotsystem/blob/master/root/~/.config/oh-my-zsh-custom/xdg.zsh#L27
-.. _ngrok XDG hack: https://github.com/TheKevJames/dotsystem/blob/master/root/~/.config/oh-my-zsh-custom/xdg.zsh#L8-L17
-.. _sqlite XDG hack: https://github.com/TheKevJames/dotsystem/blob/master/root/~/.config/oh-my-zsh-custom/xdg.zsh#L19-L25
+.. _cargo is a snowflake: https://github.com/rust-lang/rfcs/pull/1615
+.. _ngrok XDG hack: https://github.com/TheKevJames/dotsystem/blob/master/root/~/.config/oh-my-zsh-custom/xdg.zsh#L11-L20
+.. _rustup is a snowflake: https://github.com/rust-lang-nursery/rustup.rs/issues/247
+.. _special snowflakes: https://github.com/rust-lang-nursery/rustup.rs/issues/247#issuecomment-219213895
+.. _python XDG hack: https://github.com/TheKevJames/dotsystem/blob/master/root/etc/pythonstart
+.. _sqlite XDG hack: https://github.com/TheKevJames/dotsystem/blob/master/root/~/.config/oh-my-zsh-custom/xdg.zsh#L22-L27
