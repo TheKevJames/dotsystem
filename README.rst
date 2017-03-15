@@ -33,6 +33,7 @@ I am a huge fan of the `XDG Base Directory Spec`_. The following configured apps
 
 - cargo. `cargo is a snowflake`_. Partial support by setting ``$CARGO_HOME`` and adding ``${CARGO_HOME}/bin`` to your ``$PATH``.
 - cpan. Partial support with ``-j`` flag and setting values in your ``Config.pm`` to XDG-compliant ones.
+- docker. Support by setting ``$DOCKER_CONFIG``. In-progress real support: `docker XDG issue`_ and `docker XDG PR`_.
 - gnupg. `gnupg is a snowflake`_. Partial support by setting ``$GNUPGHOME``.
 - irb. Partial support by setting ``$IRBRC``.
 - irssi. Partial support with ``--home`` flag.
@@ -52,9 +53,11 @@ I am a huge fan of the `XDG Base Directory Spec`_. The following configured apps
 
 .. _XDG Base Directory Spec: https://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html
 .. _cargo is a snowflake: https://github.com/rust-lang/rfcs/pull/1615
+.. _docker XDG issue: https://github.com/docker/docker/issues/20693
+.. _docker XDG PR: https://github.com/docker/docker/pull/30025
 .. _gnupg is a snowflake: https://bugs.gnupg.org/gnupg/issue1456
-.. _ngrok XDG hack: https://github.com/TheKevJames/dotsystem/blob/master/root/~/.config/oh-my-zsh-custom/xdg.zsh#L13-L22
+.. _ngrok XDG hack: https://github.com/TheKevJames/dotsystem/blob/master/root/~/.config/oh-my-zsh-custom/xdg.zsh#L14-L23
 .. _rustup is a snowflake: https://github.com/rust-lang-nursery/rustup.rs/issues/247
 .. _special snowflakes: https://github.com/rust-lang-nursery/rustup.rs/issues/247#issuecomment-219213895
 .. _python XDG hack: https://github.com/TheKevJames/dotsystem/blob/master/root/etc/pythonstart
-.. _sqlite XDG hack: https://github.com/TheKevJames/dotsystem/blob/master/root/~/.config/oh-my-zsh-custom/xdg.zsh#L24-L29
+.. _sqlite XDG hack: https://github.com/TheKevJames/dotsystem/blob/master/root/~/.config/oh-my-zsh-custom/xdg.zsh#L25-L30

@@ -24,3 +24,6 @@ Plug 'mhinz/vim-grepper'  " async grep w/ tool support
 Plug 'rust-lang/rust.vim'  " Rust syntax
 
 call plug#end()
+
+" plugin configuration
+let g:vimwiki_list = [{'path': '~/Dropbox/vimwiki'}]
