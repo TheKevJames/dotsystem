@@ -31,12 +31,18 @@ XDG Wall of Shame
 
 I am a huge fan of the `XDG Base Directory Spec`_. The following configured apps don't follow that spec:
 
-- irssi. My `irssi XDG Alias`_ works around this.
-- lmms. Solved in 1.2.0, but that's still a pre-release.
-- ngrok. Can be overriden with ``--config``... but only for some commands. These ``--config`` arguments are applied in order. My `ngrok XDG Hack`_ tries to deal with this.
-- sqlite. My `sqlite XDG Hack`_ "fixes" this.
+- irb. Setting ``$IRBRC`` works around this.
+- irssi. My `irssi XDG alias`_ works around this.
+- less. Setting ``$LESSHISTFILE`` somewhat works around this.
+- lmms. In 1.2.0 can be solved with ``--home``, but that's still a pre-release.
+- mysql. Setting ``$MYSQL_HISTFILE`` somewhat works around this.
+- ngrok. Can be overriden with ``--config``... but only for some commands. These ``--config`` arguments are applied in order. My `ngrok XDG hack`_ tries to deal with this.
+- postgres. Setting ``$PSQLRC`` works around this.
+- python. Setting ``$PYTHONSTARTUP`` works around this.
+- redis. Setting ``$REDISCLI_HISTFILE`` somewhat works around this.
+- sqlite. My `sqlite XDG hack`_ "fixes" this.
 
 .. _XDG Base Directory Spec: https://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html
-.. _irssi XDG Alias: https://github.com/TheKevJames/dotsystem/blob/master/root/~/.config/oh-my-zsh-custom/xdg.zsh#L29
-.. _ngrok XDG Hack: https://github.com/TheKevJames/dotsystem/blob/master/root/~/.config/oh-my-zsh-custom/xdg.zsh#L8-L17
-.. _sqlite XDG Hack: https://github.com/TheKevJames/dotsystem/blob/master/root/~/.config/oh-my-zsh-custom/xdg.zsh#L19-L27
+.. _irssi XDG alias: https://github.com/TheKevJames/dotsystem/blob/master/root/~/.config/oh-my-zsh-custom/xdg.zsh#L27
+.. _ngrok XDG hack: https://github.com/TheKevJames/dotsystem/blob/master/root/~/.config/oh-my-zsh-custom/xdg.zsh#L8-L17
+.. _sqlite XDG hack: https://github.com/TheKevJames/dotsystem/blob/master/root/~/.config/oh-my-zsh-custom/xdg.zsh#L19-L25

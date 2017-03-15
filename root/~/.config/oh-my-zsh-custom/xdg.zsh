@@ -17,8 +17,6 @@ ngrok() {
 }
 
 sqlite3() {
-    mkdir -p ${XDG_DATA_HOME}/sqlite
-
     rm -f ~/.sqliterc && ln -s ${XDG_CONFIG_HOME}/sqlite ~/.sqliterc
     rm -f ~/.sqlite_history && ln -s ${XDG_DATA_HOME}/sqlite/history ~/.sqlite_history
 
