@@ -1,8 +1,6 @@
-!Turn CapsLock into Ctrl-L
+!Turn CapsLock into Escape
 clear lock
-clear control
-keycode 66 = Control_L
-add control = Control_L
+keycode 66 = Escape
 
 !Disable NumLock
 clear mod2
