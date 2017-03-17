@@ -23,6 +23,6 @@ HIST_STAMPS="yyyy-mm-dd"
 ZSH_CUSTOM="${XDG_CONFIG_HOME}/oh-my-zsh-custom"
 plugins=(cargo docker docker-compose extract git-prompt shrink-path)
 
-export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+export PATH="${HOME}/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 
 source $ZSH/oh-my-zsh.sh

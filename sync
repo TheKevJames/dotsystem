@@ -6,7 +6,6 @@ echo "Running dotsystem..."
 # Variables
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-XDG_CACHE_HOME=${XDG_CACHE_HOME:-~/.cache}
 XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-~/.config}
 XDG_DATA_HOME=${XDG_DATA_HOME:-~/.local/share}
 
@@ -66,7 +65,6 @@ set_dir() {
 }
 
 # Updates
-ensure_dir "${XDG_CACHE_HOME}"
 ensure_dir "${XDG_CONFIG_HOME}"
 ensure_dir "${XDG_DATA_HOME}"
 
