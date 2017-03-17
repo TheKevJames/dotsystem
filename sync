@@ -214,6 +214,13 @@ IFS=$(echo -en "\n\b"); for file in $(find "${DIR}/root" -type f); do
         m4 ${XDG_DATA_HOME}/dotsystem/secrets.m4 $file 2>/dev/null > $TEMPFILE
         file_noext="${file%.*}"
         set_file "${TEMPFILE}" "/${file_noext#${DIR}/root/}"
+    elif [[ "${file##*.}" == "once" ]]; then
+        file_noext="${file%.*}"
+        DEST="/${file_noext#${DIR}/root/}"
+        DEST=${DEST/\~/$HOME}
+        if [[ ! -f "$DEST" ]]; then
+            set_file "${file}" "${DEST}"
+        fi
     else
         set_file "${file}" "/${file#${DIR}/root/}"
     fi
