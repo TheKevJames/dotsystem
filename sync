@@ -71,7 +71,7 @@ ensure_dir "${XDG_DATA_HOME}"
 ## Update dotsystem config
 set_dir "${DIR}/config" "${XDG_CONFIG_HOME}/dotsystem"
 
-if [[ "${1:-}" != "--skip-packages" ]]; then
+if [[ "$@" != *"--skip-packages"* ]]; then
     ## Install packages
     echo "Refreshing sources..."
     ${PACMAN_REFRESH} >/dev/null
