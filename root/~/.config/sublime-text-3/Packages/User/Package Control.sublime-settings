@@ -2,6 +2,8 @@
 	"auto_upgrade": true,
 	"auto_upgrade_frequency": 1,
 	"bootstrapped": true,
+	"debug": false,
+	"enable_tests": false,
 	"in_process_packages":
 	[
 	],
@@ -37,5 +39,7 @@
 		"SublimeLinter-pylint",
 		"SublimeLinter-ruby",
 		"SublimeLinter-shellcheck"
-	]
+	],
+	"remove_orphaned": true,
+	"timeout": 30
 }
