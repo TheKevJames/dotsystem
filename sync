@@ -44,7 +44,7 @@ set_file() {
 
     if ! sudo diff -q "${1}" "${DEST}" >/dev/null; then
         echo "${DEST} will be modified according to the following diff."
-        sudo diff "${1}" "${DEST}"
+        sudo diff "${1}" "${DEST}" || true
         echo "Apply this change?"
 
         select yn in "Yes" "No"; do
