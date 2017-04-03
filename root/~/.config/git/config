@@ -51,9 +51,6 @@
 [help]
     autocorrect = 30
 
-[init]
-    templatedir = ~/.config/git/templates
-
 [merge]
     conflictstyle = diff3
     stat = true
