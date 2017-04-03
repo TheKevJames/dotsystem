@@ -58,7 +58,7 @@ output-format=colorized
 files-output=no
 
 # Tells whether to display a full report or only the messages
-reports=yes
+reports=no
 
 # Python expression which should return a note less than 10 (10 is the highest
 # note). You have access to the variables errors warning, statement which
@@ -208,7 +208,7 @@ notes=FIXME,XXX
 
 [SIMILARITIES]
 # Minimum lines number of a similarity.
-min-similarity-lines=10
+min-similarity-lines=8
 
 # Ignore comments when computing similarities.
 ignore-comments=yes
@@ -217,7 +217,7 @@ ignore-comments=yes
 ignore-docstrings=yes
 
 # Ignore imports when computing similarities.
-ignore-imports=no
+ignore-imports=yes
 
 
 [SPELLING]
