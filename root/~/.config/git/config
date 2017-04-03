@@ -2,6 +2,7 @@
     amend = commit --amend
     branches = branch -a
     lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
+    pre-commit-init = !cp ~/.config/git/pre-commit-config.yaml $(git rev-parse --show-toplevel)/.pre-commit-config.yaml
     remotes = remote -v
     tags = tag -l --sort=version:refname
 

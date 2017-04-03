@@ -1,0 +1,10 @@
+dependencies:
+  pre:
+    - pip install pre-commit
+
+  override:
+    - pre-commit install
+
+test:
+  override:
+    - pre-commit run --all-files
