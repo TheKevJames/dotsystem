@@ -1,9 +1,6 @@
 dependencies:
-  pre:
-    - pip install pre-commit
-
   override:
-    - pre-commit install
+    - pip install pre-commit
 
 test:
   override:
