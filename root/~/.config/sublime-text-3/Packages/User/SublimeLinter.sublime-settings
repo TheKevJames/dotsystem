@@ -128,6 +128,7 @@
             "tex": "tex",
             "texmath": "tex"
         },
+        "tooltips": true,
         "warning_color": "DDB700",
         "wrap_find": true
     }
