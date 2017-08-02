@@ -74,7 +74,7 @@
 
 [user]
     email = GIT_EMAIL
-    name = GIT_NAME
+    name = Kevin James
 
 [web]
     browser = google-chrome
