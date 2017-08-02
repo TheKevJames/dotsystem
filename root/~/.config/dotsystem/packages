@@ -9,7 +9,6 @@ the_silver_searcher:ag
 unzip
 wget
 
-guake
 tmux
 zsh
 oh-my-zsh:sh
