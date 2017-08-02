@@ -73,8 +73,8 @@
     enabled = true
 
 [user]
-    email = KevinJames@thekev.in
-    name = Kevin James
+    email = GIT_EMAIL
+    name = GIT_NAME
 
 [web]
     browser = google-chrome

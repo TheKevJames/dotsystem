@@ -18,13 +18,7 @@ Secrets are interpolated into configuration files with ``m4``. They should be st
 
 Sample ``secrets.m4``::
 
-    divert(-1)
-    define(`IRC_PASSWORD', `my-password')
-    define(`M4_HOMEBREW_GITHUB_API_TOKEN', `my-github-token')
-    define(`NGROK_AUTHTOKEN', `my-ngrok-token')
-    define(`TRANSMISSION_PASSWORD', `my-rpc-password')
-    define(`TRANSMISSION_USERNAME', `my-rpc-username')
-    divert(0)dnl
+.. literalinclude:: secrets.m4.sample
 
 XDG Wall of Shame
 -----------------
