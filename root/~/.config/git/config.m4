@@ -68,6 +68,7 @@
 
 [push]
     default = current
+    followTags = true
 
 [rerere]
     enabled = true
