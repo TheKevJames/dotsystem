@@ -19,14 +19,14 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     export ARCHFLAGS="-arch x86_64"
 
     # Because this will often work better than setting a real value
-    export BROWSER='open'
+    export BROWSER="open"
 
     # Homebrew un-ratelimit
-    export HOMEBREW_GITHUB_API_TOKEN=M4_HOMEBREW_GITHUB_API_TOKEN
+    export HOMEBREW_GITHUB_API_TOKEN="M4_HOMEBREW_GITHUB_API_TOKEN"
 
     # X11
-    export DISPLAY=:0
-    export PKG_CONFIG_PATH=/opt/X11/lib/pkgconfig
+    export DISPLAY=":0"
+    export PKG_CONFIG_PATH="/opt/X11/lib/pkgconfig"
 
     # reasonable defaults
     # key repeat > key hold
