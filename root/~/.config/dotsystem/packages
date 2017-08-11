@@ -10,6 +10,7 @@ unzip
 wget
 
 tmux
+tmuxifier:sh
 zsh
 oh-my-zsh:sh
 
