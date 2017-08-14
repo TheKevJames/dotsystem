@@ -103,6 +103,7 @@
 		".git",
 		".hg",
 		".svn",
+		"__pycache__",
 		"CVS",
 		"node_modules"
 	],
