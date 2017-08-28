@@ -25,9 +25,9 @@ XDG Wall of Shame
 
 I am a huge fan of the `XDG Base Directory Spec`_. The following configured apps don't follow that spec. Note that this list includes both apps that may eventually accept be fixed as well as apps that have decided they're `special snowflakes`_ and are thus above needing to implement the XDG spec.
 
-- cargo. `cargo is a snowflake`_. Partial support by setting ``$CARGO_HOME`` and adding ``${CARGO_HOME}/bin`` to your ``$PATH``.
+- cargo. `cargo is a snowflake`_. Partial support by setting ``$CARGO_HOME`` and adding ``${CARGO_HOME}/bin`` to your ``$PATH``. Update: the old maintainer who was ardently in favor of keeping cargo's snowflake status is taking a break from cargo development. Looks like the `cargo XDG RFC`_ is going through in the meantime!
 - cpan. Partial support with ``-j`` flag and setting values in your ``Config.pm`` to XDG-compliant ones.
-- docker. Support by setting ``$DOCKER_CONFIG``. In-progress real support: `docker XDG issue`_ and `docker XDG PR`_.
+- docker. Support by setting ``$DOCKER_CONFIG``. In-progress real support: `docker XDG issue`_ (including a couple failed `docker XDG PR`_s).
 - gnupg. `gnupg is a snowflake`_. Partial support by setting ``$GNUPGHOME``.
 - irb. Partial support by setting ``$IRBRC``.
 - irssi. Partial support with ``--home`` flag.
@@ -41,17 +41,18 @@ I am a huge fan of the `XDG Base Directory Spec`_. The following configured apps
 - python. Technical support by setting ``$PYTHONSTARTUP`` to a script which modifies your history file location (note: for both python2 and python3). See my `python XDG hack`_.
 - readline. Support by setting ``$INPUTRC``.
 - redis. Support by setting ``$REDISCLI_HISTFILE``.
-- rustup. `rustup is a snowflake`_. Partial support by setting ``$RUSTUP_HOME``.
+- rustup. `rustup is a snowflake`_. Partial support by setting ``$RUSTUP_HOME``. Update: the old maintainer who was ardently in favor of keeping rustup's snowflake status is taking a break from rustup development. Looks like the `cargo XDG RFC`_ is going through in the meantime!
 - sqlite. Support for config file with ``-init`` flag. History file is hardcoded. See my `sqlite XDG hack`_.
 - zsh. Partial support by setting ``$ZDOTDIR`` and ``$HISTFILE``. Your ``~/.zshenv`` file is effectively hardcoded.
 
 .. _XDG Base Directory Spec: https://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html
 .. _cargo is a snowflake: https://github.com/rust-lang/rfcs/pull/1615
+.. _cargo XDG RFC: https://github.com/rust-lang/rfcs/pull/1615#issuecomment-323556940
 .. _docker XDG issue: https://github.com/docker/docker/issues/20693
 .. _docker XDG PR: https://github.com/docker/docker/pull/30025
 .. _gnupg is a snowflake: https://bugs.gnupg.org/gnupg/issue1456
 .. _ngrok XDG hack: https://github.com/TheKevJames/dotsystem/blob/master/root/~/.config/oh-my-zsh-custom/xdg.zsh#L14-L23
+.. _python XDG hack: https://github.com/TheKevJames/dotsystem/blob/master/root/etc/pythonstart
 .. _rustup is a snowflake: https://github.com/rust-lang-nursery/rustup.rs/issues/247
 .. _special snowflakes: https://github.com/rust-lang-nursery/rustup.rs/issues/247#issuecomment-219213895
-.. _python XDG hack: https://github.com/TheKevJames/dotsystem/blob/master/root/etc/pythonstart
 .. _sqlite XDG hack: https://github.com/TheKevJames/dotsystem/blob/master/root/~/.config/oh-my-zsh-custom/xdg.zsh#L25-L30

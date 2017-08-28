@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+ledger -f ~/Dropbox/accounting/main.txt --price-db ~/Dropbox/accounting/prices.txt "$@" --strict --pedantic --explicit
