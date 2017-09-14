@@ -1,3 +1,4 @@
+repos:
 -   repo: git://github.com/pre-commit/pre-commit-hooks
     sha: v0.9.3
     hooks:
@@ -10,6 +11,8 @@
     -   id: check-yaml
     -   id: detect-private-key
     -   id: end-of-file-fixer
+    -   id: file-contents-sorter
+        files: .gitignore
     -   id: trailing-whitespace
 
 # python
@@ -25,3 +28,17 @@
     hooks:
     -   id: pylint
         args: [-d fixme, -d import-error, -d invalid-name, -d locally-disabled, -d missing-docstring]
+-   repo: git://github.com/Lucas-C/pre-commit-hooks
+    sha: v1.1.1
+    hooks:
+    -   id: remove-tabs
+
+# javascript
+-   repo: git://github.com/pre-commit/mirrors-fixmyjs
+    sha: v2.0.0
+    hooks:
+    -   id: fixmyjs
+-   repo: git://github.com/pre-commit/mirrors-jshint
+    sha: v2.9.5
+    hooks:
+    -   id: jshint
