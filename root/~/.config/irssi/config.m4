@@ -23,7 +23,14 @@ servers = (
     chatnet = "Undernet";
     port = "6667";
     password = "IRC_PASSWORD";
-  }
+  },
+  {
+    address = "irc.gnome.org";
+    chatnet = "Gnome";
+    port = "6667";
+    password = "IRC_PASSWORD";
+    autoconnect = "Yes";
+  },
 );
 
 chatnets = {
@@ -31,11 +38,13 @@ chatnets = {
   EFNet = { type = "IRC"; };
   Freenode = { type = "IRC"; };
   Undernet = { type = "IRC"; };
+  Gnome = { type = "IRC"; };
 };
 
 channels = (
   { name = "#lesswrong"; chatnet = "Freenode"; autojoin = "Yes"; },
-  { name = "#python"; chatnet = "Freenode"; autojoin = "Yes"; }
+  { name = "#python"; chatnet = "Freenode"; autojoin = "Yes"; },
+  { name = "#gnome-shell"; chatnet = "Gnome"; autojoin = "Yes"; }
 );
 
 aliases = {
