@@ -1,5 +1,6 @@
+repos:
 -   repo: git://github.com/pre-commit/pre-commit-hooks
-    sha: v0.9.2
+    sha: v0.9.4
     hooks:
     -   id: check-case-conflict
     -   id: check-executables-have-shebangs
