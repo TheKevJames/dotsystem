@@ -3,11 +3,13 @@ jq
 less
 m4
 make
-neovim:nvim
 tar
 the_silver_searcher:ag
 unzip
 wget
+
+neovim:nvim
+sublime-text:subl
 
 tmux
 tmuxifier:sh
@@ -24,4 +26,3 @@ franz:sh
 irssi
 ngrok:sh
 transmission-daemon:sh
-sublime-text:sh

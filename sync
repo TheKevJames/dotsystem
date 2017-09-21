@@ -194,18 +194,14 @@ if grep -q "oh-my-zsh:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
 fi
 
 if grep -q "sublime-text:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
-    if ! which sublime >/dev/null; then
+    if ! which subl >/dev/null; then
         TEMPFILE=$(mktemp)
         if [[ "$OSTYPE" == "darwin"* ]]; then
-            curl -fsSL "https://download.sublimetext.com/Sublime%20Text%20Build%203126.dmg" > "${TEMPFILE}.dmg"
+            curl -fsSL "https://download.sublimetext.com/Sublime%20Text%20Build%203143.dmg" > "${TEMPFILE}.dmg"
             hdiutil mount "${TEMPFILE}.dmg"
             sudo cp -R "/Volumes/Sublime Text/Sublime Text.app" "/Applications/Sublime Text.app"
             hdiutil unmount "${TEMPFILE}.dmg"
-            sudo ln -s "/Applications/Sublime Text.app/Contents/MacOS/Sublime Text" /usr/local/bin/sublime
-        else
-            curl -fsSL "https://download.sublimetext.com/sublime_text_3_build_3126_x64.tar.bz2" > "${TEMPFILE}.tar.bz2"
-            tar xjf "${TEMPFILE}.tar.bz2" -C /opt
-            sudo ln -s /opt/sublime_text_3 /usr/local/bin/sublime
+            sudo ln -s "/Applications/Sublime Text.app/Contents/MacOS/Sublime Text" /usr/local/bin/subl
         fi
     fi
 fi
