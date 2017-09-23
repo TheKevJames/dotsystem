@@ -1,7 +1,7 @@
 repository:
-  name: infrastructure
-  description: Personal infrastructure for deploying/routing/etc.
-  homepage: https://stats.uptimerobot.com/28m2jCo30
+  name: dotsystem
+  description: Re-un-over-complicating my dotfiles and system management
+  # homepage:
   private: false
 
   has_issues: true
