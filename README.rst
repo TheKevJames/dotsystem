@@ -27,7 +27,7 @@ I am a huge fan of the `XDG Base Directory Spec`_. The following configured apps
 
 - cargo. `cargo is a snowflake`_. Partial support by setting ``$CARGO_HOME`` and adding ``${CARGO_HOME}/bin`` to your ``$PATH``. Update: the old maintainer who was ardently in favor of keeping cargo's snowflake status is taking a break from cargo development. Looks like the `cargo XDG RFC`_ is going through in the meantime!
 - cpan. Partial support with ``-j`` flag and setting values in your ``Config.pm`` to XDG-compliant ones.
-- docker. Support by setting ``$DOCKER_CONFIG``. In-progress real support: `docker XDG issue`_ (including a couple failed `docker XDG PR`_s).
+- docker. Support by setting ``$DOCKER_CONFIG``. In-progress real support: `docker XDG issue`_ (including a couple failed `docker XDG PR`_ s).
 - gnupg. `gnupg is a snowflake`_. Partial support by setting ``$GNUPGHOME``.
 - irb. Partial support by setting ``$IRBRC``.
 - irssi. Partial support with ``--home`` flag.
