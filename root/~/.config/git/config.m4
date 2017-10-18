@@ -4,6 +4,7 @@
     lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
     pre-commit-init = !cp ~/.config/git/pre-commit-config.yaml $(git rev-parse --show-toplevel)/.pre-commit-config.yaml
     remotes = remote -v
+    sha = !git rev-parse HEAD | grep --color $(git rev-parse --short=0 HEAD)
     tags = tag -l --sort=version:refname
 
 [advice]
