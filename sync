@@ -1,6 +1,15 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+if [[ "$@" == *"--help"* ]]; then
+    echo "syncs your system from your dotsystem config"
+    echo
+    echo "Options:"
+    echo "  --skip-packages     do not update installed packages"
+
+    exit 0
+fi
+
 echo "Running dotsystem..."
 
 # Variables
