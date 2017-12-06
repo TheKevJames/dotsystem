@@ -31,6 +31,7 @@ I am a huge fan of the `XDG Base Directory Spec`_. The following configured apps
 - gnupg. `gnupg is a snowflake`_. Partial support by setting ``$GNUPGHOME``.
 - irb. Partial support by setting ``$IRBRC``.
 - irssi. Partial support with ``--home`` flag.
+- julia. Support by setting ``$JULIA_PKGDIR`` and ``$JULIA_HISTORY``.
 - less. Support by setting ``$LESSHISTFILE``.
 - libice. Partial support by setting ``$ICEAUTHORITY``.
 - lmms. No support. In 1.2.0 (pre-release), will have partial support with ``--home`` flag.
