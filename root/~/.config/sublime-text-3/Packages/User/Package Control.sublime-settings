@@ -26,6 +26,7 @@
 		"Puppet",
 		"Reform",
 		"RuboCop",
+		"SaltStack-related syntax highlighting and snippets",
 		"Sass",
 		"SideBarEnhancements",
 		"Sort Lines (Numerically)",
@@ -38,7 +39,8 @@
 		"SublimeLinter-phpcs",
 		"SublimeLinter-pylint",
 		"SublimeLinter-ruby",
-		"SublimeLinter-shellcheck"
+		"SublimeLinter-shellcheck",
+		"Terraform"
 	],
 	"remove_orphaned": true,
 	"timeout": 30

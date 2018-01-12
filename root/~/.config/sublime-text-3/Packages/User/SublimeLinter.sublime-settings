@@ -1,135 +1,149 @@
 {
-    "user": {
-        "debug": false,
-        "delay": 0.1,
-        "error_color": "D02000",
-        "gutter_theme": "Packages/SublimeLinter/gutter-themes/Default/Default.gutter-theme",
-        "gutter_theme_excludes": [],
-        "lint_mode": "background",
-        "linters": {
-            "annotations": {
-                "@disable": false,
-                "args": [],
-                "errors": [
-                    "FIXME"
-                ],
-                "excludes": [],
-                "warnings": [
-                    "README",
-                    "TODO",
-                    "XXX"
-                ]
-            },
-            "chktex": {
-                "@disable": false,
-                "args": [],
-                "erroron": [
-                    16
-                ],
-                "excludes": [],
-                "inputfiles": [
-                    0
-                ],
-                "nowarn": [
-                    22,
-                    30
-                ]
-            },
-            "cppcheck": {
-                "@disable": false,
-                "args": [],
-                "enable": "style",
-                "excludes": [],
-                "std": []
-            },
-            "htmltidy": {
-                "@disable": false,
-                "args": [],
-                "excludes": []
-            },
-            "phpcs": {
-                "@disable": true,
-                "args": [],
-                "excludes": [],
-                "standard": "PSR2"
-            },
-            "pylint": {
-                "@disable": false,
-                "args": [],
-                "disable": "W0511",
-                "enable": "",
-                "excludes": [],
-                "paths": [],
-                "rcfile": "/etc/pylintrc",
-                "show-codes": true
-            },
-            "ruby": {
-                "@disable": false,
-                "args": [],
-                "excludes": []
-            },
-            "rust": {
-                "@disable": false,
-                "args": [],
-                "crate-root": null,
-                "excludes": [],
-                "use-cargo": true,
-                "use-cargo-check": false,
-                "use-crate-root": false
-            },
-            "shellcheck": {
-                "@disable": false,
-                "args": [],
-                "exclude": "",
-                "excludes": []
-            }
-        },
-        "mark_style": "outline",
-        "no_column_highlights_line": false,
-        "passive_warnings": true,
-        "paths": {
-            "linux": [
-                "~/.cargo/bin"
+    "debug": false,
+    "delay": 0.1,
+    "gutter_theme": "Default",
+    "lint_mode": "background",
+    "linters": {
+        "annotations": {
+            "disable": false,
+            "args": [],
+            "errors": [
+                "FIXME"
             ],
-            "osx": [
-                "~/.cargo/bin"
-            ],
-            "windows": [
-                "C:\\cargo\\bin"
+            "excludes": [],
+            "warnings": [
+                "README",
+                "TODO",
+                "XXX"
             ]
         },
-        "python_paths": {
-            "linux": [],
-            "osx": [],
-            "windows": []
+        "chktex": {
+            "disable": false,
+            "args": [],
+            "erroron": [
+                16
+            ],
+            "excludes": [],
+            "inputfiles": [
+                0
+            ],
+            "nowarn": [
+                22,
+                30
+            ]
         },
-        "rc_search_limit": 3,
-        "shell_timeout": 10,
-        "show_errors_on_save": false,
-        "show_marks_in_minimap": true,
-        "syntax_map": {
-            "bibtex": "tex",
-            "html": "html",
-            "html (asp)": "html",
-            "html (django)": "html",
-            "html (erlang)": "html",
-            "html (rails)": "html",
-            "html (tcl)": "html",
-            "html 5": "html",
-            "latex": "tex",
-            "latex beamer": "tex",
-            "latex log": "tex",
-            "latex memoir": "tex",
-            "php": "php",
-            "python django": "python",
-            "ruby": "ruby",
-            "ruby haml": "ruby",
-            "ruby on rails": "ruby",
-            "tex": "tex",
-            "texmath": "tex"
+        "cppcheck": {
+            "disable": false,
+            "args": [],
+            "enable": "style",
+            "excludes": [],
+            "std": []
         },
-        "tooltips": true,
-        "warning_color": "DDB700",
-        "wrap_find": true
+        "htmltidy": {
+            "disable": false,
+            "args": [],
+            "excludes": []
+        },
+        "phpcs": {
+            "disable": true,
+            "args": [],
+            "excludes": [],
+            "standard": "PSR2"
+        },
+        "pylint": {
+            "disable": false,
+            "args": [],
+            "disable": "W0511",
+            "enable": "",
+            "excludes": [],
+            "paths": [],
+            "rcfile": "/etc/pylintrc",
+            "show-codes": true
+        },
+        "ruby": {
+            "disable": false,
+            "args": [],
+            "excludes": []
+        },
+        "rust": {
+            "disable": false,
+            "args": [],
+            "crate-root": null,
+            "excludes": [],
+            "use-cargo": true,
+            "use-cargo-check": false,
+            "use-crate-root": false
+        },
+        "shellcheck": {
+            "disable": false,
+            "args": [],
+            "exclude": "",
+            "excludes": []
+        }
+    },
+    "no_column_highlights_line": false,
+    "paths": {
+        "linux": [
+            "~/.cargo/bin"
+        ],
+        "osx": [
+            "~/.cargo/bin"
+        ],
+        "windows": [
+            "C:\\cargo\\bin"
+        ]
+    },
+    "python_paths": {
+        "linux": [],
+        "osx": [],
+        "windows": []
+    },
+    "shell_timeout": 10,
+    "show_hover_line_report": true,
+    "show_hover_region_report": true,
+    "show_marks_in_minimap": true,
+    "styles": [
+        {
+            "mark_style": "outline",
+            "priority": 1,
+            "scope": "region.yellowish markup.changed.sublime_linter markup.warning.sublime_linter",
+            "icon": "dot",
+            "types": [
+                "warning"
+            ]
+        },
+        {
+            "mark_style": "outline",
+            "priority": 1,
+            "scope": "region.redish markup.deleted.sublime_linter markup.error.sublime_linter",
+            "icon": "dot",
+            "types": [
+                "error"
+            ]
+        }
+    ],
+    "syntax_map": {
+        "bibtex": "tex",
+        "html": "html",
+        "html (asp)": "html",
+        "html (django)": "html",
+        "html (erlang)": "html",
+        "html (rails)": "html",
+        "html (tcl)": "html",
+        "html 5": "html",
+        "javascript (babel)": "javascript",
+        "latex": "tex",
+        "latex beamer": "tex",
+        "latex log": "tex",
+        "latex memoir": "tex",
+        "magicpython": "python",
+        "php": "php",
+        "python django": "python",
+        "pythonimproved": "python",
+        "ruby": "ruby",
+        "ruby haml": "ruby",
+        "ruby on rails": "ruby",
+        "tex": "tex",
+        "texmath": "tex"
     }
 }
