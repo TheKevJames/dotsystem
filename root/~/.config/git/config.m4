@@ -50,9 +50,6 @@
 [fetch]
     prune = true
 
-[help]
-    autocorrect = 30
-
 [merge]
     conflictstyle = diff3
     stat = true
