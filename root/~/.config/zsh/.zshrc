@@ -1,3 +1,4 @@
+# zmodload zsh/zprof
 export ZSH="${XDG_CONFIG_HOME}/oh-my-zsh"
 
 ZSH_THEME="kevin"
@@ -25,3 +26,4 @@ plugins=(async-git-prompt extract shrink-path)
 export PATH="${HOME}/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 
 source $ZSH/oh-my-zsh.sh
+# zprof
