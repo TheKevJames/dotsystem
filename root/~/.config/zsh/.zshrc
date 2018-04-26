@@ -21,7 +21,7 @@ HISTFILE="${XDG_DATA_HOME}/zsh/history"
 HIST_STAMPS="yyyy-mm-dd"
 
 ZSH_CUSTOM="${XDG_CONFIG_HOME}/oh-my-zsh-custom"
-plugins=(cargo docker docker-compose extract git-prompt shrink-path)
+plugins=(async-git-prompt cargo docker docker-compose extract shrink-path)
 
 export PATH="${HOME}/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 
