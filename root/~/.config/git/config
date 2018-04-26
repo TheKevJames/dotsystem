@@ -31,7 +31,7 @@
     helper = cache --timeout=3600 --socket=~/.local/share/git/creds.sock
 
 [diff]
-    mnemonicprefix = true
+    colorMoved = zebra
     renames = copies
     tool = nvimdiff
 
@@ -83,5 +83,5 @@
 [includeIf "gitdir:~/coding/talkiq/"]
     path = ~/.config/git/config-talkiq
 
-[includeIf "gitdir:~/coding/dialpad:"]
+[includeIf "gitdir:~/coding/dialpad/"]
     path = ~/.config/git/config-dialpad
