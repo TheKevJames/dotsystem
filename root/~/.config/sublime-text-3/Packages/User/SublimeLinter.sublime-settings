@@ -2,6 +2,7 @@
     "debug": false,
     "delay": 0.1,
     "gutter_theme": "Default",
+    "kill_old_processes": true,
     "lint_mode": "background",
     "linters": {
         "annotations": {
@@ -24,9 +25,6 @@
                 16
             ],
             "excludes": [],
-            "inputfiles": [
-                0
-            ],
             "nowarn": [
                 22,
                 30
@@ -71,7 +69,7 @@
             "crate-root": null,
             "excludes": [],
             "use-cargo": true,
-            "use-cargo-check": false,
+            "use-cargo-check": true,
             "use-crate-root": false
         },
         "shellcheck": {
@@ -93,15 +91,13 @@
             "C:\\cargo\\bin"
         ]
     },
-    "python_paths": {
-        "linux": [],
-        "osx": [],
-        "windows": []
-    },
-    "shell_timeout": 10,
     "show_hover_line_report": true,
     "show_hover_region_report": true,
     "show_marks_in_minimap": true,
+    "show_panel_on_save": "never",
+    "statusbar.counters_template": "({}|{})",
+    "statusbar.messages_template": "{message}",
+    "statusbar.show_active_linters": true,
     "styles": [
         {
             "mark_style": "outline",
