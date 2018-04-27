@@ -1,0 +1,52 @@
+#!/usr/bin/env python3
+import json
+import os
+import pathlib
+import shutil
+import sys
+
+
+def get_project_paths(coding_dir):
+    for dirpath, dirnames, _ in os.walk(coding_dir):
+        if '.git' in dirnames:
+            yield dirpath
+            del dirnames[:]
+
+
+def build_sublime_projects(coding_dir, project_dir):
+    for path in get_project_paths(coding_dir=coding_dir):
+        name = path.replace(str(coding_dir), '')[1:]
+
+        project = (project_dir / name).with_suffix('.sublime-project')
+        project.parent.mkdir(parents=True, exist_ok=True)
+        project.write_text(json.dumps({'folders': [{'path': str(path)}]}))
+        yield str(project)
+
+
+def main():
+    coding_dir = pathlib.Path.home() / 'coding'
+    project_dir = coding_dir / 'sublime-projects'
+    try:
+        shutil.rmtree(project_dir)
+    except FileNotFoundError:
+        pass
+    project_dir.mkdir()
+
+    all_projects = list(build_sublime_projects(coding_dir, project_dir))
+
+    if sys.platform.startswith('linux'):
+        session_root = pathlib.Path.home() / '.config' / 'sublime-text-3'
+    elif sys.platform == 'darwin':
+        session_root = (pathlib.Path.home() / 'Library' /
+                        'Application Support' / 'Sublime Text 3')
+    else:
+        raise Exception(f'unsupported platform {sys.platform}')
+    session = (session_root / 'Local' / 'Session.sublime_session')
+
+    session_data = json.loads(session.read_text())
+    session_data['workspaces']['recent_workspaces'] = all_projects
+    session.write_text(json.dumps(session_data))
+
+
+if __name__ == '__main__':
+    main()
