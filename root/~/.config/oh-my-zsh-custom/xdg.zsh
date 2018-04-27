@@ -14,6 +14,10 @@ export REDISCLI_HISTFILE="${XDG_DATA_HOME}/redis/history"
 export RUSTUP_HOME="${XDG_DATA_HOME}/rustup"
 export WINEPREFIX="${XDG_DATA_HOME}/wine/prefixes/default"
 
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    cp -r "${HOME}/.config/sublime-text-3/Packages/User/"* "${HOME}/Library/Application Support/Sublime Text 3/Packages/User"
+fi
+
 ngrok() {
     if echo "authtoken http start tcp tls" | grep -w "${1:-DEFAULT}" >/dev/null; then
         if [[ "$@" != *"--config"* ]]; then
