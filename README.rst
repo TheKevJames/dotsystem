@@ -40,6 +40,7 @@ I am a huge fan of the `XDG Base Directory Spec`_. The following configured apps
 - ngrok. Support with ``--config`` flag. Because this flag has some restrictions, see my `ngrok XDG hack`_ for a "fix".
 - postgres. Support by setting ``$PSQLRC``.
 - pulseaudio. No support. Only an issue if the ``module-esound-protocol-unix.so`` module is loaded.
+- pylint. Support by setting ``$PYLINTHOME``.
 - python. Technical support by setting ``$PYTHONSTARTUP`` to a script which modifies your history file location (note: for both python2 and python3). See my `python XDG hack`_.
 - readline. Support by setting ``$INPUTRC``.
 - redis. Support by setting ``$REDISCLI_HISTFILE``.
