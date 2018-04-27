@@ -36,6 +36,7 @@ sqlite3() {
     (cd; rm .sqlite_history)
 }
 
+alias arc="arc --arcrc-file ${XDG_DATA_HOME}/arc/rc"
 alias cpan="cpan -j ${XDG_CONFIG_HOME}/cpan/Config.pm"
 alias irssi="irssi --home=${XDG_CONFIG_HOME}/irssi"
 

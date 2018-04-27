@@ -25,6 +25,7 @@ XDG Wall of Shame
 
 I am a huge fan of the `XDG Base Directory Spec`_. The following configured apps don't follow that spec. Note that this list includes both apps that may eventually accept be fixed as well as apps that have decided they're `special snowflakes`_ and are thus above needing to implement the XDG spec.
 
+- arc. Support with ``--arcrc-file`` flag.
 - cargo. `cargo is a snowflake`_. Partial support by setting ``$CARGO_HOME`` and adding ``${CARGO_HOME}/bin`` to your ``$PATH``. Update: the old maintainer who was ardently in favor of keeping cargo's snowflake status is taking a break from cargo development. Looks like the `cargo XDG RFC`_ is going through in the meantime!
 - cpan. Partial support with ``-j`` flag and setting values in your ``Config.pm`` to XDG-compliant ones.
 - docker. Support by setting ``$DOCKER_CONFIG``. In-progress real support: `docker XDG issue`_ (including a couple failed `docker XDG PR`_ s).
