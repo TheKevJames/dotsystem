@@ -149,7 +149,7 @@ if grep -q "franz:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if ! which franz >/dev/null; then
         TEMPFILE=$(mktemp)
         if [[ "$OSTYPE" == "darwin"* ]]; then
-            curl -fsSL "https://github.com/meetfranz/franz-app/releases/download/4.0.4/Franz-darwin-x64-4.0.4.dmg" > "${TEMPFILE}.dmg"
+            curl -fsSL "https://github.com/meetfranz/franz/releases/download/v5.0.0-beta.18/franz-5.0.0-beta.18.dmg" > "${TEMPFILE}.dmg"
             hdiutil mount "${TEMPFILE}.dmg"
             sudo cp -R "/Volumes/Franz/Franz.app" "/Applications/Franz.app"
             hdiutil unmount "${TEMPFILE}.dmg"
