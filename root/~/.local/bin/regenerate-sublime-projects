@@ -6,33 +6,35 @@ import shutil
 import sys
 
 
-def get_project_paths(coding_dir):
-    for dirpath, dirnames, _ in os.walk(coding_dir):
+CODING_DIR = pathlib.Path.home() / 'coding'
+PROJECT_DIR = CODING_DIR / 'sublime-projects'
+
+
+def get_project_paths():
+    for dirpath, dirnames, _ in os.walk(CODING_DIR):
         if '.git' in dirnames:
             yield dirpath
             del dirnames[:]
 
 
-def build_sublime_projects(coding_dir, project_dir):
-    for path in get_project_paths(coding_dir=coding_dir):
-        name = path.replace(str(coding_dir), '')[1:]
+def build_sublime_projects():
+    for path in get_project_paths():
+        name = path.replace(str(CODING_DIR), '')[1:]
 
-        project = (project_dir / name).with_suffix('.sublime-project')
+        project = (PROJECT_DIR / name).with_suffix('.sublime-project')
         project.parent.mkdir(parents=True, exist_ok=True)
         project.write_text(json.dumps({'folders': [{'path': str(path)}]}))
         yield str(project)
 
 
 def main():
-    coding_dir = pathlib.Path.home() / 'coding'
-    project_dir = coding_dir / 'sublime-projects'
     try:
-        shutil.rmtree(project_dir)
+        shutil.rmtree(PROJECT_DIR)
     except FileNotFoundError:
         pass
-    project_dir.mkdir()
+    PROJECT_DIR.mkdir()
 
-    all_projects = list(build_sublime_projects(coding_dir, project_dir))
+    all_projects = list(build_sublime_projects())
 
     if sys.platform.startswith('linux'):
         session_root = pathlib.Path.home() / '.config' / 'sublime-text-3'

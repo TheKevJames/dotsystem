@@ -1,7 +1,4 @@
 if [[ "$OSTYPE" == "darwin"* ]]; then
-    # alias
-    alias osx-clean="sudo find / -type f -name '*.DS_Store' -ls -delete; sudo rm -rfv /Volumes/*/.Trashes; sudo rm -rfv ~/.Trash; sudo rm -rfv /private/var/log/asl/*.asl"
-
     # convenience commands
     frameworkpython() {
         if [[ ! -z "${VIRTUAL_ENV}" ]]; then
@@ -9,6 +6,13 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
         else
             /usr/local/bin/python "$@"
         fi
+    }
+
+    osx_clean() {
+        sudo find "${1:-/}" -type f -name '*.DS_Store' -ls -delete
+        sudo rm -rfv /Volumes/*/.Trashes
+        sudo rm -rfv ~/.Trash
+        sudo rm -rfv /private/var/log/asl/*.asl
     }
 
     # missing commands
