@@ -6,16 +6,18 @@ import rlcompleter
 import sys
 
 
-HISTORY = os.path.expanduser(os.path.join(
-    os.environ.get('XDG_DATA_HOME', '~/.local/share'),
-    'python{}'.format(sys.version_info[0]), 'history'))
-if not os.path.exists(HISTORY):
-    open(HISTORY, 'a').close()
+XDG_DATA_HOME = os.environ.get(
+    'XDG_DATA_HOME',
+    os.path.expanduser(os.path.join('~', '.local', 'share')))
+HISTORY = os.path.join(XDG_DATA_HOME, 'python{}'.format(sys.version_info[0]),
+                       'history')
 
 # Load
 readline.set_history_length(10000)
-readline.read_history_file(HISTORY)
+if os.path.exists(HISTORY):
+    readline.read_history_file(HISTORY)
 
+# Enable tab-completion
 readline.parse_and_bind('tab: complete')
 
 # Save
@@ -27,5 +29,5 @@ atexit.register(save_history)
 
 # Remove from namespace
 del atexit, os, readline, rlcompleter, sys
-del HISTORY
+del HISTORY, XDG_DATA_HOME
 del save_history
