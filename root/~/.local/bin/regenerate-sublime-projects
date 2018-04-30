@@ -23,8 +23,19 @@ def build_sublime_projects():
 
         project = (PROJECT_DIR / name).with_suffix('.sublime-project')
         project.parent.mkdir(parents=True, exist_ok=True)
-        project.write_text(json.dumps({'folders': [{'path': str(path)}]}))
-        yield str(project)
+        project.write_text(json.dumps({
+            'folders': [{'path': str(path)}],
+        }))
+
+        workspace = (PROJECT_DIR / name).with_suffix('.sublime-workspace')
+        workspace.parent.mkdir(parents=True, exist_ok=True)
+        workspace.write_text(json.dumps({
+            'expanded_folders': [path],
+            'find_in_files': {'where_history': ['-.nox/,-.tox/-venv/']},
+            'project': project.name,
+        }))
+
+        yield str(workspace)
 
 
 def main():
@@ -34,7 +45,7 @@ def main():
         pass
     PROJECT_DIR.mkdir()
 
-    all_projects = list(build_sublime_projects())
+    workspaces = list(build_sublime_projects())
 
     if sys.platform.startswith('linux'):
         session_root = pathlib.Path.home() / '.config' / 'sublime-text-3'
@@ -46,7 +57,7 @@ def main():
     session = (session_root / 'Local' / 'Session.sublime_session')
 
     session_data = json.loads(session.read_text())
-    session_data['workspaces']['recent_workspaces'] = all_projects
+    session_data['workspaces']['recent_workspaces'] = workspaces
     session.write_text(json.dumps(session_data))
 
 
