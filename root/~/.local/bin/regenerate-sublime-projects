@@ -6,20 +6,20 @@ import shutil
 import sys
 
 
-CODING_DIR = pathlib.Path.home() / 'coding'
-PROJECT_DIR = CODING_DIR / 'sublime-projects'
+PROJECT_DIR = pathlib.Path.home() / '.xdg' / 'Documents' / 'sublime-projects'
 
 
-def get_project_paths():
-    for dirpath, dirnames, _ in os.walk(CODING_DIR):
-        if '.git' in dirnames:
-            yield dirpath
-            del dirnames[:]
+def get_project_paths(repo_dirs):
+    for repo_dir in repo_dirs:
+        for dirpath, dirnames, _ in os.walk(repo_dir):
+            if '.git' in dirnames:
+                yield repo_dir, dirpath
+                del dirnames[:]
 
 
-def build_sublime_projects():
-    for path in get_project_paths():
-        name = path.replace(str(CODING_DIR), '')[1:]
+def build_sublime_projects(repo_dirs):
+    for pardir, path in get_project_paths(repo_dirs):
+        name = path.replace(str(pathlib.Path.home()), '')[1:]
 
         project = (PROJECT_DIR / name).with_suffix('.sublime-project')
         project.parent.mkdir(parents=True, exist_ok=True)
@@ -45,7 +45,11 @@ def main():
         pass
     PROJECT_DIR.mkdir()
 
-    workspaces = list(build_sublime_projects())
+    repo_dirs = [
+        pathlib.Path.home() / 'coding',
+        pathlib.Path.home() / 'writing',
+    ]
+    workspaces = list(build_sublime_projects(repo_dirs))
 
     if sys.platform.startswith('linux'):
         session_root = pathlib.Path.home() / '.config' / 'sublime-text-3'
