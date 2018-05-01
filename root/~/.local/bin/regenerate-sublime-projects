@@ -31,7 +31,7 @@ def build_sublime_projects(repo_dirs):
         workspace.parent.mkdir(parents=True, exist_ok=True)
         workspace.write_text(json.dumps({
             'expanded_folders': [path],
-            'find_in_files': {'where_history': ['-.nox/,-.tox/-venv/']},
+            'find_in_files': {'where_history': ['-.nox/,-.tox/,-venv/']},
             'project': project.name,
         }))
 
