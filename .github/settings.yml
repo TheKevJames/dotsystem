@@ -1,14 +1,14 @@
 repository:
   name: dotsystem
-  description: Re-un-over-complicating my dotfiles and system management
-  # homepage:
+  description: re-un-over-complicating my dotfiles and system management
   private: false
 
   has_issues: true
   has_projects: false
   has_wiki: false
+  has_downloads: false
 
-  allow_merge_commit: true
+  allow_merge_commit: false
   allow_rebase_merge: true
   allow_squash_merge: true
 
