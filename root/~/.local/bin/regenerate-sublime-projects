@@ -13,12 +13,12 @@ def get_project_paths(repo_dirs):
     for repo_dir in repo_dirs:
         for dirpath, dirnames, _ in os.walk(repo_dir):
             if '.git' in dirnames:
-                yield repo_dir, dirpath
+                yield dirpath
                 del dirnames[:]
 
 
 def build_sublime_projects(repo_dirs):
-    for pardir, path in get_project_paths(repo_dirs):
+    for path in get_project_paths(repo_dirs):
         name = path.replace(str(pathlib.Path.home()), '')[1:]
 
         project = (PROJECT_DIR / name).with_suffix('.sublime-project')
@@ -47,7 +47,6 @@ def main():
 
     repo_dirs = [
         pathlib.Path.home() / 'coding',
-        pathlib.Path.home() / 'writing',
     ]
     workspaces = list(build_sublime_projects(repo_dirs))
 
