@@ -10,20 +10,20 @@ repos:
     -   id: check-vcs-permalinks
     -   id: check-xml
     -   id: check-yaml
-        args:
-        - -m
+        args: [--allow-multiple-documents]
     -   id: detect-private-key
     -   id: end-of-file-fixer
     -   id: file-contents-sorter
         files: .gitignore
+    -   id: mixed-line-ending
+        args: [--fix=lf]
     -   id: trailing-whitespace
 
 # python
     -   id: check-ast
     -   id: check-builtin-literals
-    -   id: double-quote-string-fixer
     -   id: debug-statements
-    -   id: mixed-line-ending
+    -   id: double-quote-string-fixer
     -   id: name-tests-test
     -   id: requirements-txt-fixer
 -   repo: git://github.com/pre-commit/mirrors-pylint
@@ -46,14 +46,12 @@ repos:
     hooks:
     -   id: reorder-python-imports
         language_version: python3.6
-        args:
-        - --py3-plus
+        args: [--py3-plus]
 -   repo: git://github.com/asottile/pyupgrade
     sha: v1.2.0
     hooks:
     -   id: pyupgrade
-        args:
-        - --py3-plus
+        args: [--py3-plus]
 
 # javascript
 -   repo: git://github.com/pre-commit/mirrors-fixmyjs
@@ -64,3 +62,10 @@ repos:
     sha: v2.9.5
     hooks:
     -   id: jshint
+
+# terraform
+-   repo: git://github.com/antonbabenko/pre-commit-terraform
+    sha: v1.6.0
+    hooks:
+    -   id: terraform_fmt
+    -   id: terraform_validate_with_variables
