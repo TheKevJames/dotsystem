@@ -55,8 +55,8 @@ I am a huge fan of the `XDG Base Directory Spec`_. The following configured apps
 .. _docker XDG issue: https://github.com/docker/docker/issues/20693
 .. _docker XDG PR: https://github.com/docker/docker/pull/30025
 .. _gnupg is a snowflake: https://bugs.gnupg.org/gnupg/issue1456
-.. _ngrok XDG hack: https://github.com/TheKevJames/dotsystem/blob/master/root/~/.config/oh-my-zsh-custom/xdg.zsh#L14-L23
+.. _ngrok XDG hack: https://github.com/TheKevJames/dotsystem/blob/e28041fbd3ddf68bdc951ca41cca03d325b7f6df/root/~/.config/oh-my-zsh-custom/xdg.zsh#L22-L31
 .. _python XDG hack: https://github.com/TheKevJames/dotsystem/blob/master/root/etc/pythonstart
 .. _rustup is a snowflake: https://github.com/rust-lang-nursery/rustup.rs/issues/247
 .. _special snowflakes: https://github.com/rust-lang-nursery/rustup.rs/issues/247#issuecomment-219213895
-.. _sqlite XDG hack: https://github.com/TheKevJames/dotsystem/blob/master/root/~/.config/oh-my-zsh-custom/xdg.zsh#L25-L30
+.. _sqlite XDG hack: https://github.com/TheKevJames/dotsystem/blob/e28041fbd3ddf68bdc951ca41cca03d325b7f6df/root/~/.config/oh-my-zsh-custom/xdg.zsh#L33-L38
