@@ -16,6 +16,7 @@ export RUSTUP_HOME="${XDG_DATA_HOME}/rustup"
 export WINEPREFIX="${XDG_DATA_HOME}/wine/prefixes/default"
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
+    alias tmux='tmux -f /etc/tmux.conf'
     cp -r "${HOME}/.config/sublime-text-3/Packages/User/"* "${HOME}/Library/Application Support/Sublime Text 3/Packages/User"
 fi
 
