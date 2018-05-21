@@ -38,6 +38,7 @@ I am a huge fan of the `XDG Base Directory Spec`_. The following configured apps
 - lmms. No support. In 1.2.0 (pre-release), will have partial support with ``--home`` flag.
 - mysql. Support by setting ``$MYSQL_HISTFILE``.
 - ngrok. Support with ``--config`` flag. Because this flag has some restrictions, see my `ngrok XDG hack`_ for a "fix".
+- npm. Support by setting ``$NPM_CONFIG_USERCONFIG``, then setting ``cache`` in that file.
 - postgres. Support by setting ``$PSQLRC``.
 - pulseaudio. No support. Only an issue if the ``module-esound-protocol-unix.so`` module is loaded.
 - pyenv. Support by setting ``$PYENV_ROOT``.
