@@ -115,6 +115,11 @@ for copy in $(cat "${XDG_CONFIG_HOME}/dotsystem/copies"); do
     cp "${src/\~/$HOME}" "/${dest/\~/$HOME}"
 done
 
+## Configure OSX one-offs
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    bash "${XDG_CONFIG_HOME}"/osx/config.sh
+fi
+
 echo "done."
 
 if [[ "$@" == *"--skip-packages"* ]]; then
