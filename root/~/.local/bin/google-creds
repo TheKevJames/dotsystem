@@ -5,7 +5,7 @@ select PROJ in $(find ${GCLOUD_CREDS_DIR} ! -path ${GCLOUD_CREDS_DIR} -type d -e
     select CREDS in $(ls ${GCLOUD_CREDS_DIR}/${PROJ}); do
         PATH="${GCLOUD_CREDS_DIR}/${PROJ}/${CREDS}"
         if [ -f "${PATH}" ]; then
-            echo export GOOGLE_APPLICATION_CREDENTIALS="${DIR}/${PROJ}/${CREDS}" > /tmp/google-creds
+            echo export GOOGLE_APPLICATION_CREDENTIALS="${GCLOUD_CREDS_DIR}/${PROJ}/${CREDS}" > /tmp/google-creds
 
             echo "export GOOGLE_SERVICE_ASR=\$(cat \$GOOGLE_APPLICATION_CREDENTIALS | base64)" >> /tmp/google-creds
             echo "export GOOGLE_SERVICE_ASR_JSON=\$(cat \$GOOGLE_APPLICATION_CREDENTIALS | sed 's/\//\\\\\\//g')" >> /tmp/google-creds
