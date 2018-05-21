@@ -18,6 +18,9 @@ CVS/
 .hg/
 .hgignore
 
+# pyenv
+.python-version
+
 # sublime
 *.sublime-project
 *.sublime-workspace
