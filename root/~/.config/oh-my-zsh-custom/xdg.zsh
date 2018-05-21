@@ -1,6 +1,7 @@
 export CARGO_HOME="${XDG_DATA_HOME}/cargo"
 export DOCKER_CONFIG="${XDG_CONFIG_HOME}/docker"
 export GNUPGHOME="${XDG_CONFIG_HOME}/gnupg"
+export HELM_HOME="${XDG_CACHE_HOME}/helm"
 export ICEAUTHORITY="${XDG_RUNTIME_DIR}/ICEauthority"  # NOTE: also must be set in /etc/environment
 export INPUTRC="${XDG_CONFIG_HOME}/inputrc"
 export IRBRC="/etc/irbrc"
