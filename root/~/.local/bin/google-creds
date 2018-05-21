@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+select PROJ in $(find ${GCLOUD_CREDS_DIR} ! -path ${GCLOUD_CREDS_DIR} -type d -exec basename {} \; | xargs); do
+    select CREDS in $(ls ${GCLOUD_CREDS_DIR}/${PROJ}); do
+        PATH="${GCLOUD_CREDS_DIR}/${PROJ}/${CREDS}"
+        if [ -f "${PATH}" ]; then
+            echo export GOOGLE_APPLICATION_CREDENTIALS="${DIR}/${PROJ}/${CREDS}" > /tmp/google-creds
+
+            echo "export GOOGLE_SERVICE_ASR=\$(cat \$GOOGLE_APPLICATION_CREDENTIALS | base64)" >> /tmp/google-creds
+            echo "export GOOGLE_SERVICE_ASR_JSON=\$(cat \$GOOGLE_APPLICATION_CREDENTIALS | sed 's/\//\\\\\\//g')" >> /tmp/google-creds
+
+            echo "gcloud config set project ${PROJ}" >> /tmp/google-creds
+            echo "gcloud config set account \$(cat \$GOOGLE_APPLICATION_CREDENTIALS | jq -r '.client_email')" >> /tmp/google-creds
+
+            echo
+            echo Successfully configured Google credentials. Please run:
+            echo . /tmp/google-creds
+            exit
+        fi
+    done
+done
