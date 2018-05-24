@@ -20,8 +20,6 @@ export WINEPREFIX="${XDG_DATA_HOME}/wine/prefixes/default"
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
     alias tmux='tmux -f /etc/tmux.conf'
-    # TODO: multi-path ./sync
-    cp -r "${HOME}/.config/sublime-text-3/Packages/User/"* "${HOME}/Library/Application Support/Sublime Text 3/Packages/User"
 fi
 
 ngrok() {

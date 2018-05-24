@@ -50,8 +50,7 @@
         },
         "pylint": {
             "disable": false,
-            "args": [],
-            "disable": "W0511",
+            "args": ["--disable=W0511"],
             "enable": "",
             "excludes": [],
             "paths": [],
