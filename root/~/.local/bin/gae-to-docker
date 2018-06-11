@@ -2,7 +2,7 @@
 APP_YAML="${1:-./app.yaml}"
 
 yq '.env_variables' "${APP_YAML}" |
-    awk -F'\(": \)|,' 'NR>2 {print "-e " substr($1, 4) "=" $2}' |
+    awk -F'\(": \)|,' 'NR>1 {print "-e " substr($1, 4) "=" $2}' |
     sed '$d' |
     xargs |
     xargs -I{} echo docker run --rm -it {} -e DEBUG=true "${PWD##*/}"
