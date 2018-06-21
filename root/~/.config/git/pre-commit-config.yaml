@@ -14,7 +14,7 @@ repos:
     -   id: detect-private-key
     -   id: end-of-file-fixer
     -   id: file-contents-sorter
-        files: .gitignore
+        files: .dockerignore .gitignore
     -   id: mixed-line-ending
         args: [--fix=lf]
     -   id: trailing-whitespace
@@ -22,6 +22,7 @@ repos:
 # python
     -   id: check-ast
     -   id: check-builtin-literals
+    -   id: check-docstring-first
     -   id: debug-statements
     -   id: double-quote-string-fixer
     -   id: name-tests-test
