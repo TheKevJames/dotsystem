@@ -69,3 +69,9 @@ repos:
     hooks:
     -   id: terraform_fmt
     -   id: terraform_validate_with_variables
+
+# rst
+-   repo: git://github.com/Lucas-C/pre-commit-hooks-markup
+    sha: v1.0.0
+    hooks:
+    -   id: rst-linter
