@@ -31,6 +31,7 @@
     helper = cache --timeout=3600 --socket=~/.local/share/git/creds.sock
 
 [diff]
+    algorithm = histogram
     colorMoved = zebra
     renames = copies
     tool = nvimdiff
