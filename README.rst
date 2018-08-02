@@ -49,6 +49,7 @@ I am a huge fan of the `XDG Base Directory Spec`_. The following configured apps
 - redis. Support by setting ``$REDISCLI_HISTFILE``.
 - rustup. `rustup is a snowflake`_. Partial support by setting ``$RUSTUP_HOME``. Update: the old maintainer who was ardently in favor of keeping rustup's snowflake status is taking a break from rustup development. Looks like the `cargo XDG RFC`_ is going through in the meantime!
 - sqlite. Support for config file with ``-init`` flag. History file is hardcoded. See my `sqlite XDG hack`_.
+- taskwarrior. Support by setting ``$TASKRC`` and ``$TASKDATA``.
 - tmux. Support with ``-f`` flag.
 - wine. Support by setting ``$WINEPREFIX``.
 - zsh. Partial support by setting ``$ZDOTDIR`` and ``$HISTFILE``. Your ``~/.zshenv`` file is effectively hardcoded.
