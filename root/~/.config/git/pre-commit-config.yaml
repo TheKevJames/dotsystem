@@ -1,6 +1,6 @@
 repos:
 -   repo: git://github.com/pre-commit/pre-commit-hooks
-    sha: v1.2.3
+    sha: v1.4.0
     hooks:
     -   id: check-case-conflict
     -   id: check-executables-have-shebangs
@@ -28,7 +28,7 @@ repos:
     -   id: name-tests-test
     -   id: requirements-txt-fixer
 -   repo: git://github.com/pre-commit/mirrors-pylint
-    sha: v1.8.4
+    sha: v2.1.0
     hooks:
     -   id: pylint
         args:
@@ -43,16 +43,16 @@ repos:
     -   id: remove-crlf
     -   id: remove-tabs
 -   repo: git://github.com/asottile/reorder_python_imports
-    sha: v1.0.1
+    sha: v1.1.0
     hooks:
     -   id: reorder-python-imports
-        language_version: python3.6
-        args: [--py3-plus]
+        language_version: python3.7
+        args: [--py37-plus]
 -   repo: git://github.com/asottile/pyupgrade
-    sha: v1.2.0
+    sha: v1.4.0
     hooks:
     -   id: pyupgrade
-        args: [--py3-plus]
+        args: [--py36-plus]
 
 # javascript
 -   repo: git://github.com/pre-commit/mirrors-fixmyjs
@@ -60,13 +60,13 @@ repos:
     hooks:
     -   id: fixmyjs
 -   repo: git://github.com/pre-commit/mirrors-jshint
-    sha: v2.9.5
+    sha: v2.9.6
     hooks:
     -   id: jshint
 
 # terraform
 -   repo: git://github.com/antonbabenko/pre-commit-terraform
-    sha: v1.6.0
+    sha: v1.7.3
     hooks:
     -   id: terraform_fmt
     -   id: terraform_validate_with_variables
