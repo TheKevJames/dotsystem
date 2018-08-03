@@ -169,14 +169,14 @@ fi
 
 if grep -q "hub:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if ! which hub >/dev/null; then
-        TEMPFILE=$(mktemp)
         if [[ "$OSTYPE" == "darwin"* ]]; then
-            curl -fsSL "https://github.com/github/hub/releases/download/v2.2.9/hub-darwin-amd64-2.2.9.tgz" > "${TEMPFILE}.tgz"
+            brew install hub
         else
-            curl -fsSL "https://github.com/github/hub/releases/download/v2.2.9/hub-linux-amd64-2.2.9.tgz" > "${TEMPFILE}.tgz"
+            TEMPFILE=$(mktemp)
+            curl -fsSL "https://github.com/github/hub/releases/download/v2.5.0/hub-linux-amd64-2.5.0.tgz" > "${TEMPFILE}.tgz"
+            tar xzf "${TEMPFILE}.tgz" -C "${TMPDIR:-/tmp}"
+            sudo mv "${TMPDIR:-/tmp}"/hub-*/bin/hub /usr/local/bin
         fi
-        tar xzf "${TEMPFILE}.tgz" -C ${TmPDIR:-/tmp}
-        sudo mv ${TmPDIR:-/tmp}/hub-*/bin/hub /usr/local/bin
     fi
 fi
 
