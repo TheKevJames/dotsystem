@@ -8,6 +8,7 @@
     tags = tag -l --sort=version:refname
 
 [advice]
+    detachedHead = false
     pushNonFastForward = false
     statusHints = false
 
