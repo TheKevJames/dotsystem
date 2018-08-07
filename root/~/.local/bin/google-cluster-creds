@@ -1,20 +1,12 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-NAME="${1:-}"
-ZONE="us-central1-a"
+echo "To connect to an existing cluster:"
+echo "  kubectl config use-context \${NAME}"
 
-while getopts 'n:z:' flag; do
-  case "${flag}" in
-    n) NAME="${OPTARG}"                  ;;
-    z) ZONE="${OPTARG}"                  ;;
-    *) echo "Unexpected option ${flag}";
-       exit 1                            ;;
-  esac
-done
+echo
 
-[[ -z "${NAME}" ]] && { echo "NAME is unset"; exit 1; }
-[[ -z "${ZONE}" ]] && { echo "ZONE is unset"; exit 1; }
+echo "To authenticate with a new one:"
+echo "  gcloud container clusters get-credentials \${NAME} --zone=us-central1-a"
 
-gcloud config set container/cluster "${NAME}"
-gcloud container clusters get-credentials "${NAME}" --zone="${ZONE}"
+exit 1
