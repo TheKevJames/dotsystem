@@ -13,13 +13,12 @@ call plug#begin('~/.local/share/nvim/plugged')
 
 Plug 'airblade/vim-gitgutter'  " git
 
-Plug 'neomake/neomake'  " async :make
+" Plug 'neomake/neomake'  " async :make
 " Plug 'pgdouyon/vim-accio'  " async :make -- light-weight, linting-focus?
 
 Plug 'vimwiki/vimwiki'  " wiki
 
-Plug 'vim-utils/vim-man'  " grep manpages
-Plug 'mhinz/vim-grepper'  " async grep w/ tool support
+" Plug 'mhinz/vim-grepper'  " async grep w/ tool support
 
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }  " Rust syntax
 
