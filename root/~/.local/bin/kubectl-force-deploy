@@ -15,3 +15,4 @@ done
 
 PATCH='{\"spec\":{\"template\":{\"metadata\":{\"annotations\":{\"date\":\"'$(date +'%s')'\"}}}}}'
 kubectl patch deployment "${NAME}" -p "\"${PATCH}\""
+# kubectl patch deployment decoder -p '{"spec":{"template":{"metadata":{"annotations":{"date":"'$(date +'%s')'"}}}}}'

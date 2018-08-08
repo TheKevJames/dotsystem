@@ -1,4 +1,7 @@
+# https://taskwarrior.org/docs/configuration.html
 data.location=~/Dropbox/task
 
 color=on
 due=3
+
+include ~/.config/taskwarrior/kevin.theme
