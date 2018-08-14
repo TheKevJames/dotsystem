@@ -32,6 +32,7 @@ repos:
     hooks:
     -   id: pylint
         args:
+        - --max-line-length=80
         - -d fixme
         - -d import-error
         - -d invalid-name
