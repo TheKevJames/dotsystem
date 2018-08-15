@@ -5,6 +5,7 @@ set number          " show line numbers
 set relativenumber  " line numbers should be relative
 set shiftwidth=4    " tabs are 4 spaces
 set showmatch       " show matching bracket on insertion
+set synmaxcol=512   " set maximum line length for syntax highlighting
 
 filetype plugin indent on  " enable filetype detection
 syntax on                  " show syntax highlighting
