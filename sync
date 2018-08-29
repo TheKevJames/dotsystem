@@ -93,17 +93,6 @@ IFS=$(echo -en "\n\b"); for file in $(find "${DIR}/root" -type f); do
     fi
 done
 
-## Configure symlinks
-for link in $(cat "${XDG_CONFIG_HOME}/dotsystem/links"); do
-    IFS=: read -a fields <<< "$link"
-
-    target="${fields[0]}"
-    name="${fields[1]}"
-
-    rm -rf "${target/\~/$HOME}"
-    ln -s "${name/\~/$HOME}" "/${target/\~/$HOME}"
-done
-
 ## Configure OSX one-offs
 if [[ "$OSTYPE" == "darwin"* ]]; then
     bash "${XDG_CONFIG_HOME}"/osx/config.sh
