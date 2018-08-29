@@ -1,5 +1,5 @@
 # https://taskwarrior.org/docs/configuration.html
-data.location=~/Dropbox/task
+data.location=~/.local/share/taskwarrior
 
 color=on
 due=3

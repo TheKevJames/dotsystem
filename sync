@@ -104,17 +104,6 @@ for link in $(cat "${XDG_CONFIG_HOME}/dotsystem/links"); do
     ln -s "${name/\~/$HOME}" "/${target/\~/$HOME}"
 done
 
-## Configure copies
-for copy in $(cat "${XDG_CONFIG_HOME}/dotsystem/copies"); do
-    IFS=: read -a fields <<< "$copy"
-
-    dest="${fields[0]}"
-    src="${fields[1]}"
-
-    rm -rf "${dest/\~/$HOME}"
-    cp "${src/\~/$HOME}" "/${dest/\~/$HOME}"
-done
-
 ## Configure OSX one-offs
 if [[ "$OSTYPE" == "darwin"* ]]; then
     bash "${XDG_CONFIG_HOME}"/osx/config.sh
