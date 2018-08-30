@@ -1,10 +1,13 @@
+bat:sh
 curl
+exa
 jq
 less
 m4
 make
-tar
+prettyping:sh
 ripgrep:rg
+tar
 unzip
 wget
 

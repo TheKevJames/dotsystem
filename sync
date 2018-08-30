@@ -128,6 +128,19 @@ if [[ "${packages[@]:-}" != "" ]]; then
     eval "${PACMAN_INSTALL} ${packages[@]}"
 fi
 
+if grep -q "bat:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
+    if ! which bat >/dev/null; then
+        if [[ "$OSTYPE" == "darwin"* ]]; then
+            brew install bat
+        else
+            TEMPFILE=$(mktemp)
+            curl -fsSL "https://github.com/sharkdp/bat/releases/download/v0.6.0/bat-v0.6.0-x86_64-unknown-linux-gnu.tar.gz" > "${TEMPFILE}.tgz"
+            tar xzf "${TEMPFILE}.tgz" -C "${TMPDIR:-/tmp}"
+            sudo mv "${TMPDIR:-/tmp}"/bat-*/bat /usr/local/bin
+        fi
+    fi
+fi
+
 if grep -q "franz:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if ! which franz >/dev/null; then
         TEMPFILE=$(mktemp)
@@ -183,6 +196,13 @@ if grep -q "oh-my-zsh:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
         sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
     fi
     rm -f ~/.zshrc*
+fi
+
+if grep -q "prettyping:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
+    if ! which prettyping >/dev/null; then
+        sudo curl -fsSLo /usr/local/bin/prettyping "https://raw.githubusercontent.com/denilsonsa/prettyping/master/prettyping"
+        sudo chmod a+x /usr/local/bin/prettyping
+    fi
 fi
 
 if grep -q "sublime-text:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
