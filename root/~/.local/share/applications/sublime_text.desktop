@@ -5,6 +5,7 @@ Name=Sublime Text
 GenericName=Text Editor
 Comment=Sophisticated text editor for code, markup and prose
 Exec=/opt/sublime_text_3/sublime_text %F
+TryeExec=/opt/sublime_text_3/sublime_text
 Terminal=false
 MimeType=text/plain;
 Icon=/opt/sublime_text_3/Icon/256x256/sublime-text.png

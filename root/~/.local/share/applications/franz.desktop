@@ -5,6 +5,7 @@ Name=Franz
 GenericName=Messaging App
 Comment=Open all your chat clients in one place
 Exec=franz
+TryExec=franz
 Terminal=false
 Icon=/opt/franz/resources/app.asar.unpacked/assets/franz.png
 StartupNotify=true

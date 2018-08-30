@@ -1,13 +1,12 @@
 [Desktop Entry]
-Name=LMMS
-GenericName=music production suite
-GenericName[ca]=Programari de producció musical
-GenericName[de]=Software zur Musik-Produktion
-Comment=easy music production for everyone!
-Comment[ca]=Producció fàcil de música per a tothom!
-Icon=lmms
-Exec=env QT_X11_NO_NATIVE_MENUBAR=1 lmms
-Terminal=false
+Version=1.0
 Type=Application
-Categories=Qt;AudioVideo;Audio;Midi;
+Name=LMMS
+GenericName=Music Production Suite
+Comment=Easy music production for everyone!
+Exec=env QT_X11_NO_NATIVE_MENUBAR=1 lmms
+TryExec=lmms
+Terminal=false
 MimeType=application/x-lmms-project;
+Icon=lmms
+Categories=AudioVideo;Audio;Midi

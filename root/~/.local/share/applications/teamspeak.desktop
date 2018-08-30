@@ -5,6 +5,7 @@ Name=Teamspeak
 GenericName=VoIP Tool
 Comment=Voice communication tool
 Exec=teamspeak
+TryExec=teamspeak
 Terminal=false
 Icon=/opt/teamspeak/gfx/teamspeak3.png
 StartupNotify=true
