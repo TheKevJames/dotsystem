@@ -8,4 +8,5 @@ export ZDOTDIR=${XDG_CONFIG_HOME}/zsh
 export CC=$(which clang)
 export CXX=$(which clang++)
 
+export EDITOR=$(which nvim)
 export TERM=xterm-256color

@@ -48,15 +48,6 @@
             "excludes": [],
             "standard": "PSR2"
         },
-        "pylint": {
-            "disable": false,
-            "args": ["--disable=W0511"],
-            "enable": "",
-            "excludes": [],
-            "paths": [],
-            "rcfile": "/etc/pylintrc",
-            "show-codes": true
-        },
         "ruby": {
             "disable": false,
             "args": [],

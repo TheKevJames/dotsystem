@@ -55,6 +55,8 @@
     "rpc-authentication-required": true,
     "rpc-bind-address": "0.0.0.0",
     "rpc-enabled": true,
+    "rpc-host-whitelist": "",
+    "rpc-host-whitelist-enabled": false,
     "rpc-password": "TRANSMISSION_PASSWORD",
     "rpc-port": 9091,
     "rpc-url": "/transmission/",

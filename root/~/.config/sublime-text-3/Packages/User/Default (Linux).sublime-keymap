@@ -53,7 +53,7 @@
     { "keys": ["ctrl+shift+d"], "command": "find_under_expand_skip" },
     { "keys": ["ctrl+super+g"], "command": "find_all_under" },
     { "keys": ["ctrl+l"], "command": "expand_selection", "args": {"to": "line"} },
-    { "keys": ["ctrl+shift+l"], "commandctrl": "split_selection_into_lines" },
+    { "keys": ["ctrl+shift+l"], "command": "split_selection_into_lines" },
     { "keys": ["ctrl+j"], "command": "join_lines" },
 
     { "keys": ["ctrl+shift+space"], "command": "expand_selection", "args": {"to": "scope"} },

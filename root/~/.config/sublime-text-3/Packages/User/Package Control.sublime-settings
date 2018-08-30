@@ -38,7 +38,6 @@
 		"SublimeLinter-cppcheck",
 		"SublimeLinter-html-tidy",
 		"SublimeLinter-phpcs",
-		"SublimeLinter-pylint",
 		"SublimeLinter-ruby",
 		"SublimeLinter-shellcheck",
 		"Terraform"
