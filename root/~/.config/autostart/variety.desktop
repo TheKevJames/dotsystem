@@ -3,6 +3,7 @@ Name=Variety
 GenericName=Wallpaper Manager
 Comment=Variety Wallpaper Changer
 Exec=variety
+TryExec=variety
 Terminal=false
 Type=Application
 Icon=variety
