@@ -4,7 +4,7 @@ Type=Application
 Name=Alacritty
 GenericName=Terminal
 Comment=A cross-platform, GPU enhanced terminal emulator
-Exec=alacritty
+Exec=WINIT_HIDPI_FACTOR=1.0 alacritty
 TryExec=alacritty
 Terminal=false
 Icon=utilities-terminal
