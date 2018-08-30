@@ -1,5 +1,5 @@
 window:
-  decorations: true
+  decorations: false
   dimensions:
     columns: 80
     lines: 24
