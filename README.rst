@@ -36,7 +36,7 @@ I am a huge fan of the `XDG Base Directory Spec`_. The following configured apps
 - julia. Support by setting ``$JULIA_PKGDIR`` and ``$JULIA_HISTORY``.
 - less. Support by setting ``$LESSHISTFILE``.
 - libice. Partial support by setting ``$ICEAUTHORITY``.
-- lmms. No support. In 1.2.0 (pre-release), will have partial support with ``--home`` flag.
+- lmms. Partial support with ``--config`` flag.
 - mysql. Support by setting ``$MYSQL_HISTFILE``.
 - ngrok. Support with ``--config`` flag. Because this flag has some restrictions, see my `ngrok XDG hack`_ for a "fix".
 - npm. Support by setting ``$NPM_CONFIG_USERCONFIG``, then setting ``cache`` in that file.

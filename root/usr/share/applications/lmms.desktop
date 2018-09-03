@@ -3,8 +3,8 @@ Version=1.0
 Type=Application
 Name=LMMS
 GenericName=Music Production Suite
-Comment=Easy music production for everyone!
-Exec=env QT_X11_NO_NATIVE_MENUBAR=1 lmms
+Comment=Music sequencer and synthesizer
+Exec=env QT_X11_NO_NATIVE_MENUBAR=1 QT_AUTO_SCREEN_SCALE_FACTOR=1 lmms --config /home/kevin/.config/lmms/config %f
 TryExec=lmms
 Terminal=false
 MimeType=application/x-lmms-project;
