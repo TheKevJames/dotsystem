@@ -158,6 +158,21 @@
     { "keys": ["alt+f5"], "command": "sort_numerically"},
 
     // plugins
+    // lsp (actions)
+    { "keys": ["super+k", "super+a", "super+a"], "command": "lsp_code_actions" },
+    { "keys": ["super+k", "super+a", "super+p"], "command": "lsp_show_diagnostics_panel" },
+    // { "keys": ["f4"], "command": "next_result" },
+    // { "keys": ["shift+f4"], "command": "prev_result" },
+    { "keys": ["super+k", "super+a", "super+s"], "command": "noop", "context": [{ "key": "lsp.signature_help", "operator": "equal", "operand": 0}] },
+    { "keys": ["up"], "command": "noop", "context": [{ "key": "lsp.signature_help", "operator": "equal", "operand": -1 }] },
+    { "keys": ["down"], "command": "noop", "context": [{ "key": "lsp.signature_help", "operator": "equal", "operand": 1 }] },
+    { "keys": ["super+k", "super+a", "super+r"], "command": "lsp_symbol_references" },
+    // { "keys": ["UNBOUND"], "command": "lsp_symbol_definition" },
+    // { "keys": ["UNBOUND"], "command": "lsp_symbol_rename" },
+    // { "keys": ["UNBOUND"], "command": "lsp_format_document" },
+    // { "keys": ["UNBOUND"], "command": "lsp_format_document_range" },
+    // { "keys": ["UNBOUND"], "command": "lsp_document_symbols" },
+
     // brackets
     { "keys": ["super+k", "super+b", "super+f"], "command": "bh_key", "args": {"plugin": {"type": ["__all__"], "command": "bh_modules.foldbracket"}} },
     { "keys": ["super+k", "super+b", "super+m"], "command": "move_to", "args": {"to": "brackets"} },
@@ -226,24 +241,6 @@
 
     // quotes
     { "keys": ["super+k", "super+q", "super+s"], "command": "bh_key", "args": {"lines": true, "plugin": { "type": ["single_quote", "double_quote", "py_single_quote", "py_double_quote"], "command": "bh_modules.swapquotes"}} },
-
-    // reform
-    { "keys": ["super+up"], "command": "find_word_up" },
-    { "keys": ["super+down"], "command": "find_word_down" },
-    { "keys": ["alt+up"], "command": "smart_up" },
-    { "keys": ["alt+down"], "command": "smart_down" },
-
-    { "keys": ["super+k", "super+r", "super+right"], "command": "move_word_right" },
-    { "keys": ["super+k", "super+r", "super+left"], "command": "move_word_left" },
-    { "keys": ["super+k", "super+r", "super+up"], "command": "move_block_up" },
-    { "keys": ["super+k", "super+r", "super+down"], "command": "move_block_down" },
-
-    { "keys": ["super+k", "super+r", "super+d"], "command": "delete_block" },
-
-    { "keys": ["alt+enter"], "command": "extract_expr", "context": [{ "key": "setting.is_widget", "operator": "equal", "operand": false}]},
-
-    { "keys": ["super+k", "super+r", "super+shift+up"], "command": "select_scope_up" },
-    { "keys": ["super+k", "super+r", "super+shift+down"], "command": "select_scope_down" },
 
     // sidebar
     { "keys": ["super+k", "super+s", "super+b"], "command": "toggle_side_bar" },
@@ -602,9 +599,9 @@
     },
 
 
-    // Unbind
-    { "keys": ["alt+f2"], "command": "unbound" },
+    // unbind
     { "keys": ["alt+f12"], "command": "unbound" },
+    { "keys": ["alt+f2"], "command": "unbound" },
     { "keys": ["alt+shift+c"], "command": "unbound" },
     { "keys": ["alt+shift+d"], "command": "unbound" },
     { "keys": ["alt+shift+down"], "command": "unbound" },
@@ -675,13 +672,14 @@
     { "keys": ["ctrl+t"], "command": "unbound" },
     { "keys": ["ctrl+up"], "command": "unbound" },
     { "keys": ["ctrl+y"], "command": "unbound" },
+    { "keys": ["f12"], "command": "unbound" },
     { "keys": ["f2"], "command": "unbound" },
     { "keys": ["f4"], "command": "unbound" },
     { "keys": ["f6"], "command": "unbound" },
     { "keys": ["f7"], "command": "unbound" },
-    { "keys": ["f12"], "command": "unbound" },
     { "keys": ["shift+f2"], "command": "unbound" },
     { "keys": ["shift+f4"], "command": "unbound" },
+    { "keys": ["super+,"], "command": "unbound" },
     { "keys": ["super+0"], "command": "unbound" },
     { "keys": ["super+1"], "command": "unbound" },
     { "keys": ["super+2"], "command": "unbound" },
@@ -692,7 +690,6 @@
     { "keys": ["super+7"], "command": "unbound" },
     { "keys": ["super+8"], "command": "unbound" },
     { "keys": ["super+9"], "command": "unbound" },
-    { "keys": ["super+,"], "command": "unbound" },
     { "keys": ["super+["], "command": "unbound" },
     { "keys": ["super+]"], "command": "unbound" },
     { "keys": ["super+alt+."], "command": "unbound" },

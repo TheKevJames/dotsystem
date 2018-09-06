@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+set -euo pipefail
+VENV="${XDG_DATA_HOME}/venv/pre-commit"
+
+[[ -d "${VENV}" ]] || python3 -m venv "${VENV}"
+source "${VENV}"/bin/activate
+
+[[ -f "${VENV}"/bin/pre-commit ]] || python3 -m pip install pre-commit
+"${VENV}"/bin/pre-commit "$@"
