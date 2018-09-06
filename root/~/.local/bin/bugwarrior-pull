@@ -9,5 +9,5 @@ set +euo pipefail
 source ./bin/activate
 set -euo pipefail
 
-[[ -f ./bin/bugwarrior-pull ]] || python2 -m pip install bugwarrior
+[[ -f ./bin/bugwarrior-pull ]] || python2 -m pip install "bugwarrior[jira]"
 ./bin/bugwarrior-pull "$@"
