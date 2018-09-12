@@ -34,7 +34,7 @@ def build_sublime_projects(repo_dirs):
             'find_in_files': {
                 'where_history': [
                     ','.join(['-.coverage', '-.eggs/', '-.mypy_cache/',
-                              '-.nox/', '-.pytest_cache/', '-.tox/',
+                              '-.nox/', '-.pytest_cache/', '-.tox/', '-build/',
                               '-venv/'])
                 ],
             },
