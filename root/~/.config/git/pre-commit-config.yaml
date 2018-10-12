@@ -61,9 +61,9 @@ repos:
     -   id: mypy
         args:
         - --ignore-missing-imports
-        - --follow-imports skip
+        - --follow-imports=skip
         - --strict
-        - --no-strict-optional]
+        - --no-strict-optional
         exclude: tests/.*
 
 # javascript
