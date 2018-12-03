@@ -1,6 +1,6 @@
 # https://bugwarrior.readthedocs.io/en/latest/common_configuration.html
 [general]
-targets = github_prs_assigned,github_prs_created,github_prs_reviewer,github_thekevjames,github_coveralls_clients,github_talkiq_prs_assigned,github_talkiq_prs_created,github_talkiq_prs_reviewer,jira_dialpad
+targets = github_prs_assigned,github_prs_created,github_prs_reviewer,github_thekevjames,github_coveralls_clients,github_talkiq_prs_assigned,github_talkiq_prs_created,github_talkiq_prs_reviewer,jira_dialpad,trello
 taskrc = ~/.config/taskwarrior/taskrc
 
 [github_prs_assigned]
@@ -109,3 +109,13 @@ jira.password = M4_JIRA_TOKEN
 jira.query = assignee = kjames AND resolution = Unresolved
 jira.description_template = {{jirasummary}}
 jira.add_tags = work
+
+[trello]
+service = trello
+trello.api_key = M4_TRELLO_API_KEY
+trello.token = M4_TRELLO_TOKEN
+
+# trello.import_labels_as_tags = true
+# trello.label_template = {{label|replace(' ', '_')}}
+trello.description_template = {{trellocard}}
+trello.add_tags = personal
