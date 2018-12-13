@@ -752,6 +752,19 @@
 		<category term='filter'></category>
 		<title>Mail Filter</title>
 		<content></content>
+		<apps:property name='from' value='bbix-sales@bbix.net'/>
+		<apps:property name='hasTheWord' value='list:(&lt;telephony.dialpad.com&gt;)'/>
+		<apps:property name='label' value='Support/Telephony'/>
+		<apps:property name='shouldMarkAsRead' value='true'/>
+		<apps:property name='shouldArchive' value='true'/>
+		<apps:property name='shouldNeverMarkAsImportant' value='true'/>
+		<apps:property name='sizeOperator' value='s_sl'/>
+		<apps:property name='sizeUnit' value='s_smb'/>
+	</entry>
+	<entry>
+		<category term='filter'></category>
+		<title>Mail Filter</title>
+		<content></content>
 		<apps:property name='from' value='BICS noreply'/>
 		<apps:property name='hasTheWord' value='list:(&lt;telephony.dialpad.com&gt;)'/>
 		<apps:property name='label' value='Support/Telephony'/>
