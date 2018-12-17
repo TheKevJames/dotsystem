@@ -33,6 +33,7 @@ repos:
     -   id: pylint
         args:
         - --max-line-length=80
+        - --ignore-imports=yes
         - -d fixme
         - -d import-error
         - -d invalid-name
