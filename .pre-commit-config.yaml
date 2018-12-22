@@ -27,7 +27,7 @@ repos:
     -   id: requirements-txt-fixer
     -   id: trailing-whitespace
 -   repo: https://github.com/pre-commit/mirrors-pylint
-    rev: v2.2.0
+    rev: v2.2.2
     hooks:
     -   id: pylint
         args:
