@@ -4,12 +4,14 @@ import os
 import pathlib
 import shutil
 import sys
+from typing import Iterable
+from typing import List
 
 
 PROJECT_DIR = pathlib.Path.home() / '.xdg' / 'Documents' / 'sublime-projects'
 
 
-def get_project_paths(repo_dirs):
+def get_project_paths(repo_dirs: List[pathlib.Path]) -> Iterable[str]:
     for repo_dir in repo_dirs:
         for dirpath, dirnames, _ in os.walk(repo_dir):
             if '.git' in dirnames:
@@ -17,7 +19,7 @@ def get_project_paths(repo_dirs):
                 del dirnames[:]
 
 
-def build_sublime_projects(repo_dirs):
+def build_sublime_projects(repo_dirs: List[pathlib.Path]) -> Iterable[str]:
     for path in get_project_paths(repo_dirs):
         name = path.replace(str(pathlib.Path.home()), '')[1:]
 
@@ -45,7 +47,7 @@ def build_sublime_projects(repo_dirs):
         yield str(workspace)
 
 
-def main():
+def main() -> None:
     try:
         shutil.rmtree(PROJECT_DIR)
     except FileNotFoundError:
