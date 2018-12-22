@@ -22,7 +22,8 @@ readline.parse_and_bind('tab: complete')
 
 # Save
 def save_history(history_path=HISTORY):
-    import readline
+    # N.B. `save_history` is run outside of the context of this file.
+    import readline  # pylint: disable=redefined-outer-name,reimported
     readline.write_history_file(history_path)
 
 atexit.register(save_history)
