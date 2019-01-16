@@ -128,19 +128,6 @@ if [[ "${packages[@]:-}" != "" ]]; then
     eval "${PACMAN_INSTALL} ${packages[@]}"
 fi
 
-if grep -q "bat:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
-    if ! which bat >/dev/null; then
-        if [[ "$OSTYPE" == "darwin"* ]]; then
-            brew install bat
-        else
-            TEMPFILE=$(mktemp)
-            curl -fsSL "https://github.com/sharkdp/bat/releases/download/v0.6.0/bat-v0.6.0-x86_64-unknown-linux-gnu.tar.gz" > "${TEMPFILE}.tgz"
-            tar xzf "${TEMPFILE}.tgz" -C "${TMPDIR:-/tmp}"
-            sudo mv "${TMPDIR:-/tmp}"/bat-*/bat /usr/local/bin
-        fi
-    fi
-fi
-
 if grep -q "franz:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if ! which franz >/dev/null; then
         TEMPFILE=$(mktemp)
