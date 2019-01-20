@@ -26,4 +26,4 @@ Plug 'rust-lang/rust.vim', { 'for': 'rust' }  " Rust syntax
 call plug#end()
 
 " plugin configuration
-let g:vimwiki_list = [{'path': '~/Dropbox/vimwiki'}]
+let g:vimwiki_list = [{'path': '~/Dropbox/vimwiki'}, {'path': '~/Dropbox/work/vimwiki'}]
