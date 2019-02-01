@@ -107,6 +107,17 @@
 		<category term='filter'></category>
 		<title>Mail Filter</title>
 		<content></content>
+		<apps:property name='from' value='service@paypal.com'/>
+		<apps:property name='subject' value='Receipt for Your Payment'/>
+		<apps:property name='label' value='Bills'/>
+		<apps:property name='shouldArchive' value='true'/>
+		<apps:property name='sizeOperator' value='s_sl'/>
+		<apps:property name='sizeUnit' value='s_smb'/>
+	</entry>
+	<entry>
+		<category term='filter'></category>
+		<title>Mail Filter</title>
+		<content></content>
 		<apps:property name='from' value='support@namecheap.com'/>
 		<apps:property name='label' value='Bills'/>
 		<apps:property name='shouldArchive' value='true'/>
