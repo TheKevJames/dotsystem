@@ -18,6 +18,3 @@ chflags nohidden ~/Library
 # show removables on desktop
 defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool true
 defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool true
-
-# TODO: multi-path ./sync
-cp -r "${HOME}/.config/sublime-text-3/Packages/User/"* "${HOME}/Library/Application Support/Sublime Text 3/Packages/User"
