@@ -1,6 +1,6 @@
 repos:
 -   repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v2.0.0
+    rev: v2.1.0
     hooks:
     -   id: check-case-conflict
     -   id: check-executables-have-shebangs
@@ -46,12 +46,12 @@ repos:
     -   id: remove-crlf
     -   id: remove-tabs
 -   repo: https://github.com/asottile/reorder_python_imports
-    rev: v1.3.4
+    rev: v1.3.5
     hooks:
     -   id: reorder-python-imports
         args: [--py37-plus]
 -   repo: https://github.com/asottile/pyupgrade
-    rev: v1.11.0
+    rev: v1.11.1
     hooks:
     -   id: pyupgrade
         args: [--py36-plus]
@@ -90,7 +90,7 @@ repos:
 
 # terraform
 -   repo: https://github.com/antonbabenko/pre-commit-terraform
-    rev: v1.7.3
+    rev: v1.8.1
     hooks:
     -   id: terraform_fmt
     -   id: terraform_validate_with_variables
