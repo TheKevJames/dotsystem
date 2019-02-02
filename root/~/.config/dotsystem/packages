@@ -1,6 +1,7 @@
 bat
 curl
 exa
+hexyl:sh
 jq
 less
 m4

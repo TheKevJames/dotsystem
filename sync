@@ -145,6 +145,19 @@ if grep -q "franz:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     fi
 fi
 
+if grep -q "hexyl:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
+    if ! which hexyl >/dev/null; then
+        if [[ "$OSTYPE" == "darwin"* ]]; then
+            brew install hexyl
+        else
+            TEMPFILE=$(mktemp)
+            curl -fsSL "https://github.com/sharkdp/hexyl/releases/download/v0.4.0/hexyl-v0.4.0-x86_64-unknown-linux-gnu.tar.gz" > "${TEMPFILE}.tgz"
+            tar xzf "${TEMPFILE}.tgz" -C "${TMPDIR:-/tmp}"
+            sudo mv "${TMPDIR:-/tmp}"/hexyl-*/hexyl /usr/local/bin
+        fi
+    fi
+fi
+
 if grep -q "hub:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if ! which hub >/dev/null; then
         if [[ "$OSTYPE" == "darwin"* ]]; then
