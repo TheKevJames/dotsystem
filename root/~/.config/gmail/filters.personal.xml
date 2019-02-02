@@ -6,7 +6,7 @@
 		<email>kevin.j.carruthers@gmail.com</email>
 	</author>
 
-	<!-- TODO: "-in:chats -in:inbox -has:userlabels -is:snoozed " -->
+	<!-- TODO: "-in:chats -in:inbox -has:userlabels -is:snoozed" -->
 
 	<!-- Bills -->
 	<entry>
