@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-APP_YAML="${1:-./app.yaml}"
-
-yq '.env_variables' "${APP_YAML}" |
-    sed '$d' |
-    awk -F'\(": \)|,' 'NR>1 {print "-e " substr($1, 4) "=" $2}' |
-    tr '\n' ' ' |
-    xargs echo -n docker run --rm -it -p8080:8080 -e DEBUG=true; echo " ${PWD##*/}"
