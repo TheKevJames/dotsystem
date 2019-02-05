@@ -6,6 +6,21 @@
 		<email>kjames@dialpad.com</email>
 	</author>
 
+	<!-- aws-admin@dialpad.com -->
+	<entry>
+		<category term='filter'></category>
+		<title>Mail Filter</title>
+		<content></content>
+		<apps:property name='to' value='aws-admin@dialpad.com'/>
+		<apps:property name='label' value='Support/Telephony'/>
+		<apps:property name='shouldMarkAsRead' value='true'/>
+		<apps:property name='shouldArchive' value='true'/>
+		<apps:property name='shouldNeverMarkAsImportant' value='true'/>
+		<apps:property name='sizeOperator' value='s_sl'/>
+		<apps:property name='sizeUnit' value='s_smb'/>
+	</entry>
+	<!-- END aws-admin@dialpad.com -->
+
 	<!-- bayarea@dialpad.com -->
 	<entry>
 		<category term='filter'></category>
@@ -518,6 +533,19 @@
 		<category term='filter'></category>
 		<title>Mail Filter</title>
 		<content></content>
+		<apps:property name='from' value='gsd@bbix.net'/>
+		<apps:property name='hasTheWord' value='list:(&lt;telephony.dialpad.com&gt;)'/>
+		<apps:property name='label' value='Alerts/Telephony'/>
+		<apps:property name='shouldMarkAsRead' value='true'/>
+		<apps:property name='shouldArchive' value='true'/>
+		<apps:property name='shouldNeverMarkAsImportant' value='true'/>
+		<apps:property name='sizeOperator' value='s_sl'/>
+		<apps:property name='sizeUnit' value='s_smb'/>
+	</entry>
+	<entry>
+		<category term='filter'></category>
+		<title>Mail Filter</title>
+		<content></content>
 		<apps:property name='from' value='hiroki.nakamura@rakuten.com'/>
 		<apps:property name='hasTheWord' value='list:(&lt;telephony.dialpad.com&gt;)'/>
 		<apps:property name='label' value='Alerts/Telephony'/>
@@ -583,6 +611,19 @@
 		<category term='filter'></category>
 		<title>Mail Filter</title>
 		<content></content>
+		<apps:property name='from' value='peering@axelnetworks.co.jp'/>
+		<apps:property name='hasTheWord' value='list:(&lt;telephony.dialpad.com&gt;)'/>
+		<apps:property name='label' value='Alerts/Telephony'/>
+		<apps:property name='shouldMarkAsRead' value='true'/>
+		<apps:property name='shouldArchive' value='true'/>
+		<apps:property name='shouldNeverMarkAsImportant' value='true'/>
+		<apps:property name='sizeOperator' value='s_sl'/>
+		<apps:property name='sizeUnit' value='s_smb'/>
+	</entry>
+	<entry>
+		<category term='filter'></category>
+		<title>Mail Filter</title>
+		<content></content>
 		<apps:property name='from' value='PlannedWorks@colt.net'/>
 		<apps:property name='hasTheWord' value='list:(&lt;telephony.dialpad.com&gt;)'/>
 		<apps:property name='label' value='Alerts/Telephony'/>
@@ -635,8 +676,35 @@
 		<category term='filter'></category>
 		<title>Mail Filter</title>
 		<content></content>
+		<apps:property name='from' value='somostexting@somos.com'/>
+		<apps:property name='hasTheWord' value='list:(&lt;telephony.dialpad.com&gt;)'/>
+		<apps:property name='label' value='Alerts/Telephony'/>
+		<apps:property name='shouldMarkAsRead' value='true'/>
+		<apps:property name='shouldArchive' value='true'/>
+		<apps:property name='shouldNeverMarkAsImportant' value='true'/>
+		<apps:property name='sizeOperator' value='s_sl'/>
+		<apps:property name='sizeUnit' value='s_smb'/>
+	</entry>
+	<entry>
+		<category term='filter'></category>
+		<title>Mail Filter</title>
+		<content></content>
 		<apps:property name='from' value='support@thousandeyes.com'/>
 		<apps:property name='hasTheWord' value='list:(&lt;telephony.dialpad.com&gt;)'/>
+		<apps:property name='label' value='Alerts/Telephony'/>
+		<apps:property name='shouldMarkAsRead' value='true'/>
+		<apps:property name='shouldArchive' value='true'/>
+		<apps:property name='shouldNeverMarkAsImportant' value='true'/>
+		<apps:property name='sizeOperator' value='s_sl'/>
+		<apps:property name='sizeUnit' value='s_smb'/>
+	</entry>
+	<entry>
+		<category term='filter'></category>
+		<title>Mail Filter</title>
+		<content></content>
+		<apps:property name='from' value='telephony@dialpad.com'/>
+		<apps:property name='hasTheWord' value='list:(&lt;telephony.dialpad.com&gt;)'/>
+		<apps:property name='subject' value='Cloud Server Incident Notification'/>
 		<apps:property name='label' value='Alerts/Telephony'/>
 		<apps:property name='shouldMarkAsRead' value='true'/>
 		<apps:property name='shouldArchive' value='true'/>
@@ -677,6 +745,34 @@
 		<apps:property name='from' value='yus-takahashi@enecom.co.jp'/>
 		<apps:property name='hasTheWord' value='list:(&lt;telephony.dialpad.com&gt;)'/>
 		<apps:property name='label' value='Alerts/Telephony'/>
+		<apps:property name='shouldMarkAsRead' value='true'/>
+		<apps:property name='shouldArchive' value='true'/>
+		<apps:property name='shouldNeverMarkAsImportant' value='true'/>
+		<apps:property name='sizeOperator' value='s_sl'/>
+		<apps:property name='sizeUnit' value='s_smb'/>
+	</entry>
+	<entry>
+		<category term='filter'></category>
+		<title>Mail Filter</title>
+		<content></content>
+		<apps:property name='from' value='cloud@vagrantup.com'/>
+		<apps:property name='hasTheWord' value='list:(&lt;telephony.dialpad.com&gt;)'/>
+		<apps:property name='subject' value='Receipt for payment'/>
+		<apps:property name='label' value='Billing/Telephony'/>
+		<apps:property name='shouldMarkAsRead' value='true'/>
+		<apps:property name='shouldArchive' value='true'/>
+		<apps:property name='shouldNeverMarkAsImportant' value='true'/>
+		<apps:property name='sizeOperator' value='s_sl'/>
+		<apps:property name='sizeUnit' value='s_smb'/>
+	</entry>
+	<entry>
+		<category term='filter'></category>
+		<title>Mail Filter</title>
+		<content></content>
+		<apps:property name='from' value='HashiCorp, Inc'/>
+		<apps:property name='hasTheWord' value='list:(&lt;telephony.dialpad.com&gt;)'/>
+		<apps:property name='subject' value='Your receipt from ‪HashiCorp'/>
+		<apps:property name='label' value='Billing/Telephony'/>
 		<apps:property name='shouldMarkAsRead' value='true'/>
 		<apps:property name='shouldArchive' value='true'/>
 		<apps:property name='shouldNeverMarkAsImportant' value='true'/>
@@ -804,6 +900,19 @@
 		<category term='filter'></category>
 		<title>Mail Filter</title>
 		<content></content>
+		<apps:property name='from' value='CrtQueryEngine'/>
+		<apps:property name='hasTheWord' value='list:(&lt;telephony.dialpad.com&gt;)'/>
+		<apps:property name='label' value='Support/Telephony'/>
+		<apps:property name='shouldMarkAsRead' value='true'/>
+		<apps:property name='shouldArchive' value='true'/>
+		<apps:property name='shouldNeverMarkAsImportant' value='true'/>
+		<apps:property name='sizeOperator' value='s_sl'/>
+		<apps:property name='sizeUnit' value='s_smb'/>
+	</entry>
+	<entry>
+		<category term='filter'></category>
+		<title>Mail Filter</title>
+		<content></content>
 		<apps:property name='from' value='customerportal@symbionetworks.com'/>
 		<apps:property name='hasTheWord' value='list:(&lt;telephony.dialpad.com&gt;)'/>
 		<apps:property name='label' value='Support/Telephony'/>
@@ -919,9 +1028,35 @@
 		<apps:property name='sizeOperator' value='s_sl'/>
 		<apps:property name='sizeUnit' value='s_smb'/>
 	</entry>
+	<entry>
+		<category term='filter'></category>
+		<title>Mail Filter</title>
+		<content></content>
+		<apps:property name='to' value='GermanyPortingDesk@colt.net'/>
+		<apps:property name='hasTheWord' value='list:(&lt;telephony.dialpad.com&gt;)'/>
+		<apps:property name='label' value='Support/Telephony'/>
+		<apps:property name='shouldMarkAsRead' value='true'/>
+		<apps:property name='shouldArchive' value='true'/>
+		<apps:property name='shouldNeverMarkAsImportant' value='true'/>
+		<apps:property name='sizeOperator' value='s_sl'/>
+		<apps:property name='sizeUnit' value='s_smb'/>
+	</entry>
 	<!-- END telephony@dialpad.com -->
 
 	<!-- tel-eng@dialpad.com -->
+	<entry>
+		<category term='filter'></category>
+		<title>Mail Filter</title>
+		<content></content>
+		<apps:property name='from' value='gsd@bbix.net'/>
+		<apps:property name='hasTheWord' value='list:(&lt;tel-eng.dialpad.com&gt;)'/>
+		<apps:property name='label' value='Alerts/Telephony'/>
+		<apps:property name='shouldMarkAsRead' value='true'/>
+		<apps:property name='shouldArchive' value='true'/>
+		<apps:property name='shouldNeverMarkAsImportant' value='true'/>
+		<apps:property name='sizeOperator' value='s_sl'/>
+		<apps:property name='sizeUnit' value='s_smb'/>
+	</entry>
 	<entry>
 		<category term='filter'></category>
 		<title>Mail Filter</title>
@@ -1169,6 +1304,7 @@
 		<apps:property name='hasTheWord' value='list:(&lt;uveng.dialpad.com&gt;)'/>
 		<apps:property name='label' value='Alerts/Product'/>
 		<apps:property name='shouldMarkAsRead' value='true'/>
+		<apps:property name='shouldArchive' value='true'/>
 		<apps:property name='shouldNeverMarkAsImportant' value='true'/>
 		<apps:property name='sizeOperator' value='s_sl'/>
 		<apps:property name='sizeUnit' value='s_smb'/>
