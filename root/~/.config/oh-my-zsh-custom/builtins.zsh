@@ -16,3 +16,6 @@ alias top='htop'
 
 # https://github.com/sharkdp/hexyl
 alias xxd='hexyl'
+
+# https://github.com/neovim/neovim
+alias vim='nvim'
