@@ -2,12 +2,9 @@
 set -euo pipefail
 VENV="${XDG_DATA_HOME}/venv/bugwarrior"
 
-[[ -d "${VENV}" ]] || virtualenv -p python2 "${VENV}"
+[[ -d "${VENV}" ]] || python3 -m venv "${VENV}"
 cd "${VENV}"
-# fuck py2
-set +euo pipefail
 source ./bin/activate
-set -euo pipefail
 
-[[ -f ./bin/bugwarrior-pull ]] || python2 -m pip install "bugwarrior[jira]"
+[[ -f ./bin/bugwarrior-pull ]] || python3 -m pip install "bugwarrior[jira]"
 ./bin/bugwarrior-pull "$@"
