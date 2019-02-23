@@ -34,6 +34,7 @@ repos:
         args:
         - --max-line-length=79
         - --ignore-imports=yes
+        - -e useless-suppression
         - -d fixme
         - -d import-error
         - -d invalid-name
