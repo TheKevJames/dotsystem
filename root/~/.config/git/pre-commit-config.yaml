@@ -80,11 +80,13 @@ repos:
     hooks:
     -   id: pydocstyle
         args:
-        - --ignore=D1,D205,D212,D400,D401,D404
+        - --ignore=D1,D203,D205,D212,D400,D401,D404
 -   repo: https://gitlab.com/pycqa/flake8
     rev: 3.7.6
     hooks:
     -   id: flake8
+        args:
+        - --ignore=E501,W503
 -   repo: https://github.com/pre-commit/pygrep-hooks
     rev: v1.2.0
     hooks:
