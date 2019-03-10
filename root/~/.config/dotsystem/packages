@@ -2,6 +2,7 @@ bat
 curl
 exa
 hexyl:sh
+jira:sh
 jq
 less
 m4

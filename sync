@@ -176,6 +176,17 @@ if grep -q "hub:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     fi
 fi
 
+if grep -q "jira:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
+    if ! which jira >/dev/null; then
+        if [[ "$OSTYPE" == "darwin"* ]]; then
+            sudo curl -fsSLo /usr/local/bin/jira "https://github.com/Netflix-Skunkworks/go-jira/releases/download/v1.0.20/jira-darwin-10.6-amd64"
+        else
+            sudo curl -fsSLo /usr/local/bin/jira "https://github.com/Netflix-Skunkworks/go-jira/releases/download/v1.0.20/jira-linux-amd64"
+        fi
+        sudo chmod a+x /usr/local/bin/jira
+    fi
+fi
+
 if grep -q "neovim:nvim" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if [ ! -f "${XDG_DATA_HOME}/nvim/site/autoload/plug.vim" ]; then
         curl -fsSLo "${XDG_DATA_HOME}/nvim/site/autoload/plug.vim" --create-dirs "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
