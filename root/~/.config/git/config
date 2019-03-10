@@ -1,6 +1,7 @@
 [alias]
     amend = commit --amend
     branches = branch -a
+    commits = !echo "chore, docs, feat, fix, perf, refactor, style, test"
     lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --decorate-refs-exclude='tags/*'
     lgt = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
     pre-commit-init = !cp ~/.config/git/pre-commit-config.yaml $(git rev-parse --show-toplevel)/.pre-commit-config.yaml
