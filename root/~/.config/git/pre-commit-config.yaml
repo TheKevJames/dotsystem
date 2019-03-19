@@ -28,7 +28,7 @@ repos:
     -   id: name-tests-test
     -   id: requirements-txt-fixer
 -   repo: https://github.com/pre-commit/mirrors-pylint
-    rev: v2.2.2
+    rev: v2.3.1
     hooks:
     -   id: pylint
         args:
@@ -47,12 +47,12 @@ repos:
     -   id: remove-crlf
     -   id: remove-tabs
 -   repo: https://github.com/asottile/reorder_python_imports
-    rev: v1.3.5
+    rev: v1.4.0
     hooks:
     -   id: reorder-python-imports
         args: [--py37-plus]
 -   repo: https://github.com/asottile/pyupgrade
-    rev: v1.11.3
+    rev: v1.12.0
     hooks:
     -   id: pyupgrade
         args: [--py36-plus]
@@ -68,7 +68,7 @@ repos:
         - --no-strict-optional
         exclude: tests/.*
 -   repo: https://github.com/asottile/yesqa
-    rev: v0.0.9
+    rev: v0.0.10
     hooks:
     -   id: yesqa
 -   repo: https://github.com/pre-commit/mirrors-autopep8
@@ -82,7 +82,7 @@ repos:
         args:
         - --ignore=D1,D203,D205,D212,D400,D401,D404
 -   repo: https://gitlab.com/pycqa/flake8
-    rev: 3.7.6
+    rev: 3.7.7
     hooks:
     -   id: flake8
         args:
