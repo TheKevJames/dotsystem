@@ -62,8 +62,8 @@ def main() -> None:
     if sys.platform.startswith('linux'):
         session_root = pathlib.Path.home() / '.config' / 'sublime-text-3'
     elif sys.platform == 'darwin':
-        session_root = (pathlib.Path.home() / 'Library' /
-                        'Application Support' / 'Sublime Text 3')
+        session_root = (pathlib.Path.home() / 'Library'
+                        / 'Application Support' / 'Sublime Text 3')
     else:
         raise Exception(f'unsupported platform {sys.platform}')
     session = (session_root / 'Local' / 'Session.sublime_session')
