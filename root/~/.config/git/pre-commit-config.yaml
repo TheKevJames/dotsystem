@@ -1,6 +1,6 @@
 repos:
 -   repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v2.1.0
+    rev: v2.2.1
     hooks:
     -   id: check-case-conflict
     -   id: check-executables-have-shebangs
@@ -51,12 +51,12 @@ repos:
     -   id: reorder-python-imports
         args: [--py37-plus]
 -   repo: https://github.com/asottile/pyupgrade
-    rev: v1.12.0
+    rev: v1.16.3
     hooks:
     -   id: pyupgrade
         args: [--py36-plus]
 -   repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v0.670
+    rev: v0.701
     hooks:
     -   id: mypy
         require_serial: True
@@ -64,6 +64,7 @@ repos:
         - --ignore-missing-imports
         - --follow-imports=skip
         - --strict
+        - --strict-equality
         - --no-strict-optional
         exclude: tests/.*
 -   repo: https://github.com/asottile/yesqa
@@ -71,7 +72,7 @@ repos:
     hooks:
     -   id: yesqa
 -   repo: https://github.com/pre-commit/mirrors-autopep8
-    rev: v1.4.3
+    rev: v1.4.4
     hooks:
     -   id: autopep8
 -   repo: https://github.com/PyCQA/pydocstyle
@@ -87,7 +88,7 @@ repos:
         args:
         - --ignore=E501,W503,F811
 -   repo: https://github.com/pre-commit/pygrep-hooks
-    rev: v1.2.0
+    rev: v1.3.0
     hooks:
     -   id: python-no-log-warn
     -   id: python-use-type-annotations
@@ -122,3 +123,9 @@ repos:
     hooks:
     -   id: terraform_fmt
     -   id: terraform_validate_with_variables
+
+# docker
+-   repo: https://github.com/pryorda/dockerfilelint-precommit-hooks
+    rev: v0.1.0
+    hooks:
+    -   id: dockerfilelint
