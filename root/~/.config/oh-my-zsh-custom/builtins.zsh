@@ -1,5 +1,6 @@
 # https://github.com/sharkdp/bat
 # alias cat='bat'
+alias less='bat'
 
 # https://the.exa.website/
 alias l='exa -la'
@@ -14,8 +15,8 @@ alias ping='prettyping'
 # https://hisham.hm/htop/
 alias top='htop'
 
-# https://github.com/sharkdp/hexyl
-alias xxd='hexyl'
-
 # https://github.com/neovim/neovim
 alias vim='nvim'
+
+# https://github.com/sharkdp/hexyl
+alias xxd='hexyl'
