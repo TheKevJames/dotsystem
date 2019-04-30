@@ -6,5 +6,5 @@ VENV="${XDG_DATA_HOME}/venv/lsp"
 cd "${VENV}"
 source ./bin/activate
 
-[[ -f ./bin/pyls ]] || python3 -m pip install "python-language-server[maccabe,pycodestyle,pydocstyle,pyflakes,rope,yapf]" pyls-mypy pyls-isort
+[[ -f ./bin/pyls ]] || python3 -m pip install "python-language-server[autopep8,mccabe,pycodestyle,pydocstyle,pyflakes,rope,yapf]" pyls-mypy pyls-isort
 ./bin/pyls "$@"
