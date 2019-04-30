@@ -8,6 +8,6 @@ run_cmd "task next +work" 0
 run_cmd "youtube-viewer -s -n -L" 1
 
 send_keys "task next +work" 0
-send_keys ":anp 1.." 1
+# send_keys ":anp 1.." 1
 
 select_pane 2
