@@ -1,6 +1,6 @@
 repos:
 -   repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v2.2.1
+    rev: v2.2.3
     hooks:
     -   id: check-case-conflict
     -   id: check-executables-have-shebangs
@@ -88,8 +88,9 @@ repos:
         args:
         - --ignore=E501,W503,F811
 -   repo: https://github.com/pre-commit/pygrep-hooks
-    rev: v1.3.0
+    rev: v1.4.0
     hooks:
+    -   id: python-no-eval
     -   id: python-no-log-warn
     -   id: python-use-type-annotations
 
@@ -119,7 +120,7 @@ repos:
 
 # terraform
 -   repo: https://github.com/antonbabenko/pre-commit-terraform
-    rev: v1.10.0
+    rev: v1.12.0
     hooks:
     -   id: terraform_fmt
     -   id: terraform_validate_with_variables
