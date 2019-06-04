@@ -1,6 +1,8 @@
 # https://github.com/sharkdp/bat
 # alias cat='bat'
 alias less='bat'
+export PAGER='bat'
+export LESS='-R'
 
 # https://the.exa.website/
 alias l='exa -la'

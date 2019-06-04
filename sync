@@ -205,15 +205,6 @@ if grep -q "ngrok:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     fi
 fi
 
-if grep -q "oh-my-zsh:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
-    export ZSH="${XDG_CONFIG_HOME}/oh-my-zsh"
-
-    if [ ! -d "${ZSH}" ]; then
-        sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-    fi
-    rm -f ~/.zshrc*
-fi
-
 if grep -q "prettyping:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if ! which prettyping >/dev/null; then
         sudo curl -fsSLo /usr/local/bin/prettyping "https://raw.githubusercontent.com/denilsonsa/prettyping/master/prettyping"

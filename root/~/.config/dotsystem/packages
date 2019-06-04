@@ -19,7 +19,6 @@ sublime-text:subl
 tmux
 tmuxifier:sh
 zsh
-oh-my-zsh:sh
 
 git
 hub:sh
