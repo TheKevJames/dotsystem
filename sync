@@ -227,8 +227,7 @@ fi
 
 if grep -q "tmuxifier:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if ! which tmuxifier >/dev/null; then
-        sudo git clone https://github.com/jimeh/tmuxifier.git /opt/tmuxifier
-        sudo ln -s /opt/tmuxifier/bin/tmuxifier /usr/local/bin/tmuxifier
+        git clone https://github.com/jimeh/tmuxifier.git "${XDG_SRC_HOME}/tmuxifier"
     fi
 fi
 
