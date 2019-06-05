@@ -137,10 +137,7 @@ if grep -q "franz:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if ! which franz >/dev/null; then
         TEMPFILE=$(mktemp)
         if [[ "$OSTYPE" == "darwin"* ]]; then
-            curl -fsSL "https://github.com/meetfranz/franz/releases/download/v5.0.0-beta.18/franz-5.0.0-beta.18.dmg" > "${TEMPFILE}.dmg"
-            hdiutil mount "${TEMPFILE}.dmg"
-            sudo cp -R "/Volumes/Franz/Franz.app" "/Applications/Franz.app"
-            hdiutil unmount "${TEMPFILE}.dmg"
+            brew cask install franz
             sudo ln -s /Applications/Franz.app/Contents/MacOS/Franz /usr/local/bin/franz
         else
             curl -fsSL "https://github.com/meetfranz/franz-app/releases/download/4.0.4/Franz-linux-x64-4.0.4.tgz" > "${TEMPFILE}.tgz"
@@ -215,11 +212,8 @@ fi
 if grep -q "sublime-text:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if ! which subl >/dev/null; then
         TEMPFILE=$(mktemp)
-        if [[ "$OSTYPE" == "darwin"* ]]; then
-            curl -fsSL "https://download.sublimetext.com/Sublime%20Text%20Build%203143.dmg" > "${TEMPFILE}.dmg"
-            hdiutil mount "${TEMPFILE}.dmg"
-            sudo cp -R "/Volumes/Sublime Text/Sublime Text.app" "/Applications/Sublime Text.app"
-            hdiutil unmount "${TEMPFILE}.dmg"
+        if [[ "$OSTYPE" == "darwin"* ]]; thenå
+            brew cask install sublime-text
             sudo ln -s "/Applications/Sublime Text.app/Contents/MacOS/Sublime Text" /usr/local/bin/subl
         fi
     fi
