@@ -1,5 +1,5 @@
 window:
-  decorations: true
+  decorations: buttonless
   dimensions:
     columns: 80
     lines: 24
@@ -30,12 +30,10 @@ font:
     x: 0
     y: 0
 
-  scale_with_dpi: true
   use_thin_strokes: true
 
 render_timer: false
 
-custom_cursor_colors: false
 colors:
   primary:
     background: '0x000000'
@@ -80,7 +78,8 @@ background_opacity: 1.0
 mouse:
   double_click: { threshold: 300 }
   triple_click: { threshold: 300 }
-  faux_scrollback_lines: 1
+  faux_scrolling_lines: 1
+  hide_when_typing: false
 
 selection:
   # semantic_escape_chars: ",│`|:\"' ()[]{}<>"
@@ -88,8 +87,8 @@ selection:
 
 dynamic_title: true
 
-hide_cursor_when_typing: false
-cursor_style: Block
+cursor:
+  style: Block
 
 live_config_reload: true
 
