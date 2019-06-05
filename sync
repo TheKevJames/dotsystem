@@ -232,6 +232,16 @@ if grep -q "tmuxifier:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     fi
 fi
 
+if grep -q "alacritty:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        if [[ ! -f /Applications/Alacritty.app/Contents/MacOS/alacritty ]]; then
+            brew cask install alacritty
+        fi
+    else
+        eval "${PACMAN_INSTALL} transmission"
+    fi
+fi
+
 if grep -q "transmission-daemon:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if ! which transmission-daemon >/dev/null; then
         if [[ "$OSTYPE" == "darwin"* ]]; then
