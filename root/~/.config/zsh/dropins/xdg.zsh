@@ -2,6 +2,7 @@ export ALACRITTY_LOG="${XDG_DATA_HOME}/alacritty/history"
 export CARGO_HOME="${XDG_DATA_HOME}/cargo"
 export DOCKER_CONFIG="${XDG_CONFIG_HOME}/docker"
 export GNUPGHOME="${XDG_CONFIG_HOME}/gnupg"
+export GOPATH="${XDG_DATA_HOME}/go"
 export HELM_HOME="${XDG_CACHE_HOME}/helm"
 export ICEAUTHORITY="${XDG_RUNTIME_DIR}/ICEauthority"  # NOTE: also must be set in /etc/environment
 export INPUTRC="${XDG_CONFIG_HOME}/inputrc"
@@ -47,4 +48,4 @@ alias cpan="cpan -j ${XDG_CONFIG_HOME}/cpan/Config.pm"
 alias irssi="irssi --home=${XDG_CONFIG_HOME}/irssi"
 alias lmms="lmms --config=${XDG_CONFIG_HOME}/lmms/config"
 
-export PATH="${PYENV_ROOT}/shims:${CARGO_HOME}/bin:${PATH}"
+export PATH="${PYENV_ROOT}/shims:${CARGO_HOME}/bin:${GOPATH}/bin:${PATH}"

@@ -30,6 +30,7 @@ I am a huge fan of the `XDG Base Directory Spec`_. The following configured apps
 - cpan. Partial support with ``-j`` flag and setting values in your ``Config.pm`` to XDG-compliant ones.
 - docker. Support by setting ``$DOCKER_CONFIG``. In-progress real support: `docker XDG issue`_ (including a couple failed `docker XDG PR`_ s).
 - gnupg. `gnupg is a snowflake`_. Partial support by setting ``$GNUPGHOME``.
+- go. Support by setting ``$GOPATH``.
 - helm. Support by setting ``$HELM_HOME``.
 - irb. Partial support by setting ``$IRBRC``.
 - irssi. Partial support with ``--home`` flag.
