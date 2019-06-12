@@ -81,6 +81,9 @@ mouse:
   faux_scrolling_lines: 1
   hide_when_typing: false
 
+  url:
+    launcher: none
+
 selection:
   # semantic_escape_chars: ",│`|:\"' ()[]{}<>"
   semantic_escape_chars: "│`|:\"' ()[]{}<>"
