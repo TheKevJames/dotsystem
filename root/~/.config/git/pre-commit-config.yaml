@@ -119,11 +119,11 @@ repos:
     -   id: jshint
 
 # terraform
--   repo: https://github.com/antonbabenko/pre-commit-terraform
-    rev: v1.12.0
+-   repo: https://github.com/kintoandar/pre-commit
+    rev: v2.1.0
     hooks:
     -   id: terraform_fmt
-    -   id: terraform_validate_with_variables
+    -   id: terraform_validate
 
 # docker
 -   repo: https://github.com/pryorda/dockerfilelint-precommit-hooks
