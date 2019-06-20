@@ -79,7 +79,7 @@
     enabled = true
 
 [web]
-    browser = google-chrome
+    browser = firefox
 
 [include]
     path = ~/.config/git/config-personal
