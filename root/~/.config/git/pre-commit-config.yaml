@@ -14,7 +14,7 @@ repos:
     -   id: detect-private-key
     -   id: end-of-file-fixer
     -   id: file-contents-sorter
-        files: .dockerignore .gitignore
+        files: .(docker|git)ignore
     -   id: mixed-line-ending
         args: [--fix=lf]
     -   id: trailing-whitespace
@@ -46,12 +46,12 @@ repos:
     -   id: remove-crlf
     -   id: remove-tabs
 -   repo: https://github.com/asottile/reorder_python_imports
-    rev: v1.4.0
+    rev: v1.5.0
     hooks:
     -   id: reorder-python-imports
         args: [--py37-plus]
 -   repo: https://github.com/asottile/pyupgrade
-    rev: v1.16.3
+    rev: v1.19.0
     hooks:
     -   id: pyupgrade
         args: [--py36-plus]
@@ -62,13 +62,12 @@ repos:
         require_serial: True
         args:
         - --ignore-missing-imports
-        - --follow-imports=skip
+        - --follow-imports=silent
         - --strict
         - --strict-equality
-        - --no-strict-optional
         exclude: tests/.*
 -   repo: https://github.com/asottile/yesqa
-    rev: v0.0.10
+    rev: v0.0.11
     hooks:
     -   id: yesqa
 -   repo: https://github.com/pre-commit/mirrors-autopep8
@@ -86,7 +85,7 @@ repos:
     hooks:
     -   id: flake8
         args:
-        - --ignore=E501,W503,F811
+        - --ignore=E501,W503,F401,F811
 -   repo: https://github.com/pre-commit/pygrep-hooks
     rev: v1.4.0
     hooks:
@@ -114,7 +113,7 @@ repos:
     hooks:
     -   id: fixmyjs
 -   repo: https://github.com/pre-commit/mirrors-jshint
-    rev: v2.10.1
+    rev: v2.10.2
     hooks:
     -   id: jshint
 
