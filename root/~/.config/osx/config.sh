@@ -4,6 +4,7 @@
 
 # key repeat > key hold
 defaults write -g ApplePressAndHoldEnabled -bool false
+defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
 defaults write NSGlobalDomain KeyRepeat -int 0
 
 # use list view in finder
