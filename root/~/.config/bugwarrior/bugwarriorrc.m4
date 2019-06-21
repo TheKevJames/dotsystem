@@ -44,7 +44,7 @@ service = github
 github.login = thekevjames
 github.token = M4_BUGWARRIOR_GITHUB_API_TOKEN
 
-github.query = is:open user:thekevjames
+github.query = is:open user:thekevjames -repo:TheKevJames/puppet-homebrew
 github.include_user_issues = False
 github.include_user_repos = False
 github.username = foo
