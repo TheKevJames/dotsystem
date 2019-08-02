@@ -124,9 +124,6 @@ for package in $(cat "${XDG_CONFIG_HOME}/dotsystem/packages"); do
         packages+=("${name}")
     fi
 done
-if [[ "$OSTYPE" == "darwin"* ]]; then
-    which reattach-to-user-namespace >/dev/null || packages+=("reattach-to-user-namespace")
-fi
 
 echo "Installing packages..."
 if [[ "${packages[@]:-}" != "" ]]; then
