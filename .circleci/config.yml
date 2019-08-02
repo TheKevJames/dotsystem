@@ -4,6 +4,7 @@ orbs:
   linter: thekevjames/linter@0
 
 workflows:
+  version: 2
   run-jobs:
     jobs:
       - linter/pre-commit:
