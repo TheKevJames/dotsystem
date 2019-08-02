@@ -46,12 +46,12 @@ repos:
     -   id: remove-crlf
     -   id: remove-tabs
 -   repo: https://github.com/asottile/reorder_python_imports
-    rev: v1.5.0
+    rev: v1.6.1
     hooks:
     -   id: reorder-python-imports
         args: [--py37-plus]
 -   repo: https://github.com/asottile/pyupgrade
-    rev: v1.19.0
+    rev: v1.22.0
     hooks:
     -   id: pyupgrade
         args: [--py36-plus]
@@ -65,6 +65,7 @@ repos:
         - --follow-imports=silent
         - --strict
         - --strict-equality
+        - --warn-unreachable
         exclude: tests/.*
 -   repo: https://github.com/asottile/yesqa
     rev: v0.0.11
@@ -75,19 +76,19 @@ repos:
     hooks:
     -   id: autopep8
 -   repo: https://github.com/PyCQA/pydocstyle
-    rev: 792b8d92  # TODO: >3.0.0
+    rev: 4.0.0
     hooks:
     -   id: pydocstyle
         args:
         - --ignore=D1,D203,D205,D212,D400,D401,D404
 -   repo: https://gitlab.com/pycqa/flake8
-    rev: 3.7.7
+    rev: 3.7.8
     hooks:
     -   id: flake8
         args:
         - --ignore=E501,W503,F401,F811
 -   repo: https://github.com/pre-commit/pygrep-hooks
-    rev: v1.4.0
+    rev: v1.4.1
     hooks:
     -   id: python-no-eval
     -   id: python-no-log-warn
@@ -129,3 +130,21 @@ repos:
     rev: v0.1.0
     hooks:
     -   id: dockerfilelint
+
+# shell
+-   repo: https://github.com/lovesegfault/beautysh
+    rev: "4.1"
+    hooks:
+    -   id: beautysh
+-   repo: https://github.com/openstack/bashate
+    rev: 0.6.0
+    hooks:
+    -   id: bashate
+-   repo: https://github.com/detailyang/pre-commit-shell
+    rev: v1.0.6
+    hooks:
+    -   id: shell-lint
+-   repo: https://github.com/jumanjihouse/pre-commit-hooks
+    rev: 1.11.0
+    hooks:
+    -   id: script-must-not-have-extension
