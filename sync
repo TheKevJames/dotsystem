@@ -209,7 +209,7 @@ fi
 if grep -q "sublime-text:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if ! which subl >/dev/null; then
         TEMPFILE=$(mktemp)
-        if [[ "$OSTYPE" == "darwin"* ]]; thenå
+        if [[ "$OSTYPE" == "darwin"* ]]; then
             brew cask install sublime-text
             sudo ln -s "/Applications/Sublime Text.app/Contents/MacOS/Sublime Text" /usr/local/bin/subl
         fi

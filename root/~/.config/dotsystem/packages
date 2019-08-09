@@ -1,10 +1,9 @@
-alacritty:sh
 bat
 curl
 exa
 fd
 hexyl:sh
-jira:sh
+htop
 jq
 less
 m4
@@ -15,9 +14,12 @@ tar
 unzip
 wget
 
+jira:sh
+
 neovim:nvim
 sublime-text:subl
 
+alacritty:sh
 tmux
 tmuxifier:sh
 zsh
