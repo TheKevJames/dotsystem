@@ -1,3 +1,3 @@
-# source /opt/google-cloud-sdk/completion.zsh.inc
+source "${XDG_SRC_HOME}/google-cloud-sdk/completion.zsh.inc"
 
-export PATH="/opt/google-cloud-sdk/bin:${PATH}"
+export PATH="${XDG_SRC_HOME}/google-cloud-sdk/bin:${PATH}"
