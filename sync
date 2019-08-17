@@ -182,6 +182,18 @@ if grep -q "franz:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     fi
 fi
 
+if grep -q "gcloud:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
+    if ! which gcloud >/dev/null; then
+        TEMPFILE=$(mktemp)
+        if [[ "$OSTYPE" == "darwin"* ]]; then
+            curl -fsSL "https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-258.0.0-darwin-x86_64.tar.gz" > "${TEMPFILE}.tgz"
+        else
+            curl -fsSL "https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-258.0.0-linux-x86_64.tar.gz" > "${TEMPFILE}.tgz"
+        fi
+        tar xzf "${TEMPFILE}.tgz" -C "${XDG_SRC_HOME}"
+    fi
+fi
+
 if grep -q "gpg:gnupg" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if [[ "$OSTYPE" == "darwin"* ]]; then
         if ! which pinentry-mac >/dev/null; then
@@ -264,15 +276,13 @@ if grep -q "sublime-text:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     fi
 fi
 
-if grep -q "gcloud:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
-    if ! which gcloud >/dev/null; then
-        TEMPFILE=$(mktemp)
+if grep -q "taskwarrior:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
+    if ! which task >/dev/null; then
         if [[ "$OSTYPE" == "darwin"* ]]; then
-            curl -fsSL "https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-258.0.0-darwin-x86_64.tar.gz" > "${TEMPFILE}.tgz"
+            eval "${PACMAN_INSTALL} task"
         else
-            curl -fsSL "https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-258.0.0-linux-x86_64.tar.gz" > "${TEMPFILE}.tgz"
+            eval "${PACMAN_INSTALL} taskwarrior"
         fi
-        tar xzf "${TEMPFILE}.tgz" -C "${XDG_SRC_HOME}"
     fi
 fi
 

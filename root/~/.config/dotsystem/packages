@@ -17,6 +17,7 @@ wget
 
 gcloud:sh
 jira:sh
+taskwarrior:sh
 
 neovim:nvim
 sublime-text:sh
