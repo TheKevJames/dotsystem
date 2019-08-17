@@ -47,6 +47,17 @@ bootstrap-pable:
     # TODO: bootstrap ~/.local/share/dotsystem/secrets.m4 somehow
     ./sync --force
 
+Old Machines
+------------
+
+When sunsetting a machine, there's not much that needs to be done:
+
+.. code-block:: console
+
+    # invalidate old ssh keys: https://github.com/settings/keys
+    # revoke personal access tokens: https://github.com/settings/tokens
+    rm -rf ~
+
 Secrets
 -------
 
@@ -59,6 +70,58 @@ the updated secrets into your configuration.
 You can find a `sample secrets file`_ in this repo.
 
 .. _sample secrets file: secrets.m4.sample
+
+TODO
+----
+
+There's a few things I don't yet have synced. Most of this is mostly only
+relevant for new machines.
+
+.. code-block:: console
+
+    # no binaries on OSX, so doesn't work great in ./sync. Do a file check?
+    brew cask install docker dropbox gitify
+
+    # force override of OSX's way out-of-date builtin
+    brew install zsh
+    which zsh | sudo tee -a /etc/shells
+
+    # force override of OSX's python2, since homebrew has decided python=py3
+    brew install python2
+
+    # use zsh by default
+    chsh -s $(which zsh)
+    sudo chsh -s $(which zsh)
+
+    # install configured vim plugins
+    vim -c ':PlugInstall' -c 'qa!'
+
+    # configure gpg keys
+    go get -u github.com/skeeto/passphrase2pgp
+    passphrase2pgp --subkey --protect | gpg --import
+    passphrase2pgp --subkey --protect --uid "Kevin James <kjames@dialpad.com>" | gpg --import  # etc
+
+    # install Magnet and CCMenu from the App Store, then configure them:
+    defaults write com.crowdcafe.windowmagnet ...
+    defaults write net.sourceforge.cruisecontrol.CCMenu ...
+
+    # Settings > Keyboard > Modifier Keys > "Caps Lock -> Escape"
+
+    # set the system hostname
+    sudo scutil --set ComputerName <foo>
+
+    # install packages from language package managers
+    gcloud components install gsutil kubectl
+    python3 -m pip install pre-commit
+
+    # configure bugwarrior-pull as cron job
+
+    # install ".../sublime-text-3/Local/License.sublime_license"
+    # configure package manager: https://packagecontrol.io/installation
+
+    # install youtube-viewer: https://github.com/trizen/youtube-viewer
+
+    go get -u github.com/mbrt/gmailctl/cmd/gmailctl
 
 XDG Wall of Shame
 -----------------
