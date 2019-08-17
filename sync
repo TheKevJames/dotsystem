@@ -174,10 +174,16 @@ if grep -q "franz:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
         if [[ "$OSTYPE" == "darwin"* ]]; then
             brew cask install franz
             sudo ln -s /Applications/Franz.app/Contents/MacOS/Franz /usr/local/bin/franz
+
+            mkdir -p ~/.config/Franz/recipes/dev/
+            git clone git@github.com:TheKevJames/franz-recipe-dialpad.git ~/.config/Franz/recipes/dev/dialpad
         else
             curl -fsSL "https://github.com/meetfranz/franz-app/releases/download/4.0.4/Franz-linux-x64-4.0.4.tgz" > "${TEMPFILE}.tgz"
             tar xzf "${TEMPFILE}.tgz" -C /opt/franz
             sudo ln -s /opt/franz/Franz /usr/local/bin/franz
+
+            mkdir -p ~/Library/Application\ Support/Franz/recipes/dev/
+            git clone git@github.com:TheKevJames/franz-recipe-dialpad.git ~/Library/Application\ Support/Franz/recipes/dev/dialpad
         fi
     fi
 fi
