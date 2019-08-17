@@ -78,11 +78,13 @@
 [rerere]
     enabled = true
 
+[user]
+    email = KevinJames@thekev.in
+    name = Kevin James
+    signingKey = B2B0BD2FE4EE84C5
+
 [web]
     browser = firefox
-
-[include]
-    path = ~/.config/git/config-personal
 
 [includeIf "gitdir:~/coding/talkiq/"]
     path = ~/.config/git/config-talkiq
