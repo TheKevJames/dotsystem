@@ -28,10 +28,15 @@ bootstrap-pable:
     # Login to Sync > wait for extensions > Login to LastPass > Login to GitHub
 
     # configure ssh...
-    ssh-keygen -o -a 100 -t ed25519 -C “KevinJames@thekev.in”
+    ssh-keygen -o -a 100 -t ed25519 -C "KevinJames@thekev.in"
     ssh-add -K ~/.ssh/id_ed25519
     # ...and dump it into GitHub: https://github.com/settings/ssh/new
     cat ~/.ssh/id_ed25519.pub | pbcopy
+
+    # if you need multiple identities, eg.
+    ssh-keygen -o -a 100 -t ed25519 -C "kjames@dialpad.com" -f ~/.ssh/dialpad
+    ssh-add -K ~/.ssh/dialpad
+    cat ~/.ssh/dialpad.pub | pbcopy
 
     # clone the dotsystem repo...
     mkdir -p ~/coding/personal
