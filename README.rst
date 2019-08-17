@@ -49,9 +49,7 @@ bootstrap-pable:
 
     # ...and do the first sync
     # TODO: bootstrap ~/.local/share/dotsystem/secrets.m4 somehow
-    # TODO: ./sync --force-yes
-    yes 1 | ./sync --skip-packages
-    ./sync
+    ./sync --force
 
 Secrets
 -------

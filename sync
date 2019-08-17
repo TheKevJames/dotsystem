@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-if [[ "$@" == *"--help"* ]]; then
+if [[ "$@" == *"-h"* ]]; then
     echo "syncs your system from your dotsystem config"
     echo
     echo "Options:"
+    echo "  --force             force over-write of all missing/modified files"
     echo "  --skip-packages     do not update installed packages"
 
     exit 0
@@ -14,6 +15,7 @@ echo "Running dotsystem..."
 
 # Variables
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+FORCE=$(if [[ "$@" == *"--force"* ]]; then echo "y"; else echo "n"; fi)
 
 XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-~/.config}
 XDG_DATA_HOME=${XDG_DATA_HOME:-~/.local/share}
@@ -55,16 +57,21 @@ set_file() {
     if ! sudo diff -q "${1}" "${DEST}" >/dev/null; then
         echo "${DEST} will be modified according to the following diff."
         sudo diff "${DEST}" "${1}" || true
-        echo "Apply this change?"
 
-        select yn in "Yes" "No"; do
-            case $yn in
-                Yes ) cp "${1}" "${DEST}" 2>/dev/null || sudo cp "${1}" "${DEST}";
-                      if [[ "${DEST}" == *"/bin/"* ]]; then sudo chmod a+x "${DEST}"; fi;
-                      break;;
-                No )  break;;
-            esac
-        done
+        if [[ "${FORCE}" == "y" ]]; then
+            cp "${1}" "${DEST}" 2>/dev/null || sudo cp "${1}" "${DEST}"
+            if [[ "${DEST}" == *"/bin/"* ]]; then sudo chmod a+x "${DEST}"; fi
+        else
+            echo "Apply this change?"
+            select yn in "Yes" "No"; do
+                case $yn in
+                    Yes ) cp "${1}" "${DEST}" 2>/dev/null || sudo cp "${1}" "${DEST}";
+                          if [[ "${DEST}" == *"/bin/"* ]]; then sudo chmod a+x "${DEST}"; fi;
+                          break;;
+                    No )  break;;
+                esac
+            done
+        fi
     fi
 }
 
