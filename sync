@@ -226,6 +226,8 @@ if grep -q "sublime-text:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
         if [[ "$OSTYPE" == "darwin"* ]]; then
             brew cask install sublime-text
             sudo ln -s "/Applications/Sublime Text.app/Contents/MacOS/Sublime Text" /usr/local/bin/subl
+        else
+            eval "${PACMAN_INSTALL} sublime-text"
         fi
     fi
 fi

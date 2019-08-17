@@ -17,7 +17,7 @@ wget
 jira:sh
 
 neovim:nvim
-sublime-text:subl
+sublime-text:sh
 
 alacritty:sh
 tmux
