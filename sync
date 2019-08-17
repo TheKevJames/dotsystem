@@ -264,6 +264,18 @@ if grep -q "sublime-text:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     fi
 fi
 
+if grep -q "gcloud:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
+    if ! which gcloud >/dev/null; then
+        TEMPFILE=$(mktemp)
+        if [[ "$OSTYPE" == "darwin"* ]]; then
+            curl -fsSL "https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-258.0.0-darwin-x86_64.tar.gz" > "${TEMPFILE}.tgz"
+        else
+            curl -fsSL "https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-258.0.0-linux-x86_64.tar.gz" > "${TEMPFILE}.tgz"
+        fi
+        tar xzf "${TEMPFILE}.tgz" -C "${XDG_SRC_HOME}"
+    fi
+fi
+
 if grep -q "tmuxifier:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if ! which tmuxifier >/dev/null; then
         git clone https://github.com/jimeh/tmuxifier.git "${XDG_SRC_HOME}/tmuxifier"

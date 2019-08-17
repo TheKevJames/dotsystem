@@ -15,6 +15,7 @@ tar
 unzip
 wget
 
+gcloud:sh
 jira:sh
 
 neovim:nvim
