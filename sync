@@ -32,6 +32,20 @@ elif which apt-get >/dev/null; then
     PACMAN_INSTALL="sudo apt-get install"
 else
     echo "ERROR: could not determine package manager."
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        echo "Install homebrew?"
+        if [[ "${FORCE}" == "y" ]]; then
+            ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+        else
+            select yn in "Yes" "No"; do
+                case $yn in
+                    Yes ) ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)";
+                          break;;
+                    No )  break;;
+                esac
+            done
+        fi
+    fi
     exit 1
 fi
 

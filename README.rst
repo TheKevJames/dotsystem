@@ -43,10 +43,6 @@ bootstrap-pable:
     cd ~/coding/personal
     git clone https://github.com/thekevjames/dotsystem.git
 
-    # OSX only: install a package manager
-    # TODO: have ./sync do this
-    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/~/install)"
-
     # ...and do the first sync
     # TODO: bootstrap ~/.local/share/dotsystem/secrets.m4 somehow
     ./sync --force
