@@ -25,6 +25,7 @@ tmuxifier:sh
 zsh
 
 git
+git-standup
 hub:sh
 
 python:python2
