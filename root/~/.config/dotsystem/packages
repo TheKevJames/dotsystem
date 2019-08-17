@@ -15,10 +15,6 @@ tar
 unzip
 wget
 
-gcloud:sh
-jira:sh
-taskwarrior:sh
-
 neovim:nvim
 sublime-text:sh
 
@@ -36,6 +32,10 @@ python:python2
 python3
 
 franz:sh
+gcloud:sh
 irssi
+jira:sh
+lastpass-cli:lpass
 ngrok:sh
+taskwarrior:sh
 transmission-daemon:sh
