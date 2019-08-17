@@ -2,6 +2,7 @@ bat
 curl
 exa
 fd
+gpg:gnupg
 hexyl:sh
 htop
 jq

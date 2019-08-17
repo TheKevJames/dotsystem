@@ -158,6 +158,16 @@ if [[ "${packages[@]:-}" != "" ]]; then
     eval "${PACMAN_INSTALL} ${packages[@]}"
 fi
 
+if grep -q "alacritty:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        if [[ ! -f /Applications/Alacritty.app/Contents/MacOS/alacritty ]]; then
+            brew cask install alacritty
+        fi
+    else
+        eval "${PACMAN_INSTALL} alacritty"
+    fi
+fi
+
 if grep -q "franz:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if ! which franz >/dev/null; then
         TEMPFILE=$(mktemp)
@@ -168,6 +178,14 @@ if grep -q "franz:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
             curl -fsSL "https://github.com/meetfranz/franz-app/releases/download/4.0.4/Franz-linux-x64-4.0.4.tgz" > "${TEMPFILE}.tgz"
             tar xzf "${TEMPFILE}.tgz" -C /opt/franz
             sudo ln -s /opt/franz/Franz /usr/local/bin/franz
+        fi
+    fi
+fi
+
+if grep -q "gpg:gnupg" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        if ! which pinentry-mac >/dev/null; then
+            brew install pinentry-mac
         fi
     fi
 fi
@@ -249,16 +267,6 @@ fi
 if grep -q "tmuxifier:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if ! which tmuxifier >/dev/null; then
         git clone https://github.com/jimeh/tmuxifier.git "${XDG_SRC_HOME}/tmuxifier"
-    fi
-fi
-
-if grep -q "alacritty:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
-    if [[ "$OSTYPE" == "darwin"* ]]; then
-        if [[ ! -f /Applications/Alacritty.app/Contents/MacOS/alacritty ]]; then
-            brew cask install alacritty
-        fi
-    else
-        eval "${PACMAN_INSTALL} transmission"
     fi
 fi
 
