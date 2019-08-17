@@ -76,6 +76,12 @@ set_dir() {
 
 ## Update global configs
 echo "Configuring system..."
+
+if [ ! -f "${XDG_DATA_HOME}/dotsystem/secrets.m4" ]; then
+    echo "No secrets file found, writing defaults to ${XDG_DATA_HOME}/dotsystem/secrets.m4"
+    cp ./secrets.m4.sample "${XDG_DATA_HOME}/dotsystem/secrets.m4"
+fi
+
 IFS=$(echo -en "\n\b"); for file in $(find "${DIR}/root" -type f); do
     if [[ "${file##*.}" == "m4" ]]; then
         TEMPFILE=$(mktemp)

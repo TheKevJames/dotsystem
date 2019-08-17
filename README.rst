@@ -48,9 +48,7 @@ bootstrap-pable:
     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/~/install)"
 
     # ...and do the first sync
-    # TODO: better bootstrap for these secrets. Allow empty values at first?
-    mkdir -p ~/.local/share/dotsystem
-    cp secrets.m4.sample ~/.local/share/dotsystem/secrets.m4
+    # TODO: bootstrap ~/.local/share/dotsystem/secrets.m4 somehow
     # TODO: ./sync --force-yes
     yes 1 | ./sync --skip-packages
     ./sync
