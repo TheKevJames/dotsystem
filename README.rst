@@ -36,6 +36,24 @@ bootstrap-able:
         --data '{"title":"'"$(hostname)"'","key":"'"$(cat ~/.ssh/id_ed25519.pub)"'"}' \
         https://api.github.com/user/keys
 
+    # use zsh by default
+    chsh -s $(which zsh)
+    sudo chsh -s $(which zsh)
+
+    # configure gpg keys
+    passphrase2pgp -se | gpg --import
+    passphrase2pgp -seu "Kevin James <kjames@dialpad.com>" | gpg --import  # etc
+
+    # configure Magnet and CCMenu:
+    defaults write com.crowdcafe.windowmagnet ...
+    defaults write net.sourceforge.cruisecontrol.CCMenu ...
+
+    # Settings > Keyboard > Modifier Keys > "Caps Lock -> Escape"
+
+    # configure bugwarrior-pull as cron job
+
+    # install youtube-viewer: https://github.com/trizen/youtube-viewer
+
 Old Machines
 ------------
 
@@ -74,41 +92,6 @@ but any configurations expecting secrets will be sorely disappointed.
 You can find a `sample secrets file`_ in this repo.
 
 .. _sample secrets file: secrets.m4.sample
-
-TODO
-----
-
-There's a few things I don't yet have synced. Most of this is mostly only
-relevant for new machines.
-
-.. code-block:: console
-
-    # install packages from other package managers
-    gcloud components install gsutil kubectl
-    go get -u github.com/mbrt/gmailctl/cmd/gmailctl
-    go get -u github.com/skeeto/passphrase2pgp
-    mas install 441258766 603117688
-    python3 -m pip install pre-commit
-    vim -c ':PlugInstall' -c 'qa!'
-
-    # use zsh by default
-    chsh -s $(which zsh)
-    sudo chsh -s $(which zsh)
-
-    # configure gpg keys
-    passphrase2pgp --subkey --protect | gpg --import
-    passphrase2pgp --subkey --protect --uid "Kevin James <kjames@dialpad.com>" | gpg --import  # etc
-
-    # configure Magnet and CCMenu:
-    defaults write com.crowdcafe.windowmagnet ...
-    defaults write net.sourceforge.cruisecontrol.CCMenu ...
-
-    # Settings > Keyboard > Modifier Keys > "Caps Lock -> Escape"
-
-    # configure bugwarrior-pull as cron job
-
-    # install youtube-viewer: https://github.com/trizen/youtube-viewer
-
 
 XDG Wall of Shame
 -----------------

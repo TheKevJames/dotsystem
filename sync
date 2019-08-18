@@ -30,9 +30,7 @@ fi
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 FORCE=$(if [[ "$@" == *"--force"* ]]; then echo "y"; else echo "n"; fi)
 
-XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-~/.config}
-XDG_DATA_HOME=${XDG_DATA_HOME:-~/.local/share}
-XDG_SRC_HOME=${XDG_SRC_HOME:-~/.local/src}
+source "${DIR}/root/~/.zshenv"
 
 if which zypper >/dev/null; then
     PACMAN_REFRESH="sudo zypper refresh"
@@ -129,7 +127,7 @@ echo "Configuring system..."
 
 if [ ! -f "${XDG_DATA_HOME}/dotsystem/secrets.m4" ]; then
     echo "No secrets file found, writing defaults to ${XDG_DATA_HOME}/dotsystem/secrets.m4"
-    cp ./secrets.m4.sample "${XDG_DATA_HOME}/dotsystem/secrets.m4"
+    cp "${DIR}/secrets.m4.sample" "${XDG_DATA_HOME}/dotsystem/secrets.m4"
 fi
 
 IFS=$(echo -en "\n\b"); for file in $(find "${DIR}/root" -type f); do
@@ -193,6 +191,14 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     if [[ ! -f "/usr/local/bin/zsh" ]]; then
         brew install zsh
         echo "/usr/local/bin/zsh" | sudo tee -a /etc/shells
+    fi
+
+    # TODO: move to packages configuration file
+    if [[ ! -f "/Applications/CCMenu.app/Contents/MacOS/CCMenu" ]]; then
+        mas install 603117688
+    fi
+    if [[ ! -f "/Applications/Magnet.app/Contents/MacOS/Magnet" ]]; then
+        mas install 441258766
     fi
 fi
 
@@ -271,6 +277,9 @@ if grep -q "gcloud:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
             curl -fsSL "https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-258.0.0-linux-x86_64.tar.gz" > "${TEMPFILE}.tgz"
         fi
         tar xzf "${TEMPFILE}.tgz" -C "${XDG_SRC_HOME}"
+
+        # TODO: move to packages configuration file
+        gcloud components install gsutil kubectl
     fi
 fi
 
@@ -280,6 +289,16 @@ if grep -q "gitify:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
         if [[ ! -f "/Applications/Gitify.app/Contents/MacOS/Gitify" ]]; then
             brew cask install gitify
         fi
+    fi
+fi
+
+# TODO: move to packages configuration file
+if grep -q "go" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
+    if [ ! -f "${XDG_DATA_HOME}/go/bin/gmailctl" ]; then
+        go get -u github.com/mbrt/gmailctl/cmd/gmailctl
+    fi
+    if [ ! -f "${XDG_DATA_HOME}/go/bin/passphrase2pgp" ]; then
+        go get -u github.com/skeeto/passphrase2pgp
     fi
 fi
 
@@ -331,6 +350,7 @@ fi
 if grep -q "neovim:nvim" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if [ ! -f "${XDG_DATA_HOME}/nvim/site/autoload/plug.vim" ]; then
         curl -fsSLo "${XDG_DATA_HOME}/nvim/site/autoload/plug.vim" --create-dirs "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+        nvim -c ':PlugInstall' -c 'qa!'
     fi
 fi
 
@@ -344,6 +364,11 @@ if grep -q "ngrok:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
         fi
         sudo unzip "${TEMPFILE}.zip" -d /usr/local/bin
     fi
+fi
+
+# TODO: move to packages configuration file
+if ! which pre-commit >/dev/null; then
+    python3 -m pip install pre-commit
 fi
 
 if grep -q "prettyping:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
