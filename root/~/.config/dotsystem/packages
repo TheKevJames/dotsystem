@@ -28,7 +28,7 @@ git-standup
 hub:sh
 
 go
-python:python2
+python2
 python3
 
 franz:sh
