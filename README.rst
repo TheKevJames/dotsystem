@@ -82,10 +82,6 @@ relevant for new machines.
     # no binaries on OSX, so doesn't work great in ./sync. Do a file check?
     brew cask install docker dropbox gitify
 
-    # force override of OSX's way out-of-date builtin
-    brew install zsh
-    which zsh | sudo tee -a /etc/shells
-
     # force override of OSX's python2, since homebrew has decided python=py3
     brew install python2
 
