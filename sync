@@ -19,11 +19,7 @@ if [[ ! -f ~/.ssh/id_ed25519 ]]; then
 
     # set hostname
     read -p "Enter system hostname: " hostname
-    if [[ "$OSTYPE" == "darwin"* ]]; then
-        sudo scutil --set ComputerName "${hostname}"
-    else
-        sudo hostname "${hostname}"
-    fi
+    sudo hostname "${hostname}"
 
     echo "Creating ~/.ssh/id_ed25519..."
     ssh-keygen -o -a 100 -t ed25519 -C "KevinJames@thekev.in" -f ~/.ssh/id_ed25519

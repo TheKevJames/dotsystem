@@ -9,38 +9,32 @@ Clone and run. To update configuration, pull and run. Changes will prompt you.
 .. code-block:: console
 
     git clone https://github.com/thekevjames/dotsystem.git
-    ./dotsystem/sync [--force] [--secrets] [--skip-packages]
+    cd ./dotsystem
+    ./sync [--force] [--secrets] [--skip-packages]
 
 New Machines
 ------------
 
-If you're provisioning a new machine from scratch, there's some initial steps
+If you're provisioning a new machine from scratch, there's some extra steps
 that have to be done outside of ``./sync`` to make your machine entirely
-bootstrap-pable:
+bootstrap-able:
 
 .. code-block:: console
 
     # OSX only: disable SIP by booting into recovery mode (hold cmd-r on boot)
     csrutil disable
 
-    # clone the dotsystem repo...
+    # clone the dotsystem repo and do the initial sync
     git clone https://github.com/thekevjames/dotsystem.git ~/coding/personal/dotsystem
-
-    # ...and do the first sync
     cd ~/coding/personal/dotsystem
     ./sync --force
     ./sync --force --secrets
 
-    # install Firefox, to grab passwords through LastPass
-    # https://www.mozilla.org/en-us/firefox/new/
-    # Login to Sync > wait for extensions > Login to LastPass > Login to GitHub
-
-    # configure ssh in GitHub: https://github.com/settings/ssh/new
-    cat ~/.ssh/id_ed25519.pub | pbcopy
-
-    # if you need multiple identities, eg.
-    ssh-keygen -o -a 100 -t ed25519 -C "kjames@dialpad.com" -f ~/.ssh/dialpad
-    cat ~/.ssh/dialpad.pub | pbcopy
+    # upload your new key to Github
+    curl \
+        -su "thekevjames:$(lpass show --note dotsystem/github-token)" \
+        --data '{"title":"'"$(hostname)"'","key":"'"$(cat ~/.ssh/id_ed25519.pub)"'"}' \
+        https://api.github.com/user/keys
 
 Old Machines
 ------------
@@ -49,7 +43,14 @@ When sunsetting a machine, there's not much that needs to be done:
 
 .. code-block:: console
 
-    # invalidate old ssh keys: https://github.com/settings/keys
+    # invalidate your ssh key (or, via UI: https://github.com/settings/keys)
+    curl \
+        -XDELETE \
+        -su "thekevjames:$(lpass show --note dotsystem/github-token)" \
+        "https://api.github.com/user/keys/$(curl \
+            -su "thekevjames:$(lpass show --note dotsystem/github-token)" \
+            https://api.github.com/user/keys | jq '.[] | select(.title == "'"$(hostname)"'").id')"
+
     # revoke personal access tokens: https://github.com/settings/tokens
     rm -rf ~
 
@@ -75,7 +76,7 @@ relevant for new machines.
 .. code-block:: console
 
     # no binaries on OSX, so doesn't work great in ./sync. Do a file check?
-    brew cask install docker dropbox gitify
+    brew cask install docker dropbox firefox gitify
 
     # use zsh by default
     chsh -s $(which zsh)
