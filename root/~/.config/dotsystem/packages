@@ -33,8 +33,10 @@ python3
 
 docker:sh
 dropbox:sh
+firefox:sh
 franz:sh
 gcloud:sh
+gitify:sh
 irssi
 jira:sh
 lastpass-cli:lpass

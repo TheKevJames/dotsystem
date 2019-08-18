@@ -229,6 +229,18 @@ if grep -q "docker:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     fi
 fi
 
+if grep -q "firefox:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        if [[ ! -f "/Applications/Firefox.app/Contents/MacOS/Dropbox" ]]; then
+            brew cask install firefox
+        fi
+    else
+        if ! which firefox >/dev/null; then
+            eval "${PACMAN_INSTALL} firefox"
+        fi
+    fi
+fi
+
 if grep -q "franz:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if ! which franz >/dev/null; then
         TEMPFILE=$(mktemp)
@@ -258,6 +270,15 @@ if grep -q "gcloud:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
             curl -fsSL "https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-258.0.0-linux-x86_64.tar.gz" > "${TEMPFILE}.tgz"
         fi
         tar xzf "${TEMPFILE}.tgz" -C "${XDG_SRC_HOME}"
+    fi
+fi
+
+if grep -q "gitify:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
+    # TODO: find a cross-platform version
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        if [[ ! -f "/Applications/Gitify.app/Contents/MacOS/Gitify" ]]; then
+            brew cask install gitify
+        fi
     fi
 fi
 
