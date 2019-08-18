@@ -1,0 +1,3 @@
+[core]
+project = gke-managed-upgrade
+account = kjames@dialpad.com

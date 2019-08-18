@@ -1,0 +1,4 @@
+[core]
+account = kjames@dialpad.com
+project = talkiq-data
+pass_credentials_to_gsutil = true
