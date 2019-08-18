@@ -84,7 +84,7 @@ relevant for new machines.
 .. code-block:: console
 
     # no binaries on OSX, so doesn't work great in ./sync. Do a file check?
-    brew cask install dropbox firefox gitify
+    brew cask install firefox gitify
 
     # use zsh by default
     chsh -s $(which zsh)

@@ -207,6 +207,18 @@ if grep -q "alacritty:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     fi
 fi
 
+if grep -q "dropbox:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        if [[ ! -f "/Applications/Dropbox.app/Contents/MacOS/Dropbox" ]]; then
+            brew cask install dropbox
+        fi
+    else
+        if ! which dropbox >/dev/null; then
+            eval "${PACMAN_INSTALL} dropbox"
+        fi
+    fi
+fi
+
 if grep -q "docker:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if ! which docker >/dev/null; then
         if [[ "$OSTYPE" == "darwin"* ]]; then
