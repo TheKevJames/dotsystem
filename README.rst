@@ -45,7 +45,6 @@ bootstrap-able:
     passphrase2pgp -seu "Kevin James <kjames@dialpad.com>" | gpg --import  # etc
 
     # configure Magnet and CCMenu:
-    defaults write com.crowdcafe.windowmagnet ...
     defaults write net.sourceforge.cruisecontrol.CCMenu ...
 
     # Settings > Keyboard > Modifier Keys > "Caps Lock -> Escape"
