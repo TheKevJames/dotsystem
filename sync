@@ -201,7 +201,19 @@ if grep -q "alacritty:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
             brew cask install alacritty
         fi
     else
-        eval "${PACMAN_INSTALL} alacritty"
+        if ! which alacritty >/dev/null; then
+          eval "${PACMAN_INSTALL} alacritty"
+        fi
+    fi
+fi
+
+if grep -q "docker:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
+    if ! which docker >/dev/null; then
+        if [[ "$OSTYPE" == "darwin"* ]]; then
+            brew cask install docker
+        else
+            eval "${PACMAN_INSTALL} docker"
+        fi
     fi
 fi
 
@@ -308,13 +320,13 @@ if grep -q "prettyping:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
 fi
 
 if grep -q "sublime-text:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
-    if ! which subl >/dev/null; then
-        TEMPFILE=$(mktemp)
-        if [[ "$OSTYPE" == "darwin"* ]]; then
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        if [[ ! -f "/Applications/Sublime Text.app/Contents/MacOS/Sublime Text" ]]; then
             brew cask install sublime-text
-            sudo ln -s "/Applications/Sublime Text.app/Contents/MacOS/Sublime Text" /usr/local/bin/subl
-        else
-            eval "${PACMAN_INSTALL} sublime-text"
+        fi
+    else
+        if ! which subl >/dev/null; then
+          eval "${PACMAN_INSTALL} sublime-text"
         fi
     fi
 fi

@@ -31,6 +31,7 @@ go
 python2
 python3
 
+docker:sh
 franz:sh
 gcloud:sh
 irssi
