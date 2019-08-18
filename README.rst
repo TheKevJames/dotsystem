@@ -44,8 +44,8 @@ bootstrap-pable:
     git clone https://github.com/thekevjames/dotsystem.git
 
     # ...and do the first sync
-    # TODO: bootstrap ~/.local/share/dotsystem/secrets.m4 somehow
     ./sync --force
+    ./sync --force --secrets
 
 Old Machines
 ------------

@@ -6,6 +6,7 @@ if [[ "$@" == *"-h"* ]]; then
     echo
     echo "Options:"
     echo "  --force             force over-write of all missing/modified files"
+    echo "  --secrets           include LastPass secrets pull"
     echo "  --skip-packages     do not update installed packages"
 
     exit 0
@@ -94,6 +95,20 @@ set_dir() {
         set_file "${file}" "${2}/$(basename ${file})"
     done
 }
+
+if [[ "$@" == *"--secrets"* ]]; then
+    if [ ! -f "${XDG_CONFIG_HOME}/dotsystem/secrets" ]; then
+        echo "Not loading secrets: none defined."
+    elif ! which lpass >/dev/null; then
+        echo "Not loading secrets: lpass not installed."
+    else
+        echo "Loading secrets..."
+        for secret in $(cat "${XDG_CONFIG_HOME}/dotsystem/secrets"); do
+            IFS=: read -a fields <<< "$secret"
+            lpass show --note "${fields[0]}" > $(eval echo "${fields[1]}")
+        done
+    fi
+fi
 
 ## Update global configs
 echo "Configuring system..."
