@@ -76,6 +76,22 @@ defaults write com.apple.ActivityMonitor IconType -int 5
 ## show all in ActivityMonitor
 defaults write com.apple.ActivityMonitor ShowCategory -int 0
 
+# CCMenu
+defaults write net.sourceforge.cruisecontrol.CCMenu "PlaySound Broken" -int 0
+defaults write net.sourceforge.cruisecontrol.CCMenu "PlaySound Fixed" -int 0
+defaults write net.sourceforge.cruisecontrol.CCMenu "PlaySound StillFailing" -int 0
+defaults write net.sourceforge.cruisecontrol.CCMenu "PlaySound Successful" -int 0
+defaults write net.sourceforge.cruisecontrol.CCMenu "SendNotification Broken" -int 1
+defaults write net.sourceforge.cruisecontrol.CCMenu "SendNotification Fixed" -int 1
+defaults write net.sourceforge.cruisecontrol.CCMenu "SendNotification StillFailing" -int 1
+defaults write net.sourceforge.cruisecontrol.CCMenu "SendNotification Successful" -int 0
+# TODO: configure connected projects
+# defaults delete net.sourceforge.cruisecontrol.CCMenu Projects
+# for project in ${projects}; do
+#     defaults write net.sourceforge.cruisecontrol.CCMenu Projects \
+#         -array-add '{projectName = "'"${project}"'"; serverUrl = "https://circleci.com/cc.xml?circle-token='"${circleci_token}"'";}'
+# done
+
 # Magnet
 ## clear unused
 defaults write com.crowdcafe.windowmagnet centerWindowComboKey '{}'

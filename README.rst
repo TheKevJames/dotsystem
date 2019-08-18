@@ -44,9 +44,6 @@ bootstrap-able:
     passphrase2pgp -se | gpg --import
     passphrase2pgp -seu "Kevin James <kjames@dialpad.com>" | gpg --import  # etc
 
-    # configure Magnet and CCMenu:
-    defaults write net.sourceforge.cruisecontrol.CCMenu ...
-
     # Settings > Keyboard > Modifier Keys > "Caps Lock -> Escape"
 
     # configure bugwarrior-pull as cron job
