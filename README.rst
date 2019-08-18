@@ -43,7 +43,7 @@ When sunsetting a machine, there's not much that needs to be done:
 
 .. code-block:: console
 
-    # invalidate your ssh key (or, via UI: https://github.com/settings/keys)
+    # invalidate your ssh key (https://github.com/settings/keys)
     curl \
         -XDELETE \
         -su "thekevjames:$(lpass show --note dotsystem/github-token)" \
@@ -51,8 +51,15 @@ When sunsetting a machine, there's not much that needs to be done:
             -su "thekevjames:$(lpass show --note dotsystem/github-token)" \
             https://api.github.com/user/keys | jq '.[] | select(.title == "'"$(hostname)"'").id')"
 
-    # revoke personal access tokens: https://github.com/settings/tokens
-    rm -rf ~
+    # revoke personal access tokens (https://github.com/settings/tokens)
+    # TODO: these are somewhat manually provisioned (in secrets.m4) -- it'd be
+    # great to have ``./sync --secrets`` generate them on-the-fly, then include
+    # a ``./sync --revoke``.
+
+    # nuke your homedir
+    # TODO: transmission installation is deprecated in favor of server access.
+    # One day I'll remove these secrets...
+    sudo rm -Prf ~ /var/lib/transmission/.config/transmission-daemon
 
 Secrets
 -------

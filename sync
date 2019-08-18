@@ -117,6 +117,7 @@ if [[ "$@" == *"--secrets"* ]]; then
         echo "Loading secrets..."
         for secret in $(cat "${XDG_CONFIG_HOME}/dotsystem/secrets"); do
             IFS=: read -a fields <<< "$secret"
+            mkdir -p $(eval echo "${fields[1]%/*}")
             lpass show --note "${fields[0]}" > $(eval echo "${fields[1]}")
         done
     fi
