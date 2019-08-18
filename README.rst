@@ -9,7 +9,7 @@ Clone and run. To update configuration, pull and run. Changes will prompt you.
 .. code-block:: console
 
     git clone https://github.com/thekevjames/dotsystem.git
-    ./dotsystem/sync [--skip-packages]
+    ./dotsystem/sync [--force] [--secrets] [--skip-packages]
 
 New Machines
 ------------
@@ -20,32 +20,27 @@ bootstrap-pable:
 
 .. code-block:: console
 
-    # OSX only: disable SIP by booting into recover mode (hold cmd-r on boot)
+    # OSX only: disable SIP by booting into recovery mode (hold cmd-r on boot)
     csrutil disable
+
+    # clone the dotsystem repo...
+    git clone https://github.com/thekevjames/dotsystem.git ~/coding/personal/dotsystem
+
+    # ...and do the first sync
+    cd ~/coding/personal/dotsystem
+    ./sync --force
+    ./sync --force --secrets
 
     # install Firefox, to grab passwords through LastPass
     # https://www.mozilla.org/en-us/firefox/new/
     # Login to Sync > wait for extensions > Login to LastPass > Login to GitHub
 
-    # configure ssh...
-    ssh-keygen -o -a 100 -t ed25519 -C "KevinJames@thekev.in"
-    ssh-add -K ~/.ssh/id_ed25519
-    # ...and dump it into GitHub: https://github.com/settings/ssh/new
+    # configure ssh in GitHub: https://github.com/settings/ssh/new
     cat ~/.ssh/id_ed25519.pub | pbcopy
 
     # if you need multiple identities, eg.
     ssh-keygen -o -a 100 -t ed25519 -C "kjames@dialpad.com" -f ~/.ssh/dialpad
-    ssh-add -K ~/.ssh/dialpad
     cat ~/.ssh/dialpad.pub | pbcopy
-
-    # clone the dotsystem repo...
-    mkdir -p ~/coding/personal
-    cd ~/coding/personal
-    git clone https://github.com/thekevjames/dotsystem.git
-
-    # ...and do the first sync
-    ./sync --force
-    ./sync --force --secrets
 
 Old Machines
 ------------
@@ -82,9 +77,6 @@ relevant for new machines.
     # no binaries on OSX, so doesn't work great in ./sync. Do a file check?
     brew cask install docker dropbox gitify
 
-    # force override of OSX's python2, since homebrew has decided python=py3
-    brew install python2
-
     # use zsh by default
     chsh -s $(which zsh)
     sudo chsh -s $(which zsh)
@@ -103,17 +95,13 @@ relevant for new machines.
 
     # Settings > Keyboard > Modifier Keys > "Caps Lock -> Escape"
 
-    # set the system hostname
-    sudo scutil --set ComputerName <foo>
-
     # install packages from language package managers
     gcloud components install gsutil kubectl
     python3 -m pip install pre-commit
 
     # configure bugwarrior-pull as cron job
 
-    # install ".../sublime-text-3/Local/License.sublime_license"
-    # configure package manager: https://packagecontrol.io/installation
+    # configure ST package manager: https://packagecontrol.io/installation
 
     # install youtube-viewer: https://github.com/trizen/youtube-viewer
 

@@ -14,6 +14,22 @@ fi
 
 echo "Running dotsystem..."
 
+if [[ ! -f ~/.ssh/id_ed25519 ]]; then
+    echo "Detected fresh system, beginning bootstrap mode..."
+
+    # set hostname
+    read -p "Enter system hostname: " hostname
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        sudo scutil --set ComputerName "${hostname}"
+    else
+        sudo hostname "${hostname}"
+    fi
+
+    echo "Creating ~/.ssh/id_ed25519..."
+    ssh-keygen -o -a 100 -t ed25519 -C "KevinJames@thekev.in" -f ~/.ssh/id_ed25519
+    git remote set-url origin git@github.com:TheKevJames/dotsystem.git
+fi
+
 # Variables
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 FORCE=$(if [[ "$@" == *"--force"* ]]; then echo "y"; else echo "n"; fi)
