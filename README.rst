@@ -83,35 +83,32 @@ relevant for new machines.
 
 .. code-block:: console
 
+    # install packages from other package managers
+    gcloud components install gsutil kubectl
+    go get -u github.com/mbrt/gmailctl/cmd/gmailctl
+    go get -u github.com/skeeto/passphrase2pgp
+    mas install 441258766 603117688
+    python3 -m pip install pre-commit
+    vim -c ':PlugInstall' -c 'qa!'
+
     # use zsh by default
     chsh -s $(which zsh)
     sudo chsh -s $(which zsh)
 
-    # install configured vim plugins
-    vim -c ':PlugInstall' -c 'qa!'
-
     # configure gpg keys
-    go get -u github.com/skeeto/passphrase2pgp
     passphrase2pgp --subkey --protect | gpg --import
     passphrase2pgp --subkey --protect --uid "Kevin James <kjames@dialpad.com>" | gpg --import  # etc
 
-    # install Magnet and CCMenu from the App Store, then configure them:
+    # configure Magnet and CCMenu:
     defaults write com.crowdcafe.windowmagnet ...
     defaults write net.sourceforge.cruisecontrol.CCMenu ...
 
     # Settings > Keyboard > Modifier Keys > "Caps Lock -> Escape"
 
-    # install packages from language package managers
-    gcloud components install gsutil kubectl
-    python3 -m pip install pre-commit
-
     # configure bugwarrior-pull as cron job
-
-    # configure ST package manager: https://packagecontrol.io/installation
 
     # install youtube-viewer: https://github.com/trizen/youtube-viewer
 
-    go get -u github.com/mbrt/gmailctl/cmd/gmailctl
 
 XDG Wall of Shame
 -----------------

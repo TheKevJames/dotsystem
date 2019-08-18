@@ -53,6 +53,7 @@ else
             select yn in "Yes" "No"; do
                 case $yn in
                     Yes ) ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)";
+                          brew install mas;
                           break;;
                     No )  break;;
                 esac
@@ -356,10 +357,14 @@ if grep -q "sublime-text:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if [[ "$OSTYPE" == "darwin"* ]]; then
         if [[ ! -f "/Applications/Sublime Text.app/Contents/MacOS/Sublime Text" ]]; then
             brew cask install sublime-text
+            curl -fsSL "https://packagecontrol.io/Package Control.sublime-package" \
+                -o ~/"Library/Application Support/Sublime Text 3/Installed Packages/Package Control.sublime-package"
         fi
     else
         if ! which subl >/dev/null; then
           eval "${PACMAN_INSTALL} sublime-text"
+          curl -fsSL "https://packagecontrol.io/Package Control.sublime-package" \
+                -o ~/".config/sublime-text-3/Installed Packages/Package Control.sublime-package"
         fi
     fi
 fi
