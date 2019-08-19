@@ -30,25 +30,16 @@ bootstrap-able:
     ./sync --force
     ./sync --force --secrets
 
-    # upload your new key to Github
-    curl \
-        -su "thekevjames:$(lpass show --note dotsystem/github-token)" \
-        --data '{"title":"'"$(hostname)"'","key":"'"$(cat ~/.ssh/id_ed25519.pub)"'"}' \
-        https://api.github.com/user/keys
-
-    # use zsh by default
-    chsh -s $(which zsh)
-    sudo chsh -s $(which zsh)
-
-    # configure gpg keys
-    passphrase2pgp -se | gpg --import
-    passphrase2pgp -seu "Kevin James <kjames@dialpad.com>" | gpg --import  # etc
-
     # Settings > Keyboard > Modifier Keys > "Caps Lock -> Escape"
+    # TODO: figure out if this can be done from the CLI
 
-    # configure bugwarrior-pull as cron job
+    # configure bugwarrior-pull as cron job:
+    # https://bugwarrior.readthedocs.io/en/latest/using.html#cron
+    # TODO: install crontab from ./sync
 
-    # install youtube-viewer: https://github.com/trizen/youtube-viewer
+    # install youtube-viewer:
+    # https://github.com/trizen/youtube-viewer
+    # TODO: after Homebrew/homebrew-core#43254, add youtube-viewer to packages
 
 Old Machines
 ------------

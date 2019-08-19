@@ -14,23 +14,28 @@ fi
 
 echo "Running dotsystem..."
 
-if [[ ! -f ~/.ssh/id_ed25519 ]]; then
+# Variables
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+BOOTSTRAP=$(if [[ ! -f ~/.ssh/id_ed25519 ]]; then echo "y"; else echo "n"; fi)
+FORCE=$(if [[ "$@" == *"--force"* ]]; then echo "y"; else echo "n"; fi)
+
+source "${DIR}/root/~/.zshenv"
+
+if [[ "${BOOTSTRAP}" == "y" ]]; then
     echo "Detected fresh system, beginning bootstrap mode..."
+    if [[ "$@" == *"--skip-packages"* ]]; then
+        echo "--skip-packages specified, some bootstrapping will be skipped"
+    fi
 
     # set hostname
-    read -p "Enter system hostname: " hostname
-    sudo hostname "${hostname}"
+    read -p "Enter system hostname: " NEW_HOSTNAME
+    sudo hostname "${NEW_HOSTNAME}"
+    echo "Set new system hostname. Remember to reboot!"
 
     echo "Creating ~/.ssh/id_ed25519..."
     ssh-keygen -o -a 100 -t ed25519 -C "KevinJames@thekev.in" -f ~/.ssh/id_ed25519
     git remote set-url origin git@github.com:TheKevJames/dotsystem.git
 fi
-
-# Variables
-DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-FORCE=$(if [[ "$@" == *"--force"* ]]; then echo "y"; else echo "n"; fi)
-
-source "${DIR}/root/~/.zshenv"
 
 if which zypper >/dev/null; then
     PACMAN_REFRESH="sudo zypper refresh"
@@ -238,7 +243,7 @@ fi
 
 if grep -q "firefox:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if [[ "$OSTYPE" == "darwin"* ]]; then
-        if [[ ! -f "/Applications/Firefox.app/Contents/MacOS/Dropbox" ]]; then
+        if [[ ! -f "/Applications/Firefox.app/Contents/MacOS/firefox" ]]; then
             brew cask install firefox
         fi
     else
@@ -419,3 +424,25 @@ if grep -q "transmission-daemon:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; the
         fi
     fi
 fi
+
+# Complete post-installation bootstrapping operations
+if [[ "${BOOTSTRAP}" == "y" ]]; then
+    echo "Setting default shell to zsh..."
+    chsh -s $(which zsh)
+    sudo chsh -s $(which zsh)
+
+    echo "Uploading new ssh key to Github..."
+    curl -s \
+        -u "thekevjames:$(lpass show --note dotsystem/github-token)" \
+        --data '{"title":"'"${NEW_HOSTNAME}"'","key":"'"$(cat ~/.ssh/id_ed25519.pub)"'"}' \
+        https://api.github.com/user/keys
+
+    echo "Importing gpg keys..."
+    # TODO: configure emails in env
+    for email in "KevinJames@thekev.in" "kevin@talkiq.com" "kjames@dialpad.com"; do
+        echo "Creating key for ${email}..."
+        passphrase2pgp -se -u "Kevin James <${email}>" | gpg --import
+    done
+fi
+
+echo "done."
