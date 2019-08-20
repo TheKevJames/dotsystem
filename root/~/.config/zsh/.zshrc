@@ -1,7 +1,22 @@
 # zmodload zsh/zprof
-ZSH_COMPDUMP="~/.config/zsh/.zcompdump-${ZSH_VERSION}"
-autoload -U compaudit compinit
-compinit -i -C -d "${ZSH_COMPDUMP}"
+
+# https://gist.github.com/ctechols/ca1035271ad134841284
+_zpcompinit_custom() {
+  setopt extendedglob local_options
+  autoload -Uz compinit
+  local zcd="${ZDOTDIR:-$HOME}/.zcompdump-${ZSH_VERSION}"
+  local zcdc="$zcd.zwc"
+  # Compile the completion dump to increase startup speed, if dump is newer or doesn't exist,
+  # in the background as this is doesn't affect the current session
+  if [[ -f "$zcd"(#qN.m+1) ]]; then
+        compinit -i -d "$zcd"
+        { rm -f "$zcdc" && zcompile "$zcd" } &!
+  else
+        compinit -C -d "$zcd"
+        { [[ ! -f "$zcdc" || "$zcd" -nt "$zcdc" ]] && rm -f "$zcdc" && zcompile "$zcd" } &!
+  fi
+}
+_zpcompinit_custom
 
 export PATH="${HOME}/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 
