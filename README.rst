@@ -25,8 +25,8 @@ bootstrap-able:
     csrutil disable
 
     # clone the dotsystem repo and do the initial sync
-    git clone https://github.com/thekevjames/dotsystem.git ~/coding/personal/dotsystem
-    cd ~/coding/personal/dotsystem
+    git clone https://github.com/thekevjames/dotsystem.git ~/src/personal/dotsystem
+    cd ~/src/personal/dotsystem
     ./sync --force
     ./sync --force --secrets
 

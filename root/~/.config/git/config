@@ -86,8 +86,8 @@
 [web]
     browser = firefox
 
-[includeIf "gitdir:~/coding/talkiq/"]
+[includeIf "gitdir:~/src/talkiq/"]
     path = ~/.config/git/config-talkiq
 
-[includeIf "gitdir:~/coding/dialpad/"]
+[includeIf "gitdir:~/src/dialpad/"]
     path = ~/.config/git/config-dialpad

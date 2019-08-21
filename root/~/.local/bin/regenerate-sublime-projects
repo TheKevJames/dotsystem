@@ -56,7 +56,7 @@ def main() -> None:
     PROJECT_DIR.mkdir()
 
     repo_dirs = [
-        pathlib.Path.home() / 'coding',
+        pathlib.Path.home() / 'src',
     ]
     workspaces = list(build_sublime_projects(repo_dirs))
 
