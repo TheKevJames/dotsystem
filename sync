@@ -127,6 +127,7 @@ if [[ "$@" == *"--secrets"* ]]; then
         echo "Not loading secrets: lpass not installed."
     else
         echo "Loading secrets..."
+        lpass ls >/dev/null || lpass login KevinJames@thekev.in
         for secret in $(cat "${XDG_CONFIG_HOME}/dotsystem/secrets"); do
             IFS=: read -a fields <<< "$secret"
             mkdir -p $(eval echo "${fields[1]%/*}")
@@ -447,6 +448,7 @@ if [[ "${BOOTSTRAP}" == "y" ]]; then
     sudo chsh -s $(which zsh)
 
     echo "Uploading new ssh key to Github..."
+    lpass ls >/dev/null || lpass login KevinJames@thekev.in
     curl -s \
         -u "thekevjames:$(lpass show --note dotsystem/github-token)" \
         --data '{"title":"'"${NEW_HOSTNAME}"'","key":"'"$(cat ~/.ssh/id_ed25519.pub)"'"}' \

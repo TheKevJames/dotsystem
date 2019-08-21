@@ -31,6 +31,7 @@ bootstrap-able:
     ./sync --force --secrets
 
     # Settings > Keyboard > Modifier Keys > "Caps Lock -> Escape"
+    # Settings > Keyboard > Customize Touch Bar
     # TODO: figure out if this can be done from the CLI
 
     # configure bugwarrior-pull as cron job:
