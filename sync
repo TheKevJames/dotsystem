@@ -58,12 +58,15 @@ else
                     Yes ) ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)";
                           brew install mas;
                           break;;
-                    No )  break;;
+                    No )  echo "ERROR: cannot continue without a package manager.";
+                          exit 1;
+                          break;;
                 esac
             done
         fi
+    else
+        exit 1
     fi
-    exit 1
 fi
 
 # Helpers
