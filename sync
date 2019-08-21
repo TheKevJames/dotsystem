@@ -30,6 +30,11 @@ if [[ "${BOOTSTRAP}" == "y" ]]; then
     # set hostname
     read -p "Enter system hostname: " NEW_HOSTNAME
     sudo hostname "${NEW_HOSTNAME}"
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        sudo scutil --set HostName "${NEW_HOSTNAME}"
+        sudo scutil --set LocalHostName "${NEW_HOSTNAME}"
+        sudo scutil --set ComputerName "${NEW_HOSTNAME}"
+    fi
     echo "Set new system hostname. Remember to reboot!"
 
     echo "Creating ~/.ssh/id_ed25519..."
