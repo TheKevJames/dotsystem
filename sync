@@ -203,6 +203,9 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     fi
 
     # TODO: move to packages configuration file
+    if ! mas account >/dev/null; then
+        echo "ERROR: not signed in to the Mac App Store."
+    fi
     if [[ ! -f "/Applications/CCMenu.app/Contents/MacOS/CCMenu" ]]; then
         mas install 603117688
     fi
