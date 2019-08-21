@@ -42,6 +42,12 @@ bootstrap-able:
     # https://github.com/trizen/youtube-viewer
     # TODO: after Homebrew/homebrew-core#43254, add youtube-viewer to packages
 
+    # OSX TODOs:
+    # configure Amphetamine
+    # switch workspace switch hotkeys to cmd+ctrl arrows (not ctrl-arrows)
+    # switch screenshot hotkeys
+    # enable two-finger-touch as right click
+
 Old Machines
 ------------
 
