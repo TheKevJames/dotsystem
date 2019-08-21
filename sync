@@ -285,7 +285,7 @@ if grep -q "gcloud:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
         tar xzf "${TEMPFILE}.tgz" -C "${XDG_SRC_HOME}"
 
         # TODO: move to packages configuration file
-        gcloud components install gsutil kubectl
+        "${XDG_SRC_HOME}/google-cloud-sdk/bin/gcloud" components install gsutil kubectl
     fi
 fi
 
