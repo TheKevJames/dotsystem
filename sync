@@ -132,6 +132,7 @@ echo "Configuring system..."
 
 if [ ! -f "${XDG_DATA_HOME}/dotsystem/secrets.m4" ]; then
     echo "No secrets file found, writing defaults to ${XDG_DATA_HOME}/dotsystem/secrets.m4"
+    mkdir -p "${XDG_DATA_HOME}/dotsystem/"
     cp "${DIR}/secrets.m4.sample" "${XDG_DATA_HOME}/dotsystem/secrets.m4"
 fi
 
