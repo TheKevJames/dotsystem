@@ -69,9 +69,13 @@ def main() -> None:
         raise Exception(f'unsupported platform {sys.platform}')
     session = (session_root / 'Local' / 'Session.sublime_session')
 
-    session_data = json.loads(session.read_text())
-    session_data['workspaces']['recent_workspaces'] = workspaces
-    session.write_text(json.dumps(session_data))
+    try:
+        session_data = json.loads(session.read_text())
+        session_data['workspaces']['recent_workspaces'] = workspaces
+        session.write_text(json.dumps(session_data))
+    except FileNotFoundError:
+        print('ERROR: cannot set recent workspaces, no existing session',
+              file=sys.stderr)
 
 
 if __name__ == '__main__':
