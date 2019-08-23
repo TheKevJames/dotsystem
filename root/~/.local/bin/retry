@@ -5,16 +5,16 @@ COUNT=9999
 TIMEOUT=10
 
 while getopts 'c:t:' flag; do
-  case "${flag}" in
-    c) COUNT="${OPTARG}"; shift          ;;
-    t) TIMEOUT="${OPTARG}"; shift        ;;
-    *) error "Unexpected option ${flag}" ;;
-  esac
+    case "${flag}" in
+        c) COUNT="${OPTARG}"; shift          ;;
+        t) TIMEOUT="${OPTARG}"; shift        ;;
+        *) error "Unexpected option ${flag}" ;;
+    esac
 done
 
 n=0
 until [ $n -ge "${COUNT}" ]; do
-  "$@" && break
-  n=$((n+1))
-  sleep "${TIMEOUT}"
+    "$@" && break
+    n=$((n+1))
+    sleep "${TIMEOUT}"
 done

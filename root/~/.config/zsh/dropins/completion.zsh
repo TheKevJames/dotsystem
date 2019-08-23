@@ -41,26 +41,26 @@ zstyle ':completion::complete:*' cache-path ~/.cache/zsh
 
 # Don't complete uninteresting users
 zstyle ':completion:*:*:*:users' ignored-patterns \
-        adm amanda apache at avahi avahi-autoipd beaglidx bin cacti canna \
-        clamav daemon dbus distcache dnsmasq dovecot fax ftp games gdm \
-        gkrellmd gopher hacluster haldaemon halt hsqldb ident junkbust kdm \
-        ldap lp mail mailman mailnull man messagebus  mldonkey mysql nagios \
-        named netdump news nfsnobody nobody nscd ntp nut nx obsrun openvpn \
-        operator pcap polkitd postfix postgres privoxy pulse pvm quagga radvd \
-        rpc rpcuser rpm rtkit scard shutdown squid sshd statd svn sync tftp \
-        usbmux uucp vcsa wwwrun xfs '_*'
+    adm amanda apache at avahi avahi-autoipd beaglidx bin cacti canna \
+    clamav daemon dbus distcache dnsmasq dovecot fax ftp games gdm \
+    gkrellmd gopher hacluster haldaemon halt hsqldb ident junkbust kdm \
+    ldap lp mail mailman mailnull man messagebus  mldonkey mysql nagios \
+    named netdump news nfsnobody nobody nscd ntp nut nx obsrun openvpn \
+    operator pcap polkitd postfix postgres privoxy pulse pvm quagga radvd \
+    rpc rpcuser rpm rtkit scard shutdown squid sshd statd svn sync tftp \
+    usbmux uucp vcsa wwwrun xfs '_*'
 
 # ... unless we really want to.
 zstyle '*' single-ignored show
 
 expand-or-complete-with-dots() {
-  # toggle line-wrapping off and back on again
-  [[ -n "$terminfo[rmam]" && -n "$terminfo[smam]" ]] && echoti rmam
-  print -Pn "%{%F{red}......%f%}"
-  [[ -n "$terminfo[rmam]" && -n "$terminfo[smam]" ]] && echoti smam
+    # toggle line-wrapping off and back on again
+    [[ -n "$terminfo[rmam]" && -n "$terminfo[smam]" ]] && echoti rmam
+    print -Pn "%{%F{red}......%f%}"
+    [[ -n "$terminfo[rmam]" && -n "$terminfo[smam]" ]] && echoti smam
 
-  zle expand-or-complete
-  zle redisplay
+    zle expand-or-complete
+    zle redisplay
 }
 zle -N expand-or-complete-with-dots
 bindkey "^I" expand-or-complete-with-dots

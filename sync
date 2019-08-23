@@ -61,11 +61,11 @@ else
             select yn in "Yes" "No"; do
                 case $yn in
                     Yes ) ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)";
-                          brew install mas;
-                          break;;
+                        brew install mas;
+                        break ;;
                     No )  echo "ERROR: cannot continue without a package manager.";
-                          exit 1;
-                          break;;
+                        exit 1;
+                        break ;;
                 esac
             done
         fi
@@ -105,9 +105,9 @@ set_file() {
             select yn in "Yes" "No"; do
                 case $yn in
                     Yes ) cp "${1}" "${DEST}" 2>/dev/null || sudo cp "${1}" "${DEST}";
-                          if [[ "${DEST}" == *"/bin/"* ]]; then sudo chmod a+x "${DEST}"; fi;
-                          break;;
-                    No )  break;;
+                        if [[ "${DEST}" == *"/bin/"* ]]; then sudo chmod a+x "${DEST}"; fi;
+                        break ;;
+                    No )  break ;;
                 esac
             done
         fi
@@ -230,7 +230,7 @@ if grep -q "alacritty:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
         fi
     else
         if ! which alacritty >/dev/null; then
-          eval "${PACMAN_INSTALL} alacritty"
+            eval "${PACMAN_INSTALL} alacritty"
         fi
     fi
 fi
@@ -408,8 +408,8 @@ if grep -q "sublime-text:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
         fi
     else
         if ! which subl >/dev/null; then
-          eval "${PACMAN_INSTALL} sublime-text"
-          curl -fsSL "https://packagecontrol.io/Package Control.sublime-package" \
+            eval "${PACMAN_INSTALL} sublime-text"
+            curl -fsSL "https://packagecontrol.io/Package Control.sublime-package" \
                 -o ~/".config/sublime-text-3/Installed Packages/Package Control.sublime-package"
         fi
     fi

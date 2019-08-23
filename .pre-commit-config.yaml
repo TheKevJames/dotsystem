@@ -1,31 +1,34 @@
 repos:
 -   repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v2.2.3
+    rev: v2.3.0
     hooks:
-    -   id: check-ast
-    -   id: check-builtin-literals
     -   id: check-case-conflict
-    -   id: check-docstring-first
     -   id: check-executables-have-shebangs
     -   id: check-json
     -   id: check-merge-conflict
     -   id: check-symlinks
+    -   id: check-toml
     -   id: check-vcs-permalinks
     -   id: check-xml
         exclude: "%gconf.xml"
     -   id: check-yaml
         args: [--allow-multiple-documents]
-    -   id: debug-statements
     -   id: detect-private-key
-    -   id: double-quote-string-fixer
     -   id: end-of-file-fixer
     -   id: file-contents-sorter
-        files: .dockerignore .gitignore
+        files: .(docker|git)ignore
     -   id: mixed-line-ending
         args: [--fix=lf]
+    -   id: trailing-whitespace
+
+# python
+    -   id: check-ast
+    -   id: check-builtin-literals
+    -   id: check-docstring-first
+    -   id: debug-statements
+    -   id: double-quote-string-fixer
     -   id: name-tests-test
     -   id: requirements-txt-fixer
-    -   id: trailing-whitespace
 -   repo: https://github.com/pre-commit/mirrors-pylint
     rev: v2.3.1
     hooks:
@@ -49,7 +52,7 @@ repos:
     -   id: reorder-python-imports
         args: [--py37-plus]
 -   repo: https://github.com/asottile/pyupgrade
-    rev: v1.22.0
+    rev: v1.22.1
     hooks:
     -   id: pyupgrade
         args: [--py36-plus]
@@ -62,7 +65,7 @@ repos:
     hooks:
     -   id: autopep8
 -   repo: https://github.com/PyCQA/pydocstyle
-    rev: 4.0.0
+    rev: 4.0.1
     hooks:
     -   id: pydocstyle
         args:
@@ -72,14 +75,67 @@ repos:
     hooks:
     -   id: flake8
         args:
-        - --ignore=E501,W503,F811
+        - --ignore=E501,W503,F401,F811
 -   repo: https://github.com/pre-commit/pygrep-hooks
     rev: v1.4.1
     hooks:
+    -   id: python-no-eval
     -   id: python-no-log-warn
     -   id: python-use-type-annotations
+
+# rst
     -   id: rst-backticks
 -   repo: https://github.com/Lucas-C/pre-commit-hooks-markup
     rev: v1.0.0
     hooks:
     -   id: rst-linter
+
+# java
+-   repo: https://github.com/macisamuele/language-formatters-pre-commit-hooks
+    rev: v1.2.3
+    hooks:
+    -   id: pretty-format-java
+        args: [--autofix]
+
+# javascript
+-   repo: https://github.com/pre-commit/mirrors-fixmyjs
+    rev: v2.0.0
+    hooks:
+    -   id: fixmyjs
+-   repo: https://github.com/pre-commit/mirrors-jshint
+    rev: v2.10.2
+    hooks:
+    -   id: jshint
+
+# terraform
+-   repo: https://github.com/antonbabenko/pre-commit-terraform
+    rev: v1.17.0
+    hooks:
+    -   id: terraform_fmt
+    -   id: terraform_validate
+
+# docker
+-   repo: https://github.com/pryorda/dockerfilelint-precommit-hooks
+    rev: v0.1.0
+    hooks:
+    -   id: dockerfilelint
+
+# shell
+# TODO: fix these checks
+# -   repo: https://github.com/lovesegfault/beautysh
+#     rev: "4.1"
+#     hooks:
+#     -   id: beautysh
+# -   repo: https://github.com/openstack/bashate
+#     rev: 0.6.0
+#     hooks:
+#     -   id: bashate
+# -   repo: https://github.com/detailyang/pre-commit-shell
+#     rev: v1.0.6
+#     hooks:
+#     -   id: shell-lint
+# TODO: why is this failing?
+# -   repo: https://github.com/jumanjihouse/pre-commit-hooks
+#     rev: 1.11.0
+#     hooks:
+#     -   id: script-must-not-have-extension

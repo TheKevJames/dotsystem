@@ -89,7 +89,7 @@ defaults write net.sourceforge.cruisecontrol.CCMenu "SendNotification Successful
 # defaults delete net.sourceforge.cruisecontrol.CCMenu Projects
 # for project in ${projects}; do
 #     defaults write net.sourceforge.cruisecontrol.CCMenu Projects \
-#         -array-add '{projectName = "'"${project}"'"; serverUrl = "https://circleci.com/cc.xml?circle-token='"${circleci_token}"'";}'
+    #         -array-add '{projectName = "'"${project}"'"; serverUrl = "https://circleci.com/cc.xml?circle-token='"${circleci_token}"'";}'
 # done
 
 # Magnet
