@@ -19,6 +19,8 @@ export PYTHONSTARTUP="/etc/pythonstart"
 export REDISCLI_HISTFILE="${XDG_DATA_HOME}/redis/history"
 export RUSTUP_HOME="${XDG_DATA_HOME}/rustup"
 export TASKRC="${XDG_CONFIG_HOME}/taskwarrior/taskrc"
+export THEANO_FLAGS="base_compiledir=${XDG_DATA_HOME}/theano"
+export THEANORC="${XDG_CONFIG_HOME}/theano/.theanorc"
 export WINEPREFIX="${XDG_DATA_HOME}/wine/prefixes/default"
 
 if [[ "$OSTYPE" == "darwin"* ]]; then

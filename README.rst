@@ -137,6 +137,7 @@ eventually accept be fixed as well as apps that have decided they're
 - sqlite. Support for config file with ``-init`` flag. History file is
   hardcoded. See my `sqlite XDG hack`_.
 - taskwarrior. Support by setting ``$TASKRC`` and ``$TASKDATA``.
+- theano. Support by setting ``$THEANORC`` and including ``base_compiledir`` in ``$THEANO_FLAGS``.
 - tmux. Support with ``-f`` flag.
 - wine. Support by setting ``$WINEPREFIX``.
 - zsh. Partial support by setting ``$ZDOTDIR`` and ``$HISTFILE``. Your
