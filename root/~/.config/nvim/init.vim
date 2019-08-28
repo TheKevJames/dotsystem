@@ -7,6 +7,15 @@ set shiftwidth=4    " tabs are 4 spaces
 set showmatch       " show matching bracket on insertion
 set synmaxcol=512   " set maximum line length for syntax highlighting
 
+" use system clipboard
+nnoremap y "+y
+vnoremap y "+y
+nnoremap p "+p
+vnoremap p "+p
+
+" avoid unnecessary <shift> for goto
+nnoremap ; :
+
 filetype plugin indent on  " enable filetype detection
 syntax on                  " show syntax highlighting
 
