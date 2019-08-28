@@ -25,7 +25,7 @@ tmuxifier:sh
 zsh
 
 git
-git-standup
+git-standup:sh
 hub:sh
 
 go

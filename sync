@@ -300,7 +300,19 @@ if grep -q "gcloud:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
         tar xzf "${TEMPFILE}.tgz" -C "${XDG_SRC_HOME}"
 
         # TODO: move to packages configuration file
-        yes | "${XDG_SRC_HOME}/google-cloud-sdk/bin/gcloud" components install gsutil kubectl
+        yes | "${XDG_SRC_HOME}/google-cloud-sdk/bin/gcloud" components install gsutil kubectl || true
+    fi
+fi
+
+if grep -q "git-standup:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
+    if ! which git-standup >/dev/null; then
+        if [[ "$OSTYPE" == "darwin"* ]]; then
+            brew install git-standup
+        else
+            TEMPFILE=$(mktemp)
+            curl -fsSL "https://raw.githubusercontent.com/kamranahmedse/git-standup/master/installer.sh" > "${TEMPFILE}.sh"
+            sudo sh "${TEMPFILE}.sh"
+        fi
     fi
 fi
 
