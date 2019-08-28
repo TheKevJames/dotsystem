@@ -327,6 +327,7 @@ fi
 
 # TODO: move to packages configuration file
 if grep -q "go" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
+    export GOPATH="${XDG_DATA_HOME}/go"
     if [ ! -f "${XDG_DATA_HOME}/go/bin/gmailctl" ]; then
         go get -u github.com/mbrt/gmailctl/cmd/gmailctl
     fi
@@ -470,6 +471,7 @@ if [[ "${BOOTSTRAP}" == "y" ]]; then
     # TODO: configure emails in env
     for email in "KevinJames@thekev.in" "kevin@talkiq.com" "kjames@dialpad.com"; do
         echo "Creating key for ${email}..."
+        # TODO: give direct path to `GOPATH="${XDG_DATA_HOME}/go"` ?
         passphrase2pgp -se -u "Kevin James <${email}>" | gpg --import
     done
 fi
