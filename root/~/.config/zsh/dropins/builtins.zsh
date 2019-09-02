@@ -2,6 +2,7 @@
 # alias cat='bat'
 alias less='bat'
 export PAGER='bat'
+export MANPAGER="sh -c 'col -b | bat -l man -p'"
 export LESS='-R'
 
 # https://the.exa.website/
