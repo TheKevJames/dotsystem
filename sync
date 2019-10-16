@@ -91,7 +91,10 @@ ensure_file() {
 
 set_file() {
     DEST=${2/\~/$HOME}
-    ensure_file "${DEST}"
+    ensure_file "${DEST}" || {
+        echo "> bad permissions, skipping";
+        return 0;
+    }
 
     if ! sudo diff -q "${1}" "${DEST}" >/dev/null; then
         echo "${DEST} will be modified according to the following diff."
@@ -112,12 +115,6 @@ set_file() {
             done
         fi
     fi
-}
-
-set_dir() {
-    for file in "${1}/"*; do
-        set_file "${file}" "${2}/$(basename ${file})"
-    done
 }
 
 if [[ "$@" == *"--secrets"* ]]; then
