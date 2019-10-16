@@ -378,6 +378,11 @@ if grep -q "jira:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     fi
 fi
 
+# TODO: move to packages configuration file
+if ! python3 -m pip freeze | grep neovim >/dev/null; then
+    python3 -m pip install neovim
+fi
+
 if grep -q "neovim:nvim" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if [ ! -f "${XDG_DATA_HOME}/nvim/site/autoload/plug.vim" ]; then
         curl -fsSLo "${XDG_DATA_HOME}/nvim/site/autoload/plug.vim" --create-dirs "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
@@ -400,12 +405,6 @@ fi
 # TODO: move to packages configuration file
 if ! which pre-commit >/dev/null; then
     python3 -m pip install pre-commit
-fi
-if ! python3 -m pip freeze | grep tasklib >/dev/null; then
-    python3 -m pip install tasklib
-fi
-if ! python3 -m pip freeze | grep neovim >/dev/null; then
-    python3 -m pip install neovim
 fi
 
 if grep -q "prettyping:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
@@ -431,6 +430,11 @@ if grep -q "sublime-text:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     fi
 fi
 
+# TODO: move to packages configuration file
+if ! python3 -m pip freeze | grep tasklib >/dev/null; then
+    python3 -m pip install tasklib
+fi
+
 if grep -q "taskwarrior:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if ! which task >/dev/null; then
         if [[ "$OSTYPE" == "darwin"* ]]; then
@@ -454,6 +458,26 @@ if grep -q "transmission-daemon:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; the
         else
             eval "${PACMAN_INSTALL} transmission-daemon"
         fi
+    fi
+fi
+
+if grep -q "universal-ctags:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
+    # TODO: check how this works on linux (/usr/bin/ctags is builtin on osx)
+    # if ! which ctags >/dev/null; then
+    if [[ ! -f "/usr/local/bin/ctags" ]]; then
+        # TODO: linux version of this dependency?
+        if [[ "$OSTYPE" == "darwin"* ]]; then
+            eval "${PACMAN_INSTALL} libyaml"
+        fi
+
+        git clone https://github.com/universal-ctags/ctags.git "${XDG_SRC_HOME}/universal-ctags"
+        (
+            cd "${XDG_SRC_HOME}/universal-ctags"
+            ./autogen.sh
+            ./configure --prefix=/usr/local --disable-xml
+            make
+            make install
+        )
     fi
 fi
 
