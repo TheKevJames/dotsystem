@@ -370,9 +370,9 @@ fi
 if grep -q "jira:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if ! which jira >/dev/null; then
         if [[ "$OSTYPE" == "darwin"* ]]; then
-            sudo curl -fsSLo /usr/local/bin/jira "https://github.com/Netflix-Skunkworks/go-jira/releases/download/v1.0.20/jira-darwin-10.6-amd64"
+            sudo curl -fsSLo /usr/local/bin/jira "https://github.com/go-jira/jira/releases/download/v1.0.22/jira-darwin-amd64"
         else
-            sudo curl -fsSLo /usr/local/bin/jira "https://github.com/Netflix-Skunkworks/go-jira/releases/download/v1.0.20/jira-linux-amd64"
+            sudo curl -fsSLo /usr/local/bin/jira "https://github.com/go-jira/jira/releases/download/v1.0.22/jira-linux-amd64"
         fi
         sudo chmod a+x /usr/local/bin/jira
     fi
@@ -400,6 +400,12 @@ fi
 # TODO: move to packages configuration file
 if ! which pre-commit >/dev/null; then
     python3 -m pip install pre-commit
+fi
+if ! python3 -m pip freeze | grep tasklib >/dev/null; then
+    python3 -m pip install tasklib
+fi
+if ! python3 -m pip freeze | grep neovim >/dev/null; then
+    python3 -m pip install neovim
 fi
 
 if grep -q "prettyping:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then

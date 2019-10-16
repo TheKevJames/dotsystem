@@ -23,6 +23,7 @@ Plug 'airblade/vim-gitgutter'  " git
 " Plug 'pgdouyon/vim-accio'  " async :make -- light-weight, linting-focus?
 
 Plug 'vimwiki/vimwiki'  " wiki
+Plug 'tbabej/taskwiki'  " wiki + taskwarrior
 
 " Plug 'mhinz/vim-grepper'  " async grep w/ tool support
 
@@ -31,4 +32,5 @@ Plug 'rust-lang/rust.vim', { 'for': 'rust' }  " Rust syntax
 call plug#end()
 
 " plugin configuration
+let g:taskwiki_data_location="~/.local/share/taskwarrior"
 let g:vimwiki_list = [{'path': '~/Dropbox/vimwiki'}, {'path': '~/Dropbox/work/vimwiki'}]
