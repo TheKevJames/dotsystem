@@ -33,7 +33,8 @@
 		"SideBarEnhancements",
 		"Sort Lines (Numerically)",
 		"Terraform",
-		"TOML"
+		"TOML",
+		"TypeScript Syntax"
 	],
 	"remove_orphaned": true,
 	"timeout": 30
