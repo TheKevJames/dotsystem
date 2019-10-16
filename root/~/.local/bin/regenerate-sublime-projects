@@ -22,11 +22,15 @@ def get_project_paths(repo_dirs: List[pathlib.Path]) -> Iterable[str]:
 def build_sublime_projects(repo_dirs: List[pathlib.Path]) -> Iterable[str]:
     for path in get_project_paths(repo_dirs):
         name = path.replace(str(pathlib.Path.home()), '')[1:]
+        venv = f'{path}/venv/lib/python3.7/site-packages'
 
         project = (PROJECT_DIR / name).with_suffix('.sublime-project')
         project.parent.mkdir(parents=True, exist_ok=True)
+
         project.write_text(json.dumps({
-            'folders': [{'path': str(path)}],
+            'folders': [{'path': path}],
+            'settings': {'LSP': {'pyls': {'env': {'MYPYPATH': venv,
+                                                  'PYTHONPATH': venv}}}},
         }))
 
         workspace = (PROJECT_DIR / name).with_suffix('.sublime-workspace')

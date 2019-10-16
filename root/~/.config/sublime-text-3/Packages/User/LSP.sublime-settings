@@ -1,8 +1,18 @@
 {
   "clients": {
     "pyls": {
-      "command": ["~/.local/bin/pyls"],
-      "enabled": true
+      "command": ["~/.local/share/venv/lsp/bin/pyls"],
+      "enabled": true,
+      "settings": {
+        "pyls": {
+          "plugins": {
+            "pyls_mypy": {
+              "enabled": true,
+              "live_mode": false
+            }
+          }
+        }
+      }
     },
     "rls": {
       "command": ["~/.local/share/cargo/bin/rustup", "run", "stable", "rls"],
