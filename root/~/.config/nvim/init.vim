@@ -1,18 +1,13 @@
-set expandtab       " spaces > tabs
-set hlsearch        " show highlights on search
-set laststatus=0    " hide statusline
-set number          " show line numbers
-set relativenumber  " line numbers should be relative
-set shiftwidth=4    " tabs are 4 spaces
-set showmatch       " show matching bracket on insertion
-set synmaxcol=512   " set maximum line length for syntax highlighting
-set tags=.git/tags  " hide ctags in `.git` folder
-
-" use system clipboard
-nnoremap y "+y
-vnoremap y "+y
-nnoremap p "+p
-vnoremap p "+p
+set clipboard=unnamedplus  " use system clipboard
+set expandtab              " spaces > tabs
+set hlsearch               " show highlights on search
+set laststatus=0           " hide statusline
+set number                 " show line numbers
+set relativenumber         " line numbers should be relative
+set shiftwidth=4           " tabs are 4 spaces
+set showmatch              " show matching bracket on insertion
+set synmaxcol=512          " set maximum line length for syntax highlighting
+set tags=.git/tags         " hide ctags in `.git` folder
 
 " avoid unnecessary <shift> for goto
 nnoremap ; :
