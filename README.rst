@@ -139,11 +139,12 @@ eventually accept be fixed as well as apps that have decided they're
 - taskwarrior. Support by setting ``$TASKRC`` and ``$TASKDATA``.
 - theano. Support by setting ``$THEANORC`` and including ``base_compiledir`` in ``$THEANO_FLAGS``.
 - tmux. Support with ``-f`` flag.
+- universal-ctags. But `at least its a TODO`_.
 - wine. Support by setting ``$WINEPREFIX``.
 - zsh. Partial support by setting ``$ZDOTDIR`` and ``$HISTFILE``. Your
   ``~/.zshenv`` file is effectively hardcoded.
 
-.. _XDG Base Directory Spec: https://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html
+.. _at least its a TODO: https://github.com/universal-ctags/ctags/issues/89
 .. _cargo is a snowflake: https://github.com/rust-lang/rfcs/pull/1615
 .. _cargo XDG RFC: https://github.com/rust-lang/rfcs/pull/1615#issuecomment-323556940
 .. _docker XDG issue: https://github.com/docker/docker/issues/20693
@@ -154,3 +155,4 @@ eventually accept be fixed as well as apps that have decided they're
 .. _rustup is a snowflake: https://github.com/rust-lang-nursery/rustup.rs/issues/247
 .. _special snowflakes: https://github.com/rust-lang-nursery/rustup.rs/issues/247#issuecomment-219213895
 .. _sqlite XDG hack: https://github.com/TheKevJames/dotsystem/blob/e28041fbd3ddf68bdc951ca41cca03d325b7f6df/root/~/.config/oh-my-zsh-custom/xdg.zsh#L33-L38
+.. _XDG Base Directory Spec: https://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html

@@ -1,0 +1,12 @@
+#ctags -R -f .git/tags --tag-relative=yes --exclude="venv/*" --exclude=".mypy_cache/*" --exclude="*.json" --sort=foldcase .
+
+-f .git/tags
+
+--recurse=yes
+--tag-relative=yes
+--sort=foldcase
+
+--exclude=*.json
+--exclude=.git
+--exclude=.mypy_cache/*
+--exclude=venv/*
