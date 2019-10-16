@@ -1,0 +1,12 @@
+endpoint: https://switchcomm.atlassian.net
+login: kjames@dialpad.com
+password-source: keyring
+
+custom-commands:
+  - name: ready
+    help: Mark issue as "Ready for Production"
+    args:
+      - name: ISSUE
+        required: true
+    script: |-
+      {{jira}} transition 'Ready for Production' {{args.ISSUE}}

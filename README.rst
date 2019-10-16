@@ -111,6 +111,7 @@ eventually accept be fixed as well as apps that have decided they're
 - helm. Support by setting ``$HELM_HOME``.
 - irb. Partial support by setting ``$IRBRC``.
 - irssi. Partial support with ``--home`` flag.
+- jira. But `at least jira has a TODO`_.
 - julia. Support by setting ``$JULIA_PKGDIR`` and ``$JULIA_HISTORY``.
 - less. Support by setting ``$LESSHISTFILE``.
 - libice. Partial support by setting ``$ICEAUTHORITY``.
@@ -139,12 +140,13 @@ eventually accept be fixed as well as apps that have decided they're
 - taskwarrior. Support by setting ``$TASKRC`` and ``$TASKDATA``.
 - theano. Support by setting ``$THEANORC`` and including ``base_compiledir`` in ``$THEANO_FLAGS``.
 - tmux. Support with ``-f`` flag.
-- universal-ctags. But `at least its a TODO`_.
+- universal-ctags. But `at least ctags has a TODO`_.
 - wine. Support by setting ``$WINEPREFIX``.
 - zsh. Partial support by setting ``$ZDOTDIR`` and ``$HISTFILE``. Your
   ``~/.zshenv`` file is effectively hardcoded.
 
-.. _at least its a TODO: https://github.com/universal-ctags/ctags/issues/89
+.. _at least jira has a TODO: https://github.com/go-jira/jira/issues/235
+.. _at least ctags has a TODO: https://github.com/universal-ctags/ctags/issues/89
 .. _cargo is a snowflake: https://github.com/rust-lang/rfcs/pull/1615
 .. _cargo XDG RFC: https://github.com/rust-lang/rfcs/pull/1615#issuecomment-323556940
 .. _docker XDG issue: https://github.com/docker/docker/issues/20693
