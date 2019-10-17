@@ -32,11 +32,17 @@ repos:
     rev: v2.3.1
     hooks:
     -   id: pylint
+        additional_dependencies:
+        # TODO: >0.2.0
+        - git+https://github.com/bayesimpact/pylint_import_modules@016f79e4d2
         args:
+        - --allowed-direct-imports="typing.*"
+        - --load-plugins=pylint_import_modules
         - --max-line-length=79
         - --ignore-imports=yes
         - -d fixme
         - -d import-error
+        - -d import-only-modules
         - -d invalid-name
         - -d locally-disabled
         - -d missing-docstring
