@@ -3,6 +3,10 @@ login: kjames@dialpad.com
 password-source: keyring
 
 custom-commands:
+  - name: mine
+    help: Display issues assigned to me
+    script: |-
+      {{jira}} ls -akjames -tkanban -sstatus
   - name: ready
     help: Mark issue as "Ready for Production"
     args:
