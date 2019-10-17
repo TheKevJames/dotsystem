@@ -40,6 +40,8 @@ if [[ "${BOOTSTRAP}" == "y" ]]; then
     echo "Creating ~/.ssh/id_ed25519..."
     ssh-keygen -o -a 100 -t ed25519 -C "KevinJames@thekev.in" -f ~/.ssh/id_ed25519
 
+    # TODO: should I just add all keys?
+    #     curl https://github.com/thekevjames.keys >> ~/.ssh/authorized_keys
     echo "Adding emergency backup key to ~/.ssh/authorized_keys..."
     passphrase2pgp -u emergency -f ssh -p >> ~/.ssh/authorized_keys
     # To regain access to a machine if all goes wrong:

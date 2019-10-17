@@ -51,5 +51,6 @@ alias cpan="cpan -j ${XDG_CONFIG_HOME}/cpan/Config.pm"
 alias gmailctl="gmailctl --config=${XDG_CONFIG_HOME}/gmailctl"
 alias irssi="irssi --home=${XDG_CONFIG_HOME}/irssi"
 alias lmms="lmms --config=${XDG_CONFIG_HOME}/lmms/config"
+alias wget="wget --hsts-file ${XDG_DATA_HOME}/wget/hsts"
 
 export PATH="${PYENV_ROOT}/shims:${CARGO_HOME}/bin:${GOPATH}/bin:${PATH}"

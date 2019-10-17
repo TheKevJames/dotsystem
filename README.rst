@@ -141,6 +141,7 @@ eventually accept be fixed as well as apps that have decided they're
 - theano. Support by setting ``$THEANORC`` and including ``base_compiledir`` in ``$THEANO_FLAGS``.
 - tmux. Support with ``-f`` flag.
 - universal-ctags. But `at least ctags has a TODO`_.
+- wget. Support with ``--hsts-file`` flag.
 - wine. Support by setting ``$WINEPREFIX``.
 - zsh. Partial support by setting ``$ZDOTDIR`` and ``$HISTFILE``. Your
   ``~/.zshenv`` file is effectively hardcoded.
