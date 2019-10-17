@@ -7,6 +7,10 @@ custom-commands:
     help: Display issues assigned to me
     script: |-
       {{jira}} ls -akjames -tkanban -sstatus
+  - name: kanban
+    help: Display team kanban board
+    script: |-
+      {{jira}} ls -tkanban --query="assignee IN (eddie, e.galpin, hsaini, jonathan, jpalmer, kjames, k.hersey, ssawyer) AND status NOT IN ('Open', 'Closed', 'Done') ORDER BY assignee,status"
   - name: ready
     help: Mark issue as "Ready for Production"
     args:
