@@ -3,14 +3,22 @@ login: kjames@dialpad.com
 password-source: keyring
 
 custom-commands:
+  - name: kanban
+    help: Display team kanban board
+    options:
+      - name: sort
+        short: s
+        default: assignee,status
+    script: |-
+      {{jira}} ls -tkanban --query="assignee IN (eddie, e.galpin, hsaini, jonathan, jpalmer, kjames, k.hersey, ssawyer) AND status NOT IN ('Open', 'Closed', 'Done') ORDER BY {{options.sort}}"
   - name: mine
     help: Display issues assigned to me
     script: |-
-      {{jira}} ls -akjames -tkanban -sstatus
-  - name: kanban
-    help: Display team kanban board
+      {{jira}} ls -tkanban -akjames -sstatus
+  - name: next
+    help: Display upcoming tasks for the team
     script: |-
-      {{jira}} ls -tkanban --query="assignee IN (eddie, e.galpin, hsaini, jonathan, jpalmer, kjames, k.hersey, ssawyer) AND status NOT IN ('Open', 'Closed', 'Done') ORDER BY assignee,status"
+      {{jira}} ls -tbacklog --query="assignee IS NULL AND project=VAE AND status='To Do' ORDER BY priority"
   - name: ready
     help: Mark issue as "Ready for Production"
     args:
