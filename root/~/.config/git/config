@@ -9,6 +9,7 @@
     pre-commit-init = !cp ~/.config/git/pre-commit-config.yaml $(git rev-parse --show-toplevel)/.pre-commit-config.yaml
     remotes = remote -v
     sha = !git rev-parse HEAD | grep --color $(git rev-parse --short=0 HEAD)
+    stale = !git branch -r | grep -v HEAD | grep -v 'origin/master$' | xargs -I{} git log --no-merges -n 1 --format=\"%ci | %cr | %an | {}\" {} | sort -n
     tags = tag -l --sort=version:refname
 
 [advice]
