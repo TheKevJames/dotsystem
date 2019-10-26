@@ -43,7 +43,7 @@
 	"caret_extra_width": 0,
 	"caret_style": "smooth",
 	"close_windows_when_empty": false,
-	"color_scheme": "Packages/Color Scheme - Default/Monokai.sublime-color-scheme",
+	"color_scheme": "Packages/Gruvbox Dark/gruvbox.tmTheme",
 	"copy_with_empty_selection": true,
 	"create_window_at_startup": false,
 	"default_encoding": "UTF-8",
