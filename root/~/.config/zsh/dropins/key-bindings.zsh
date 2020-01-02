@@ -75,8 +75,8 @@ bindkey "^[m" copy-prev-shell-word
 autoload -Uz bracketed-paste-magic
 zle -N bracketed-paste bracketed-paste-magic
 
-# `cd` when command_not_found is a directory
-setopt auto_cd
+# never `cd` when command_not_found is a directory
+unsetopt auto_cd
 
 # implicit `cat` and `tee` when redirecting
 setopt multios
