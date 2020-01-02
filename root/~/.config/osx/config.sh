@@ -91,34 +91,3 @@ defaults write net.sourceforge.cruisecontrol.CCMenu "SendNotification Successful
 #     defaults write net.sourceforge.cruisecontrol.CCMenu Projects \
     #         -array-add '{projectName = "'"${project}"'"; serverUrl = "https://circleci.com/cc.xml?circle-token='"${circleci_token}"'";}'
 # done
-
-# Magnet
-## clear unused
-defaults write com.crowdcafe.windowmagnet centerWindowComboKey '{}'
-defaults write com.crowdcafe.windowmagnet expandWindowCenterThirdComboKey '{}'
-defaults write com.crowdcafe.windowmagnet expandWindowLeftThirdComboKey '{}'
-defaults write com.crowdcafe.windowmagnet expandWindowLeftTwoThirdsComboKey '{}'
-defaults write com.crowdcafe.windowmagnet expandWindowNorthWestComboKey '{}'
-defaults write com.crowdcafe.windowmagnet expandWindowRightThirdComboKey '{}'
-defaults write com.crowdcafe.windowmagnet expandWindowRightTwoThirdsComboKey '{}'
-defaults write com.crowdcafe.windowmagnet expandWindowSouthWestComboKey '{}'
-defaults write com.crowdcafe.windowmagnet moveWindowToNextDisplay '{}'
-defaults write com.crowdcafe.windowmagnet moveWindowToPreviousDisplay '{}'
-defaults write com.crowdcafe.windowmagnet restoreWindowComboKey '{}'
-## set the rest
-### Keys:
-###   6:   z
-###   123: <
-###   124: >
-###   125: v
-###   126: ^
-### Modifiers:
-###   1441792: cmd+ctrl+shift
-###   1966080: cmd+ctrl+shift+option
-defaults write com.crowdcafe.windowmagnet expandWindowEastComboKey -dict keyCode 124 modifierFlags 1441792
-defaults write com.crowdcafe.windowmagnet expandWindowNorthComboKey -dict keyCode 126 modifierFlags 1441792
-defaults write com.crowdcafe.windowmagnet expandWindowNorthEastComboKey -dict keyCode 126 modifierFlags 1966080
-defaults write com.crowdcafe.windowmagnet expandWindowSouthComboKey -dict keyCode 125 modifierFlags 1441792
-defaults write com.crowdcafe.windowmagnet expandWindowSouthEastComboKey -dict keyCode 125 modifierFlags 1966080
-defaults write com.crowdcafe.windowmagnet expandWindowWestComboKey -dict keyCode 123 modifierFlags 1441792
-defaults write com.crowdcafe.windowmagnet maximizeWindowComboKey -dict keyCode 6 modifierFlags 1441792

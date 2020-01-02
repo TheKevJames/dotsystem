@@ -226,9 +226,6 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     if [[ ! -f "/Applications/CCMenu.app/Contents/MacOS/CCMenu" ]]; then
         mas install 603117688
     fi
-    if [[ ! -f "/Applications/Magnet.app/Contents/MacOS/Magnet" ]]; then
-        mas install 441258766
-    fi
 fi
 
 if grep -q "alacritty:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
