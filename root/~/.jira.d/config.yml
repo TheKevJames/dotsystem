@@ -10,7 +10,7 @@ custom-commands:
         short: s
         default: assignee,status
     script: |-
-      {{jira}} ls -tkanban --query="assignee IN (allan.hamzic, eddie, e.galpin, hsaini, jonathan, jpalmer, kjames, k.hersey, ssawyer) AND status NOT IN ('Open', 'Closed', 'Done') ORDER BY {{options.sort}}"
+      {{jira}} ls -tkanban --query="assignee IN (allan.hamzic, eddie, e.galpin, hsaini, jonathan, jpalmer, kjames, k.hersey, ssawyer) AND status NOT IN ('Backlog', 'Closed', 'Done') ORDER BY {{options.sort}}"
   - name: mine
     help: Display issues assigned to me
     script: |-
@@ -18,7 +18,7 @@ custom-commands:
   - name: next
     help: Display upcoming tasks for the team
     script: |-
-      {{jira}} ls -tbacklog --query="assignee IS NULL AND project=VAE AND status='To Do' ORDER BY priority"
+      {{jira}} ls -tbacklog --query="assignee IS NULL AND project=VAE AND status IN ('To Do', 'Needs Triage') ORDER BY priority"
   - name: ready
     help: Mark issue as "Ready for Production"
     args:
