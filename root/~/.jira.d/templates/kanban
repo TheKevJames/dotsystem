@@ -1,9 +1,9 @@
 {{/* table template */ -}}
-{{$w := sub termWidth 76 -}}
-+{{ "-" | rep 12 }}+{{ "-" | rep $w }}+{{ "-" | rep 13 }}+{{ "-" | rep 10 }}+{{ "-" | rep 22 }}+{{ "-" | rep 12 }}+
-| {{ "Issue" | printf "%-10s" }} | {{ "Summary" | printf (printf "%%-%ds" (sub $w 2)) }} | {{ "Type" | printf "%-11s"}} | {{ "Priority" | printf "%-8s" }} | {{ "Status" | printf "%-20s" }} | {{ "Assignee" | printf "%-10s" }} |
-+{{ "-" | rep 12 }}+{{ "-" | rep $w }}+{{ "-" | rep 13 }}+{{ "-" | rep 10 }}+{{ "-" | rep 22 }}+{{ "-" | rep 12 }}+
+{{$w := sub termWidth 79 -}}
++{{ "-" | rep 12 }}+{{ "-" | rep $w }}+{{ "-" | rep 13 }}+{{ "-" | rep 10 }}+{{ "-" | rep 22 }}+{{ "-" | rep 15 }}+
+| {{ "Issue" | printf "%-10s" }} | {{ "Summary" | printf (printf "%%-%ds" (sub $w 2)) }} | {{ "Type" | printf "%-11s"}} | {{ "Priority" | printf "%-8s" }} | {{ "Status" | printf "%-20s" }} | {{ "Assignee" | printf "%-13s" }} |
++{{ "-" | rep 12 }}+{{ "-" | rep $w }}+{{ "-" | rep 13 }}+{{ "-" | rep 10 }}+{{ "-" | rep 22 }}+{{ "-" | rep 15 }}+
 {{ range .issues -}}
-  | {{ .key | printf "%-10s"}} | {{ .fields.summary | abbrev (sub $w 2) | printf (printf "%%-%ds" (sub $w 2)) }} | {{.fields.issuetype.name | printf "%-11s" }} | {{if .fields.priority}}{{.fields.priority.name | printf "%-8s" }}{{else}}<unassigned>{{end}} | {{.fields.status.name | printf "%-20s" }} | {{if .fields.assignee }}{{.fields.assignee.name | printf "%-10s" }}{{else}}Unassigned{{end}} |
+  | {{ .key | printf "%-10s"}} | {{ .fields.summary | abbrev (sub $w 2) | printf (printf "%%-%ds" (sub $w 2)) }} | {{.fields.issuetype.name | printf "%-11s" }} | {{if .fields.priority}}{{.fields.priority.name | printf "%-8s" }}{{else}}<unassigned>{{end}} | {{.fields.status.name | printf "%-20s" }} | {{if .fields.assignee }}{{.fields.assignee.name | printf "%-13s" }}{{else}}Unassigned{{end}} |
 {{ end -}}
-+{{ "-" | rep 12 }}+{{ "-" | rep $w }}+{{ "-" | rep 13 }}+{{ "-" | rep 10 }}+{{ "-" | rep 22 }}+{{ "-" | rep 12 }}+
++{{ "-" | rep 12 }}+{{ "-" | rep $w }}+{{ "-" | rep 13 }}+{{ "-" | rep 10 }}+{{ "-" | rep 22 }}+{{ "-" | rep 15 }}+

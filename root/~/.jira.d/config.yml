@@ -10,7 +10,7 @@ custom-commands:
         short: s
         default: assignee,status
     script: |-
-      {{jira}} ls -tkanban --query="assignee IN (eddie, e.galpin, hsaini, jonathan, jpalmer, kjames, k.hersey, ssawyer) AND status NOT IN ('Open', 'Closed', 'Done') ORDER BY {{options.sort}}"
+      {{jira}} ls -tkanban --query="assignee IN (allan.hamzic, eddie, e.galpin, hsaini, jonathan, jpalmer, kjames, k.hersey, ssawyer) AND status NOT IN ('Open', 'Closed', 'Done') ORDER BY {{options.sort}}"
   - name: mine
     help: Display issues assigned to me
     script: |-
