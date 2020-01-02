@@ -44,6 +44,8 @@ yabai -m config right_padding                8
 yabai -m config window_gap                   8
 
 # rules
-# yabai -m rule --add app=Franz space=2
-yabai -m rule --add app=Franz native-fullscreen=on
+yabai -m rule --add app="Sublime Text" space=1
+yabai -m rule --add app=Firefox space=2
+yabai -m rule --add app=Franz space=3
+# yabai -m rule --add app=Franz native-fullscreen=on
 yabai -m rule --add app="^System Preferences$" manage=off
