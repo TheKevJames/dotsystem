@@ -4,6 +4,7 @@ curl
 entr
 exa
 fd
+fzf
 gpg:gnupg
 hexyl:sh
 htop
