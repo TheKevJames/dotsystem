@@ -1,5 +1,6 @@
 endpoint: https://switchcomm.atlassian.net
 login: kjames@dialpad.com
+user: kjames
 password-source: keyring
 
 custom-commands:
@@ -20,9 +21,16 @@ custom-commands:
     script: |-
       {{jira}} ls -tbacklog --query="assignee IS NULL AND project=VAE AND status IN ('To Do', 'Needs Triage') ORDER BY priority"
   - name: ready
-    help: Mark issue as "Ready for Production"
+    help: Transition issue to "Ready for Production" state
     args:
       - name: ISSUE
         required: true
     script: |-
       {{jira}} transition 'Ready for Production' {{args.ISSUE}}
+  - name: triage
+    help: Transition issue to "In Triage" state
+    args:
+      - name: ISSUE
+        required: true
+    script: |-
+      {{jira}} transition 'Triage' {{args.ISSUE}}
