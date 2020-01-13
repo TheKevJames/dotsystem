@@ -39,6 +39,7 @@
 [diff]
     algorithm = histogram
     colorMoved = zebra
+    mnemonicPrefix = true
     renames = copies
     tool = nvimdiff
 
