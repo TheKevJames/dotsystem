@@ -17,6 +17,7 @@ syntax on                  " show syntax highlighting
 
 call plug#begin('~/.local/share/nvim/plugged')
 
+Plug 'junegunn/fzf', { 'do': './install --bin' }  " fzf
 Plug 'airblade/vim-gitgutter'  " git
 
 " Plug 'neomake/neomake'  " async :make
