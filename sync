@@ -24,7 +24,18 @@ source "${DIR}/root/~/.zshenv"
 if [[ "${BOOTSTRAP}" == "y" ]]; then
     echo "Detected fresh system, beginning bootstrap mode..."
     if [[ "$@" == *"--skip-packages"* ]]; then
+        if ! which m4 >/dev/null; then
+            echo "m4 is not installed but --skip-packages is set, exiting."
+            exit 1
+        fi
         echo "--skip-packages specified, some bootstrapping will be skipped"
+    fi
+
+    # ensure m4 is installed, nothing will work without it
+    if ! which m4 >/dev/null; then
+        echo "Refreshing sources and installing m4..."
+        eval "${PACMAN_REFRESH}" >/dev/null
+        eval "${PACMAN_INSTALL} m4"
     fi
 
     # set hostname
