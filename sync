@@ -228,12 +228,13 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     # TODO: move to packages configuration file
     if ! mas account >/dev/null; then
         echo "ERROR: not signed in to the Mac App Store."
-    fi
-    if [[ ! -f "/Applications/Amphetamine.app/Contents/MacOS/Amphetamine" ]]; then
-        mas install 937984704
-    fi
-    if [[ ! -f "/Applications/CCMenu.app/Contents/MacOS/CCMenu" ]]; then
-        mas install 603117688
+    else
+        if [[ ! -f "/Applications/Amphetamine.app/Contents/MacOS/Amphetamine" ]]; then
+            mas install 937984704
+        fi
+        if [[ ! -f "/Applications/CCMenu.app/Contents/MacOS/CCMenu" ]]; then
+            mas install 603117688
+        fi
     fi
 fi
 
