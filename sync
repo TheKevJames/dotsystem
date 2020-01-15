@@ -279,6 +279,17 @@ if grep -q "docker:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     fi
 fi
 
+if grep -q "exa:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
+    if ! which exa >/dev/null; then
+        if [[ "$OSTYPE" == "darwin"* ]]; then
+            brew install exa
+        else
+            export CARGO_HOME="${XDG_DATA_HOME}/cargo"
+            cargo install exa
+        fi
+    fi
+fi
+
 if grep -q "firefox:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if [[ "$OSTYPE" == "darwin"* ]]; then
         if [[ ! -f "/Applications/Firefox.app/Contents/MacOS/firefox" ]]; then

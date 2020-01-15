@@ -3,7 +3,7 @@ bat
 universal-ctags:sh
 curl
 entr
-exa
+exa:sh
 fd
 gpg:gnupg
 hexyl:sh
