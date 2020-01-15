@@ -1,0 +1,4 @@
+#!/bin/sh
+[[ -f /usr/local/bin/grep ]] && exec /usr/local/bin/grep --color=auto "$@"
+[[ -f /usr/bin/grep ]] && exec /usr/bin/grep --color=auto "$@"
+[[ -f /bin/grep ]] && exec /bin/grep --color=auto "$@"
