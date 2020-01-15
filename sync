@@ -248,6 +248,16 @@ if grep -q "cargo:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     fi
 fi
 
+if grep -q "python2:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
+    if ! which python2 >/dev/null; then
+        if [[ -f /etc/os-release ]] && grep -q Ubuntu /etc/os-release; then
+            eval "${PACMAN_INSTALL} python"
+        else
+            eval "${PACMAN_INSTALL} python2"
+        fi
+    fi
+fi
+
 if grep -q "alacritty:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if [[ "$OSTYPE" == "darwin"* ]]; then
         if [[ ! -f /Applications/Alacritty.app/Contents/MacOS/alacritty ]]; then
@@ -272,18 +282,6 @@ if grep -q "bat:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     fi
 fi
 
-if grep -q "dropbox:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
-    if [[ "$OSTYPE" == "darwin"* ]]; then
-        if [[ ! -f "/Applications/Dropbox.app/Contents/MacOS/Dropbox" ]]; then
-            brew cask install dropbox
-        fi
-    else
-        if ! which dropbox >/dev/null; then
-            eval "${PACMAN_INSTALL} dropbox"
-        fi
-    fi
-fi
-
 if grep -q "docker:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if ! which docker >/dev/null; then
         if [[ "$OSTYPE" == "darwin"* ]]; then
@@ -298,6 +296,18 @@ if grep -q "docker:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
             sudo apt-get install docker-ce docker-ce-cli containerd.io
         else
             eval "${PACMAN_INSTALL} docker"
+        fi
+    fi
+fi
+
+if grep -q "dropbox:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        if [[ ! -f "/Applications/Dropbox.app/Contents/MacOS/Dropbox" ]]; then
+            brew cask install dropbox
+        fi
+    else
+        if ! which dropbox >/dev/null; then
+            eval "${PACMAN_INSTALL} dropbox"
         fi
     fi
 fi

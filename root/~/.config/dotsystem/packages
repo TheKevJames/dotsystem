@@ -33,7 +33,7 @@ hub:sh
 cargo:sh
 clang
 go
-python2
+python2:sh
 python3
 
 docker:sh
