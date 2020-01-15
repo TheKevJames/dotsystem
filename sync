@@ -396,6 +396,10 @@ if grep -q "jira:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
 fi
 
 # TODO: move to packages configuration file
+if ! python3 -m pip --version >/dev/null; then
+    # some distros have this bundled with `python3`, some don't
+    eval "${PACMAN_INSTALL} python3-pip"
+fi
 if ! python3 -m pip freeze | grep neovim >/dev/null; then
     python3 -m pip install neovim
 fi
