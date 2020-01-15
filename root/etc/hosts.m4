@@ -4,7 +4,8 @@
 127.0.0.1       localhost.localdomain
 127.0.0.1       kubernetes.docker.internal
 
-127.0.1.1       susebox
+127.0.1.1       M4_HOSTNAME
+127.0.1.1       M4_HOSTNAME.localdomain
 
 255.255.255.255 broadcasthost
 

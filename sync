@@ -151,7 +151,10 @@ fi
 IFS=$(echo -en "\n\b"); for file in $(find "${DIR}/root" -type f); do
     if [[ "${file##*.}" == "m4" ]]; then
         TEMPFILE=$(mktemp)
-        m4 ${XDG_DATA_HOME}/dotsystem/secrets.m4 $file 2>/dev/null > $TEMPFILE
+        m4 \
+            "${XDG_DATA_HOME}/dotsystem/config.m4" \
+            "${XDG_DATA_HOME}/dotsystem/secrets.m4" \
+            "${file}" 2>/dev/null > "${TEMPFILE}"
         file_noext="${file%.*}"
         set_file "${TEMPFILE}" "/${file_noext#${DIR}/root/}"
     elif [[ "${file##*.}" == "once" ]]; then
