@@ -135,6 +135,13 @@ fi
 ## Update global configs
 echo "Configuring system..."
 
+# configure retrievable config
+TEMPFILE=$(mktemp)
+echo "divert(-1)" > "${TEMPFILE}"
+echo "define(\`M4_HOSTNAME', \`${HOSTNAME}')" >> "${TEMPFILE}"
+echo "divert(0)dnl" >> "${TEMPFILE}"
+set_file "${TEMPFILE}" "${XDG_DATA_HOME}/dotsystem/config.m4"
+
 if [ ! -f "${XDG_DATA_HOME}/dotsystem/secrets.m4" ]; then
     echo "No secrets file found, writing defaults to ${XDG_DATA_HOME}/dotsystem/secrets.m4"
     mkdir -p "${XDG_DATA_HOME}/dotsystem/"
