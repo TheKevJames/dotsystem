@@ -305,6 +305,18 @@ if grep -q "exa:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     fi
 fi
 
+if grep -q "fd:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
+    if ! which fd >/dev/null; then
+        # TODO: deprecate support for <19.04
+        if [[ -f /etc/os-release ]] && grep -q Ubuntu /etc/os-release; then
+            export CARGO_HOME="${XDG_DATA_HOME}/cargo"
+            cargo install fd-find
+        else
+            eval "${PACMAN_INSTALL} fd"
+        fi
+    fi
+fi
+
 if grep -q "firefox:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if [[ "$OSTYPE" == "darwin"* ]]; then
         if [[ ! -f "/Applications/Firefox.app/Contents/MacOS/firefox" ]]; then

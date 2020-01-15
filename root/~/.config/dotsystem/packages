@@ -4,7 +4,7 @@ universal-ctags:sh
 curl
 entr
 exa:sh
-fd
+fd:sh
 gpg:gnupg
 hexyl:sh
 htop
