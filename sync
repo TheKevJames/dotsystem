@@ -237,6 +237,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     fi
 fi
 
+## Install outside-of-package-manager packages
 if grep -q "alacritty:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if [[ "$OSTYPE" == "darwin"* ]]; then
         if [[ ! -f /Applications/Alacritty.app/Contents/MacOS/alacritty ]]; then
@@ -245,6 +246,18 @@ if grep -q "alacritty:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     else
         if ! which alacritty >/dev/null; then
             eval "${PACMAN_INSTALL} alacritty"
+        fi
+    fi
+fi
+
+if grep -q "bat:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
+    if ! which bat >/dev/null; then
+        # TODO: deprecate support for <19.10
+        if [[ -f /etc/os-release ]] && grep -q Ubuntu /etc/os-release; then
+            export CARGO_HOME="${XDG_DATA_HOME}/cargo"
+            cargo install bat
+        else
+            eval "${PACMAN_INSTALL} bat"
         fi
     fi
 fi

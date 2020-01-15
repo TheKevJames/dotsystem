@@ -1,5 +1,5 @@
 autoconf
-bat
+bat:sh
 universal-ctags:sh
 curl
 entr
