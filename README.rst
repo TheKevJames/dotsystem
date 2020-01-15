@@ -69,9 +69,7 @@ When sunsetting a machine, there's not much that needs to be done:
     # a ``./sync --revoke``.
 
     # nuke your homedir
-    # TODO: transmission installation is deprecated in favor of server access.
-    # One day I'll remove these secrets...
-    sudo rm -Prf ~ /var/lib/transmission/.config/transmission-daemon
+    sudo rm -Prf ~
 
 Secrets
 -------

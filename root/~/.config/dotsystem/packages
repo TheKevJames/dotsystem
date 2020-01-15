@@ -45,4 +45,3 @@ jira:sh
 lastpass-cli:lpass
 ngrok:sh
 taskwarrior:sh
-transmission-daemon:sh

@@ -447,16 +447,6 @@ if grep -q "tmuxifier:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     fi
 fi
 
-if grep -q "transmission-daemon:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
-    if ! which transmission-daemon >/dev/null; then
-        if [[ "$OSTYPE" == "darwin"* ]]; then
-            eval "${PACMAN_INSTALL} transmission"
-        else
-            eval "${PACMAN_INSTALL} transmission-daemon"
-        fi
-    fi
-fi
-
 if grep -q "universal-ctags:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     # TODO: check how this works on linux (/usr/bin/ctags is builtin on osx)
     # if ! which ctags >/dev/null; then
