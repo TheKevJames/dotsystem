@@ -473,10 +473,8 @@ if grep -q "tmuxifier:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
 fi
 
 if grep -q "universal-ctags:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
-    # TODO: check how this works on linux (/usr/bin/ctags is builtin on osx)
-    # if ! which ctags >/dev/null; then
     if [[ ! -f "/usr/local/bin/ctags" ]]; then
-        # TODO: linux version of this dependency?
+        # TODO: linux version of this dependency seems to be builtin?
         if [[ "$OSTYPE" == "darwin"* ]]; then
             eval "${PACMAN_INSTALL} libyaml"
         fi

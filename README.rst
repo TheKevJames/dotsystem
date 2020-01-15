@@ -138,14 +138,12 @@ eventually accept be fixed as well as apps that have decided they're
 - taskwarrior. Support by setting ``$TASKRC`` and ``$TASKDATA``.
 - theano. Support by setting ``$THEANORC`` and including ``base_compiledir`` in ``$THEANO_FLAGS``.
 - tmux. Support with ``-f`` flag.
-- universal-ctags. But `at least ctags has a TODO`_.
 - wget. Support with ``--hsts-file`` flag.
 - wine. Support by setting ``$WINEPREFIX``.
 - zsh. Partial support by setting ``$ZDOTDIR`` and ``$HISTFILE``. Your
   ``~/.zshenv`` file is effectively hardcoded.
 
 .. _at least jira has a TODO: https://github.com/go-jira/jira/issues/235
-.. _at least ctags has a TODO: https://github.com/universal-ctags/ctags/issues/89
 .. _cargo is a snowflake: https://github.com/rust-lang/rfcs/pull/1615
 .. _cargo XDG RFC: https://github.com/rust-lang/rfcs/pull/1615#issuecomment-323556940
 .. _docker XDG issue: https://github.com/docker/docker/issues/20693
