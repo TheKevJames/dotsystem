@@ -249,6 +249,14 @@ if grep -q "alacritty:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     fi
 fi
 
+if grep -q "cargo:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
+    if ! which cargo >/dev/null; then
+        TEMPFILE=$(mktemp)
+        curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs > "${TEMPFILE}.sh"
+        sh "${TEMPFILE}.sh" -y --no-modify-path
+    fi
+fi
+
 if grep -q "dropbox:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if [[ "$OSTYPE" == "darwin"* ]]; then
         if [[ ! -f "/Applications/Dropbox.app/Contents/MacOS/Dropbox" ]]; then
