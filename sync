@@ -454,6 +454,18 @@ if grep -q "prettyping:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     fi
 fi
 
+if grep -q "ripgrep:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
+    if ! which rg >/dev/null; then
+        # TODO: deprecate support for <18.10
+        if [[ -f /etc/os-release ]] && grep -q Ubuntu /etc/os-release; then
+            export CARGO_HOME="${XDG_DATA_HOME}/cargo"
+            cargo install ripgrep
+        else
+            eval "${PACMAN_INSTALL} ripgrep"
+        fi
+    fi
+fi
+
 if grep -q "sublime-text:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if [[ "$OSTYPE" == "darwin"* ]]; then
         if [[ ! -f "/Applications/Sublime Text.app/Contents/MacOS/Sublime Text" ]]; then

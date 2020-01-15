@@ -13,7 +13,7 @@ less
 m4
 make
 prettyping:sh
-ripgrep:rg
+ripgrep:sh
 tar
 unzip
 wget
