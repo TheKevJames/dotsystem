@@ -485,7 +485,7 @@ if grep -q "universal-ctags:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
             ./autogen.sh
             ./configure --prefix=/usr/local --disable-xml
             make
-            make install
+            make install || sudo make install
         )
     fi
 fi
