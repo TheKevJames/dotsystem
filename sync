@@ -39,18 +39,6 @@ if [[ "${BOOTSTRAP}" == "y" ]]; then
 
     echo "Creating ~/.ssh/id_ed25519..."
     ssh-keygen -o -a 100 -t ed25519 -C "KevinJames@thekev.in" -f ~/.ssh/id_ed25519
-
-    # TODO: should I just add all keys?
-    #     curl https://github.com/thekevjames.keys >> ~/.ssh/authorized_keys
-    echo "Adding emergency backup key to ~/.ssh/authorized_keys..."
-    passphrase2pgp -u emergency -f ssh -p >> ~/.ssh/authorized_keys
-    # To regain access to a machine if all goes wrong:
-    #     (umask 077; passphrase2pgp -u emergency -f ssh > ~/.ssh/emergency)
-    #     ssh-add ~/.ssh/emergency
-    #     rm ~/.ssh/emergency
-    #     ssh-copy-id -i ~/.ssh/id_ed25519 important.example.com
-
-    git remote set-url origin git@github.com:TheKevJames/dotsystem.git
 fi
 
 if which zypper >/dev/null; then
@@ -502,6 +490,9 @@ if [[ "${BOOTSTRAP}" == "y" ]]; then
         --data '{"title":"'"${NEW_HOSTNAME}"'","key":"'"$(cat ~/.ssh/id_ed25519.pub)"'"}' \
         https://api.github.com/user/keys
 
+    # Now that our ssh key is connected to Github...
+    git remote set-url origin git@github.com:TheKevJames/dotsystem.git
+
     echo "Importing gpg keys..."
     # TODO: configure emails in env
     for email in "KevinJames@thekev.in" "kevin@talkiq.com" "kjames@dialpad.com"; do
@@ -509,6 +500,16 @@ if [[ "${BOOTSTRAP}" == "y" ]]; then
         # TODO: give direct path to `GOPATH="${XDG_DATA_HOME}/go"` ?
         passphrase2pgp -se -u "Kevin James <${email}>" | gpg --import
     done
+
+    # TODO: should I just add all keys?
+    #     curl https://github.com/thekevjames.keys >> ~/.ssh/authorized_keys
+    echo "Adding emergency backup key to ~/.ssh/authorized_keys..."
+    passphrase2pgp -u emergency -f ssh -p >> ~/.ssh/authorized_keys
+    # To regain access to a machine if all goes wrong:
+    #     (umask 077; passphrase2pgp -u emergency -f ssh > ~/.ssh/emergency)
+    #     ssh-add ~/.ssh/emergency
+    #     rm ~/.ssh/emergency
+    #     ssh-copy-id -i ~/.ssh/id_ed25519 important.example.com
 fi
 
 echo "done."
