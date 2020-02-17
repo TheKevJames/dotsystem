@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+jq -r --unbuffered '[.severity, .name, .lineno, .message, del(.severity, .filename, .name, .lineno, .message) | tostring] | @tsv'
