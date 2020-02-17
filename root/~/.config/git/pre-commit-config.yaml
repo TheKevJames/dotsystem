@@ -1,6 +1,6 @@
 repos:
 -   repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v2.4.0
+    rev: v2.5.0
     hooks:
     -   id: check-case-conflict
     -   id: check-executables-have-shebangs
@@ -55,12 +55,12 @@ repos:
     -   id: remove-crlf
     -   id: remove-tabs
 -   repo: https://github.com/asottile/reorder_python_imports
-    rev: v1.8.0
+    rev: v1.9.0
     hooks:
     -   id: reorder-python-imports
         args: [--py37-plus]
 -   repo: https://github.com/asottile/pyupgrade
-    rev: v1.25.2
+    rev: v1.26.2
     hooks:
     -   id: pyupgrade
         args: [--py36-plus]
@@ -82,11 +82,11 @@ repos:
     hooks:
     -   id: yesqa
 -   repo: https://github.com/pre-commit/mirrors-autopep8
-    rev: v1.4.4
+    rev: v1.5
     hooks:
     -   id: autopep8
 -   repo: https://github.com/PyCQA/pydocstyle
-    rev: 5.0.1
+    rev: 5.0.2
     hooks:
     -   id: pydocstyle
         args:
@@ -98,7 +98,7 @@ repos:
         args:
         - --ignore=E501,W503,F401,F811
 -   repo: https://github.com/pre-commit/pygrep-hooks
-    rev: v1.4.3
+    rev: v1.5.1
     hooks:
     -   id: python-no-eval
     -   id: python-no-log-warn
@@ -113,7 +113,7 @@ repos:
 
 # java
 -   repo: https://github.com/macisamuele/language-formatters-pre-commit-hooks
-    rev: v1.2.5
+    rev: v1.3.2
     hooks:
     -   id: pretty-format-java
         args: [--autofix]
@@ -124,13 +124,13 @@ repos:
     hooks:
     -   id: fixmyjs
 -   repo: https://github.com/pre-commit/mirrors-jshint
-    rev: v2.10.2
+    rev: v2.11.0
     hooks:
     -   id: jshint
 
 # terraform
 -   repo: https://github.com/antonbabenko/pre-commit-terraform
-    rev: v1.21.0
+    rev: v1.25.0
     hooks:
     -   id: terraform_fmt
     -   id: terraform_validate
@@ -141,9 +141,10 @@ repos:
     hooks:
     -   id: beautysh
 -   repo: https://github.com/openstack/bashate
-    rev: 0.6.0
+    rev: 1.0.0
     hooks:
     -   id: bashate
+        args: [--max-line-length=80]
 -   repo: https://github.com/detailyang/pre-commit-shell
     rev: 1.0.5
     hooks:
