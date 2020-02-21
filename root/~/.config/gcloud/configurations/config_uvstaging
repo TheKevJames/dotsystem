@@ -1,3 +1,5 @@
 [core]
 project = uvstaging
 account = kjames@dialpad.com
+
+disable_usage_reporting = True
