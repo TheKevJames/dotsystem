@@ -30,6 +30,8 @@ bindkey '\ew' kill-region
 bindkey '^r' history-incremental-search-backward
 # [Ctrl-t] - search backward from current partial command
 bindkey '^t' history-beginning-search-backward
+# [Ctrl-y] - noop (defaults to "yank" operation)
+bindkey -s '^y' ''
 
 # start typing + [Up-Arrow] - fuzzy find history forward
 if [[ "${terminfo[kcuu1]}" != "" ]]; then
