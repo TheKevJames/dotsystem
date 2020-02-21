@@ -26,11 +26,18 @@ custom-commands:
       - name: ISSUE
         required: true
     script: |-
-      {{jira}} transition 'Ready for Production' {{args.ISSUE}}
+      {{jira}} transition --noedit 'Ready' {{args.ISSUE}}
+  - name: review
+    help: Transition issue to "Code Review" state
+    args:
+      - name: ISSUE
+        required: true
+    script: |-
+      {{jira}} transition --noedit 'Review' {{args.ISSUE}}
   - name: triage
     help: Transition issue to "In Triage" state
     args:
       - name: ISSUE
         required: true
     script: |-
-      {{jira}} transition 'Triage' {{args.ISSUE}}
+      {{jira}} transition --noedit 'Triage' {{args.ISSUE}}
