@@ -106,10 +106,6 @@ repos:
 
 # rst
     -   id: rst-backticks
--   repo: https://github.com/Lucas-C/pre-commit-hooks-markup
-    rev: v1.0.0
-    hooks:
-    -   id: rst-linter
 
 # java
 -   repo: https://github.com/macisamuele/language-formatters-pre-commit-hooks
