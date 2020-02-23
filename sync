@@ -487,6 +487,17 @@ if grep -q "ngrok:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     fi
 fi
 
+if grep -q "pastel:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
+    if ! which pastel >/dev/null; then
+        if [[ "$OSTYPE" == "darwin"* ]]; then
+            brew install pastel
+        else
+            export CARGO_HOME="${XDG_DATA_HOME}/cargo"
+            cargo install pastel
+        fi
+    fi
+fi
+
 # TODO: move to packages configuration file
 if ! which pre-commit >/dev/null; then
     python3 -m pip install pre-commit

@@ -36,14 +36,16 @@ go
 python2:sh
 python3
 
+gcloud:sh
+jira:sh
+lastpass-cli:lpass
+ngrok:sh
+pastel:sh
+taskwarrior:sh
+
 docker:sh
 dropbox:sh
 firefox:sh
 franz:sh
-gcloud:sh
 gitify:sh
 irssi
-jira:sh
-lastpass-cli:lpass
-ngrok:sh
-taskwarrior:sh
