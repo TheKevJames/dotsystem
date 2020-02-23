@@ -1,6 +1,5 @@
 autoconf
 bat:sh
-universal-ctags:sh
 curl
 entr
 exa:sh
@@ -8,6 +7,7 @@ fd:sh
 gpg:gnupg
 hexyl:sh
 htop
+hyperfine:sh
 jq
 less
 m4
@@ -17,6 +17,14 @@ ripgrep:sh
 tar
 unzip
 wget
+
+gcloud:sh
+jira:sh
+lastpass-cli:lpass
+ngrok:sh
+pastel:sh
+taskwarrior:sh
+universal-ctags:sh
 
 neovim:nvim
 sublime-text:sh
@@ -35,13 +43,6 @@ clang
 go
 python2:sh
 python3
-
-gcloud:sh
-jira:sh
-lastpass-cli:lpass
-ngrok:sh
-pastel:sh
-taskwarrior:sh
 
 docker:sh
 dropbox:sh
