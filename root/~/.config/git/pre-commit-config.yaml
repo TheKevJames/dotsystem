@@ -55,12 +55,12 @@ repos:
     -   id: remove-crlf
     -   id: remove-tabs
 -   repo: https://github.com/asottile/reorder_python_imports
-    rev: v1.9.0
+    rev: v2.0.0
     hooks:
     -   id: reorder-python-imports
         args: [--py37-plus]
 -   repo: https://github.com/asottile/pyupgrade
-    rev: v1.26.2
+    rev: v2.1.0
     hooks:
     -   id: pyupgrade
         args: [--py36-plus]
@@ -78,7 +78,7 @@ repos:
         - --warn-unreachable
         exclude: tests/.*
 -   repo: https://github.com/asottile/yesqa
-    rev: v0.0.11
+    rev: v1.1.0
     hooks:
     -   id: yesqa
 -   repo: https://github.com/pre-commit/mirrors-autopep8
@@ -126,7 +126,7 @@ repos:
 
 # terraform
 -   repo: https://github.com/antonbabenko/pre-commit-terraform
-    rev: v1.25.0
+    rev: v1.27.0
     hooks:
     -   id: terraform_fmt
     -   id: terraform_validate
