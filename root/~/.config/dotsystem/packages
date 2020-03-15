@@ -19,7 +19,6 @@ unzip
 wget
 
 gcloud:sh
-jira:sh
 lastpass-cli:lpass
 ngrok:sh
 pastel:sh

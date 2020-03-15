@@ -409,8 +409,12 @@ if grep -q "go" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if [ ! -f "${XDG_DATA_HOME}/go/bin/gmailctl" ]; then
         go get -u github.com/mbrt/gmailctl/cmd/gmailctl
     fi
+    if [ ! -f "${XDG_DATA_HOME}/go/bin/jira" ]; then
+        # TODO: should this envvar get globally enabled?
+        GO111MODULE=on go get -u github.com/go-jira/jira/cmd/jira
+    fi
     if [ ! -f "${XDG_DATA_HOME}/go/bin/passphrase2pgp" ]; then
-        go get -u github.com/skeeto/passphrase2pgp
+        GO111MODULE=on go get -u nullprogram.com/x/passphrase2pgp
     fi
 fi
 
@@ -456,18 +460,6 @@ if grep -q "hyperfine:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
             export CARGO_HOME="${XDG_DATA_HOME}/cargo"
             cargo install hyperfine
         fi
-    fi
-fi
-
-
-if grep -q "jira:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
-    if ! which jira >/dev/null; then
-        if [[ "$OSTYPE" == "darwin"* ]]; then
-            sudo curl -fsSLo /usr/local/bin/jira "https://github.com/go-jira/jira/releases/download/v1.0.22/jira-darwin-amd64"
-        else
-            sudo curl -fsSLo /usr/local/bin/jira "https://github.com/go-jira/jira/releases/download/v1.0.22/jira-linux-amd64"
-        fi
-        sudo chmod a+x /usr/local/bin/jira
     fi
 fi
 
