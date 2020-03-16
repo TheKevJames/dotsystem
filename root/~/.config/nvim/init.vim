@@ -22,17 +22,13 @@ syntax on                  " show syntax highlighting
 call plug#begin('~/.local/share/nvim/plugged')
 
 Plug 'junegunn/fzf', { 'do': './install --bin' }  " fzf
-Plug 'airblade/vim-gitgutter'  " git
-
-" Plug 'neomake/neomake'  " async :make
-" Plug 'pgdouyon/vim-accio'  " async :make -- light-weight, linting-focus?
+Plug 'airblade/vim-gitgutter'                     " git
 
 Plug 'vimwiki/vimwiki'  " wiki
 Plug 'tbabej/taskwiki'  " wiki + taskwarrior
 
-" Plug 'mhinz/vim-grepper'  " async grep w/ tool support
-
-Plug 'rust-lang/rust.vim', { 'for': 'rust' }  " Rust syntax
+Plug 'elixir-editors/vim-elixir', { 'for': 'elixir' }  " Elixir syntax
+Plug 'rust-lang/rust.vim', { 'for': 'rust' }           " Rust syntax
 
 call plug#end()
 
