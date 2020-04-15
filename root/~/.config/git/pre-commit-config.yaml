@@ -48,7 +48,8 @@ repos:
         - -d locally-disabled
         - -d missing-docstring
         - -d too-few-public-methods
-        - -d ungrouped-imports
+        - -d ungrouped-imports  # conflicts with reorder-python-imports
+        - -d wrong-import-order  # conflicts with reorder-python-imports
 -   repo: https://github.com/Lucas-C/pre-commit-hooks
     rev: v1.1.7
     hooks:
