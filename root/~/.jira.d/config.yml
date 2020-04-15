@@ -7,11 +7,22 @@ custom-commands:
   - name: kanban
     help: Display team kanban board
     options:
+      - name: assignee
+        short: a
+        default: aliaksandr.martsinovich,allan.hamzic,eddie,e.galpin,hsaini,jonathan,jpalmer,kjames,k.hersey,ssawyer
+      - name: status
+        short: S
+        default: ""
+        repeat: true
       - name: sort
         short: s
         default: assignee,status
     script: |-
-      {{jira}} ls -tkanban --query="assignee IN (allan.hamzic, eddie, e.galpin, hsaini, jonathan, jpalmer, kjames, k.hersey, ssawyer) AND status NOT IN ('Backlog', 'Closed', 'Done') ORDER BY {{options.sort}}"
+      if [ "{{options.status}}" != "<no value>" ]; then
+        {{jira}} ls -tkanban --query="assignee IN ({{options.assignee}}) AND status IN ({{range options.status}}'{{.}}',{{end}}'New') ORDER BY {{options.sort}}"
+      else
+        {{jira}} ls -tkanban --query="assignee IN ({{options.assignee}}) AND status NOT IN (Backlog, Closed, Done) ORDER BY {{options.sort}}"
+      fi
   - name: mine
     help: Display issues assigned to me
     script: |-
