@@ -9,6 +9,7 @@ hexyl:sh
 htop
 hyperfine:sh
 jq
+kubectx:sh
 less
 m4
 make
