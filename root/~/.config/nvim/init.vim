@@ -9,7 +9,6 @@ set shiftwidth=4           " tabs are 4 spaces
 set showmatch              " show matching bracket on insertion
 set synmaxcol=512          " set maximum line length for syntax highlighting
 set tags=.git/tags         " hide ctags in `.git` folder
-set termguicolors          " enable true color support
 
 " netrw configuration
 let g:netrw_banner=0       " hide useless banner info
@@ -37,6 +36,7 @@ Plug 'rust-lang/rust.vim', { 'for': 'rust' }           " Rust syntax
 call plug#end()
 
 " plugin configuration
+let g:gruvbox_termcolors=16
 colorscheme gruvbox
 let g:taskwiki_data_location="~/.local/share/taskwarrior"
 let g:vimwiki_list = [{'path': '~/Dropbox/vimwiki'}, {'path': '~/Dropbox/work/vimwiki'}]
