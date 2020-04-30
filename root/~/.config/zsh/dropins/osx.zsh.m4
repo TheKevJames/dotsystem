@@ -9,7 +9,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     osx_volume() {
         if [ -z "${1}" ]; then
             # wtf
-            printf "%.0f\n" $(( 7 * $(sudo osascript -e "get Volume settings" | awk -F: '{print $2}' | awk -F, '{print $1}') / 100. ))
+            printf "%.0f\n" $(( 7 * $(sudo osascript -e "output volume of (get Volume settings)") / 100. ))
         else
             sudo osascript -e "set Volume ${1}"
         fi
