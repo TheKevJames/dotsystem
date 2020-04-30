@@ -6,6 +6,14 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
         sudo rm -rfv ~/.Trash
         sudo rm -rfv /private/var/log/asl/*.asl
     }
+    osx_volume() {
+        if [ -z "${1}" ]; then
+            # wtf
+            printf "%.0f\n" $(( 7 * $(sudo osascript -e "get Volume settings" | awk -F: '{print $2}' | awk -F, '{print $1}') / 100. ))
+        else
+            sudo osascript -e "set Volume ${1}"
+        fi
+    }
 
     # missing commands
     command -v md5sum > /dev/null || alias md5sum="md5"
