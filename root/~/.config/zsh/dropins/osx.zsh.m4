@@ -6,12 +6,14 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
         sudo rm -rfv ~/.Trash
         sudo rm -rfv /private/var/log/asl/*.asl
     }
+    # TODO: auto-fix the nosudo
+    # echo 'kevin kjames-00564 = (root) NOPASSWD: /usr/bin/osascript' >> /etc/sudoers
     osx_volume() {
         if [ -z "${1}" ]; then
             # wtf
             printf "%.0f\n" $(( 7 * $(sudo osascript -e "output volume of (get Volume settings)") / 100. ))
         else
-            sudo osascript -e "set Volume ${1}"
+            osascript -e "set Volume ${1}"
         fi
     }
 
