@@ -249,13 +249,8 @@ fi
 
 if grep -q "bat:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if ! which bat >/dev/null; then
-        # TODO: deprecate support for <19.10
-        if [[ -f /etc/os-release ]] && grep -q Ubuntu /etc/os-release; then
-            export CARGO_HOME="${XDG_DATA_HOME}/cargo"
-            cargo install bat
-        else
-            eval "${PACMAN_INSTALL} bat"
-        fi
+        export CARGO_HOME="${XDG_DATA_HOME}/cargo"
+        cargo install bat
     fi
 fi
 
@@ -291,24 +286,15 @@ fi
 
 if grep -q "exa:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if ! which exa >/dev/null; then
-        if [[ "$OSTYPE" == "darwin"* ]]; then
-            brew install exa
-        else
-            export CARGO_HOME="${XDG_DATA_HOME}/cargo"
-            cargo install exa
-        fi
+        export CARGO_HOME="${XDG_DATA_HOME}/cargo"
+        cargo install exa
     fi
 fi
 
 if grep -q "fd:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if ! which fd >/dev/null; then
-        # TODO: deprecate support for <19.04
-        if [[ -f /etc/os-release ]] && grep -q Ubuntu /etc/os-release; then
-            export CARGO_HOME="${XDG_DATA_HOME}/cargo"
-            cargo install fd-find
-        else
-            eval "${PACMAN_INSTALL} fd"
-        fi
+        export CARGO_HOME="${XDG_DATA_HOME}/cargo"
+        cargo install fd-find
     fi
 fi
 
@@ -406,14 +392,8 @@ fi
 
 if grep -q "hexyl:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if ! which hexyl >/dev/null; then
-        if [[ "$OSTYPE" == "darwin"* ]]; then
-            brew install hexyl
-        else
-            TEMPFILE=$(mktemp)
-            curl -fsSL "https://github.com/sharkdp/hexyl/releases/download/v0.4.0/hexyl-v0.4.0-x86_64-unknown-linux-gnu.tar.gz" > "${TEMPFILE}.tgz"
-            tar xzf "${TEMPFILE}.tgz" -C "${TMPDIR:-/tmp}"
-            sudo mv "${TMPDIR:-/tmp}"/hexyl-*/hexyl /usr/local/bin
-        fi
+        export CARGO_HOME="${XDG_DATA_HOME}/cargo"
+        cargo install hexyl
     fi
 fi
 
@@ -432,12 +412,8 @@ fi
 
 if grep -q "hyperfine:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if ! which hyperfine >/dev/null; then
-        if [[ "$OSTYPE" == "darwin"* ]]; then
-            brew install hyperfine
-        else
-            export CARGO_HOME="${XDG_DATA_HOME}/cargo"
-            cargo install hyperfine
-        fi
+        export CARGO_HOME="${XDG_DATA_HOME}/cargo"
+        cargo install hyperfine
     fi
 fi
 
@@ -475,12 +451,8 @@ fi
 
 if grep -q "pastel:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if ! which pastel >/dev/null; then
-        if [[ "$OSTYPE" == "darwin"* ]]; then
-            brew install pastel
-        else
-            export CARGO_HOME="${XDG_DATA_HOME}/cargo"
-            cargo install pastel
-        fi
+        export CARGO_HOME="${XDG_DATA_HOME}/cargo"
+        cargo install pastel
     fi
 fi
 
@@ -498,13 +470,8 @@ fi
 
 if grep -q "ripgrep:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if ! which rg >/dev/null; then
-        # TODO: deprecate support for <18.10
-        if [[ -f /etc/os-release ]] && grep -q Ubuntu /etc/os-release; then
-            export CARGO_HOME="${XDG_DATA_HOME}/cargo"
-            cargo install ripgrep
-        else
-            eval "${PACMAN_INSTALL} ripgrep"
-        fi
+        export CARGO_HOME="${XDG_DATA_HOME}/cargo"
+        cargo install ripgrep
     fi
 fi
 
