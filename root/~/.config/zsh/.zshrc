@@ -1,6 +1,6 @@
 # zmodload zsh/zprof
 
-export PATH="${HOME}/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+export PATH="${HOME}/.local/bin:/opt/local/sbin:/opt/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 
 # TODO: is this OSX-only or on all my systems?
 if [[ -z "$LC_CTYPE" && -z "$LC_ALL" ]]; then

@@ -52,33 +52,21 @@ if [[ "${BOOTSTRAP}" == "y" ]]; then
     ssh-keygen -o -a 100 -t ed25519 -C "KevinJames@thekev.in" -f ~/.ssh/id_ed25519
 fi
 
+# TODO: move sudo out of consts?
 if which zypper >/dev/null; then
     PACMAN_REFRESH="sudo zypper refresh"
     PACMAN_INSTALL="sudo zypper install"
-elif which brew >/dev/null; then
-    PACMAN_REFRESH="brew update"
-    PACMAN_INSTALL="brew install"
+elif which port >/dev/null; then
+    PACMAN_REFRESH="sudo port sync"
+    PACMAN_INSTALL="sudo port install"
 elif which apt-get >/dev/null; then
     PACMAN_REFRESH="sudo apt-get update"
     PACMAN_INSTALL="sudo apt-get install"
 else
     echo "ERROR: could not determine package manager."
     if [[ "$OSTYPE" == "darwin"* ]]; then
-        echo "Install homebrew?"
-        if [[ "${FORCE}" == "y" ]]; then
-            ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-        else
-            select yn in "Yes" "No"; do
-                case $yn in
-                    Yes ) ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)";
-                        brew install mas;
-                        break ;;
-                    No )  echo "ERROR: cannot continue without a package manager.";
-                        exit 1;
-                        break ;;
-                esac
-            done
-        fi
+        echo "ERROR: please install MacPorts from https://github.com/macports/macports-base/releases/"
+        exit 1
     else
         exit 1
     fi
@@ -220,21 +208,9 @@ fi
 ## Configure OSX one-offs
 if [[ "$OSTYPE" == "darwin"* ]]; then
     # force override of OSX's way out-of-date builtin
-    if [[ ! -f "/usr/local/bin/zsh" ]]; then
-        brew install zsh
-        echo "/usr/local/bin/zsh" | sudo tee -a /etc/shells
-    fi
-
-    # TODO: move to packages configuration file
-    if ! mas account >/dev/null; then
-        echo "ERROR: not signed in to the Mac App Store."
-    else
-        if [[ ! -f "/Applications/Amphetamine.app/Contents/MacOS/Amphetamine" ]]; then
-            mas install 937984704
-        fi
-        if [[ ! -f "/Applications/CCMenu.app/Contents/MacOS/CCMenu" ]]; then
-            mas install 603117688
-        fi
+    if [[ ! -f "/opt/local/bin/zsh" ]]; then
+        sudo port install zsh
+        echo "/opt/local/bin/zsh" | sudo tee -a /etc/shells
     fi
 fi
 
@@ -248,6 +224,7 @@ if grep -q "cargo:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     fi
 fi
 
+# TODO: python27 python36 python37 python38...
 if grep -q "python2:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if ! which python2 >/dev/null; then
         if [[ -f /etc/os-release ]] && grep -q Ubuntu /etc/os-release; then
@@ -418,10 +395,11 @@ if grep -q "go" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     fi
 fi
 
+# TODO: on macports, this could be `port install gnupg -pinentry +pinentry_mac`
 if grep -q "gpg:gnupg" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if [[ "$OSTYPE" == "darwin"* ]]; then
-        if ! which pinentry-mac >/dev/null; then
-            brew install pinentry-mac
+        if [ ! -f "/Applications/MacPorts/pinentry-mac.app/Contents/MacOS/pinentry-mac" ]; then
+            sudo port install pinentry-mac
         fi
     fi
 fi
@@ -464,8 +442,12 @@ if grep -q "hyperfine:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
 fi
 
 # TODO: move to packages configuration file
+# TODO: pip install yq
+# TODO: pip install all the stuff in ~/.local/bin...
+# TODO: pip ain't great for sysbins... maybe this is a good `nix` usecase?
 if ! python3 -m pip --version >/dev/null; then
     # some distros have this bundled with `python3`, some don't
+    # macports: py27-pip, py37-pip, ...
     eval "${PACMAN_INSTALL} python3-pip"
 fi
 if ! python3 -m pip freeze | grep neovim >/dev/null; then
@@ -565,6 +547,8 @@ fi
 
 if grep -q "universal-ctags:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if [[ ! -f "/usr/local/bin/ctags" ]]; then
+        # TODO: can we pacman this on Linux? Its in macports...
+
         # TODO: linux version of this dependency seems to be builtin?
         if [[ "$OSTYPE" == "darwin"* ]]; then
             eval "${PACMAN_INSTALL} libyaml"
