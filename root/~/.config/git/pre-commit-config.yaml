@@ -36,6 +36,7 @@ repos:
         # TODO: >0.2.0
         - git+https://github.com/bayesimpact/pylint_import_modules@016f79e4d2
         args:
+        - --allow-global-unused-variables=no
         - --allowed-direct-imports="typing.*"
         - --load-plugins=pylint_import_modules
         - --max-line-length=79
