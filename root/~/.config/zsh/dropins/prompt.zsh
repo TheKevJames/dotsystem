@@ -32,4 +32,6 @@ zstyle :prompt:shrink_path fish no
 # TODO: could add "@${LINENO}" -- need to figure out late binding
 local return_code="%(?..%{$gruvbox_red%} %?%{$reset_color%})"
 
-PROMPT=$'%{$gruvbox_fg%}$(shrink_path -l -t)${return_code} %{$gruvbox_green%}%(!.#.»)%{$reset_color%} '
+# TODO: why is my foreground color not consistent?
+# PROMPT=$'%{$gruvbox_fg%}$(shrink_path -l -t)${return_code} %{$gruvbox_green%}%(!.#.»)%{$reset_color%} '
+PROMPT=$'%{$reset_color%}$(shrink_path -l -t)${return_code} %{$gruvbox_green%}%(!.#.»)%{$reset_color%} '
