@@ -9,7 +9,8 @@ hexyl:sh
 htop
 hyperfine:sh
 jq
-kubectx:sh
+kubectl:kubectl-1.15
+kubectx
 less
 m4
 make

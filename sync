@@ -463,13 +463,6 @@ if grep -q "hyperfine:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     fi
 fi
 
-if grep -q "kubectx:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
-    if ! which kubectx >/dev/null; then
-        git clone https://github.com/ahmetb/kubectx.git "${XDG_SRC_HOME}/kubectx"
-    fi
-fi
-
-
 # TODO: move to packages configuration file
 if ! python3 -m pip --version >/dev/null; then
     # some distros have this bundled with `python3`, some don't
