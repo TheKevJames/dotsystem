@@ -111,6 +111,9 @@ eventually accept be fixed as well as apps that have decided they're
 - irssi. Partial support with ``--home`` flag.
 - jira. But `at least jira has a TODO`_.
 - julia. Support by setting ``$JULIA_PKGDIR`` and ``$JULIA_HISTORY``.
+- kubectl. Partial suport by setting ``$KUBECONFIG`` and with the
+  ``--cache-dir`` flag. They have a second cachedir at ``~/.kube/cache``. But
+  `at least kubectl has a TODO`_ for that one.
 - less. Support by setting ``$LESSHISTFILE``.
 - libice. Partial support by setting ``$ICEAUTHORITY``.
 - lmms. Partial support with ``--config`` flag.
@@ -144,6 +147,7 @@ eventually accept be fixed as well as apps that have decided they're
   ``~/.zshenv`` file is effectively hardcoded.
 
 .. _at least jira has a TODO: https://github.com/go-jira/jira/issues/235
+.. _at least kubectl has a TODO: https://github.com/kubernetes/client-go/commit/a0e8687452a46a2f67a9a1bf457521dc1cf89960b
 .. _cargo is a snowflake: https://github.com/rust-lang/rfcs/pull/1615
 .. _cargo XDG RFC: https://github.com/rust-lang/rfcs/pull/1615#issuecomment-323556940
 .. _docker XDG issue: https://github.com/docker/docker/issues/20693
