@@ -1,4 +1,5 @@
 # TODO: can we do this by updating the `fg`/`bg` dicts instead?
+# TODO: this should really lives in `colorz.zsh`...
 local gruvbox_bg=$'\e[38;2;40;40;40m'
 local gruvbox_fg=$'\e[38;2;235;219;178m'
 
@@ -20,18 +21,13 @@ local gruvbox_magenta_bright=$'\e[38;2;211;134;155m'
 local gruvbox_cyan_bright=$'\e[38;2;142;192;124m'
 local gruvbox_white_bright=$'\e[38;2;235;219;178m'
 
-# allow comments in commands
-setopt interactivecomments
-
-# enable prompt expansion
-setopt prompt_subst
+setopt interactivecomments  # allow comments in commands
+setopt prompt_subst         # enable prompt expansion
 
 # use fish-style paths, see ../plugins/shrink-path.plugin.zsh
 zstyle :prompt:shrink_path fish no
 
-# TODO: could add "@${LINENO}" -- need to figure out late binding
-local return_code="%(?..%{$gruvbox_red%} %?%{$reset_color%})"
-
+local return_color="%(?.%{$gruvbox_green%}.%{$gruvbox_red%})"
 # TODO: why is my foreground color not consistent?
 # PROMPT=$'%{$gruvbox_fg%}$(shrink_path -l -t)${return_code} %{$gruvbox_green%}%(!.#.»)%{$reset_color%} '
-PROMPT=$'%{$reset_color%}$(shrink_path -l -t)${return_code} %{$gruvbox_green%}%(!.#.»)%{$reset_color%} '
+PROMPT=$'%{$reset_color%}$(shrink_path -l -t) ${return_color}%(!.#.»)%{$reset_color%} '
