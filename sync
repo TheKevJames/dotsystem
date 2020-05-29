@@ -347,13 +347,11 @@ fi
 
 if grep -q "git-standup:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if ! which git-standup >/dev/null; then
-        if [[ "$OSTYPE" == "darwin"* ]]; then
-            brew install git-standup
-        else
-            TEMPFILE=$(mktemp)
-            curl -fsSL "https://raw.githubusercontent.com/kamranahmedse/git-standup/master/installer.sh" > "${TEMPFILE}.sh"
-            sudo sh "${TEMPFILE}.sh"
-        fi
+        git clone https://github.com/kamranahmedse/git-standup.git "${XDG_SRC_HOME}/git-standup"
+        (
+            cd "${XDG_SRC_HOME}/git-standup"
+            sudo make install
+        )
     fi
 fi
 
