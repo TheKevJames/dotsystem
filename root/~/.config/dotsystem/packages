@@ -48,6 +48,5 @@ python3
 docker:sh
 dropbox:sh
 firefox:sh
-franz:sh
-gitify:sh
+ferdi:sh
 irssi

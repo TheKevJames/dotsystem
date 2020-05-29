@@ -310,22 +310,22 @@ if grep -q "firefox:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     fi
 fi
 
-if grep -q "franz:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
-    if ! which franz >/dev/null; then
+if grep -q "ferdi:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
+    if ! which ferdi >/dev/null; then
         TEMPFILE=$(mktemp)
         if [[ "$OSTYPE" == "darwin"* ]]; then
-            brew cask install franz
-            sudo ln -s /Applications/Franz.app/Contents/MacOS/Franz /usr/local/bin/franz
+            brew cask install ferdi
+            sudo ln -s /Applications/Ferdi.app/Contents/MacOS/Ferdi /usr/local/bin/ferdi
 
-            mkdir -p ~/.config/Franz/recipes/dev/
-            git clone https://github.com/TheKevJames/franz-recipe-dialpad.git ~/.config/Franz/recipes/dev/dialpad
+            mkdir -p ~/.config/Ferdi/recipes/dev/
+            git clone https://github.com/TheKevJames/franz-recipe-dialpad.git ~/.config/Ferdi/recipes/dev/dialpad
         else
-            curl -fsSL "https://github.com/meetfranz/franz-app/releases/download/4.0.4/Franz-linux-x64-4.0.4.tgz" > "${TEMPFILE}.tgz"
-            tar xzf "${TEMPFILE}.tgz" -C /opt/franz
-            sudo ln -s /opt/franz/Franz /usr/local/bin/franz
+            curl -fsSL "https://github.com/getferdi/ferdi/releases/download/v5.5.0/ferdi-5.5.0.tar.gz" > "${TEMPFILE}.tgz"
+            tar xzf "${TEMPFILE}.tgz" -C /opt/ferdi
+            sudo ln -s /opt/ferdi/Franz /usr/local/bin/ferdi
 
-            mkdir -p ~/Library/Application\ Support/Franz/recipes/dev/
-            git clone https://github.com/TheKevJames/franz-recipe-dialpad.git ~/Library/Application\ Support/Franz/recipes/dev/dialpad
+            mkdir -p ~/Library/Application\ Support/Ferdi/recipes/dev/
+            git clone https://github.com/TheKevJames/franz-recipe-dialpad.git ~/Library/Application\ Support/Ferdi/recipes/dev/dialpad
         fi
     fi
 fi
