@@ -110,7 +110,7 @@ repos:
 
 # java
 -   repo: https://github.com/macisamuele/language-formatters-pre-commit-hooks
-    rev: v1.3.2
+    rev: v1.5.0
     hooks:
     -   id: pretty-format-java
         args: [--autofix]
@@ -121,24 +121,24 @@ repos:
     hooks:
     -   id: fixmyjs
 -   repo: https://github.com/pre-commit/mirrors-jshint
-    rev: v2.11.0
+    rev: v2.11.1
     hooks:
     -   id: jshint
 
 # terraform
 -   repo: https://github.com/antonbabenko/pre-commit-terraform
-    rev: v1.27.0
+    rev: v1.31.0
     hooks:
     -   id: terraform_fmt
     -   id: terraform_validate
 
 # shell
 -   repo: https://github.com/lovesegfault/beautysh
-    rev: 5.0.2
+    rev: 6.0.1
     hooks:
     -   id: beautysh
 -   repo: https://github.com/openstack/bashate
-    rev: 1.0.0
+    rev: 2.0.0
     hooks:
     -   id: bashate
         args: [--max-line-length=80]
@@ -147,6 +147,6 @@ repos:
     hooks:
     -   id: shell-lint
 -   repo: https://github.com/jumanjihouse/pre-commit-hooks
-    rev: 1.11.2
+    rev: 2.1.3
     hooks:
     -   id: script-must-not-have-extension
