@@ -1,6 +1,6 @@
 repos:
 -   repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v2.5.0
+    rev: v3.1.0
     hooks:
     -   id: check-case-conflict
     -   id: check-executables-have-shebangs
@@ -28,15 +28,14 @@ repos:
     -   id: double-quote-string-fixer
     -   id: name-tests-test
     -   id: requirements-txt-fixer
--   repo: https://github.com/pre-commit/mirrors-pylint
-    rev: v2.4.4
+-   repo: https://github.com/pycqa/pylint
+    rev: pylint-2.5.3
     hooks:
     -   id: pylint
         additional_dependencies:
         # TODO: >0.2.0
         - git+https://github.com/bayesimpact/pylint_import_modules@016f79e4d2
         args:
-        - --allow-global-unused-variables=no
         - --allowed-direct-imports="typing.*"
         - --load-plugins=pylint_import_modules
         - --max-line-length=79
@@ -57,17 +56,17 @@ repos:
     -   id: remove-crlf
     -   id: remove-tabs
 -   repo: https://github.com/asottile/reorder_python_imports
-    rev: v2.0.0
+    rev: v2.3.0
     hooks:
     -   id: reorder-python-imports
         args: [--py37-plus]
 -   repo: https://github.com/asottile/pyupgrade
-    rev: v2.1.0
+    rev: v2.6.2
     hooks:
     -   id: pyupgrade
         args: [--py36-plus]
 -   repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v0.761
+    rev: v0.782
     hooks:
     -   id: mypy
         require_serial: True
@@ -80,11 +79,11 @@ repos:
         - --warn-unreachable
         exclude: tests/.*
 -   repo: https://github.com/asottile/yesqa
-    rev: v1.1.0
+    rev: v1.2.1
     hooks:
     -   id: yesqa
 -   repo: https://github.com/pre-commit/mirrors-autopep8
-    rev: v1.5
+    rev: v1.5.3
     hooks:
     -   id: autopep8
 -   repo: https://github.com/PyCQA/pydocstyle
@@ -94,7 +93,7 @@ repos:
         args:
         - --ignore=D1,D203,D205,D212,D400,D401,D404,D413
 -   repo: https://gitlab.com/pycqa/flake8
-    rev: 3.7.9
+    rev: 3.8.3
     hooks:
     -   id: flake8
         args:
