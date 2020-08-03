@@ -1,5 +1,6 @@
 window:
   decorations: buttonless
+  dynamic_title: true
   dimensions:
     columns: 80
     lines: 24
@@ -59,7 +60,7 @@ colors:
     cyan:    '0x8ec07c'
     white:   '0xebdbb2'
 
-visual_bell:
+bell:
   animation: EaseOutExpo
   duration: 0
 
@@ -77,8 +78,6 @@ mouse:
 selection:
   # semantic_escape_chars: ",│`|:\"' ()[]{}<>"
   semantic_escape_chars: "│`|:\"' ()[]{}<>"
-
-dynamic_title: true
 
 cursor:
   style: Block
