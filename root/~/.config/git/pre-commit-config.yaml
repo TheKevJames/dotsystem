@@ -39,6 +39,7 @@ repos:
         - --allowed-direct-imports="typing.*"
         - --load-plugins=pylint_import_modules
         - --max-line-length=79
+        - --score=n
         - --ignore-imports=yes
         - -d broad-except
         - -d fixme
