@@ -30,8 +30,7 @@ Plug 'airblade/vim-gitgutter'                     " git
 Plug 'vimwiki/vimwiki'  " wiki
 Plug 'tbabej/taskwiki'  " wiki + taskwarrior
 
-Plug 'elixir-editors/vim-elixir', { 'for': 'elixir' }  " Elixir syntax
-Plug 'rust-lang/rust.vim', { 'for': 'rust' }           " Rust syntax
+Plug 'sheerun/vim-polyglot'  " syntax highlighting
 
 call plug#end()
 
