@@ -9,7 +9,7 @@ custom-commands:
     options:
       - name: assignee
         short: a
-        default: aliaksandr.martsinovich,allan.hamzic,eddie,e.galpin,hsaini,jonathan,jpalmer,kjames,k.hersey,ssawyer
+        default: aliaksandr.martsinovich,allan.hamzic,casey.howard,eddie,e.galpin,hsaini,jonathan,jpalmer,kjames,k.hersey,ssawyer
       - name: status
         short: S
         default: ""
