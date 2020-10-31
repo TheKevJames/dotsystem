@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+echo '' | fzf --height=100 --print-query --preview "cat $@ | jq {q}"
