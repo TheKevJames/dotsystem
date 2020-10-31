@@ -83,7 +83,7 @@ repos:
     hooks:
     -   id: yesqa
 -   repo: https://github.com/pre-commit/mirrors-autopep8
-    rev: v1.5.5
+    rev: v1.5.4
     hooks:
     -   id: autopep8
 -   repo: https://github.com/PyCQA/pydocstyle
@@ -96,6 +96,13 @@ repos:
     rev: 3.8.4
     hooks:
     -   id: flake8
+        additional_dependencies:
+        - flake8-2020==1.6.0
+        - flake8-broken-line==0.3.0
+        - flake8-builtins==1.5.3
+        - flake8-commas==2.0.0
+        - flake8-comprehensions==3.3.0
+        # - flake8-walrus==1.1.0  # TODO: Py3.8 only
         args:
         - --ignore=E501,W503,F401,F811
 -   repo: local
