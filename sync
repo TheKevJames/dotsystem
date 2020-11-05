@@ -458,6 +458,8 @@ fi
 # TODO: move to packages configuration file
 if ! which pre-commit >/dev/null; then
     python3 -m pip install pre-commit
+    # TODO: do we need to interpolate any paths, etc?
+    # pre-commit init-templatedir ~/.config/git/template/
 fi
 
 if grep -q "prettyping:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
