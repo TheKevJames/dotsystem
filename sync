@@ -107,6 +107,7 @@ set_file() {
                 case $yn in
                     Yes ) cp "${1}" "${DEST}" 2>/dev/null || sudo cp "${1}" "${DEST}";
                         if [[ "${DEST}" == *"/bin/"* ]]; then sudo chmod a+x "${DEST}"; fi;
+                        if [[ "${DEST}" == *"/git/template/hooks/"* ]]; then sudo chmod a+x "${DEST}"; fi;
                         break ;;
                     No )  break ;;
                 esac

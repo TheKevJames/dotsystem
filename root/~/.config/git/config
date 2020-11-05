@@ -61,6 +61,9 @@
 [fetch]
     prune = true
 
+[init]
+    templatedir = ~/.config/git/template
+
 [grep]
     patternType = perl
 
