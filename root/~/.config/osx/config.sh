@@ -75,3 +75,5 @@ defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
 defaults write com.apple.ActivityMonitor IconType -int 5
 ## show all in ActivityMonitor
 defaults write com.apple.ActivityMonitor ShowCategory -int 0
+## enable infinite caffeination
+sudo launchctl load /Library/LaunchAgents/in.thekev.caffeinate.plist

@@ -171,6 +171,7 @@ done
 
 ## Configure OSX one-offs
 if [[ "$OSTYPE" == "darwin"* ]]; then
+    sudo cp "${XDG_CONFIG_HOME}"/osx/in.thekev.caffeinate.plist /Library/LaunchAgents/in.thekev.caffeinate.plist
     bash "${XDG_CONFIG_HOME}"/osx/config.sh
 
     # TODO: better multi-os paths
