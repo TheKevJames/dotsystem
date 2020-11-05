@@ -38,13 +38,8 @@ bootstrap-able:
     # https://bugwarrior.readthedocs.io/en/latest/using.html#cron
     # TODO: install crontab from ./sync
 
-    # install youtube-viewer:
-    # https://github.com/trizen/youtube-viewer
-    # TODO: after Homebrew/homebrew-core#43254, add youtube-viewer to packages
-
     # OSX TODOs:
-    # configure Amphetamine
-    # switch workspace switch hotkeys to cmd+ctrl arrows (not ctrl-arrows)
+    # install skhd and yabai
     # switch screenshot hotkeys
     # enable two-finger-touch as right click
 
