@@ -1,7 +1,7 @@
 # https://github.com/sharkdp/bat
 # alias cat='bat'
 alias less='bat'
-export PAGER='bat'
+export PAGER="$(type -p less | awk '{print $NF}')"  # ie. PAGER=/path/to/less
 export MANPAGER="sh -c 'col -b | bat -l man -p'"
 export LESS='-R'
 
