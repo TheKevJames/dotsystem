@@ -56,12 +56,12 @@ repos:
     -   id: remove-crlf
     -   id: remove-tabs
 -   repo: https://github.com/asottile/reorder_python_imports
-    rev: v2.3.5
+    rev: v2.3.6
     hooks:
     -   id: reorder-python-imports
         args: [--py37-plus]
 -   repo: https://github.com/asottile/pyupgrade
-    rev: v2.7.3
+    rev: v2.7.4
     hooks:
     -   id: pyupgrade
         args: [--py37-plus]
@@ -114,7 +114,7 @@ repos:
         language: pygrep
         types: [python]
 -   repo: https://github.com/pre-commit/pygrep-hooks
-    rev: v1.6.0
+    rev: v1.7.0
     hooks:
     -   id: python-no-eval
     -   id: python-no-log-warn
@@ -122,11 +122,12 @@ repos:
 
 # rst
     -   id: rst-backticks
+    -   id: rst-directive-colons
     -   id: rst-inline-touching-normal
 
 # java
 -   repo: https://github.com/macisamuele/language-formatters-pre-commit-hooks
-    rev: v1.5.0
+    rev: v1.6.1
     hooks:
     -   id: pretty-format-java
         args: [--autofix]
@@ -143,7 +144,7 @@ repos:
 
 # terraform
 -   repo: https://github.com/antonbabenko/pre-commit-terraform
-    rev: v1.43.0
+    rev: v1.45.0
     hooks:
     -   id: terraform_fmt
     -   id: terraform_validate
