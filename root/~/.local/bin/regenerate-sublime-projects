@@ -43,7 +43,7 @@ def build_sublime_projects(repo_dirs: List[pathlib.Path]) -> Iterable[str]:
                               '-.nox/', '-.pytest_cache/', '-.terraform/',
                               '-.tox/', '-build/', '-venv/', '-*.fst',
                               '-*.otf', '-*.pcl', '-*.svg', '-*.tgz',
-                              '-*.woff', '-*.woff2'])
+                              '-*.woff', '-*.woff2']),
                 ],
             },
             'project': project.name,
