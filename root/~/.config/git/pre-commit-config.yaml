@@ -91,7 +91,7 @@ repos:
     hooks:
     -   id: pydocstyle
         args:
-        - --ignore=D1,D203,D205,D212,D400,D401,D404,D413
+        - --ignore=D1,D203,D205,D212,D400,D401,D404,D407,D412,D413
 -   repo: https://gitlab.com/pycqa/flake8
     rev: 3.8.4
     hooks:
@@ -160,7 +160,7 @@ repos:
     -   id: bashate
         args: [--max-line-length=80]
 -   repo: https://github.com/detailyang/pre-commit-shell
-    rev: 1.0.5
+    rev: v1.0.6
     hooks:
     -   id: shell-lint
 -   repo: https://github.com/jumanjihouse/pre-commit-hooks
