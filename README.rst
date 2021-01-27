@@ -34,10 +34,6 @@ bootstrap-able:
     # Settings > Keyboard > Customize Touch Bar
     # TODO: figure out if this can be done from the CLI
 
-    # configure bugwarrior-pull as cron job:
-    # https://bugwarrior.readthedocs.io/en/latest/using.html#cron
-    # TODO: install crontab from ./sync
-
     # OSX TODOs:
     # install skhd and yabai
     # switch screenshot hotkeys

@@ -1,6 +1,0 @@
-DISPLAY=:0
-HOME=/Users/kevin
-PATH=/usr/local/bin:/usr/bin
-TASKRC=/Users/kevin/.config/taskwarrior/taskrc
-
-*/10 * * * * source "${HOME}/.local/share/venv/bugwarrior/bin/activate"; "${HOME}/.local/share/venv/bugwarrior/bin/bugwarrior-pull" >/tmp/cron.stdout.log 2>/tmp/cron.stderr.log
