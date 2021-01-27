@@ -9,7 +9,7 @@ hexyl:sh
 htop
 hyperfine:sh
 jq
-kubectl:kubectl-1.15
+kubectl:kubectl-1.16
 kubectx
 less
 m4
