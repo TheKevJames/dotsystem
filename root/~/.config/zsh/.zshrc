@@ -23,6 +23,7 @@ unset config_file
 _zpcompinit_custom() {
   setopt extendedglob local_options
   autoload -Uz compinit
+  fpath+="${ZDOTDIR:-$HOME}/completions"
   local zcd="${ZDOTDIR:-$HOME}/.zcompdump-${ZSH_VERSION}"
   local zcdc="$zcd.zwc"
   # Compile the completion dump to increase startup speed, if dump is newer or doesn't exist,
