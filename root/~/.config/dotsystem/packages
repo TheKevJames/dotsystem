@@ -33,7 +33,6 @@ universal-ctags:sh
 youtube-viewer
 
 neovim:nvim
-sublime-text:sh
 
 alacritty:sh
 tmux
@@ -56,4 +55,3 @@ docker:sh
 dropbox:sh
 firefox:sh
 ferdi:sh
-irssi
