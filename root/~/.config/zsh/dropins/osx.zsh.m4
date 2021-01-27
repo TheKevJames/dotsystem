@@ -31,7 +31,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     export HOMEBREW_GITHUB_API_TOKEN="M4_HOMEBREW_GITHUB_API_TOKEN"
 
     # TODO: make user-installed deps the default on all systems
-    # alternatively: figure out better setup for tasklib/neovim/pre-commit
+    # alternatively: figure out better setup for tasklib/neovim
     export PATH="${HOME}/Library/Python/3.7/bin:$PATH"
 
     # X11

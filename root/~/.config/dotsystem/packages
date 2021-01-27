@@ -14,10 +14,14 @@ kubectx
 less
 m4
 make
+pre-commit:sh
 prettyping:sh
+pyls:sh
 ripgrep:sh
 tar
+twine:sh
 unzip
+yq:sh
 wget
 
 gcloud:sh
@@ -43,8 +47,10 @@ hub:sh
 cargo:sh
 clang
 go
+pipx:sh
+poetry:sh
 python2:sh
-python3
+python3:sh
 
 docker:sh
 dropbox:sh

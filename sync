@@ -226,14 +226,56 @@ if grep -q "cargo:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     fi
 fi
 
-# TODO: python27 python36 python37 python38...
 if grep -q "python2:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if ! which python2 >/dev/null; then
         if [[ -f /etc/os-release ]] && grep -q Ubuntu /etc/os-release; then
             eval "${PACMAN_INSTALL} python"
+        elif [[ "$OSTYPE" == "darwin"* ]]; then
+            eval "${PACMAN_INSTALL} python27"
         else
             eval "${PACMAN_INSTALL} python2"
         fi
+    fi
+
+    if ! python2 -m pip --version >/dev/null; then
+        if [[ "$OSTYPE" == "darwin"* ]]; then
+            eval "${PACMAN_INSTALL} py27-pip"
+        else
+            # TODO: handle distros where this is bundled already
+            eval "${PACMAN_INSTALL} python2-pip"
+        fi
+    fi
+fi
+
+if grep -q "python3:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
+    if ! which python3 >/dev/null; then
+        if [[ "$OSTYPE" == "darwin"* ]]; then
+            eval "${PACMAN_INSTALL} py37-pip"
+        else
+            eval "${PACMAN_INSTALL} python3"
+        fi
+    fi
+
+    if ! python3 -m pip --version >/dev/null; then
+        if [[ "$OSTYPE" == "darwin"* ]]; then
+            eval "${PACMAN_INSTALL} py37-pip"
+        else
+            # TODO: handle distros where this is bundled already
+            eval "${PACMAN_INSTALL} python3-pip"
+        fi
+    fi
+
+    # TODO: maybe a "libs" section in the config?
+    if ! python3 -m pip freeze | grep pynvim >/dev/null; then
+        python3 -m pip install --user pynvim
+    fi
+fi
+
+if grep -q "pipx:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
+    # TODO: sort out the pip user path outside of OSX
+    # if ! which pipx >/dev/null; then
+    if [[ ! -f /Users/kevin/Library/Python/3.7/bin/pipx ]]; then
+        python3 -m pip install --user pipx
     fi
 fi
 
@@ -358,7 +400,6 @@ if grep -q "git-standup:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
 fi
 
 if grep -q "gitify:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
-    # TODO: find a cross-platform version
     if [[ "$OSTYPE" == "darwin"* ]]; then
         if [[ ! -f "/Applications/Gitify.app/Contents/MacOS/Gitify" ]]; then
             brew cask install gitify
@@ -417,19 +458,6 @@ if grep -q "hyperfine:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     fi
 fi
 
-# TODO: move to packages configuration file
-# TODO: pip install yq
-# TODO: pip install all the stuff in ~/.local/bin...
-# TODO: pip ain't great for sysbins... maybe this is a good `nix` usecase?
-if ! python3 -m pip --version >/dev/null; then
-    # some distros have this bundled with `python3`, some don't
-    # macports: py27-pip, py37-pip, ...
-    eval "${PACMAN_INSTALL} python3-pip"
-fi
-if ! python3 -m pip freeze | grep neovim >/dev/null; then
-    python3 -m pip install neovim
-fi
-
 if grep -q "neovim:nvim" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if [ ! -f "${XDG_DATA_HOME}/nvim/site/autoload/plug.vim" ]; then
         curl -fsSLo "${XDG_DATA_HOME}/nvim/site/autoload/plug.vim" --create-dirs "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
@@ -456,17 +484,34 @@ if grep -q "pastel:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     fi
 fi
 
-# TODO: move to packages configuration file
-if ! which pre-commit >/dev/null; then
-    python3 -m pip install pre-commit
-    # TODO: do we need to interpolate any paths, etc?
-    # pre-commit init-templatedir ~/.config/git/template/
+if grep -q "poetry:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
+    if ! which poetry >/dev/null; then
+        # TODO: sort out the pip user path outside of OSX
+        /Users/kevin/Library/Python/3.7/bin/pipx install poetry
+    fi
+fi
+
+if grep -q "pre-commit:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
+    if ! which pre-commit >/dev/null; then
+        # TODO: sort out the pip user path outside of OSX
+        /Users/kevin/Library/Python/3.7/bin/pipx install pre-commit
+        pre-commit init-templatedir ~/.config/git/template/
+    fi
 fi
 
 if grep -q "prettyping:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if ! which prettyping >/dev/null; then
         sudo curl -fsSLo /usr/local/bin/prettyping "https://raw.githubusercontent.com/denilsonsa/prettyping/master/prettyping"
         sudo chmod a+x /usr/local/bin/prettyping
+    fi
+fi
+
+if grep -q "pyls:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
+    if ! which pyls >/dev/null; then
+        # TODO: sort out the pip user path outside of OSX
+        /Users/kevin/Library/Python/3.7/bin/pipx install "python-language-server[autopep8,mccabe,pycodestyle,pydocstyle,pyflakes,rope,yapf]"
+        /Users/kevin/.local/pipx/venvs/python-language-server/bin/python -m pip install pyls-mypy
+        /Users/kevin/.local/pipx/venvs/python-language-server/bin/python -m pip install pyls-isort
     fi
 fi
 
@@ -493,11 +538,6 @@ if grep -q "sublime-text:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     fi
 fi
 
-# TODO: move to packages configuration file
-if ! python3 -m pip freeze | grep tasklib >/dev/null; then
-    python3 -m pip install tasklib
-fi
-
 if grep -q "taskwarrior:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if ! which task >/dev/null; then
         if [[ "$OSTYPE" == "darwin"* ]]; then
@@ -511,6 +551,13 @@ fi
 if grep -q "tmuxifier:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if ! which tmuxifier >/dev/null; then
         git clone https://github.com/jimeh/tmuxifier.git "${XDG_SRC_HOME}/tmuxifier"
+    fi
+fi
+
+if grep -q "twine:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
+    if ! which twine >/dev/null; then
+        # TODO: sort out the pip user path outside of OSX
+        /Users/kevin/Library/Python/3.7/bin/pipx install twine
     fi
 fi
 
@@ -531,6 +578,13 @@ if grep -q "universal-ctags:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
             make
             make install || sudo make install
         )
+    fi
+fi
+
+if grep -q "yq:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
+    if ! which yq >/dev/null; then
+        # TODO: sort out the pip user path outside of OSX
+        /Users/kevin/Library/Python/3.7/bin/pipx install yq
     fi
 fi
 
