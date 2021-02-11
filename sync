@@ -422,14 +422,7 @@ if grep -q "go" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     fi
 fi
 
-# TODO: on macports, this could be `port install gnupg -pinentry +pinentry_mac`
-if grep -q "gpg:gnupg" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
-    if [[ "$OSTYPE" == "darwin"* ]]; then
-        if [ ! -f "/Applications/MacPorts/pinentry-mac.app/Contents/MacOS/pinentry-mac" ]; then
-            sudo port install pinentry-mac
-        fi
-    fi
-fi
+# TODO: on macports, `port install gnupg2 +pinentry`
 
 if grep -q "hexyl:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if ! which hexyl >/dev/null; then
