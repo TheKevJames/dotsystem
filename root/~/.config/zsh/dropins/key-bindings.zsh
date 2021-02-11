@@ -1,11 +1,5 @@
-# yoinked from https://github.com/robbyrussell/oh-my-zsh/blob/52fdae4b3d17f7ab602124ec8792865b5fc03236/lib/key-bindings.zsh
-# modifications:
-#   nuke esc-l
-#   nuke pageup/pagedown
-#   nuke home/end
-#   nuke command edit
-#   fix bracketed pasting
-#   setopts
+# Yoinked starting point from:
+# https://github.com/robbyrussell/oh-my-zsh/blob/52fdae4b3d17f7ab602124ec8792865b5fc03236/lib/key-bindings.zsh
 
 # Make sure that the terminal is in application mode when zle is active, since
 # only then values from $terminfo are valid
@@ -26,8 +20,15 @@ bindkey -e
 # [Esc-w] - Kill from the cursor to the mark
 bindkey '\ew' kill-region
 
-# [Ctrl-r] - search backward incrementally for a specified string. The string may begin with ^ to anchor the search to the beginning of the line.
-bindkey '^r' history-incremental-search-backward
+# [Ctrl-r] - search backward incrementally for a specified string. Augmented with fzf.
+fzf-history-widget-accept() {
+  fzf-history-widget
+  zle accept-line
+}
+zle     -N   fzf-history-widget-accept
+bindkey '^r' fzf-history-widget-accept
+# bindkey '^r' history-incremental-search-backward
+
 # [Ctrl-t] - search backward from current partial command
 bindkey '^t' history-beginning-search-backward
 # [Ctrl-y] - noop (defaults to "yank" operation)
