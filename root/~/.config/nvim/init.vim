@@ -24,11 +24,10 @@ call plug#begin('~/.local/share/nvim/plugged')
 
 Plug 'morhetz/gruvbox'  " gruvbox
 
-Plug 'junegunn/fzf', { 'do': './install --bin' }  " fzf
-Plug 'airblade/vim-gitgutter'                     " git
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }  " fzf
+Plug 'airblade/vim-gitgutter'                        " git
 
 Plug 'vimwiki/vimwiki'  " wiki
-Plug 'tbabej/taskwiki'  " wiki + taskwarrior
 
 Plug 'sheerun/vim-polyglot'  " syntax highlighting
 
@@ -37,5 +36,4 @@ call plug#end()
 " plugin configuration
 let g:gruvbox_termcolors=16
 colorscheme gruvbox
-let g:taskwiki_data_location="~/.local/share/taskwarrior"
 let g:vimwiki_list = [{'path': '~/Dropbox/vimwiki'}, {'path': '~/Dropbox/work/vimwiki'}]
