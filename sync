@@ -515,6 +515,13 @@ if grep -q "ripgrep:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     fi
 fi
 
+if grep -q "sd:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
+    if ! which sd >/dev/null; then
+        export CARGO_HOME="${XDG_DATA_HOME}/cargo"
+        cargo install sd
+    fi
+fi
+
 if grep -q "sublime-text:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if [[ "$OSTYPE" == "darwin"* ]]; then
         if [[ ! -f "/Applications/Sublime Text.app/Contents/MacOS/Sublime Text" ]]; then

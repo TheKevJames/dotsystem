@@ -18,6 +18,7 @@ pre-commit:sh
 prettyping:sh
 pyls:sh
 ripgrep:sh
+sd:sh
 tar
 twine:sh
 unzip
