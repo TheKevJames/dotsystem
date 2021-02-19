@@ -11,6 +11,7 @@
     sha = !git rev-parse HEAD | grep --color $(git rev-parse --short=0 HEAD)
     stale = !git branch -r | grep -v HEAD | grep -v 'origin/master$' | xargs -I{} git log --no-merges -n 1 --format=\"%ci | %cr | %an | {}\" {} | sort -n
     tags = tag -l --sort=version:refname
+    url = "!f() { echo https://$(git remote get-url origin | sed 's/^git@//' | sed 's/.git$//' | tr ':' '/')/tree/$(git rev-parse HEAD)/$1; }; f"
 
 [advice]
     detachedHead = false
