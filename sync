@@ -273,6 +273,7 @@ fi
 
 if grep -q "pipx:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     # TODO: sort out the pip user path outside of OSX
+    # on WSL, this is /home/kevin/.local/bin/pipx
     # if ! which pipx >/dev/null; then
     if [[ ! -f /Users/kevin/Library/Python/3.7/bin/pipx ]]; then
         python3 -m pip install --user pipx
