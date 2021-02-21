@@ -27,7 +27,9 @@ Plug 'morhetz/gruvbox'  " gruvbox
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }  " fzf
 Plug 'airblade/vim-gitgutter'                        " git
 
-Plug 'vimwiki/vimwiki'  " wiki
+Plug 'vimwiki/vimwiki'      " wiki
+Plug 'tools-life/taskwiki'  " wiki+taskw
+Plug 'majutsushi/tagbar'    " task tag nav
 
 Plug 'sheerun/vim-polyglot'  " syntax highlighting
 
@@ -36,4 +38,7 @@ call plug#end()
 " plugin configuration
 let g:gruvbox_termcolors=16
 colorscheme gruvbox
+
 let g:vimwiki_list = [{'path': '~/Dropbox/vimwiki'}, {'path': '~/Dropbox/work/vimwiki'}]
+let g:taskwiki_taskrc_location = '~/.config/taskwarrior/taskrc'
+command Tm TaskWikiMod

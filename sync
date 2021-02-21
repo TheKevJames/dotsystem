@@ -546,6 +546,11 @@ if grep -q "taskwarrior:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
             eval "${PACMAN_INSTALL} taskwarrior"
         fi
     fi
+
+    # TODO: maybe a "libs" section in the config?
+    if ! python3 -m pip freeze | grep tasklib >/dev/null; then
+        python3 -m pip install --user tasklib
+    fi
 fi
 
 if grep -q "tmuxifier:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then

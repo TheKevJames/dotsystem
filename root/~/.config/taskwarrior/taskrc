@@ -4,7 +4,21 @@ data.location=~/.local/share/taskwarrior
 color=on
 due=3
 
-# defaults
+# prio
+color.uda.priority.H=color255
+color.uda.priority.L=color245
+color.uda.priority.M=color250
+
+uda.priority.label=Priority
+uda.priority.type=string
+uda.priority.values=H,M,L,
+
+urgency.uda.priority.H.coefficient=6.0
+urgency.uda.priority.L.coefficient=1.8
+urgency.uda.priority.M.coefficient=3.9
+
+# sorting
+## defaults
 urgency.user.tag.next.coefficient=15.0  # +next tag
 urgency.due.coefficient=12.0            # overdue or near due date
 urgency.blocking.coefficient=8.0        # blocking other tasks
@@ -19,7 +33,7 @@ urgency.tags.coefficient=1.0            # has tags
 urgency.project.coefficient=1.0         # assigned to any project
 urgency.waiting.coefficient=-3.0        # waiting task
 urgency.blocked.coefficient=-5.0        # blocked by other tasks
-# custom
+## custom
 urgency.user.tag.blocked.coefficient=-5.0
 urgency.user.tag.stale.coefficient=-10.0
 
