@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+REPO="${1:-}"
+[[ -z "${REPO}" ]] && { echo "the repository must be specified" >&2; exit 1; }
+
+tags=$(wget -q https://registry.hub.docker.com/v1/repositories/${REPO}/tags -O - | sed -e 's/[][]//g' -e 's/"//g' -e 's/ //g' | tr '}' '\n' | awk -F: '{print $3}')
+echo "${tags}"
