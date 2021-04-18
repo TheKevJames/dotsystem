@@ -42,7 +42,7 @@ zsh
 
 git
 git-standup:sh
-hub:sh
+hub
 
 cargo:sh
 clang

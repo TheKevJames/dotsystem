@@ -432,19 +432,6 @@ if grep -q "hexyl:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     fi
 fi
 
-if grep -q "hub:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
-    if ! which hub >/dev/null; then
-        if [[ "$OSTYPE" == "darwin"* ]]; then
-            brew install hub
-        else
-            TEMPFILE=$(mktemp)
-            curl -fsSL "https://github.com/github/hub/releases/download/v2.5.0/hub-linux-amd64-2.5.0.tgz" > "${TEMPFILE}.tgz"
-            tar xzf "${TEMPFILE}.tgz" -C "${TMPDIR:-/tmp}"
-            sudo mv "${TMPDIR:-/tmp}"/hub-*/bin/hub /usr/local/bin
-        fi
-    fi
-fi
-
 if grep -q "hyperfine:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if ! which hyperfine >/dev/null; then
         export CARGO_HOME="${XDG_DATA_HOME}/cargo"
