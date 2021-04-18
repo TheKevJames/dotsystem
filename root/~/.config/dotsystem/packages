@@ -9,6 +9,7 @@ hexyl:sh
 htop
 hyperfine:sh
 jq
+krew:sh
 kubectl:kubectl-1.16
 kubectx
 less

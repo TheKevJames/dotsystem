@@ -242,6 +242,7 @@ if grep -q "python2:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
             eval "${PACMAN_INSTALL} py27-pip"
         else
             # TODO: handle distros where this is bundled already
+            # TODO: handle distros where this is not in default sources
             eval "${PACMAN_INSTALL} python2-pip"
         fi
     fi
@@ -436,6 +437,22 @@ if grep -q "hyperfine:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if ! which hyperfine >/dev/null; then
         export CARGO_HOME="${XDG_DATA_HOME}/cargo"
         cargo install hyperfine
+    fi
+fi
+
+if grep -q "krew:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
+    if ! which krew >/dev/null; then
+        export KREW_ROOT="${XDG_DATA_HOME}/krew"
+        (
+            set -x
+            cd "$(mktemp -d)" &&
+            OS="$(uname | tr '[:upper:]' '[:lower:]')" &&
+            ARCH="$(uname -m | sed -e 's/x86_64/amd64/' -e 's/\(arm\)\(64\)\?.*/\1\2/' -e 's/aarch64$/arm64/')" &&
+            curl -fsSLO "https://github.com/kubernetes-sigs/krew/releases/latest/download/krew.tar.gz" &&
+            tar zxvf krew.tar.gz &&
+            KREW=./krew-"${OS}_${ARCH}" &&
+            "$KREW" install krew
+        )
     fi
 fi
 
