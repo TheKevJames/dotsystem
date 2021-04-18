@@ -387,7 +387,7 @@ if grep -q "gcloud:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
         tar xzf "${TEMPFILE}.tgz" -C "${XDG_SRC_HOME}"
 
         # TODO: move to packages configuration file
-        yes | "${XDG_SRC_HOME}/google-cloud-sdk/bin/gcloud" components install gsutil kubectl || true
+        yes | "${XDG_SRC_HOME}/google-cloud-sdk/bin/gcloud" components install gsutil || true
     fi
 fi
 
@@ -440,8 +440,9 @@ if grep -q "hyperfine:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     fi
 fi
 
+# TODO: krew plugins: ctx, ns, deprecations, doctor, flame, images, mtail, outdated, popeye
 if grep -q "krew:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
-    if ! which krew >/dev/null; then
+    if ! which kubectl-krew >/dev/null; then
         export KREW_ROOT="${XDG_DATA_HOME}/krew"
         (
             set -x
