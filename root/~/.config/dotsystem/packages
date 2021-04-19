@@ -11,7 +11,6 @@ hyperfine:sh
 jq
 krew:sh
 kubectl:kubectl-1.17
-kubectx
 less
 m4
 make
