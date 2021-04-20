@@ -15,7 +15,13 @@ HISTORY = os.path.join(XDG_DATA_HOME, 'python{}'.format(sys.version_info[0]),
 # Load
 readline.set_history_length(10000)
 if os.path.exists(HISTORY):
-    readline.read_history_file(HISTORY)
+    try:
+        readline.read_history_file(HISTORY)
+    except IOError:
+        # Py2 on OSX now "requires" gnureadline static linked to readline. If
+        # you don't have that, this IOError gets thrown. But it does all the
+        # work before the exception gets thrown and works perfectly fine, so...
+        pass
 
 # Enable tab-completion
 readline.parse_and_bind('tab: complete')
