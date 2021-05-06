@@ -1,6 +1,6 @@
 repos:
 -   repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v3.3.0
+    rev: v3.4.0
     hooks:
     -   id: check-case-conflict
     -   id: check-executables-have-shebangs
@@ -27,7 +27,7 @@ repos:
     -   id: name-tests-test
     -   id: requirements-txt-fixer
 -   repo: https://github.com/pycqa/pylint
-    rev: pylint-2.6.0
+    rev: v2.8.2
     hooks:
     -   id: pylint
         additional_dependencies:
@@ -51,22 +51,22 @@ repos:
         - -d ungrouped-imports  # conflicts with reorder-python-imports
         - -d wrong-import-order  # conflicts with reorder-python-imports
 -   repo: https://github.com/Lucas-C/pre-commit-hooks
-    rev: v1.1.9
+    rev: v1.1.10
     hooks:
     -   id: remove-crlf
     -   id: remove-tabs
 -   repo: https://github.com/asottile/reorder_python_imports
-    rev: v2.3.6
+    rev: v2.5.0
     hooks:
     -   id: reorder-python-imports
         args: [--py37-plus]
 -   repo: https://github.com/asottile/pyupgrade
-    rev: v2.7.4
+    rev: v2.14.0
     hooks:
     -   id: pyupgrade
         args: [--py37-plus]
 -   repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v0.790
+    rev: v0.812
     hooks:
     -   id: mypy
         require_serial: True
@@ -79,21 +79,21 @@ repos:
         - --warn-unreachable
         exclude: tests/.*
 -   repo: https://github.com/asottile/yesqa
-    rev: v1.2.2
+    rev: v1.2.3
     hooks:
     -   id: yesqa
 -   repo: https://github.com/pre-commit/mirrors-autopep8
-    rev: v1.5.4
+    rev: v1.5.7
     hooks:
     -   id: autopep8
 -   repo: https://github.com/PyCQA/pydocstyle
-    rev: 5.1.1
+    rev: 6.0.0
     hooks:
     -   id: pydocstyle
         args:
         - --ignore=D1,D203,D205,D212,D400,D401,D404,D407,D412,D413
 -   repo: https://gitlab.com/pycqa/flake8
-    rev: 3.8.4
+    rev: 3.9.1
     hooks:
     -   id: flake8
         additional_dependencies:
@@ -114,7 +114,7 @@ repos:
         language: pygrep
         types: [python]
 -   repo: https://github.com/pre-commit/pygrep-hooks
-    rev: v1.7.0
+    rev: v1.8.0
     hooks:
     -   id: python-no-eval
     -   id: python-no-log-warn
@@ -127,7 +127,7 @@ repos:
 
 # java
 -   repo: https://github.com/macisamuele/language-formatters-pre-commit-hooks
-    rev: v1.6.1
+    rev: v2.0.0
     hooks:
     -   id: pretty-format-java
         args: [--autofix]
@@ -144,14 +144,14 @@ repos:
 
 # terraform
 -   repo: https://github.com/antonbabenko/pre-commit-terraform
-    rev: v1.45.0
+    rev: v1.50.0
     hooks:
     -   id: terraform_fmt
     -   id: terraform_validate
 
 # shell
 -   repo: https://github.com/lovesegfault/beautysh
-    rev: 6.0.1
+    rev: v6.1.0
     hooks:
     -   id: beautysh
 -   repo: https://github.com/openstack/bashate
@@ -160,10 +160,10 @@ repos:
     -   id: bashate
         args: [--max-line-length=80]
 -   repo: https://github.com/detailyang/pre-commit-shell
-    rev: v1.0.6
+    rev: 1.0.5
     hooks:
     -   id: shell-lint
 -   repo: https://github.com/jumanjihouse/pre-commit-hooks
-    rev: 2.1.4
+    rev: 2.1.5
     hooks:
     -   id: script-must-not-have-extension
