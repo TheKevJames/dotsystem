@@ -62,7 +62,7 @@ repos:
     -   id: reorder-python-imports
         args: [--py37-plus]
 -   repo: https://github.com/asottile/pyupgrade
-    rev: v2.14.0
+    rev: v2.18.2
     hooks:
     -   id: pyupgrade
         args: [--py37-plus]
@@ -88,13 +88,13 @@ repos:
     hooks:
     -   id: autopep8
 -   repo: https://github.com/PyCQA/pydocstyle
-    rev: 6.0.0
+    rev: 6.1.1
     hooks:
     -   id: pydocstyle
         args:
         - --ignore=D1,D203,D205,D212,D400,D401,D404,D407,D412,D413
 -   repo: https://gitlab.com/pycqa/flake8
-    rev: 3.9.1
+    rev: 3.9.2
     hooks:
     -   id: flake8
         additional_dependencies:
