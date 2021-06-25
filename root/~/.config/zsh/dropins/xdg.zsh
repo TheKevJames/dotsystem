@@ -25,10 +25,6 @@ export THEANORC="${XDG_CONFIG_HOME}/theano/.theanorc"
 export THEANO_FLAGS="base_compiledir=${XDG_DATA_HOME}/theano"
 export WINEPREFIX="${XDG_DATA_HOME}/wine/prefixes/default"
 
-if [[ "$OSTYPE" == "darwin"* ]]; then
-    alias tmux='tmux -f /etc/tmux.conf'
-fi
-
 ngrok() {
     if echo "authtoken http start tcp tls" | grep -w "${1:-DEFAULT}" >/dev/null; then
         if [[ "$@" != *"--config"* ]]; then

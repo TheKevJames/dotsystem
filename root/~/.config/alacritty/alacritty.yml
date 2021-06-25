@@ -96,7 +96,6 @@ live_config_reload: true
 shell:
   program: tmux
   args:
-    - -f/etc/tmux.conf
     - attach
 
 key_bindings:
