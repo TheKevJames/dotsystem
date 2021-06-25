@@ -36,6 +36,7 @@ youtube-viewer
 neovim:nvim
 
 alacritty:sh
+kitty
 tmux
 tmuxifier:sh
 zsh
