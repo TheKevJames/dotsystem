@@ -219,6 +219,7 @@ fi
 ## Install outside-of-package-manager packages
 # TODO: re-alphabetize once language package managers are better supported
 if grep -q "cargo:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
+    export CARGO_HOME="${XDG_DATA_HOME}/cargo"
     if ! which cargo >/dev/null; then
         TEMPFILE=$(mktemp)
         curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs > "${TEMPFILE}.sh"
@@ -265,6 +266,8 @@ if grep -q "python3:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
             eval "${PACMAN_INSTALL} python3-pip"
         fi
     fi
+
+    # TODO: on debian, we also need `python3-venv`
 
     # TODO: maybe a "libs" section in the config?
     if ! python3 -m pip freeze | grep pynvim >/dev/null; then
@@ -410,6 +413,8 @@ if grep -q "gitify:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
 fi
 
 # TODO: move to packages configuration file
+# TODO: "grep go" etc needs to be a full line match :facepalm:
+# TODO: go -> go:sh , https://golang.org/doc/install
 if grep -q "go" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     export GOPATH="${XDG_DATA_HOME}/go"
     if [ ! -f "${XDG_DATA_HOME}/go/bin/gmailctl" ]; then
@@ -580,6 +585,7 @@ if grep -q "universal-ctags:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
         if [[ "$OSTYPE" == "darwin"* ]]; then
             eval "${PACMAN_INSTALL} libyaml"
         fi
+        # TODO: debian needed pkg-config. global?
 
         git clone https://github.com/universal-ctags/ctags.git "${XDG_SRC_HOME}/universal-ctags"
         (
