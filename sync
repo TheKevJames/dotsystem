@@ -238,12 +238,13 @@ if grep -q "python2:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
         fi
     fi
 
-    if ! python2 -m pip --version >/dev/null; then
+    if ! python2 -m pip --version >/dev/null 2>/dev/null; then
         if [[ "$OSTYPE" == "darwin"* ]]; then
             eval "${PACMAN_INSTALL} py27-pip"
         else
             # TODO: handle distros where this is bundled already
             # TODO: handle distros where this is not in default sources
+            # TODO: handle debian, where this is python-pip
             eval "${PACMAN_INSTALL} python2-pip"
         fi
     fi
