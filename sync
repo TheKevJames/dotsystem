@@ -490,15 +490,13 @@ fi
 
 if grep -q "poetry:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if ! which poetry >/dev/null; then
-        # TODO: sort out the pip user path outside of OSX
-        /Users/kevin/Library/Python/3.7/bin/pipx install poetry
+        pipx install poetry
     fi
 fi
 
 if grep -q "pre-commit:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if ! which pre-commit >/dev/null; then
-        # TODO: sort out the pip user path outside of OSX
-        /Users/kevin/Library/Python/3.7/bin/pipx install pre-commit
+        pipx install pre-commit
         pre-commit init-templatedir ~/.config/git/template/
     fi
 fi
@@ -512,10 +510,8 @@ fi
 
 if grep -q "pyls:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if ! which pyls >/dev/null; then
-        # TODO: sort out the pip user path outside of OSX
-        /Users/kevin/Library/Python/3.7/bin/pipx install "python-language-server[autopep8,mccabe,pycodestyle,pydocstyle,pyflakes,rope,yapf]"
-        /Users/kevin/.local/pipx/venvs/python-language-server/bin/python -m pip install pyls-mypy
-        /Users/kevin/.local/pipx/venvs/python-language-server/bin/python -m pip install pyls-isort
+        pipx install "python-language-server[autopep8,mccabe,pycodestyle,pydocstyle,pyflakes,rope,yapf]"
+        pipx inject python-language-server pyls-isort pyls-mypy
     fi
 fi
 
@@ -572,8 +568,7 @@ fi
 
 if grep -q "twine:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if ! which twine >/dev/null; then
-        # TODO: sort out the pip user path outside of OSX
-        /Users/kevin/Library/Python/3.7/bin/pipx install twine
+        pipx install twine
     fi
 fi
 
@@ -600,8 +595,7 @@ fi
 
 if grep -q "yq:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if ! which yq >/dev/null; then
-        # TODO: sort out the pip user path outside of OSX
-        /Users/kevin/Library/Python/3.7/bin/pipx install yq
+        pipx install yq
     fi
 fi
 
