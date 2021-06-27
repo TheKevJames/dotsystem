@@ -21,6 +21,26 @@ FORCE=$(if [[ "$@" == *"--force"* ]]; then echo "y"; else echo "n"; fi)
 
 source "${DIR}/root/~/.zshenv"
 
+# TODO: move sudo out of consts?
+if which zypper >/dev/null; then
+    PACMAN_REFRESH="sudo zypper refresh"
+    PACMAN_INSTALL="sudo zypper install"
+elif which port >/dev/null; then
+    PACMAN_REFRESH="sudo port sync"
+    PACMAN_INSTALL="sudo port install"
+elif which apt-get >/dev/null; then
+    PACMAN_REFRESH="sudo apt-get update"
+    PACMAN_INSTALL="sudo apt-get install"
+else
+    echo "ERROR: could not determine package manager."
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        echo "ERROR: please install MacPorts from https://github.com/macports/macports-base/releases/"
+        exit 1
+    else
+        exit 1
+    fi
+fi
+
 if [[ "${BOOTSTRAP}" == "y" ]]; then
     echo "Detected fresh system, beginning bootstrap mode..."
     if [[ "$@" == *"--skip-packages"* ]]; then
@@ -50,26 +70,6 @@ if [[ "${BOOTSTRAP}" == "y" ]]; then
 
     echo "Creating ~/.ssh/id_ed25519..."
     ssh-keygen -o -a 100 -t ed25519 -C "KevinJames@thekev.in" -f ~/.ssh/id_ed25519
-fi
-
-# TODO: move sudo out of consts?
-if which zypper >/dev/null; then
-    PACMAN_REFRESH="sudo zypper refresh"
-    PACMAN_INSTALL="sudo zypper install"
-elif which port >/dev/null; then
-    PACMAN_REFRESH="sudo port sync"
-    PACMAN_INSTALL="sudo port install"
-elif which apt-get >/dev/null; then
-    PACMAN_REFRESH="sudo apt-get update"
-    PACMAN_INSTALL="sudo apt-get install"
-else
-    echo "ERROR: could not determine package manager."
-    if [[ "$OSTYPE" == "darwin"* ]]; then
-        echo "ERROR: please install MacPorts from https://github.com/macports/macports-base/releases/"
-        exit 1
-    else
-        exit 1
-    fi
 fi
 
 # Helpers
