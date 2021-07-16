@@ -33,12 +33,17 @@ Plug 'airblade/vim-gitgutter'                        " git
 
 let g:vimwiki_list = [{'path': '~/Dropbox/work/vimwiki'}, {'path': '~/Dropbox/vimwiki'}]
 Plug 'vimwiki/vimwiki'      " wiki
-Plug 'majutsushi/tagbar'    " task tag nav
+Plug 'majutsushi/tagbar'    " tag navigation
 
-Plug 'sheerun/vim-polyglot'  " syntax highlighting
+let g:polyglot_disabled = ['python.plugin']
+Plug 'sheerun/vim-polyglot'   " syntax highlighting
+Plug 'neovim/nvim-lspconfig'  " LSP configuration
 
 call plug#end()
 
 " plugin configuration
 colorscheme gruvbox
 
+lua <<EOF
+  require'lspconfig'.pylsp.setup{}
+EOF
