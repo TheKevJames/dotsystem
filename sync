@@ -269,11 +269,6 @@ if grep -q "python3:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     fi
 
     # TODO: on debian, we also need `python3-venv`
-
-    # TODO: maybe a "libs" section in the config?
-    if ! python3 -m pip freeze | grep pynvim >/dev/null; then
-        python3 -m pip install --user pynvim
-    fi
 fi
 
 if grep -q "pipx:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
@@ -467,6 +462,11 @@ if grep -q "neovim:nvim" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if [ ! -f "${XDG_DATA_HOME}/nvim/site/autoload/plug.vim" ]; then
         curl -fsSLo "${XDG_DATA_HOME}/nvim/site/autoload/plug.vim" --create-dirs "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
         nvim -c ':PlugInstall' -c 'qa!'
+    fi
+
+    if ! which nvr >/dev/null; then
+        pipx install neovim-remote
+        pipx inject neovim-remote pynvim
     fi
 fi
 

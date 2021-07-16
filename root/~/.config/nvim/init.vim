@@ -23,6 +23,8 @@ imap <F3> <C-R>=strftime("%Y-%m-%d")<CR>
 filetype plugin indent on  " enable filetype detection
 syntax on                  " show syntax highlighting
 
+let g:python3_host_prog="~/.local/pipx/venvs/neovim-remote/bin/python3"
+
 call plug#begin('~/.local/share/nvim/plugged')
 
 let g:gruvbox_termcolors=16
