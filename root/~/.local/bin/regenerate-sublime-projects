@@ -29,8 +29,8 @@ def build_sublime_projects(repo_dirs: List[pathlib.Path]) -> Iterable[str]:
 
         project.write_text(json.dumps({
             'folders': [{'path': path}],
-            'settings': {'LSP': {'pyls': {'env': {'MYPYPATH': venv,
-                                                  'PYTHONPATH': venv}}}},
+            'settings': {'LSP': {'pylsp': {'env': {'MYPYPATH': venv,
+                                                   'PYTHONPATH': venv}}}},
         }))
 
         workspace = (PROJECT_DIR / name).with_suffix('.sublime-workspace')

@@ -1,10 +1,10 @@
 {
   "clients": {
-    "pyls": {
-      "command": ["~/.local/share/venv/lsp/bin/pyls"],
+    "pylsp": {
+      "command": ["~/.local/bin/pylsp"],
       "enabled": true,
       "settings": {
-        "pyls": {
+        "pylsp": {
           "plugins": {
             "pyls_mypy": {
               "enabled": true,

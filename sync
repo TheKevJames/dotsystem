@@ -509,10 +509,10 @@ if grep -q "prettyping:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     fi
 fi
 
-if grep -q "pyls:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
-    if ! which pyls >/dev/null; then
-        pipx install "python-language-server[autopep8,mccabe,pycodestyle,pydocstyle,pyflakes,rope,yapf]"
-        pipx inject python-language-server pyls-isort pyls-mypy
+if grep -q "pylsp:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
+    if ! which pylsp >/dev/null; then
+        pipx install "python-lsp-server[autopep8,mccabe,flake8,pycodestyle,pydocstyle,pyflakes,pylint,rope,yapf]"
+        pipx inject python-lsp-server pyls-isort pyls-mypy
     fi
 fi
 

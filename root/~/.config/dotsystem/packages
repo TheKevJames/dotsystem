@@ -16,7 +16,7 @@ m4
 make
 pre-commit:sh
 prettyping:sh
-pyls:sh
+pylsp:sh
 ripgrep:sh
 sd:sh
 tar
