@@ -546,21 +546,6 @@ if grep -q "sublime-text:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     fi
 fi
 
-if grep -q "taskwarrior:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
-    if ! which task >/dev/null; then
-        if [[ "$OSTYPE" == "darwin"* ]]; then
-            eval "${PACMAN_INSTALL} task"
-        else
-            eval "${PACMAN_INSTALL} taskwarrior"
-        fi
-    fi
-
-    # TODO: maybe a "libs" section in the config?
-    if ! python3 -m pip freeze | grep tasklib >/dev/null; then
-        python3 -m pip install --user tasklib
-    fi
-fi
-
 if grep -q "tmuxifier:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if ! which tmuxifier >/dev/null; then
         git clone https://github.com/jimeh/tmuxifier.git "${XDG_SRC_HOME}/tmuxifier"

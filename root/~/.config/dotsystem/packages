@@ -29,7 +29,6 @@ gcloud:sh
 lastpass-cli:lpass
 ngrok:sh
 pastel:sh
-taskwarrior:sh
 universal-ctags:sh
 
 neovim:nvim
