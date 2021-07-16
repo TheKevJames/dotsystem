@@ -18,7 +18,7 @@ let g:netrw_liststyle=3    " use tree view by default
 nnoremap ; :
 
 nmap <F3> i<C-R>=strftime("%Y-%m-%d")<CR><Esc>
-imap <F3> <C-R>=strftime("%Y-%m-%d")<CR><Esc>
+imap <F3> <C-R>=strftime("%Y-%m-%d")<CR>
 
 filetype plugin indent on  " enable filetype detection
 syntax on                  " show syntax highlighting
