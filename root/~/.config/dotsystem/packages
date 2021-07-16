@@ -31,7 +31,6 @@ ngrok:sh
 pastel:sh
 taskwarrior:sh
 universal-ctags:sh
-youtube-viewer
 
 neovim:nvim
 
