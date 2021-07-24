@@ -615,9 +615,8 @@ if [[ "${BOOTSTRAP}" == "y" ]]; then
     passphrase2pgp -u emergency -f ssh -p >> ~/.ssh/authorized_keys
     # To regain access to a machine if all goes wrong:
     #     (umask 077; passphrase2pgp -u emergency -f ssh > ~/.ssh/emergency)
-    #     ssh-add ~/.ssh/emergency
+    #     ssh-copy-id -i ~/.ssh/id_ed25519 -o 'IdentityFile ~/.ssh/emergency' important.example.com
     #     rm ~/.ssh/emergency
-    #     ssh-copy-id -i ~/.ssh/id_ed25519 important.example.com
 fi
 
 echo "done."
