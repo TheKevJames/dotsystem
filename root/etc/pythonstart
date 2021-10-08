@@ -9,6 +9,7 @@ import sys
 XDG_DATA_HOME = os.environ.get(
     'XDG_DATA_HOME',
     os.path.expanduser(os.path.join('~', '.local', 'share')))
+# pylint: disable=consider-using-f-string
 HISTORY = os.path.join(XDG_DATA_HOME, 'python{}'.format(sys.version_info[0]),
                        'history')
 
