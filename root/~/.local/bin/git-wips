@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+for folder in $(fd -td -d1 .); do
+  branches=$(git --git-dir "./${folder}/.git" branch | grep -vE '^[ \*] master$' | grep -vE '^[ \*] main$' ||:)
+  if [ ! -z "${branches:-}" ]; then
+    echo "${folder}"
+    echo "${branches}"
+    echo
+  fi
+done
