@@ -10,5 +10,5 @@ export ZDOTDIR=${XDG_CONFIG_HOME}/zsh
 export CC=$(command -v clang || echo /usr/bin/clang)
 export CXX=$(command -v clang++ || echo /usr/bin/clang++)
 
-export EDITOR=$(command -v nvim || echo /usr/local/bin/nvim)
+export EDITOR=$(command -v nvim || echo /opt/local/bin/nvim)
 export TERM=xterm-256color
