@@ -1,0 +1,23 @@
+/*
+ * TODO: include this in dotsystem
+ *
+ * On dialbox, this lives in:
+ * ~/Library/Application Support/Firefox/Profiles/fyslh583.default-release/chrome/userChrome.css
+ */
+
+/* begin: hide toolbar (controls and tabs) */
+#TabsToolbar {
+    visibility: collapse;
+    overflow: visible;
+}
+
+#TabsToolbar > * {
+    visibility: collapse;
+}
+
+#TabsToolbar .titlebar-buttonbox-container {
+    visibility: visible !important;
+    position: absolute;
+    margin-top: 5px;
+}
+/* end: hide toolbar */
