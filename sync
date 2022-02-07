@@ -103,13 +103,18 @@ set_file() {
             if [[ "${DEST}" == *"/bin/"* ]]; then sudo chmod a+x "${DEST}"; fi
         else
             echo "Apply this change?"
-            select yn in "Yes" "No"; do
+            select yn in "Yes" "No" "Update git repo from local changes"; do
                 case $yn in
-                    Yes ) cp "${1}" "${DEST}" 2>/dev/null || sudo cp "${1}" "${DEST}";
+                    Yes )
+                        cp "${1}" "${DEST}" 2>/dev/null || sudo cp "${1}" "${DEST}";
                         if [[ "${DEST}" == *"/bin/"* ]]; then sudo chmod a+x "${DEST}"; fi;
                         if [[ "${DEST}" == *"/git/template/hooks/"* ]]; then sudo chmod a+x "${DEST}"; fi;
                         break ;;
-                    No )  break ;;
+                    No )
+                        break ;;
+                    "Update git repo from local changes" )
+                        cp "${DEST}" "${1}";
+                        break ;;
                 esac
             done
         fi
