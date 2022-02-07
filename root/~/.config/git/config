@@ -1,12 +1,16 @@
 [alias]
     amend = commit --amend
+    branch-v = for-each-ref --sort=-committerdate refs/heads/ --format='%(authordate:short) %(color:red)%(objectname:short) %(color:yellow)%(refname:short)%(color:reset) (%(color:green)%(committerdate:relative)%(color:reset))'
     branches = branch -a
     commits = !echo "chore, docs, feat, fix, perf, refactor, style, test"
     lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --decorate-refs-exclude='tags/*'
     lgabs = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cD) %C(bold blue)<%an>%Creset' --abbrev-commit --decorate-refs-exclude='tags/*'
     lgt = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
     lgtabs = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cD) %C(bold blue)<%an>%Creset' --abbrev-commit
+    lgtmine = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --branches="maste[r]" --branches="kj" --branches="kjames"
+    pr-pbcopy = !hub pr show -f'%U' | pbcopy
     pre-commit-init = !cp ~/.config/git/pre-commit-config.yaml $(git rev-parse --show-toplevel)/.pre-commit-config.yaml
+    recent-branches = !git reflog | grep 'checkout:' | head | awk '{print $8}' | awk '!x[$0]++'
     remotes = remote -v
     sha = !git rev-parse HEAD | grep --color $(git rev-parse --short=0 HEAD)
     stale = !git branch -r | grep -v HEAD | grep -v 'origin/master$' | xargs -I{} git log --no-merges -n 1 --format=\"%ci | %cr | %an | {}\" {} | sort -n
@@ -69,7 +73,7 @@
     patternType = perl
 
 [merge]
-    conflictstyle = diff3
+    conflictstyle = zdiff3
     stat = true
     tool = nvimdiff
 
