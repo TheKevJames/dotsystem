@@ -83,3 +83,15 @@ unsetopt auto_cd
 
 # implicit `cat` and `tee` when redirecting
 setopt multios
+
+# Yoinked from https://github.com/statico/dotfiles/blob/0053e9d1c2bd6564075ea9bf02ffa3de5cc86e3a/.zshrc#L512-L522
+# Disables the behaviours where the <space> is removed after typing eg. "filepref<tab>|", etc.
+self-insert-redir() {
+    integer l=$#LBUFFER
+    zle self-insert
+    (( $l >= $#LBUFFER )) && LBUFFER[-1]=" $LBUFFER[-1]"
+}
+zle -N self-insert-redir
+for op in \| \< \> \& ; do
+    bindkey "$op" self-insert-redir
+done
