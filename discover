@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+echo "Discovering files in need of backup..."
+
+for folder in ".local/bin" ".config/zsh/dropins"; do
+  echo
+  echo "The following files in ${folder} may be in need of backup:"
+  comm -23 \
+    <(find ~/"${folder}" -mindepth 1 -type f | awk -F/ '{print $NF}' | sort -n) \
+    <(find "./root/~/${folder}" -mindepth 1 -type f | awk -F/ '{print $NF}' | sort -n)
+done
