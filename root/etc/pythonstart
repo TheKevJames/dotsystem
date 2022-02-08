@@ -6,11 +6,11 @@ import rlcompleter
 import sys
 
 
-XDG_DATA_HOME = os.environ.get(
-    'XDG_DATA_HOME',
-    os.path.expanduser(os.path.join('~', '.local', 'share')))
+XDG_STATE_HOME = os.environ.get(
+    'XDG_STATE_HOME',
+    os.path.expanduser(os.path.join('~', '.local', 'state')))
 # pylint: disable=consider-using-f-string
-HISTORY = os.path.join(XDG_DATA_HOME, 'python{}'.format(sys.version_info[0]),
+HISTORY = os.path.join(XDG_STATE_HOME, 'python{}'.format(sys.version_info[0]),
                        'history')
 
 # Load
@@ -39,5 +39,5 @@ atexit.register(save_history)
 
 # Remove from namespace
 del atexit, os, readline, rlcompleter, sys
-del HISTORY, XDG_DATA_HOME
+del HISTORY, XDG_STATE_HOME
 del save_history

@@ -1,6 +1,6 @@
 alias history="fc -li 1"
 
-HISTFILE="${XDG_DATA_HOME}/zsh/history"
+HISTFILE="${XDG_STATE_HOME}/zsh/history"
 HISTSIZE=50000
 SAVEHIST=10000
 
