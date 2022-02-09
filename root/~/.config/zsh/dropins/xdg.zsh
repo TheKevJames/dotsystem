@@ -24,6 +24,16 @@ export THEANORC="${XDG_CONFIG_HOME}/theano/.theanorc"
 export THEANO_FLAGS="base_compiledir=${XDG_DATA_HOME}/theano"
 export WINEPREFIX="${XDG_DATA_HOME}/wine/prefixes/default"
 
+kubectl() {
+    plugins="ctx deprecations doctor flame force-deploy images krew mtail ns outdated popeye"
+    if echo "${plugins}" | grep -vw "${1:-DEFAULT}" >/dev/null; then
+        command kubectl "$1" --cache-dir=${XDG_CACHE_HOME}/kube/http "${@:2}"
+        return $?
+    fi
+
+    command kubectl "$@"
+}
+
 ngrok() {
     if echo "authtoken http start tcp tls" | grep -w "${1:-DEFAULT}" >/dev/null; then
         if [[ "$@" != *"--config"* ]]; then
@@ -47,7 +57,6 @@ alias cpan="cpan -j ${XDG_CONFIG_HOME}/cpan/Config.pm"
 # https://github.com/mbrt/gmailctl
 alias gmailctl="gmailctl --config=${XDG_CONFIG_HOME}/gmailctl"
 alias irssi="irssi --home=${XDG_CONFIG_HOME}/irssi"
-alias kubectl="kubectl --cache-dir=${XDG_CACHE_HOME}/kube/http"
 alias lmms="lmms --config=${XDG_CONFIG_HOME}/lmms/config"
 alias wget="wget --hsts-file ${XDG_DATA_HOME}/wget/hsts"
 
