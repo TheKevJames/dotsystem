@@ -418,15 +418,10 @@ fi
 # TODO: go -> go:sh , https://golang.org/doc/install
 if grep -q "go" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     export GOPATH="${XDG_DATA_HOME}/go"
-    if [ ! -f "${XDG_DATA_HOME}/go/bin/gmailctl" ]; then
-        go get -u github.com/mbrt/gmailctl/cmd/gmailctl
-    fi
-    if [ ! -f "${XDG_DATA_HOME}/go/bin/jira" ]; then
-        # TODO: should this envvar get globally enabled?
-        GO111MODULE=on go get -u github.com/go-jira/jira/cmd/jira
-    fi
+    # TODO: consider switching to a subset implementation, only I *really* need
+    # this for the emergency key...
     if [ ! -f "${XDG_DATA_HOME}/go/bin/passphrase2pgp" ]; then
-        GO111MODULE=on go get -u nullprogram.com/x/passphrase2pgp
+        go install nullprogram.com/x/passphrase2pgp@v1.2.0
     fi
 fi
 
