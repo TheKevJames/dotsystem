@@ -102,6 +102,9 @@
 [web]
     browser = firefox
 
+[hub]
+    protocol = ssh
+
 [includeIf "gitdir:~/src/talkiq/"]
     path = ~/.config/git/config-talkiq
 
