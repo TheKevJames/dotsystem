@@ -304,6 +304,13 @@ if grep -q "bat:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     fi
 fi
 
+if grep -q "delta:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
+    if ! which delta >/dev/null; then
+        export CARGO_HOME="${XDG_DATA_HOME}/cargo"
+        cargo install git-delta
+    fi
+fi
+
 if grep -q "docker:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if ! which docker >/dev/null; then
         if [[ "$OSTYPE" == "darwin"* ]]; then

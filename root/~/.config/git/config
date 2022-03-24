@@ -37,7 +37,7 @@
     editor = nvim
     excludesfile = ~/.config/git/ignore
     ignorecase = false
-    pager = less -FRX
+    pager = delta
 
 [credential]
     helper = cache --timeout=3600 --socket=~/.local/share/git/creds.sock
@@ -70,6 +70,9 @@
 [init]
     templatedir = ~/.config/git/template
 
+[interactive]
+    diffFilter = delta --color-only
+
 [grep]
     patternType = perl
 
@@ -101,6 +104,9 @@
 
 [web]
     browser = firefox
+
+[delta]
+    navigate = true
 
 [hub]
     protocol = ssh

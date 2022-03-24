@@ -1,6 +1,7 @@
 autoconf
 bat:sh
 curl
+delta:sh
 entr
 exa:sh
 fd:sh
