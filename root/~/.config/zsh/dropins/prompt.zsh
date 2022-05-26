@@ -29,7 +29,7 @@ zstyle :prompt:shrink_path fish no
 
 local return_color="%(?.%{$gruvbox_green%}.%{$gruvbox_red%})"
 local shlvl=""
-for ((i=1; i < SHLVL; i++)); do
+for ((i=0; i < SHLVL; i++)); do
   shlvl="${shlvl}%(!.#.»)"
 done
 PROMPT=$'%{$reset_color%}$(shrink_path -l -t) ${return_color}${shlvl}%{$reset_color%} '
