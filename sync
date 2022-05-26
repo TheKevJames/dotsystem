@@ -470,11 +470,6 @@ if grep -q "neovim:nvim" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
         curl -fsSLo "${XDG_DATA_HOME}/nvim/site/autoload/plug.vim" --create-dirs "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
         nvim -c ':PlugInstall' -c 'qa!'
     fi
-
-    if ! which nvr >/dev/null; then
-        pipx install neovim-remote
-        pipx inject neovim-remote pynvim
-    fi
 fi
 
 if grep -q "ngrok:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then

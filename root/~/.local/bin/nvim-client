@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+nvim --server /tmp/nvim.sock --remote "$@"
