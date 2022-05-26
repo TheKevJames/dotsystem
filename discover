@@ -10,3 +10,6 @@ for folder in ".local/bin" ".config/zsh/dropins"; do
     <(find ~/"${folder}" -mindepth 1 -type f | awk -F/ '{print $NF}' | sort -n) \
     <(find "./root/~/${folder}" -mindepth 1 -type f | awk -F/ '{print $NF}' | sort -n)
 done
+
+# TODO: discover ~/.config/nvim/ftdetect/*
+# TODO: discover ~/.config/tmuxifier/layouts

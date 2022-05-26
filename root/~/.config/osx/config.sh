@@ -76,4 +76,5 @@ defaults write com.apple.ActivityMonitor IconType -int 5
 ## show all in ActivityMonitor
 defaults write com.apple.ActivityMonitor ShowCategory -int 0
 ## enable infinite caffeination
-sudo launchctl load /Library/LaunchAgents/in.thekev.caffeinate.plist
+# TODO: what'd they change now?
+# sudo launchctl load /Library/LaunchAgents/in.thekev.caffeinate.plist
