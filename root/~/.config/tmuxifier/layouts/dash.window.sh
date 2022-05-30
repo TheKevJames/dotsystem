@@ -9,7 +9,6 @@ split_v 65
 # ...yeah.
 run_cmd $'nvim -c \'execute "normal \\\\ww"\'' 0
 run_cmd "spt" 1
-run_cmd "ddtui" 2
 run_cmd "cctui" 3
 
-select_pane 0
+select_pane 2
