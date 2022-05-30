@@ -38,8 +38,9 @@ Plug 'vimwiki/vimwiki'      " wiki
 Plug 'majutsushi/tagbar'    " tag navigation
 
 let g:polyglot_disabled = ['python.plugin']
-Plug 'sheerun/vim-polyglot'   " syntax highlighting
-Plug 'neovim/nvim-lspconfig'  " LSP configuration
+Plug 'sheerun/vim-polyglot'       " syntax highlighting: misc
+Plug 'nathangrigg/vim-beancount'  " syntax highlighting: beancount
+Plug 'neovim/nvim-lspconfig'      " LSP configuration
 
 call plug#end()
 

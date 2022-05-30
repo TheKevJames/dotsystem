@@ -625,3 +625,4 @@ echo "done."
 
 # TODO: cargo install cctui, du-dust, spotify-tui ?
 # TODO: cargo install broot, backup ~/.config/broot/conf.hjson, `broot --print-shell-function zsh > ~/.config/zsh/dropins/broot.zsh`
+# TODO: pipx install beancount
