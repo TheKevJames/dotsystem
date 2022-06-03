@@ -163,10 +163,10 @@ repos:
     hooks:
     -   id: bashate
         args: [--max-line-length=80]
--   repo: https://github.com/detailyang/pre-commit-shell
-    rev: 1.0.5
+-   repo: https://github.com/shellcheck-py/shellcheck-py
+    rev: v0.8.0.4
     hooks:
-    -   id: shell-lint
+    -   id: shellcheck
 -   repo: https://github.com/jumanjihouse/pre-commit-hooks
     rev: 2.1.6
     hooks:
