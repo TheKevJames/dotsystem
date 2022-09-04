@@ -11,7 +11,7 @@ htop
 hyperfine:sh
 jq
 krew:sh
-kubectl:kubectl-1.17
+kubectl:sh
 less
 m4
 make
