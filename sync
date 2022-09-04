@@ -656,6 +656,7 @@ if [[ "${BOOTSTRAP}" == "y" ]]; then
     sudo chsh -s $(which zsh)
 
     echo "Uploading new ssh key to Github..."
+    gh auth login
     gh auth refresh -h github.com -s admin:public_key
     gh ssh-key add ~/.ssh/id_ed25519.pub -t "${NEW_HOSTNAME}"
 
