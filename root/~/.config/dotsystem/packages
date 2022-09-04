@@ -45,7 +45,7 @@ hub
 
 cargo:sh
 clang
-go
+go:sh
 pipx:sh
 poetry:sh
 python3:sh

@@ -441,18 +441,24 @@ fi
 
 # TODO: move to packages configuration file
 # TODO: "grep go" etc needs to be a full line match :facepalm:
-# TODO: go -> go:sh , https://golang.org/doc/install
-# for linux:
-# wget -c "https://go.dev/dl/go1.19.linux-amd64.tar.gz" -O "${TEMPFILE}.tar.gz"
-# rm -rf /usr/local/go
-# sudo tar -C /usr/local -xzf "${TEMPFILE}.tar.gz"
-# ...
-# pathadd /usr/local/go/bin  # this is system-dependant
-if grep -q "go" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
+if grep -q "go:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
+    if ! which go >/dev/null; then
+        if [[ -f /etc/os-release ]] && grep -q debian /etc/os-release; then
+            TEMPFILE=$(mktemp)
+            wget -c "https://go.dev/dl/go1.19.linux-amd64.tar.gz" -O "${TEMPFILE}.tar.gz"
+            sudo rm -rf /usr/local/go
+            sudo tar -C /usr/local -xzf "${TEMPFILE}.tar.gz"
+        else
+            eval "${PACMAN_INSTALL} go"
+        fi
+    fi
+
     export GOPATH="${XDG_DATA_HOME}/go"
     # TODO: consider switching to a subset implementation, only I *really* need
     # this for the emergency key...
+    # Switching off would also let me purge golang...
     if [ ! -f "${XDG_DATA_HOME}/go/bin/passphrase2pgp" ]; then
+        pathadd /usr/local/go/bin  # TODO: verify on non-debian
         go install nullprogram.com/x/passphrase2pgp@v1.2.0
     fi
 fi
