@@ -240,10 +240,10 @@ fi
 
 if grep -q "python2:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if ! which python2 >/dev/null; then
-        if [[ -f /etc/os-release ]] && grep -q Ubuntu /etc/os-release; then
-            eval "${PACMAN_INSTALL} python"
-        elif [[ "$OSTYPE" == "darwin"* ]]; then
+        if [[ "$OSTYPE" == "darwin"* ]]; then
             eval "${PACMAN_INSTALL} python27"
+        elif [[ -f /etc/os-release ]] && grep -q Ubuntu /etc/os-release; then
+            eval "${PACMAN_INSTALL} python"
         else
             eval "${PACMAN_INSTALL} python2"
         fi
@@ -252,10 +252,11 @@ if grep -q "python2:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if ! python2 -m pip --version >/dev/null 2>/dev/null; then
         if [[ "$OSTYPE" == "darwin"* ]]; then
             eval "${PACMAN_INSTALL} py27-pip"
+        elif [[ -f /etc/os-release ]] && grep -q debian /etc/os-release; then
+            eval "${PACMAN_INSTALL} python-pip"
         else
             # TODO: handle distros where this is bundled already
             # TODO: handle distros where this is not in default sources
-            # TODO: handle debian, where this is python-pip
             eval "${PACMAN_INSTALL} python2-pip"
         fi
     fi
@@ -273,21 +274,25 @@ if grep -q "python3:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if ! python3 -m pip --version >/dev/null; then
         if [[ "$OSTYPE" == "darwin"* ]]; then
             eval "${PACMAN_INSTALL} py37-pip"
+        elif [[ -f /etc/os-release ]] && grep -q debian /etc/os-release; then
+            eval "${PACMAN_INSTALL} python3-pip python3-venv"
         else
             # TODO: handle distros where this is bundled already
             eval "${PACMAN_INSTALL} python3-pip"
         fi
     fi
-
-    # TODO: on debian, we also need `python3-venv`
 fi
 
 if grep -q "pipx:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
-    # TODO: sort out the pip user path outside of OSX
-    # on WSL, this is /home/kevin/.local/bin/pipx
-    # if ! which pipx >/dev/null; then
-    if [[ ! -f /Users/kevin/Library/Python/3.7/bin/pipx ]]; then
-        python3 -m pip install --user pipx
+    # TODO: avoid specifying username
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        if [[ ! -f /Users/kevin/Library/Python/3.7/bin/pipx ]]; then
+            python3 -m pip install --user pipx
+        fi
+    else
+        if [[ ! -f "${XDG_BIN_HOME}/pipx" ]]; then
+            python3 -m pip install --user pipx
+        fi
     fi
 fi
 
@@ -342,8 +347,12 @@ if grep -q "dropbox:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
         if [[ ! -f "/Applications/Dropbox.app/Contents/MacOS/Dropbox" ]]; then
             brew cask install dropbox
         fi
-    else
-        if ! which dropbox >/dev/null; then
+    elif ! which dropbox >/dev/null; then
+        if [[ -f /etc/os-release ]] && grep -q debian /etc/os-release; then
+            TEMPFILE=$(mktemp)
+            wget -c 'https://www.dropbox.com/download?dl=packages/ubuntu/dropbox_2020.03.04_amd64.deb' -O "${TEMPFILE}.deb"
+            sudo apt-get install "${TEMPFILE}.deb"
+        else
             eval "${PACMAN_INSTALL} dropbox"
         fi
     fi
@@ -433,6 +442,12 @@ fi
 # TODO: move to packages configuration file
 # TODO: "grep go" etc needs to be a full line match :facepalm:
 # TODO: go -> go:sh , https://golang.org/doc/install
+# for linux:
+# wget -c "https://go.dev/dl/go1.19.linux-amd64.tar.gz" -O "${TEMPFILE}.tar.gz"
+# rm -rf /usr/local/go
+# sudo tar -C /usr/local -xzf "${TEMPFILE}.tar.gz"
+# ...
+# pathadd /usr/local/go/bin  # this is system-dependant
 if grep -q "go" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     export GOPATH="${XDG_DATA_HOME}/go"
     # TODO: consider switching to a subset implementation, only I *really* need
