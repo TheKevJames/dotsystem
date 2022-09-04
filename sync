@@ -121,6 +121,12 @@ set_file() {
     fi
 }
 
+pathadd() {
+    if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then
+        PATH="${PATH:+"$PATH:"}$1"
+    fi
+}
+
 if [[ "$@" == *"--secrets"* ]]; then
     if [ ! -f "${XDG_CONFIG_HOME}/dotsystem/secrets" ]; then
         echo "Not loading secrets: none defined."
@@ -300,6 +306,7 @@ fi
 if grep -q "bat:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if ! which bat >/dev/null; then
         export CARGO_HOME="${XDG_DATA_HOME}/cargo"
+        pathadd "${XDG_DATA_HOME}/cargo/bin"
         cargo install bat
     fi
 fi
@@ -307,6 +314,7 @@ fi
 if grep -q "delta:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if ! which delta >/dev/null; then
         export CARGO_HOME="${XDG_DATA_HOME}/cargo"
+        pathadd "${XDG_DATA_HOME}/cargo/bin"
         cargo install git-delta
     fi
 fi
@@ -344,6 +352,7 @@ fi
 if grep -q "exa:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if ! which exa >/dev/null; then
         export CARGO_HOME="${XDG_DATA_HOME}/cargo"
+        pathadd "${XDG_DATA_HOME}/cargo/bin"
         cargo install exa
     fi
 fi
@@ -351,6 +360,7 @@ fi
 if grep -q "fd:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if ! which fd >/dev/null; then
         export CARGO_HOME="${XDG_DATA_HOME}/cargo"
+        pathadd "${XDG_DATA_HOME}/cargo/bin"
         cargo install fd-find
     fi
 fi
@@ -437,6 +447,7 @@ fi
 if grep -q "hexyl:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if ! which hexyl >/dev/null; then
         export CARGO_HOME="${XDG_DATA_HOME}/cargo"
+        pathadd "${XDG_DATA_HOME}/cargo/bin"
         cargo install hexyl
     fi
 fi
@@ -444,10 +455,12 @@ fi
 if grep -q "hyperfine:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if ! which hyperfine >/dev/null; then
         export CARGO_HOME="${XDG_DATA_HOME}/cargo"
+        pathadd "${XDG_DATA_HOME}/cargo/bin"
         cargo install hyperfine
     fi
 fi
 
+# TODO: kubectl -> kubectl:sh: https://kubernetes.io/docs/tasks/tools/
 # TODO: krew plugins: ctx, ns, deprecations, doctor, flame, images, mtail, outdated, popeye
 if grep -q "krew:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if ! which kubectl-krew >/dev/null; then
@@ -487,18 +500,21 @@ fi
 if grep -q "pastel:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if ! which pastel >/dev/null; then
         export CARGO_HOME="${XDG_DATA_HOME}/cargo"
+        pathadd "${XDG_DATA_HOME}/cargo/bin"
         cargo install pastel
     fi
 fi
 
 if grep -q "poetry:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if ! which poetry >/dev/null; then
+        pathadd "${XDG_BIN_HOME}"
         pipx install poetry
     fi
 fi
 
 if grep -q "pre-commit:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if ! which pre-commit >/dev/null; then
+        pathadd "${XDG_BIN_HOME}"
         pipx install pre-commit
         pre-commit init-templatedir ~/.config/git/template/
     fi
@@ -513,6 +529,7 @@ fi
 
 if grep -q "pylsp:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if ! which pylsp >/dev/null; then
+        pathadd "${XDG_BIN_HOME}"
         pipx install "python-lsp-server[autopep8,mccabe,flake8,pycodestyle,pydocstyle,pyflakes,pylint,rope,yapf]"
         pipx inject python-lsp-server pyls-isort pyls-mypy
     fi
@@ -521,6 +538,7 @@ fi
 if grep -q "ripgrep:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if ! which rg >/dev/null; then
         export CARGO_HOME="${XDG_DATA_HOME}/cargo"
+        pathadd "${XDG_DATA_HOME}/cargo/bin"
         cargo install ripgrep
     fi
 fi
@@ -528,6 +546,7 @@ fi
 if grep -q "sd:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if ! which sd >/dev/null; then
         export CARGO_HOME="${XDG_DATA_HOME}/cargo"
+        pathadd "${XDG_DATA_HOME}/cargo/bin"
         cargo install sd
     fi
 fi
@@ -556,6 +575,7 @@ fi
 
 if grep -q "twine:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if ! which twine >/dev/null; then
+        pathadd "${XDG_BIN_HOME}"
         pipx install twine
     fi
 fi
@@ -583,6 +603,7 @@ fi
 
 if grep -q "yq:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if ! which yq >/dev/null; then
+        pathadd "${XDG_BIN_HOME}"
         pipx install yq
     fi
 fi
@@ -604,6 +625,7 @@ if [[ "${BOOTSTRAP}" == "y" ]]; then
     git remote set-url origin git@github.com:TheKevJames/dotsystem.git
 
     echo "Importing gpg keys..."
+    pathadd "${XDG_DATA_HOME}/go/bin"
     # TODO: configure emails in env
     for email in "KevinJames@thekev.in" "kevin@talkiq.com" "kjames@dialpad.com"; do
         echo "Creating key for ${email}..."
