@@ -127,6 +127,11 @@ pathadd() {
     fi
 }
 
+# TODO: deprecate this
+# homebrew github token -> generate token via gh api?
+# irc password -> fill in manually?
+# ngrok token -> fill in manually?
+# consider also something like github secrets, which is already boostrapped via gh cli
 if [[ "$@" == *"--secrets"* ]]; then
     if [ ! -f "${XDG_CONFIG_HOME}/dotsystem/secrets" ]; then
         echo "Not loading secrets: none defined."
@@ -651,11 +656,8 @@ if [[ "${BOOTSTRAP}" == "y" ]]; then
     sudo chsh -s $(which zsh)
 
     echo "Uploading new ssh key to Github..."
-    lpass ls >/dev/null || lpass login KevinJames@thekev.in
-    curl -s \
-        -u "thekevjames:$(lpass show --note dotsystem/github-token)" \
-        --data '{"title":"'"${NEW_HOSTNAME}"'","key":"'"$(cat ~/.ssh/id_ed25519.pub)"'"}' \
-        https://api.github.com/user/keys
+    gh auth refresh -h github.com -s admin:public_key
+    gh ssh-key add ~/.ssh/id_ed25519.pub -t "${NEW_HOSTNAME}"
 
     # Now that our ssh key is connected to Github...
     git remote set-url origin git@github.com:TheKevJames/dotsystem.git

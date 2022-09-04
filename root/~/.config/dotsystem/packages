@@ -39,6 +39,7 @@ tmux
 tmuxifier:sh
 zsh
 
+gh
 git
 git-standup:sh
 hub
