@@ -5,6 +5,7 @@ if [[ "$@" == *"-h"* ]]; then
     echo "syncs your system from your dotsystem config"
     echo
     echo "Options:"
+    echo "  --bootstrap         force bootstrap mode (normally auto-detected)"
     echo "  --force             force over-write of all missing/modified files"
     echo "  --secrets           include LastPass secrets pull"
     echo "  --skip-packages     do not update installed packages"
@@ -16,7 +17,7 @@ echo "Running dotsystem..."
 
 # Variables
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-BOOTSTRAP=$(if [[ ! -f ~/.ssh/id_ed25519 ]]; then echo "y"; else echo "n"; fi)
+BOOTSTRAP=$(if [[ "$@" == *"--bootstrap"* ]] || [[ ! -f ~/.ssh/id_ed25519 ]]; then echo "y"; else echo "n"; fi)
 FORCE=$(if [[ "$@" == *"--force"* ]]; then echo "y"; else echo "n"; fi)
 
 source "${DIR}/root/~/.zshenv"
