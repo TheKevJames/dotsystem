@@ -32,6 +32,9 @@ elif which port >/dev/null; then
 elif which apt-get >/dev/null; then
     PACMAN_REFRESH="sudo apt-get update"
     PACMAN_INSTALL="sudo apt-get install"
+elif which dnf >/dev/null; then
+    PACMAN_REFRESH=":"
+    PACMAN_INSTALL="sudo dnf install"
 else
     echo "ERROR: could not determine package manager."
     if [[ "$OSTYPE" == "darwin"* ]]; then
@@ -358,6 +361,10 @@ if grep -q "dropbox:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
             TEMPFILE=$(mktemp)
             wget -c 'https://www.dropbox.com/download?dl=packages/ubuntu/dropbox_2020.03.04_amd64.deb' -O "${TEMPFILE}.deb"
             sudo apt-get install "${TEMPFILE}.deb"
+        elif [[ -f /etc/os-release ]] && grep -q fedora /etc/os-release; then
+            TEMPFILE=$(mktemp)
+            wget -c 'https://www.dropbox.com/download?dl=packages/fedora/nautilus-dropbox-2020.03.04-1.fedora.x86_64.rpm' -O "${TEMPFILE}.rpm"
+            sudo dnf install "${TEMPFILE}.rpm"
         else
             eval "${PACMAN_INSTALL} dropbox"
         fi
@@ -497,6 +504,16 @@ if grep -q "kubectl:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
             echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
             sudo apt-get update
             sudo apt-get install kubectl
+        elif [[ -f /etc/os-release ]] && grep -q fedora /etc/os-release; then
+            cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
+[kubernetes]
+name=Kubernetes
+baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-\$basearch
+enabled=1
+gpgcheck=1
+gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+EOF
+            sudo dnf install kubectl
         else
             eval "${PACMAN_INSTALL} kubectl"
         fi
@@ -631,6 +648,7 @@ if grep -q "universal-ctags:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
             eval "${PACMAN_INSTALL} libyaml"
         fi
         # TODO: debian needed pkg-config. global?
+        # TODO: fedora needed automake. isn't that included in autoconf?
 
         git clone https://github.com/universal-ctags/ctags.git "${XDG_SRC_HOME}/universal-ctags"
         (
@@ -653,6 +671,9 @@ fi
 # Complete post-installation bootstrapping operations
 if [[ "${BOOTSTRAP}" == "y" ]]; then
     echo "Setting default shell to zsh..."
+    if [[ -f /etc/os-release ]] && grep -q fedora /etc/os-release; then
+        sudo dnf install util-linux-user
+    fi
     chsh -s $(which zsh)
     sudo chsh -s $(which zsh)
 
