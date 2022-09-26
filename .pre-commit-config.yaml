@@ -33,7 +33,7 @@ repos:
     -   id: double-quote-string-fixer
     -   id: name-tests-test
     -   id: requirements-txt-fixer
--   repo: https://github.com/pycqa/pylint
+-   repo: https://github.com/PyCQA/pylint
     rev: v2.15.3
     hooks:
     -   id: pylint
