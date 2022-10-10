@@ -40,3 +40,9 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     ulimit -n 2048
     ulimit -u 512
 fi
+
+# restart yabai / skhd services:
+# sudo launchctl bootout gui/$(id -u $(whoami)) /Library/LaunchAgents/org.macports.yabai.plist
+# sudo launchctl bootstrap gui/$(id -u $(whoami)) /Library/LaunchAgents/org.macports.yabai.plist
+# sudo launchctl bootout gui/$(id -u $(whoami)) /Library/LaunchAgents/org.macports.skhd.plist   
+# sudo launchctl bootstrap gui/$(id -u $(whoami)) /Library/LaunchAgents/org.macports.skhd.plist
