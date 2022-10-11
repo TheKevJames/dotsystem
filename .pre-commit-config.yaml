@@ -34,7 +34,7 @@ repos:
     -   id: name-tests-test
     -   id: requirements-txt-fixer
 -   repo: https://github.com/PyCQA/pylint
-    rev: v2.15.3
+    rev: v2.15.4
     hooks:
     -   id: pylint
         additional_dependencies:
@@ -62,12 +62,12 @@ repos:
     -   id: remove-crlf
     # -   id: remove-tabs  # TODO: enable
 -   repo: https://github.com/asottile/reorder_python_imports
-    rev: v3.8.3
+    rev: v3.8.4
     hooks:
     -   id: reorder-python-imports
         args: [--py37-plus]
 -   repo: https://github.com/asottile/pyupgrade
-    rev: v2.38.2
+    rev: v3.1.0
     hooks:
     -   id: pyupgrade
         args: [--py37-plus]
