@@ -32,8 +32,12 @@ Plug 'morhetz/gruvbox'  " gruvbox
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }  " fzf
 Plug 'airblade/vim-gitgutter'                        " git
+Plug 'ggandor/leap.nvim'                             " leap [sS]..
 
-let g:vimwiki_list = [{'path': '~/Dropbox/work/vimwiki'}, {'path': '~/Dropbox/vimwiki'}]
+let g:vimwiki_list = [
+  \{'path': '~/Dropbox/work/vimwiki'},
+  \{'path': '~/Dropbox/vimwiki', 'syntax': 'markdown', 'ext': '.md'}
+\]
 Plug 'vimwiki/vimwiki'      " wiki
 Plug 'majutsushi/tagbar'    " tag navigation
 
@@ -48,6 +52,7 @@ call plug#end()
 colorscheme gruvbox
 
 lua <<EOF
+  require'leap'.add_default_mappings()
   require'lspconfig'.pylsp.setup{}
 EOF
 
