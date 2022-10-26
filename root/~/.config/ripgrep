@@ -1,0 +1,2 @@
+# Search hidden files by default, --no-hidden to override.
+--hidden
