@@ -1,4 +1,5 @@
 [alias]
+    aliases = config --get-regexp "alias.*"
     amend = commit --amend
     branch-v = for-each-ref --sort=-committerdate refs/heads/ --format='%(authordate:short) %(color:red)%(objectname:short) %(color:yellow)%(refname:short)%(color:reset) (%(color:green)%(committerdate:relative)%(color:reset))'
     branches = branch -a
@@ -19,6 +20,7 @@
     url = "!f() { echo https://$(git remote get-url origin | sed 's/^git@//' | sed 's/.git$//' | tr ':' '/')/tree/$(git rev-parse HEAD)/$1; }; f"
 
 [advice]
+    addEmptyPathspec = false
     detachedHead = false
     pushNonFastForward = false
     statusHints = false
@@ -37,7 +39,12 @@
     editor = nvim
     excludesfile = ~/.config/git/ignore
     ignorecase = false
+    # TODO: fix delta block comments!
     pager = delta
+    # pager = bat
+    # TODO: consider side-by-side mode:
+    #   export DELTA_FEATURES='side-by-side'
+    # (especially if, say, `[[ COLUMNS -ge 120 ]]`)
 
 [credential]
     helper = cache --timeout=3600 --socket=~/.local/share/git/creds.sock
@@ -93,6 +100,10 @@
 [push]
     default = current
     followTags = true
+
+[rebase]
+    autoSquash = true  # https://git-scm.com/docs/git-rebase#Documentation/git-rebase.txt---autosquash
+    updateRefs = false  # TODO: play with this, maybe toggle on?
 
 [rerere]
     enabled = true
