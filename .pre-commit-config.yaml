@@ -2,6 +2,9 @@ ci:
     autofix_commit_msg: 'refactor(lint): apply automatic lint fixes'
     autoupdate_commit_msg: 'chore(deps): bump pre-commit linter versions'
 
+default_language_version:
+    python: python3.11
+
 repos:
 -   repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.4.0
@@ -65,12 +68,12 @@ repos:
     rev: v3.9.0
     hooks:
     -   id: reorder-python-imports
-        args: [--py37-plus]
+        args: [--py39-plus]
 -   repo: https://github.com/asottile/pyupgrade
     rev: v3.3.0
     hooks:
     -   id: pyupgrade
-        args: [--py37-plus]
+        args: [--py311-plus]
         exclude: 'root/etc/pythonstart'
 -   repo: https://github.com/asottile/yesqa
     rev: v1.4.0
