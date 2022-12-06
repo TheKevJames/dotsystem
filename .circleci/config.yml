@@ -1,13 +1,12 @@
 version: 2.1
 
 orbs:
-  linter: thekevjames/linter@0
+  linter: talkiq/linter@3
 
 workflows:
   run-jobs:
     jobs:
       - linter/pre-commit:
-          python_version: 3.7.4
           filters:
             tags:
               only: /.*/
