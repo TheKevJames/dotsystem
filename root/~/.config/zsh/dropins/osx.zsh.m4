@@ -7,7 +7,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
         sudo rm -rfv /private/var/log/asl/*.asl
     }
     # TODO: auto-fix the nosudo
-    # echo 'kevin kjames-00564 = (root) NOPASSWD: /usr/bin/osascript' >> /etc/sudoers
+    # echo "$(whoami) $(hostname) = (root) NOPASSWD: /usr/bin/osascript" >> /etc/sudoers
     osx_volume() {
         if [ -z "${1}" ]; then
             # wtf
@@ -40,6 +40,10 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     ulimit -n 2048
     ulimit -u 512
 fi
+
+# grant sudoers permissions:
+# echo "$(whoami) ALL=(ALL) NOPASSWD: $(which yabai)" | sudo tee /etc/sudoers.d/yabai
+# echo "$(whoami) ALL=(ALL) NOPASSWD: $(which skhd)" | sudo tee /etc/sudoers.d/skhd
 
 # restart yabai / skhd services:
 # sudo launchctl bootout gui/$(id -u $(whoami)) /Library/LaunchAgents/org.macports.yabai.plist
