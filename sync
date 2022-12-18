@@ -293,14 +293,10 @@ if grep -q "python3:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
 fi
 
 if grep -q "pipx:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
-    # TODO: avoid specifying username
-    if [[ "$OSTYPE" == "darwin"* ]]; then
-        if [[ ! -f /Users/kevin/Library/Python/3.7/bin/pipx ]]; then
-            python3 -m pip install --user pipx
-        fi
-    else
-        if [[ ! -f "${XDG_BIN_HOME}/pipx" ]]; then
-            python3 -m pip install --user pipx
+    if [[ ! -f "${XDG_BIN_HOME}/pipx" ]]; then
+        python3 -m pip install --user pipx
+        if [[ "$OSTYPE" == "darwin"* ]]; then
+            ln -s "$(python3 -c 'import site; print(site.USER_BASE)')/bin/pipx" "${XDG_BIN_HOME}/pipx"
         fi
     fi
 fi

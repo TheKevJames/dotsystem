@@ -30,9 +30,6 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     # Homebrew un-ratelimit
     export HOMEBREW_GITHUB_API_TOKEN="M4_HOMEBREW_GITHUB_API_TOKEN"
 
-    # TODO: only explicitly required for pipx
-    export PATH="${HOME}/Library/Python/3.7/bin:$PATH"
-
     # X11
     export DISPLAY=":0"
     export PKG_CONFIG_PATH="/opt/X11/lib/pkgconfig"
