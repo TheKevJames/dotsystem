@@ -676,11 +676,11 @@ if [[ "${BOOTSTRAP}" == "y" ]]; then
     echo "Uploading new ssh key to Github..."
     gh auth login
     gh auth refresh -h github.com -s admin:public_key
-    gh ssh-key add ~/.ssh/id_ed25519.pub -t "${NEW_HOSTNAME}"
 
     # Now that our ssh key is connected to Github...
     git remote set-url origin git@github.com:TheKevJames/dotsystem.git
 
+    # TODO: set GNUPGHOME correctly first
     echo "Importing gpg keys..."
     pathadd "${XDG_DATA_HOME}/go/bin"
     # TODO: configure emails in env
