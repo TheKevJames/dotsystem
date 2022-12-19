@@ -623,7 +623,7 @@ if grep -q "sublime-text:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
 fi
 
 if grep -q "tmuxifier:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
-    if ! which tmuxifier >/dev/null; then
+    if [[ ! -d "${XDG_SRC_HOME}/tmuxifier" ]]; then
         git clone https://github.com/jimeh/tmuxifier.git "${XDG_SRC_HOME}/tmuxifier"
     fi
 fi
