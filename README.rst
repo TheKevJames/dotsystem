@@ -21,7 +21,7 @@ bootstrap-able:
 
 .. code-block:: console
 
-    # OSX only: disable SIP by booting into recovery mode (hold cmd-r on boot)
+    # OSX only: disable SIP by booting into recovery mode (intel: hold cmd-r on boot, m1: hold power button)
     csrutil disable
 
     # clone the dotsystem repo and do the initial sync
@@ -30,9 +30,8 @@ bootstrap-able:
     ./sync --force
     ./sync --force --secrets
 
-    # Settings > Keyboard > Modifier Keys > "Caps Lock -> Escape"
-    # Settings > Keyboard > Customize Touch Bar
     # TODO: figure out if this can be done from the CLI
+    # Settings > Keyboard > Modifier Keys > "Caps Lock -> Escape"
 
     # OSX TODOs:
     # install skhd and yabai
