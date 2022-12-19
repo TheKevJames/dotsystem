@@ -38,11 +38,11 @@ elif which dnf >/dev/null; then
 else
     echo "ERROR: could not determine package manager."
     if [[ "$OSTYPE" == "darwin"* ]]; then
-        echo "ERROR: please install MacPorts from https://github.com/macports/macports-base/releases/"
-        exit 1
-    else
-        exit 1
+        echo "ERROR: please install MacPorts from https://macports.org/install.php"
+        echo "After installation, if this is a fresh machine, run:"
+        echo "  xcodebuild -runFirstLaunch"
     fi
+    exit 1
 fi
 
 if [[ "${BOOTSTRAP}" == "y" ]]; then
