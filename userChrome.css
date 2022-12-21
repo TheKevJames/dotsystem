@@ -1,8 +1,8 @@
 /*
  * TODO: include this in dotsystem
  *
- * On dialbox, this lives in:
- * ~/Library/Application Support/Firefox/Profiles/fyslh583.default-release/chrome/userChrome.css
+ * On OSX, this lives in:
+ * ~/Library/Application Support/Firefox/Profiles/*.default-release/chrome/userChrome.css
  */
 
 /* begin: hide toolbar (controls and tabs) */
