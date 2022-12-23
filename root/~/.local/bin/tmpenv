@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+while getopts 'chp:' flag; do
+    case "${flag}" in
+        c) CHDIR="yes"                                    ;;
+        h) echo 'source <('"$0" [-c] [-p PYTHON]')';
+           echo "  -c           chdir into venv";
+           echo "  -p PYTHON    override python version";
+           exit 0                                         ;;
+        p) PYTHON="${OPTARG}"                             ;;
+    esac
+done
+
+DIR=$(mktemp -d -t $(basename "${0}"))
+"${PYTHON:-python3}" -m venv "${DIR}"
+echo source "${DIR}/bin/activate"
+[[ ${CHDIR:-} ]] && echo pushd "${DIR}"
