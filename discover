@@ -3,13 +3,10 @@ set -euo pipefail
 
 echo "Discovering files in need of backup..."
 
-for folder in ".local/bin" ".config/zsh/dropins"; do
+for folder in ".config/nvim/ftdetect" ".config/tmuxifier/layouts" ".config/zsh/dropins" ".local/bin"; do
   echo
   echo "The following files in ${folder} may be in need of backup:"
   comm -23 \
     <(find ~/"${folder}" -mindepth 1 -type f | awk -F/ '{print $NF}' | sort -n) \
     <(find "./root/~/${folder}" -mindepth 1 -type f | awk -F/ '{print $NF}' | sort -n)
 done
-
-# TODO: discover ~/.config/nvim/ftdetect/*
-# TODO: discover ~/.config/tmuxifier/layouts
