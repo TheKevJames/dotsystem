@@ -15,8 +15,6 @@ for config_file (~/.config/zsh/dropins/*.zsh); do
     source $config_file
 done
 
-# TODO: load `~/secrets` (see `~/.config/zsh/dropins/*-*.zsh`)
-
 unset config_file
 
 # https://gist.github.com/ctechols/ca1035271ad134841284
@@ -37,5 +35,9 @@ _zpcompinit_custom() {
   fi
 }
 _zpcompinit_custom
+
+for config_file (~/.config/zsh/completions/*.zsh); do
+    source $config_file
+done
 
 # zprof
