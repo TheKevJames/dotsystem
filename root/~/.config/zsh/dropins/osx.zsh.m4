@@ -7,7 +7,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
         sudo rm -rfv /private/var/log/asl/*.asl
     }
     # TODO: auto-fix the nosudo
-    # echo "$(whoami) $(hostname) = (root) NOPASSWD: /usr/bin/osascript" >> /etc/sudoers
+    # echo "$(whoami) $(hostname) = (root) NOPASSWD: /usr/bin/osascript" | sudo tee /etc/sudoers.d/osascript
     osx_volume() {
         if [ -z "${1}" ]; then
             # wtf
@@ -32,11 +32,15 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     export DISPLAY=":0"
     export PKG_CONFIG_PATH="/opt/X11/lib/pkgconfig"
 
+    # Some things (podman, at least) expect this to be user-owned
+    export XDG_RUNTIME_DIR="/tmp/runtime"
+    mkdir -p "${XDG_RUNTIME_DIR}"
+
     ulimit -n 2048
     ulimit -u 512
 fi
 
-# grant sudoers permissions:
+# TODO: grant sudoers permissions:
 # echo "$(whoami) ALL=(ALL) NOPASSWD: $(which yabai)" | sudo tee /etc/sudoers.d/yabai
 # echo "$(whoami) ALL=(ALL) NOPASSWD: $(which skhd)" | sudo tee /etc/sudoers.d/skhd
 
