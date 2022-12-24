@@ -133,7 +133,6 @@ pathadd() {
 
 # TODO: deprecate this
 # irc password -> fill in manually?
-# ngrok token -> fill in manually?
 # consider also something like github secrets, which is already boostrapped via gh cli
 if [[ "$@" == *"--secrets"* ]]; then
     if [ ! -f "${XDG_CONFIG_HOME}/dotsystem/secrets" ]; then
@@ -544,9 +543,13 @@ if grep -q "ngrok:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if ! which ngrok >/dev/null; then
         TEMPFILE=$(mktemp)
         if [[ "$OSTYPE" == "darwin"* ]]; then
-            curl -fsSL "https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-darwin-amd64.zip" > "${TEMPFILE}.zip"
+            if [[ $(uname -p) == 'arm' ]]; then
+                curl -fsSL "https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-darwin-arm64.zip" > "${TEMPFILE}.zip"
+            else
+                curl -fsSL "https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-darwin-amd64.zip" > "${TEMPFILE}.zip"
+            fi
         else
-            curl -fsSL "https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip" > "${TEMPFILE}.zip"
+            curl -fsSL "https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz" > "${TEMPFILE}.zip"
         fi
         sudo unzip "${TEMPFILE}.zip" -d /usr/local/bin
     fi
@@ -709,3 +712,5 @@ echo "done."
 
 # TODO: cargo install cctui, du-dust, spotify-tui ?
 # TODO: pipx install beancount
+# TODO: secrets:
+# ngrok config add-authtoken <foo>
