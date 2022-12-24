@@ -132,7 +132,6 @@ pathadd() {
 }
 
 # TODO: deprecate this
-# homebrew github token -> generate token via gh api?
 # irc password -> fill in manually?
 # ngrok token -> fill in manually?
 # consider also something like github secrets, which is already boostrapped via gh cli
@@ -329,6 +328,7 @@ if grep -q "delta:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     fi
 fi
 
+# TODO: install podman. port install podman on osx
 if grep -q "docker:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if ! which docker >/dev/null; then
         if [[ "$OSTYPE" == "darwin"* ]]; then
