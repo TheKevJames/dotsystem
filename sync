@@ -21,7 +21,6 @@ FORCE=$(if [[ "$@" == *"--force"* ]]; then echo "y"; else echo "n"; fi)
 
 source "${DIR}/root/~/.zshenv"
 
-# TODO: move sudo out of consts?
 if which zypper >/dev/null; then
     PACMAN_REFRESH="sudo zypper refresh"
     PACMAN_INSTALL="sudo zypper install"
@@ -300,7 +299,6 @@ if grep -q "delta:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     fi
 fi
 
-# TODO: install podman. port install podman on osx
 if grep -q "docker:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if ! which docker >/dev/null; then
         if [[ "$OSTYPE" == "darwin"* ]]; then
@@ -396,9 +394,6 @@ if grep -q "gcloud:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
             curl -fsSL "https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-400.0.0-linux-x86_64.tar.gz" > "${TEMPFILE}.tgz"
         fi
         tar xzf "${TEMPFILE}.tgz" -C "${XDG_SRC_HOME}"
-
-        # TODO: move to packages configuration file
-        yes | "${XDG_SRC_HOME}/google-cloud-sdk/bin/gcloud" components install gsutil || true
     fi
 fi
 
@@ -439,12 +434,10 @@ if grep -q "go:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     # this for the emergency key...
     # Switching off would also let me purge golang...
     if [ ! -f "${XDG_DATA_HOME}/go/bin/passphrase2pgp" ]; then
-        pathadd /usr/local/go/bin  # TODO: verify on non-debian
+        pathadd /usr/local/go/bin
         go install nullprogram.com/x/passphrase2pgp@v1.2.0
     fi
 fi
-
-# TODO: on macports, `port install gnupg2 +pinentry`
 
 if grep -q "hexyl:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if ! which hexyl >/dev/null; then
@@ -488,7 +481,6 @@ EOF
     fi
 fi
 
-# TODO: krew plugins: ctx, ns, deprecations, doctor, flame, images, mtail, outdated, popeye
 if grep -q "krew:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if ! which kubectl-krew >/dev/null; then
         export KREW_ROOT="${XDG_DATA_HOME}/krew"
@@ -502,6 +494,9 @@ if grep -q "krew:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
             tar zxvf ${KREW}.tar.gz &&
             ./"$KREW" install krew
         )
+
+        # TODO: install via packages list
+        kubectl krew install ctx mtail ns
     fi
 fi
 
@@ -685,5 +680,7 @@ echo "done."
 
 # TODO: cargo install cctui, du-dust, spotify-tui ?
 # TODO: pipx install beancount
+# TODO: install nim. port install nim on osx
+# TODO: install podman. port install podman on osx
 # TODO: secrets:
 # ngrok config add-authtoken <foo>
