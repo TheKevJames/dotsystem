@@ -7,7 +7,6 @@ if [[ "$@" == *"-h"* ]]; then
     echo "Options:"
     echo "  --bootstrap         force bootstrap mode (normally auto-detected)"
     echo "  --force             force over-write of all missing/modified files"
-    echo "  --secrets           include LastPass secrets pull"
     echo "  --skip-packages     do not update installed packages"
 
     exit 0
@@ -131,25 +130,6 @@ pathadd() {
     fi
 }
 
-# TODO: deprecate this
-# irc password -> fill in manually?
-# consider also something like github secrets, which is already boostrapped via gh cli
-if [[ "$@" == *"--secrets"* ]]; then
-    if [ ! -f "${XDG_CONFIG_HOME}/dotsystem/secrets" ]; then
-        echo "Not loading secrets: none defined."
-    elif ! which lpass >/dev/null; then
-        echo "Not loading secrets: lpass not installed."
-    else
-        echo "Loading secrets..."
-        lpass ls >/dev/null || lpass login KevinJames@thekev.in
-        for secret in $(cat "${XDG_CONFIG_HOME}/dotsystem/secrets"); do
-            IFS=: read -a fields <<< "$secret"
-            mkdir -p $(eval echo "${fields[1]%/*}")
-            lpass show --note "${fields[0]}" > $(eval echo "${fields[1]}")
-        done
-    fi
-fi
-
 ## Update global configs
 echo "Configuring system..."
 
@@ -160,18 +140,11 @@ echo "define(\`M4_HOSTNAME', \`${HOSTNAME}')" >> "${TEMPFILE}"
 echo "divert(0)dnl" >> "${TEMPFILE}"
 set_file "${TEMPFILE}" "${XDG_DATA_HOME}/dotsystem/config.m4"
 
-if [ ! -f "${XDG_DATA_HOME}/dotsystem/secrets.m4" ]; then
-    echo "No secrets file found, writing defaults to ${XDG_DATA_HOME}/dotsystem/secrets.m4"
-    mkdir -p "${XDG_DATA_HOME}/dotsystem/"
-    cp "${DIR}/secrets.m4.sample" "${XDG_DATA_HOME}/dotsystem/secrets.m4"
-fi
-
 IFS=$(echo -en "\n\b"); for file in $(find "${DIR}/root" -type f); do
     if [[ "${file##*.}" == "m4" ]]; then
         TEMPFILE=$(mktemp)
         m4 \
             "${XDG_DATA_HOME}/dotsystem/config.m4" \
-            "${XDG_DATA_HOME}/dotsystem/secrets.m4" \
             "${file}" 2>/dev/null > "${TEMPFILE}"
         file_noext="${file%.*}"
         set_file "${TEMPFILE}" "/${file_noext#${DIR}/root/}"

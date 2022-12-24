@@ -27,7 +27,6 @@ yq:sh
 wget
 
 gcloud:sh
-lastpass-cli:lpass
 ngrok:sh
 pastel:sh
 universal-ctags:sh

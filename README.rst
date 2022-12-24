@@ -10,7 +10,7 @@ Clone and run. To update configuration, pull and run. Changes will prompt you.
 
     git clone https://github.com/thekevjames/dotsystem.git
     cd ./dotsystem
-    ./sync [--force] [--secrets] [--skip-packages]
+    ./sync [--force] [--skip-packages]
 
 New Machines
 ------------
@@ -28,7 +28,6 @@ bootstrap-able:
     git clone https://github.com/thekevjames/dotsystem.git ~/src/personal/dotsystem
     cd ~/src/personal/dotsystem
     ./sync --force
-    ./sync --force --secrets
 
     # TODO: figure out if this can be done from the CLI
     # Settings > Keyboard > Modifier Keys > "Caps Lock -> Escape"
@@ -46,34 +45,10 @@ When sunsetting a machine, there's not much that needs to be done:
 .. code-block:: console
 
     # invalidate your ssh key (https://github.com/settings/keys)
-    curl \
-        -XDELETE \
-        -su "thekevjames:$(lpass show --note dotsystem/github-token)" \
-        "https://api.github.com/user/keys/$(curl \
-            -su "thekevjames:$(lpass show --note dotsystem/github-token)" \
-            https://api.github.com/user/keys | jq '.[] | select(.title == "'"$(hostname)"'").id')"
-
-    # revoke personal access tokens (https://github.com/settings/tokens)
-    # TODO: these are somewhat manually provisioned (in secrets.m4) -- it'd be
-    # great to have ``./sync --secrets`` generate them on-the-fly, then include
-    # a ``./sync --revoke``.
+    gh ssh-key delete $(hostname)
 
     # nuke your homedir
     sudo rm -Prf ~
-
-Secrets
--------
-
-Secrets are interpolated into configuration files with ``m4``. They should be
-stored in ``${XDG_DATA_HOME}/dotsystem/secrets.m4``, which ``./sync --secrets``
-will pull from LastPass (configurable key name: ``dotsystem/secrets``).
-
-``dotsystem`` will run even if that file does not exist or is missing secrets,
-but any configurations expecting secrets will be sorely disappointed.
-
-You can find a `sample secrets file`_ in this repo.
-
-.. _sample secrets file: secrets.m4.sample
 
 XDG Wall of Shame
 -----------------
