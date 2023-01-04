@@ -22,8 +22,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     command -v sha1sum > /dev/null || alias sha1sum="shasum"
 
     # Fix compilations
-    # TODO: m1 support
-    export ARCHFLAGS="-arch x86_64"
+    export ARCHFLAGS="-arch $(uname -m)"
 
     # Because this will often work better than setting a real value
     export BROWSER="open"
