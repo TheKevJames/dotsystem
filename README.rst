@@ -31,11 +31,7 @@ bootstrap-able:
 
     # TODO: figure out if this can be done from the CLI
     # Settings > Keyboard > Modifier Keys > "Caps Lock -> Escape"
-
-    # OSX TODOs:
-    # install skhd and yabai
-    # switch screenshot hotkeys
-    # enable two-finger-touch as right click
+    # Settings > Trackpad > Secondary Click > "Click of Tap with Two Fingers"
 
 Old Machines
 ------------
@@ -43,6 +39,13 @@ Old Machines
 When sunsetting a machine, there's not much that needs to be done:
 
 .. code-block:: console
+
+    # check for anything which needs backing up
+    ./discover
+
+    # check for unpushed branches
+    cd ~/src/*
+    git-wips
 
     # invalidate your ssh key (https://github.com/settings/keys)
     gh ssh-key delete $(hostname)
