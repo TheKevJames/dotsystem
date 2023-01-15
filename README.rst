@@ -86,8 +86,6 @@ eventually accept be fixed as well as apps that have decided they're
 - libice. Partial support by setting ``$ICEAUTHORITY``.
 - lmms. Partial support with ``--config`` flag.
 - mysql. Support by setting ``$MYSQL_HISTFILE``.
-- ngrok. Support with ``--config`` flag. Because this flag has some
-  restrictions, see my `ngrok XDG hack`_ for a "fix".
 - npm. Support by setting ``$NPM_CONFIG_USERCONFIG``, then setting ``cache`` in
   that file.
 - postgres. Support by setting ``$PSQLRC``.
@@ -119,7 +117,6 @@ eventually accept be fixed as well as apps that have decided they're
 .. _docker XDG issue: https://github.com/docker/docker/issues/20693
 .. _docker XDG PR: https://github.com/docker/docker/pull/30025
 .. _gnupg is a snowflake: https://bugs.gnupg.org/gnupg/issue1456
-.. _ngrok XDG hack: https://github.com/TheKevJames/dotsystem/blob/e28041fbd3ddf68bdc951ca41cca03d325b7f6df/root/~/.config/oh-my-zsh-custom/xdg.zsh#L22-L31
 .. _python XDG hack: https://github.com/TheKevJames/dotsystem/blob/master/root/etc/pythonstart
 .. _rustup is a snowflake: https://github.com/rust-lang-nursery/rustup.rs/issues/247
 .. _special snowflakes: https://github.com/rust-lang-nursery/rustup.rs/issues/247#issuecomment-219213895

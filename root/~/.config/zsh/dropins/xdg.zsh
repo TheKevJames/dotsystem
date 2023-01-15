@@ -35,17 +35,6 @@ kubectl() {
     command kubectl "$@"
 }
 
-ngrok() {
-    if echo "authtoken http start tcp tls" | grep -w "${1:-DEFAULT}" >/dev/null; then
-        if [[ "$@" != *"--config"* ]]; then
-            command ngrok "$1" --config "${XDG_CONFIG_HOME}/ngrok.yml" "${@:2}"
-            return $?
-        fi
-    fi
-
-    command ngrok "$@"
-}
-
 sqlite3() {
     rm -f ~/.sqlite_history && ln -s "${XDG_DATA_HOME}/sqlite/history" ~/.sqlite_history
 
