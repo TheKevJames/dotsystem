@@ -1,0 +1,59 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+echo "Upgrading system packages..."
+if which zypper >/dev/null; then
+    sudo zypper refresh
+    sudo zypper update
+elif which port >/dev/null; then
+    sudo port selfupdate
+    sudo port upgrade outdated
+elif which apt-get >/dev/null; then
+    sudo apt-get update
+    sudo apt-get upgrade
+elif which dnf >/dev/null; then
+    sudo dnf upgrade
+else
+    echo "ERROR: could not determine package manager."
+    exit 1
+fi
+
+echo "Upgrading cargo packages..."
+cargo-upgrade
+
+echo "Upgrading pipx packages..."
+pipx upgrade-all
+
+echo "Upgrading gcloud components..."
+gcloud components update
+
+echo "Upgrading installed-from-source packages..."
+(
+    cd "${XDG_SRC_HOME}/git-standup"
+    git pull
+    sudo make install
+)
+(
+    cd "${XDG_SRC_HOME}/tmuxifier"
+    git pull
+)
+(
+    cd "${XDG_SRC_HOME}/universal-ctags"
+    git pull
+    ./autogen.sh
+    ./configure --prefix=/usr/local --disable-xml
+    make
+    make install || sudo make install
+)
+
+echo "Upgrading kubectl plugins..."
+kubectl krew update
+kubectl krew upgrade
+
+echo "Upgrading neovim plugins..."
+nvim -c ':PlugUpgrade' -c ':PlugUpdate' -c 'qa!'
+
+echo "Upgrading ngrok..."
+sudo ngrok update
+
+echo "done."
