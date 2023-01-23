@@ -1,8 +1,11 @@
 /*
  * TODO: include this in dotsystem
  *
+ * Enable userChrome.css support with:
+ *   about:config -> "userprof" -> true
+ *
  * On OSX, this lives in:
- * ~/Library/Application Support/Firefox/Profiles/*.default-release/chrome/userChrome.css
+ *   ~/Library/Application Support/Firefox/Profiles/*.default-release/chrome/userChrome.css
  */
 
 /* begin: hide toolbar (controls and tabs) */
@@ -16,6 +19,7 @@
 }
 
 #TabsToolbar .titlebar-buttonbox-container {
+    display: none;
     visibility: visible !important;
     position: absolute;
     margin-top: 5px;
