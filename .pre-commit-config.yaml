@@ -37,7 +37,7 @@ repos:
     -   id: name-tests-test
     -   id: requirements-txt-fixer
 -   repo: https://github.com/PyCQA/pylint
-    rev: v2.16.0b0
+    rev: v2.16.0b1
     hooks:
     -   id: pylint
         additional_dependencies:
@@ -60,7 +60,7 @@ repos:
         - -d ungrouped-imports  # conflicts with reorder-python-imports
         - -d wrong-import-order  # conflicts with reorder-python-imports
 -   repo: https://github.com/Lucas-C/pre-commit-hooks
-    rev: v1.3.1
+    rev: v1.4.1
     hooks:
     -   id: remove-crlf
     # -   id: remove-tabs  # TODO: enable
@@ -84,7 +84,7 @@ repos:
     hooks:
     -   id: autopep8
 -   repo: https://github.com/PyCQA/pydocstyle
-    rev: 6.2.3
+    rev: 6.3.0
     hooks:
     -   id: pydocstyle
         args:
