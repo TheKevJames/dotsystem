@@ -683,5 +683,6 @@ echo "done."
 # TODO: install nim. port install nim on osx
 # TODO: install podman. port install podman on osx
 # TODO: install skhd and yabai on osx
+# TODO: install git-absorb. port install git-absorb on osx
 # TODO: secrets:
 # ngrok config add-authtoken <foo>
