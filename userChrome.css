@@ -3,6 +3,8 @@
  *
  * Enable userChrome.css support with:
  *   about:config -> "userprof" -> true
+ *  Disable Pocket links with: (TODO: do this via CSS)
+ *   about:config -> "extensions.pocket.enabled" -> false
  *
  * On OSX, this lives in:
  *   ~/Library/Application Support/Firefox/Profiles/*.default-release/chrome/userChrome.css
@@ -25,3 +27,15 @@
     margin-top: 5px;
 }
 /* end: hide toolbar */
+
+/* begin: hide right-click menu options
+ * TODO: should be able to hide the "Save in Pocket" here
+ * TODO: on link, disable "Save Link As..."
+ * TODO: on link, disable "Save Link to Pocket"
+ * TODO: on page, disable "Take Screenshot"
+ * TODO: on page, disable "Back"
+ * TODO: on page, disable "Forward"
+ * TODO: on page, disable "Save Page As..."
+ * TODO: on page, disable "Save Page to Pocket"
+ */
+/* end: hide right-click menu options
