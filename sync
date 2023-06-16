@@ -163,11 +163,6 @@ done
 if [[ "$OSTYPE" == "darwin"* ]]; then
     sudo cp "${XDG_CONFIG_HOME}"/osx/in.thekev.caffeinate.plist /Library/LaunchAgents/in.thekev.caffeinate.plist
     bash "${XDG_CONFIG_HOME}"/osx/config.sh
-
-    # TODO: better multi-os paths
-    IFS=$(echo -en "\n\b"); for file in $(find "${DIR}/root/~/.config/sublime-text-3" -type f); do
-        set_file "${file}" "~/Library/Application Support/Sublime Text 3/${file#${DIR}/root/~/.config/sublime-text-3/}"
-    done
 fi
 
 echo "done."

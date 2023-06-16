@@ -1,5 +1,4 @@
 [Added Associations]
-text/csv=sublime_text.desktop;
 video/dv=vlc.desktop;
 video/mp2t=vlc.desktop;
 video/mp4=vlc.desktop;
@@ -24,7 +23,6 @@ video/x-nsv=vlc.desktop;
 video/x-ogm+ogg=vlc.desktop
 
 [Default Applications]
-text/csv=sublime_text.desktop;
 video/dv=vlc.desktop
 video/mp2t=vlc.desktop
 video/mp4=vlc.desktop
