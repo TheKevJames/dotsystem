@@ -1,28 +1,29 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 import atexit
 import os
+import pathlib
 import readline
 import rlcompleter
 import sys
+import traceback
 
 
-XDG_STATE_HOME = os.environ.get(
-    'XDG_STATE_HOME',
-    os.path.expanduser(os.path.join('~', '.local', 'state')))
-# pylint: disable=consider-using-f-string
-HISTORY = os.path.join(XDG_STATE_HOME, 'python{}'.format(sys.version_info[0]),
-                       'history')
+XDG_STATE_HOME = pathlib.Path(
+    os.environ.get(
+        'XDG_STATE_HOME',
+        pathlib.Path.home() / '.local' / 'state',
+    ),
+)
+HISTORY = XDG_STATE_HOME / f'python{sys.version_info[0]}' / 'history'
 
 # Load
+HISTORY.touch()
 readline.set_history_length(10000)
-if os.path.exists(HISTORY):
-    try:
-        readline.read_history_file(HISTORY)
-    except IOError:
-        # Py2 on OSX now "requires" gnureadline static linked to readline. If
-        # you don't have that, this IOError gets thrown. But it does all the
-        # work before the exception gets thrown and works perfectly fine, so...
-        pass
+try:
+    readline.read_history_file(HISTORY)
+except Exception:
+    print('Error reading history:')
+    traceback.print_exc()
 
 # Enable tab-completion
 readline.parse_and_bind('tab: complete')
