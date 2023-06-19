@@ -540,8 +540,6 @@ fi
 
 echo "done."
 
-# TODO: cargo install cctui, du-dust, spotify-tui ?
-# TODO: pipx install beancount, fava
 # TODO: install nim. port install nim on osx
 # TODO: install podman. port install podman on osx
 # TODO: install skhd and yabai on osx

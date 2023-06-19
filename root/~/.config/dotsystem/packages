@@ -36,6 +36,7 @@
 ; if any values are set, also install rustup/cargo
 [cargo]
   bat
+  cctui
   exa
   git-delta = delta
   fd-find = fd
@@ -58,6 +59,8 @@
 ; if any values are set, also install pipx
 ; TODO: also install python3?
 [pipx]
+  beancount = bean-web
+  fava
   poetry
   pre-commit
   python-lsp-server = pylsp
