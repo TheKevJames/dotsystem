@@ -45,6 +45,16 @@
   ripgrep = rg
   sd
 
+; python tools, installed via pipx
+; if any values are set, also install pipx
+; TODO: also install python3?
+[pipx]
+  poetry
+  pre-commit
+  python-lsp-server = pylsp
+  twine
+  yq
+
 ; anything with a manual install process defined in ./sync
 ; TODO: most of these can be builtins a la cargo
 [manual]

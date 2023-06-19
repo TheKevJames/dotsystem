@@ -199,8 +199,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     fi
 fi
 
-## Install outside-of-package-manager packages
-# TODO: re-alphabetize once language package managers are better supported
+## Install cargo packages
 if git config -f "${PACKAGE_CONFIG}" --get-regexp 'cargo\..*' >/dev/null; then
     export CARGO_HOME="${XDG_DATA_HOME}/cargo"
     if ! which cargo >/dev/null; then
@@ -225,6 +224,42 @@ if git config -f "${PACKAGE_CONFIG}" --get-regexp 'cargo\..*' >/dev/null; then
     (( ${#packages[@]} )) && cargo install "${packages[@]}"
 fi
 
+## Install pipx packages
+if git config -f "${PACKAGE_CONFIG}" --get-regexp 'pipx\..*' >/dev/null; then
+    if ! which pipx >/dev/null; then
+        python3 -m pip install --user pipx
+        if [[ "$OSTYPE" == "darwin"* ]]; then
+            ln -s "$(python3 -c 'import site; print(site.USER_BASE)')/bin/pipx" "${XDG_BIN_HOME}/pipx"
+        fi
+    fi
+    pathadd "${XDG_BIN_HOME}"
+
+    packages=()
+    source <(
+        IFS=$'\n'
+        for package in $(git config -f "${PACKAGE_CONFIG}" --get-regexp 'pipx\..*'); do
+            IFS=' ' read -a fields <<< "$package"
+            pkg="${fields[0]#pipx.}"
+            binary="${fields[1]:-${pkg}}"
+            if ! which "${binary}" >/dev/null 2>&1; then
+                echo "packages+=(${pkg})"
+            fi
+        done
+    )
+    (( ${#packages[@]} )) && for package in "${packages[@]}"; do
+        pipx install "${package}"
+
+        # TODO: support this via config
+        if [[ "${package}" == "pre-commit" ]]; then
+            pre-commit init-templatedir "${XDG_CONFIG_HOME}/git/template/"
+        elif [[ "${package}" == "python-lsp-server" ]]; then
+            pipx inject "${package}" "python-lsp-server[all]" pyls-isort pyls-mypy
+        fi
+    done
+fi
+
+## Install outside-of-package-manager packages
+# TODO: re-alphabetize once language package managers are better supported
 if git config -f "${PACKAGE_CONFIG}" --get manual.python3 >/dev/null; then
     if ! which python3 >/dev/null; then
         if [[ "$OSTYPE" == "darwin"* ]]; then
@@ -242,15 +277,6 @@ if git config -f "${PACKAGE_CONFIG}" --get manual.python3 >/dev/null; then
         else
             # TODO: handle distros where this is bundled already
             eval "${PACMAN_INSTALL} python3-pip"
-        fi
-    fi
-fi
-
-if git config -f "${PACKAGE_CONFIG}" --get manual.pipx >/dev/null; then
-    if [[ ! -f "${XDG_BIN_HOME}/pipx" ]]; then
-        python3 -m pip install --user pipx
-        if [[ "$OSTYPE" == "darwin"* ]]; then
-            ln -s "$(python3 -c 'import site; print(site.USER_BASE)')/bin/pipx" "${XDG_BIN_HOME}/pipx"
         fi
     fi
 fi
@@ -459,33 +485,10 @@ if git config -f "${PACKAGE_CONFIG}" --get manual.ngrok >/dev/null; then
     fi
 fi
 
-if git config -f "${PACKAGE_CONFIG}" --get manual.poetry >/dev/null; then
-    if ! which poetry >/dev/null; then
-        pathadd "${XDG_BIN_HOME}"
-        pipx install poetry
-    fi
-fi
-
-if git config -f "${PACKAGE_CONFIG}" --get manual.pre-commit >/dev/null; then
-    if ! which pre-commit >/dev/null; then
-        pathadd "${XDG_BIN_HOME}"
-        pipx install pre-commit
-        pre-commit init-templatedir ~/.config/git/template/
-    fi
-fi
-
 if git config -f "${PACKAGE_CONFIG}" --get manual.prettyping >/dev/null; then
     if ! which prettyping >/dev/null; then
         sudo curl -fsSLo /usr/local/bin/prettyping "https://raw.githubusercontent.com/denilsonsa/prettyping/master/prettyping"
         sudo chmod a+x /usr/local/bin/prettyping
-    fi
-fi
-
-if git config -f "${PACKAGE_CONFIG}" --get manual.pylsp >/dev/null; then
-    if ! which pylsp >/dev/null; then
-        pathadd "${XDG_BIN_HOME}"
-        pipx install "python-lsp-server[autopep8,mccabe,flake8,pycodestyle,pydocstyle,pyflakes,pylint,rope,yapf]"
-        pipx inject python-lsp-server pyls-isort pyls-mypy
     fi
 fi
 
@@ -508,20 +511,6 @@ fi
 if git config -f "${PACKAGE_CONFIG}" --get manual.tmuxifier >/dev/null; then
     if [[ ! -d "${XDG_SRC_HOME}/tmuxifier" ]]; then
         git clone https://github.com/jimeh/tmuxifier.git "${XDG_SRC_HOME}/tmuxifier"
-    fi
-fi
-
-if git config -f "${PACKAGE_CONFIG}" --get manual.twine >/dev/null; then
-    if ! which twine >/dev/null; then
-        pathadd "${XDG_BIN_HOME}"
-        pipx install twine
-    fi
-fi
-
-if git config -f "${PACKAGE_CONFIG}" --get manual.yq >/dev/null; then
-    if ! which yq >/dev/null; then
-        pathadd "${XDG_BIN_HOME}"
-        pipx install yq
     fi
 fi
 
@@ -569,7 +558,7 @@ fi
 echo "done."
 
 # TODO: cargo install cctui, du-dust, spotify-tui ?
-# TODO: pipx install beancount
+# TODO: pipx install beancount, fava
 # TODO: install nim. port install nim on osx
 # TODO: install podman. port install podman on osx
 # TODO: install skhd and yabai on osx
