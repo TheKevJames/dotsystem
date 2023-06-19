@@ -9,6 +9,7 @@
 
   ; utils
   curl
+  dyff
   entr
   gnupg2 = gpg  ; TODO: is this OS-specific?
   jq

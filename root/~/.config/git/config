@@ -55,6 +55,9 @@
     renames = copies
     tool = nvimdiff
 
+[diff "dyff"]
+    command = "f() { dyff --color on between --omit-header \"$2\" \"$5\"; }; f"
+
 [diff "pdf"]
     textconv = pdf2txt
 
