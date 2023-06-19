@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if ! git rev-parse --is-inside-work-tree >/dev/null; then
+    echo "ERROR: must be run within a git repo" >/dev/stderr
+    exit 1
+fi
+
+PRUNE=$([[ "${1:-}" == "--no-prune" ]] && echo "no" || echo "yes")
+if git branch | grep master >/dev/null; then
+    DEFAULT_BRANCH="master"
+else
+    DEFAULT_BRANCH="main"
+fi
+
+git checkout "${DEFAULT_BRANCH}"
+git fetch --all --prune
+git fetch --tags --force
+git pull
+
+echo "Searching for squash-merged branches..."
+for branch in $(git for-each-ref refs/heads/ '--format=%(refname:short)'); do
+    MERGE_BASE=$(git merge-base "${DEFAULT_BRANCH}" "${branch}")
+    if [[ $(git cherry "${DEFAULT_BRANCH}" $(git commit-tree $(git rev-parse $branch^{tree}) -p "${MERGE_BASE}" -m _)) == '-'* ]]; then
+        if [[ "${PRUNE}" == "yes" ]]; then
+            git branch -D "${branch}"
+        else
+            read -p "${branch} has been merged, delete it? [yN] " -n 1 -r
+            if [[ $REPLY =~ ^[Yy]$ ]]; then
+                echo
+                git branch -D "${branch}"
+            fi
+        fi
+    fi
+done
+echo "done."
