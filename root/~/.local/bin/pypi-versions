@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+[[ -z "$1" ]] && { echo "usage: pypi-versions foobar"; exit 1; }
+
 # TODO: support for eg. `1.2.3.post-4`. can use flake8-versions for testing.
 # curl -s "https://pypi.org/pypi/$1/json" \
 #     | jq -r '.releases | keys_unsorted | sort_by(split(".") | map(tonumber)) | reverse | .[]'
