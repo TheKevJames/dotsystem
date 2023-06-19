@@ -44,14 +44,19 @@ let g:vimwiki_list = [
 \]
 Plug 'vimwiki/vimwiki'      " wiki
 
-" syntax highlighting
+" language-specific
+"" treesitter
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
+"" specific language features
 let b:beancount_root = '~/Dropbox/finance/index.beancount'
 Plug 'nathangrigg/vim-beancount'
+Plug 'tpope/vim-commentary'
 
-Plug 'williamboman/mason.nvim', { 'do': ':MasonUpdate' }  " LSP Package Manager
+"" lsp
+Plug 'williamboman/mason.nvim', { 'do': ':MasonUpdate' }  " Package Manager
 Plug 'williamboman/mason-lspconfig.nvim'
-Plug 'neovim/nvim-lspconfig'                              " LSP configuration
+Plug 'neovim/nvim-lspconfig'
 
 call plug#end()
 
