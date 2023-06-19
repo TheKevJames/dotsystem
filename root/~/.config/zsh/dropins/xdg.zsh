@@ -1,5 +1,6 @@
-export RIPGREP_CONFIG_PATH="${XDG_CONFIG_HOME}/ripgrep"
 export ALACRITTY_LOG="${XDG_DATA_HOME}/alacritty/history"
+export AWS_CONFIG_FILE="${XDG_CONFIG_HOME}/aws/config"
+export AWS_SHARED_CREDENTIALS_FILE="${XDG_CONFIG_HOME}/aws/credentials"
 export CARGO_HOME="${XDG_DATA_HOME}/cargo"
 export DOCKER_CONFIG="${XDG_CONFIG_HOME}/docker"
 export GNUPGHOME="${XDG_CONFIG_HOME}/gnupg"
@@ -12,6 +13,7 @@ export JULIA_HISTORY="${XDG_DATA_HOME}/julia/history"
 export JULIA_PKGDIR="${XDG_DATA_HOME}/julia"
 export KREW_ROOT="${XDG_DATA_HOME}/krew"
 export KUBECONFIG="${XDG_CONFIG_HOME}/kube"
+export KUBECACHEDIR="${XDG_CACHE_DIR}/kube"
 export LESSHISTFILE="${XDG_DATA_HOME}/less/history"
 export MYSQL_HISTFILE="${XDG_DATA_HOME}/mysql/history"
 export NPM_CONFIG_USERCONFIG="${XDG_CONFIG_HOME}/npm/config"
@@ -20,27 +22,12 @@ export PYENV_ROOT="${XDG_DATA_HOME}/pyenv"
 export PYLINTHOME="${XDG_DATA_HOME}/pylint"
 export PYTHONSTARTUP="/etc/pythonstart"
 export REDISCLI_HISTFILE="${XDG_DATA_HOME}/redis/history"
+export RIPGREP_CONFIG_PATH="${XDG_CONFIG_HOME}/ripgrep"
 export RUSTUP_HOME="${XDG_DATA_HOME}/rustup"
+export SQLITE_HISTORY="${XDG_DATA_HOME}/sqlite/history"
 export THEANORC="${XDG_CONFIG_HOME}/theano/.theanorc"
 export THEANO_FLAGS="base_compiledir=${XDG_DATA_HOME}/theano"
 export WINEPREFIX="${XDG_DATA_HOME}/wine/prefixes/default"
-
-kubectl() {
-    plugins="ctx deprecations doctor flame force-deploy images krew mtail ns outdated popeye"
-    if echo "${plugins}" | grep -vw "${1:-DEFAULT}" >/dev/null; then
-        command kubectl "$1" --cache-dir=${XDG_CACHE_HOME}/kube/http "${@:2}"
-        return $?
-    fi
-
-    command kubectl "$@"
-}
-
-sqlite3() {
-    rm -f ~/.sqlite_history && ln -s "${XDG_DATA_HOME}/sqlite/history" ~/.sqlite_history
-
-    command sqlite3 -init "${XDG_CONFIG_HOME}/sqlite" "$@"
-    (cd; rm .sqlite_history)
-}
 
 alias arc="arc --arcrc-file ${XDG_DATA_HOME}/arc/rc"
 alias cpan="cpan -j ${XDG_CONFIG_HOME}/cpan/Config.pm"
