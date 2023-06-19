@@ -34,9 +34,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 let g:gruvbox_termcolors=16
 Plug 'morhetz/gruvbox'  " gruvbox
 
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }  " fzf
-Plug 'airblade/vim-gitgutter'                        " git
-Plug 'ggandor/leap.nvim'                             " leap [sS]..
+Plug 'airblade/vim-gitgutter'  " git
 
 let g:vimwiki_list = [
   \{'path': '~/Dropbox/work/vimwiki', 'syntax': 'markdown', 'ext': '.md'},
@@ -57,6 +55,14 @@ Plug 'tpope/vim-commentary'
 Plug 'williamboman/mason.nvim', { 'do': ':MasonUpdate' }  " Package Manager
 Plug 'williamboman/mason-lspconfig.nvim'
 Plug 'neovim/nvim-lspconfig'
+
+" fuzzy find / navigation
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }  " fzf
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+Plug 'ggandor/leap.nvim'       " leap [sS]..
 
 call plug#end()
 
@@ -91,7 +97,7 @@ lua <<EOF
   require'lspconfig'.terraformls.setup {}
   require'lspconfig'.yamlls.setup {}
 
-  require'leap'.add_default_mappings()
+  require'leap'.add_default_mappings {}
 EOF
 
 function! VimwikiLinkHandler(link)
