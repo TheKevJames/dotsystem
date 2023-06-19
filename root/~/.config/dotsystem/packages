@@ -52,6 +52,7 @@
 [git]
   git-standup = kamranahmedse
   prettyping = denilsonsa
+  tmux-xpanes = greymd
   tmuxifier = jimeh
   vim-plug = junegunn
 
