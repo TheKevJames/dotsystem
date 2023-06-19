@@ -29,7 +29,6 @@ wget
 gcloud:sh
 ngrok:sh
 pastel:sh
-universal-ctags:sh
 
 neovim:nvim
 

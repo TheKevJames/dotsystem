@@ -110,7 +110,6 @@ set_file() {
                     Yes )
                         cp "${1}" "${DEST}" 2>/dev/null || sudo cp "${1}" "${DEST}";
                         if [[ "${DEST}" == *"/bin/"* ]]; then sudo chmod a+x "${DEST}"; fi;
-                        if [[ "${DEST}" == *"/git/template/hooks/"* ]]; then sudo chmod a+x "${DEST}"; fi;
                         break ;;
                     No )
                         break ;;
@@ -598,28 +597,6 @@ if grep -q "twine:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     if ! which twine >/dev/null; then
         pathadd "${XDG_BIN_HOME}"
         pipx install twine
-    fi
-fi
-
-if grep -q "universal-ctags:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
-    if [[ ! -f "/usr/local/bin/ctags" ]]; then
-        # TODO: can we pacman this on Linux? Its in macports...
-
-        # TODO: linux version of this dependency seems to be builtin?
-        if [[ "$OSTYPE" == "darwin"* ]]; then
-            eval "${PACMAN_INSTALL} libyaml"
-        fi
-        # TODO: debian needed pkg-config. global?
-        # TODO: fedora needed automake. isn't that included in autoconf?
-
-        git clone https://github.com/universal-ctags/ctags.git "${XDG_SRC_HOME}/universal-ctags"
-        (
-            cd "${XDG_SRC_HOME}/universal-ctags"
-            ./autogen.sh
-            ./configure --prefix=/usr/local --disable-xml
-            make
-            make install || sudo make install
-        )
     fi
 fi
 

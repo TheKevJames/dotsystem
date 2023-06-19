@@ -37,14 +37,6 @@ echo "Upgrading installed-from-source packages..."
     cd "${XDG_SRC_HOME}/tmuxifier"
     git pull
 )
-(
-    cd "${XDG_SRC_HOME}/universal-ctags"
-    git pull
-    ./autogen.sh
-    ./configure --prefix=/usr/local --disable-xml
-    make
-    make install || sudo make install
-)
 
 echo "Upgrading kubectl plugins..."
 kubectl krew update
