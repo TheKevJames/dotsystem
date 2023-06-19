@@ -23,6 +23,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 
     # Fix compilations
     export ARCHFLAGS="-arch $(uname -m)"
+    export RUSTFLAGS="-L/Library/Developer/CommandLineTools/SDKs/MacOSX$(sw_vers -productVersion).sdk/usr/lib"
 
     # Because this will often work better than setting a real value
     export BROWSER="open"
