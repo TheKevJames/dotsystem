@@ -42,6 +42,9 @@ defaults write com.apple.finder NewWindowTarget -string "PfLo"
 defaults write com.apple.finder NewWindowTargetPath -string "file://${HOME}/"
 
 # Mouse
+## enable two-finger tap to right-click
+defaults write "Apple Global Domain" com.apple.trackpad.twoFingerDoubleTapGesture -int 1
+defaults write NSGlobalDomain com.apple.trackpad.twoFingerDoubleTapGesture -int 1
 ## enable tap-to-click
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
 defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
@@ -56,6 +59,9 @@ defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
 defaults write com.apple.dock showLaunchpadGestureEnabled -int 0
 
 # Keyboard
+## remap caps lock > escape
+## https://developer.apple.com/library/archive/technotes/tn2450/_index.html#//apple_ref/doc/uid/DTS40017618-CH1-KEY_TABLE_USAGES
+hidutil property --set '{"UserKeyMapping":[{"HIDKeyboardModifierMappingSrc": 0x700000039, "HIDKeyboardModifierMappingDst": 0x700000029}]} '
 ## key repeat > key hold
 defaults write -g ApplePressAndHoldEnabled -bool false
 defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false

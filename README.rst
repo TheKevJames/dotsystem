@@ -29,10 +29,6 @@ bootstrap-able:
     cd ~/src/personal/dotsystem
     ./sync --force
 
-    # TODO: figure out if this can be done from the CLI
-    # Settings > Keyboard > Modifier Keys > "Caps Lock -> Escape"
-    # Settings > Trackpad > Secondary Click > "Click of Tap with Two Fingers"
-
 Old Machines
 ------------
 
