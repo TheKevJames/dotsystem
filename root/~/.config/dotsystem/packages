@@ -1,53 +1,70 @@
-autoconf
-bat:sh
-curl
-delta:sh
-entr
-exa:sh
-fd:sh
-gpg:gnupg
-hexyl:sh
-htop
-hyperfine:sh
-jq
-krew:sh
-kubectl:sh
-less
-m4
-make
-pre-commit:sh
-prettyping:sh
-pylsp:sh
-ripgrep:sh
-sd:sh
-tar
-twine:sh
-unzip
-yq:sh
-wget
+; packages from the OS package manager
+; if the binary doesn't match the package name, use:
+;   $pkg = $binary
+[pkg]
+  ; buildtools
+  autoconf
+  m4
+  make
 
-gcloud:sh
-ngrok:sh
-pastel:sh
+  ; utils
+  curl
+  entr
+  gnupg2 = gpg  ; TODO: is this OS-specific?
+  jq
+  less
+  tar
+  unzip
+  wget
 
-neovim:nvim
+  ; git
+  gh
+  git
+  hub
 
-kitty
-tmux
-tmuxifier:sh
-zsh
+  ; lang
+  clang
 
-gh
-git
-git-standup:sh
-hub
+  ; apps
+  htop
+  kitty
+  neovim = nvim
+  tmux
+  zsh
 
-cargo:sh
-clang
-go:sh
-pipx:sh
-poetry:sh
-python3:sh
+; rust tools, installed via cargo
+; if any values are set, also install rustup/cargo
+[cargo]
+  bat
+  exa
+  git-delta = delta
+  fd-find = fd
+  hexyl
+  hyperfine
+  pastel
+  ripgrep = rg
+  sd
 
-dropbox:sh
-firefox:sh
+; anything with a manual install process defined in ./sync
+; TODO: most of these can be builtins a la cargo
+[manual]
+  krew
+  kubectl
+  pre-commit
+  prettyping
+  pylsp
+  twine
+
+  gcloud
+  ngrok
+
+  git-standup
+  tmuxifier
+
+  go
+  poetry
+  python3
+  pipx
+
+  ; dropbox  ; TODO: why is this disabled on dialbox-2?
+  ; firefox  ; TODO: why is this disabled on dialbox-2?

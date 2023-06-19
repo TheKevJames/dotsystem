@@ -174,22 +174,21 @@ fi
 echo "Refreshing sources..."
 eval "${PACMAN_REFRESH}" >/dev/null
 
-packages=()
-for package in $(cat "${XDG_CONFIG_HOME}/dotsystem/packages"); do
-    IFS=: read -a fields <<< "$package"
-
-    name="${fields[0]}"
-    binary="${fields[1]:-${fields[0]}}"
-
-    if ! which $name >/dev/null 2>&1 && ! which $binary >/dev/null 2>&1; then
-        packages+=("${name}")
-    fi
-done
-
+PACKAGE_CONFIG="${XDG_CONFIG_HOME}/dotsystem/packages"
 echo "Installing packages..."
-if [[ "${packages[@]:-}" != "" ]]; then
-    eval "${PACMAN_INSTALL} ${packages[@]}"
-fi
+packages=()
+source <(
+    IFS=$'\n'
+    for package in $(git config -f "${PACKAGE_CONFIG}" --get-regexp 'pkg\..*'); do
+        IFS=' ' read -a fields <<< "$package"
+        pkg="${fields[0]#pkg.}"
+        binary="${fields[1]:-${pkg}}"
+        if ! which "${binary}" >/dev/null 2>&1; then
+            echo "packages+=(${pkg})"
+        fi
+    done
+)
+(( ${#packages[@]} )) && eval "${PACMAN_INSTALL}" "${packages[@]}"
 
 ## Configure OSX one-offs
 if [[ "$OSTYPE" == "darwin"* ]]; then
@@ -202,16 +201,31 @@ fi
 
 ## Install outside-of-package-manager packages
 # TODO: re-alphabetize once language package managers are better supported
-if grep -q "cargo:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
+if git config -f "${PACKAGE_CONFIG}" --get-regexp 'cargo\..*' >/dev/null; then
     export CARGO_HOME="${XDG_DATA_HOME}/cargo"
     if ! which cargo >/dev/null; then
         TEMPFILE=$(mktemp)
         curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs > "${TEMPFILE}.sh"
         sh "${TEMPFILE}.sh" -y --no-modify-path
     fi
+    pathadd "${XDG_DATA_HOME}/cargo/bin"
+
+    packages=()
+    source <(
+        IFS=$'\n'
+        for package in $(git config -f "${PACKAGE_CONFIG}" --get-regexp 'cargo\..*'); do
+            IFS=' ' read -a fields <<< "$package"
+            pkg="${fields[0]#cargo.}"
+            binary="${fields[1]:-${pkg}}"
+            if ! which "${binary}" >/dev/null 2>&1; then
+                echo "packages+=(${pkg})"
+            fi
+        done
+    )
+    (( ${#packages[@]} )) && cargo install "${packages[@]}"
 fi
 
-if grep -q "python2:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
+if git config -f "${PACKAGE_CONFIG}" --get manual.python2 >/dev/null; then
     if ! which python2 >/dev/null; then
         if [[ "$OSTYPE" == "darwin"* ]]; then
             eval "${PACMAN_INSTALL} python27"
@@ -235,7 +249,7 @@ if grep -q "python2:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     fi
 fi
 
-if grep -q "python3:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
+if git config -f "${PACKAGE_CONFIG}" --get manual.python3 >/dev/null; then
     if ! which python3 >/dev/null; then
         if [[ "$OSTYPE" == "darwin"* ]]; then
             eval "${PACMAN_INSTALL} py37-pip"
@@ -256,7 +270,7 @@ if grep -q "python3:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     fi
 fi
 
-if grep -q "pipx:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
+if git config -f "${PACKAGE_CONFIG}" --get manual.pipx >/dev/null; then
     if [[ ! -f "${XDG_BIN_HOME}/pipx" ]]; then
         python3 -m pip install --user pipx
         if [[ "$OSTYPE" == "darwin"* ]]; then
@@ -265,7 +279,7 @@ if grep -q "pipx:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     fi
 fi
 
-if grep -q "alacritty:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
+if git config -f "${PACKAGE_CONFIG}" --get manual.alacritty >/dev/null; then
     if [[ "$OSTYPE" == "darwin"* ]]; then
         if [[ ! -f /Applications/Alacritty.app/Contents/MacOS/alacritty ]]; then
             brew cask install alacritty
@@ -277,23 +291,7 @@ if grep -q "alacritty:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     fi
 fi
 
-if grep -q "bat:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
-    if ! which bat >/dev/null; then
-        export CARGO_HOME="${XDG_DATA_HOME}/cargo"
-        pathadd "${XDG_DATA_HOME}/cargo/bin"
-        cargo install bat
-    fi
-fi
-
-if grep -q "delta:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
-    if ! which delta >/dev/null; then
-        export CARGO_HOME="${XDG_DATA_HOME}/cargo"
-        pathadd "${XDG_DATA_HOME}/cargo/bin"
-        cargo install git-delta
-    fi
-fi
-
-if grep -q "docker:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
+if git config -f "${PACKAGE_CONFIG}" --get manual.docker >/dev/null; then
     if ! which docker >/dev/null; then
         if [[ "$OSTYPE" == "darwin"* ]]; then
             brew cask install docker
@@ -311,7 +309,7 @@ if grep -q "docker:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     fi
 fi
 
-if grep -q "dropbox:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
+if git config -f "${PACKAGE_CONFIG}" --get manual.dropbox >/dev/null; then
     if [[ "$OSTYPE" == "darwin"* ]]; then
         if [[ ! -f "/Applications/Dropbox.app/Contents/MacOS/Dropbox" ]]; then
             brew cask install dropbox
@@ -331,23 +329,7 @@ if grep -q "dropbox:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     fi
 fi
 
-if grep -q "exa:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
-    if ! which exa >/dev/null; then
-        export CARGO_HOME="${XDG_DATA_HOME}/cargo"
-        pathadd "${XDG_DATA_HOME}/cargo/bin"
-        cargo install exa
-    fi
-fi
-
-if grep -q "fd:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
-    if ! which fd >/dev/null; then
-        export CARGO_HOME="${XDG_DATA_HOME}/cargo"
-        pathadd "${XDG_DATA_HOME}/cargo/bin"
-        cargo install fd-find
-    fi
-fi
-
-if grep -q "firefox:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
+if git config -f "${PACKAGE_CONFIG}" --get manual.firefox >/dev/null; then
     if [[ "$OSTYPE" == "darwin"* ]]; then
         if [[ ! -f "/Applications/Firefox.app/Contents/MacOS/firefox" ]]; then
             brew cask install firefox
@@ -359,7 +341,7 @@ if grep -q "firefox:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     fi
 fi
 
-if grep -q "ferdi:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
+if git config -f "${PACKAGE_CONFIG}" --get manual.ferdi >/dev/null; then
     if ! which ferdi >/dev/null; then
         TEMPFILE=$(mktemp)
         if [[ "$OSTYPE" == "darwin"* ]]; then
@@ -379,7 +361,7 @@ if grep -q "ferdi:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     fi
 fi
 
-if grep -q "gcloud:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
+if git config -f "${PACKAGE_CONFIG}" --get manual.gcloud >/dev/null; then
     if ! which gcloud >/dev/null; then
         TEMPFILE=$(mktemp)
         if [[ "$OSTYPE" == "darwin"* ]]; then
@@ -391,7 +373,7 @@ if grep -q "gcloud:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     fi
 fi
 
-if grep -q "git-standup:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
+if git config -f "${PACKAGE_CONFIG}" --get manual.get-standup >/dev/null; then
     if ! which git-standup >/dev/null; then
         git clone https://github.com/kamranahmedse/git-standup.git "${XDG_SRC_HOME}/git-standup"
         (
@@ -401,7 +383,7 @@ if grep -q "git-standup:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     fi
 fi
 
-if grep -q "gitify:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
+if git config -f "${PACKAGE_CONFIG}" --get manual.gitify >/dev/null; then
     if [[ "$OSTYPE" == "darwin"* ]]; then
         if [[ ! -f "/Applications/Gitify.app/Contents/MacOS/Gitify" ]]; then
             brew cask install gitify
@@ -409,9 +391,7 @@ if grep -q "gitify:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     fi
 fi
 
-# TODO: move to packages configuration file
-# TODO: "grep go" etc needs to be a full line match :facepalm:
-if grep -q "go:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
+if git config -f "${PACKAGE_CONFIG}" --get manual.go >/dev/null; then
     if ! which go >/dev/null; then
         if [[ -f /etc/os-release ]] && grep -q debian /etc/os-release; then
             TEMPFILE=$(mktemp)
@@ -423,6 +403,7 @@ if grep -q "go:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
         fi
     fi
 
+    # TODO: move to packages configuration file
     export GOPATH="${XDG_DATA_HOME}/go"
     # TODO: consider switching to a subset implementation, only I *really* need
     # this for the emergency key...
@@ -433,23 +414,7 @@ if grep -q "go:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     fi
 fi
 
-if grep -q "hexyl:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
-    if ! which hexyl >/dev/null; then
-        export CARGO_HOME="${XDG_DATA_HOME}/cargo"
-        pathadd "${XDG_DATA_HOME}/cargo/bin"
-        cargo install hexyl
-    fi
-fi
-
-if grep -q "hyperfine:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
-    if ! which hyperfine >/dev/null; then
-        export CARGO_HOME="${XDG_DATA_HOME}/cargo"
-        pathadd "${XDG_DATA_HOME}/cargo/bin"
-        cargo install hyperfine
-    fi
-fi
-
-if grep -q "kubectl:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
+if git config -f "${PACKAGE_CONFIG}" --get manual.kubectl >/dev/null; then
     if ! which kubectl >/dev/null; then
         if [[ -f /etc/os-release ]] && grep -q debian /etc/os-release; then
             # https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/#install-using-native-package-management
@@ -475,7 +440,7 @@ EOF
     fi
 fi
 
-if grep -q "krew:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
+if git config -f "${PACKAGE_CONFIG}" --get manual.krew >/dev/null; then
     if ! which kubectl-krew >/dev/null; then
         export KREW_ROOT="${XDG_DATA_HOME}/krew"
         (
@@ -494,14 +459,15 @@ if grep -q "krew:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     fi
 fi
 
-if grep -q "neovim:nvim" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
+# TODO
+if git config -f "${PACKAGE_CONFIG}" --get pkg-renamed.neovim >/dev/null; then
     if [ ! -f "${XDG_DATA_HOME}/nvim/site/autoload/plug.vim" ]; then
         curl -fsSLo "${XDG_DATA_HOME}/nvim/site/autoload/plug.vim" --create-dirs "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
         nvim -c ':PlugInstall' -c 'qa!'
     fi
 fi
 
-if grep -q "ngrok:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
+if git config -f "${PACKAGE_CONFIG}" --get manual.ngrok >/dev/null; then
     if ! which ngrok >/dev/null; then
         TEMPFILE=$(mktemp)
         if [[ "$OSTYPE" == "darwin"* ]]; then
@@ -517,22 +483,14 @@ if grep -q "ngrok:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     fi
 fi
 
-if grep -q "pastel:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
-    if ! which pastel >/dev/null; then
-        export CARGO_HOME="${XDG_DATA_HOME}/cargo"
-        pathadd "${XDG_DATA_HOME}/cargo/bin"
-        cargo install pastel
-    fi
-fi
-
-if grep -q "poetry:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
+if git config -f "${PACKAGE_CONFIG}" --get manual.poetry >/dev/null; then
     if ! which poetry >/dev/null; then
         pathadd "${XDG_BIN_HOME}"
         pipx install poetry
     fi
 fi
 
-if grep -q "pre-commit:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
+if git config -f "${PACKAGE_CONFIG}" --get manual.pre-commit >/dev/null; then
     if ! which pre-commit >/dev/null; then
         pathadd "${XDG_BIN_HOME}"
         pipx install pre-commit
@@ -540,14 +498,14 @@ if grep -q "pre-commit:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     fi
 fi
 
-if grep -q "prettyping:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
+if git config -f "${PACKAGE_CONFIG}" --get manual.prettyping >/dev/null; then
     if ! which prettyping >/dev/null; then
         sudo curl -fsSLo /usr/local/bin/prettyping "https://raw.githubusercontent.com/denilsonsa/prettyping/master/prettyping"
         sudo chmod a+x /usr/local/bin/prettyping
     fi
 fi
 
-if grep -q "pylsp:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
+if git config -f "${PACKAGE_CONFIG}" --get manual.pylsp >/dev/null; then
     if ! which pylsp >/dev/null; then
         pathadd "${XDG_BIN_HOME}"
         pipx install "python-lsp-server[autopep8,mccabe,flake8,pycodestyle,pydocstyle,pyflakes,pylint,rope,yapf]"
@@ -555,23 +513,7 @@ if grep -q "pylsp:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     fi
 fi
 
-if grep -q "ripgrep:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
-    if ! which rg >/dev/null; then
-        export CARGO_HOME="${XDG_DATA_HOME}/cargo"
-        pathadd "${XDG_DATA_HOME}/cargo/bin"
-        cargo install ripgrep
-    fi
-fi
-
-if grep -q "sd:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
-    if ! which sd >/dev/null; then
-        export CARGO_HOME="${XDG_DATA_HOME}/cargo"
-        pathadd "${XDG_DATA_HOME}/cargo/bin"
-        cargo install sd
-    fi
-fi
-
-if grep -q "sublime-text:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
+if git config -f "${PACKAGE_CONFIG}" --get manual.sublime-text >/dev/null; then
     if [[ "$OSTYPE" == "darwin"* ]]; then
         if [[ ! -f "/Applications/Sublime Text.app/Contents/MacOS/Sublime Text" ]]; then
             brew cask install sublime-text
@@ -587,20 +529,20 @@ if grep -q "sublime-text:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
     fi
 fi
 
-if grep -q "tmuxifier:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
+if git config -f "${PACKAGE_CONFIG}" --get manual.tmuxifier >/dev/null; then
     if [[ ! -d "${XDG_SRC_HOME}/tmuxifier" ]]; then
         git clone https://github.com/jimeh/tmuxifier.git "${XDG_SRC_HOME}/tmuxifier"
     fi
 fi
 
-if grep -q "twine:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
+if git config -f "${PACKAGE_CONFIG}" --get manual.twine >/dev/null; then
     if ! which twine >/dev/null; then
         pathadd "${XDG_BIN_HOME}"
         pipx install twine
     fi
 fi
 
-if grep -q "yq:sh" "${XDG_CONFIG_HOME}/dotsystem/packages"; then
+if git config -f "${PACKAGE_CONFIG}" --get manual.yq >/dev/null; then
     if ! which yq >/dev/null; then
         pathadd "${XDG_BIN_HOME}"
         pipx install yq
