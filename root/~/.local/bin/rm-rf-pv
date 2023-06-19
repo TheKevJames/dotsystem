@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+TARGET=$1
+
+rm -frv "${TARGET}" | pv -l -s $(du -a "${TARGET}" | wc -l) > /dev/null
