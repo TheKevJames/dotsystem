@@ -2,6 +2,8 @@ set clipboard=unnamedplus  " use system clipboard
 set expandtab              " spaces > tabs
 set hlsearch               " show highlights on search
 set laststatus=0           " hide statusline
+set foldmethod=expr        " use nvim-treesitter for folding expressions
+set foldexpr=nvim_treesitter#foldexpr()
 set nofoldenable           " no default folds on startup
 set number                 " show line numbers
 set relativenumber         " line numbers should be relative
@@ -22,7 +24,10 @@ imap <F3> <C-R>=strftime("%Y-%m-%d")<CR>
 filetype plugin indent on  " enable filetype detection
 syntax on                  " show syntax highlighting
 
-let g:python3_host_prog="~/.local/pipx/venvs/neovim-remote/bin/python3"
+let g:python3_host_prog = '~/.local/pipx/venvs/neovim-remote/bin/python3'
+let g:node_host_prog = '/opt/local/bin/neovim-node-host'
+let g:loaded_ruby_provider = 0
+let g:loaded_perl_provider = 0
 
 call plug#begin('~/.local/share/nvim/plugged')
 
@@ -34,16 +39,19 @@ Plug 'airblade/vim-gitgutter'                        " git
 Plug 'ggandor/leap.nvim'                             " leap [sS]..
 
 let g:vimwiki_list = [
-  \{'path': '~/Dropbox/work/vimwiki'},
+  \{'path': '~/Dropbox/work/vimwiki', 'syntax': 'markdown', 'ext': '.md'},
   \{'path': '~/Dropbox/vimwiki', 'syntax': 'markdown', 'ext': '.md'}
 \]
 Plug 'vimwiki/vimwiki'      " wiki
-Plug 'majutsushi/tagbar'    " tag navigation
 
-let g:polyglot_disabled = ['python.plugin']
-Plug 'sheerun/vim-polyglot'       " syntax highlighting: misc
-Plug 'nathangrigg/vim-beancount'  " syntax highlighting: beancount
-Plug 'neovim/nvim-lspconfig'      " LSP configuration
+" syntax highlighting
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+let b:beancount_root = '~/Dropbox/finance/index.beancount'
+Plug 'nathangrigg/vim-beancount'
+
+Plug 'williamboman/mason.nvim', { 'do': ':MasonUpdate' }  " LSP Package Manager
+Plug 'williamboman/mason-lspconfig.nvim'
+Plug 'neovim/nvim-lspconfig'                              " LSP configuration
 
 call plug#end()
 
@@ -51,13 +59,39 @@ call plug#end()
 colorscheme gruvbox
 
 lua <<EOF
+  require'nvim-treesitter.configs'.setup {
+    ensure_installed = { "bash", "beancount", "dockerfile", "dot", "json", "json5", "make", "python", "regex", "sql", "terraform", "toml", "yaml" },
+    highlight = {
+      enable = true,
+    },
+    indent = {
+      enable = true,
+    },
+  }
+
+  require'mason'.setup {}
+  require'mason-lspconfig'.setup {
+    ensure_installed = { "bashls", "beancount", "dockerls", "docker_compose_language_service", "dotls", "esbonio", "jsonls", "pylsp", "sqlls", "taplo", "terraformls", "yamlls" },
+  }
+  require'lspconfig'.bashls.setup {}
+  require'lspconfig'.beancount.setup {}
+  require'lspconfig'.dockerls.setup {}
+  require'lspconfig'.docker_compose_language_service.setup {}
+  require'lspconfig'.dotls.setup {}
+  require'lspconfig'.esbonio.setup {}
+  require'lspconfig'.jsonls.setup {}
+  require'lspconfig'.pylsp.setup {}
+  require'lspconfig'.sqlls.setup {}
+  require'lspconfig'.taplo.setup {}
+  require'lspconfig'.terraformls.setup {}
+  require'lspconfig'.yamlls.setup {}
+
   require'leap'.add_default_mappings()
-  require'lspconfig'.pylsp.setup{}
 EOF
 
 function! VimwikiLinkHandler(link)
   " Use Vim to open external files with the 'vfile:' scheme.  E.g.:
-  "   1) [[vfile:~/Code/PythonProject/abc123.py]]
+  "   1) [[vfile:~/src/foo/bar.py]]
   "   2) [[vfile:./|Wiki Home]]
   let link = a:link
   if link =~# '^vfile:'
