@@ -225,30 +225,6 @@ if git config -f "${PACKAGE_CONFIG}" --get-regexp 'cargo\..*' >/dev/null; then
     (( ${#packages[@]} )) && cargo install "${packages[@]}"
 fi
 
-if git config -f "${PACKAGE_CONFIG}" --get manual.python2 >/dev/null; then
-    if ! which python2 >/dev/null; then
-        if [[ "$OSTYPE" == "darwin"* ]]; then
-            eval "${PACMAN_INSTALL} python27"
-        elif [[ -f /etc/os-release ]] && grep -q Ubuntu /etc/os-release; then
-            eval "${PACMAN_INSTALL} python"
-        else
-            eval "${PACMAN_INSTALL} python2"
-        fi
-    fi
-
-    if ! python2 -m pip --version >/dev/null 2>/dev/null; then
-        if [[ "$OSTYPE" == "darwin"* ]]; then
-            eval "${PACMAN_INSTALL} py27-pip"
-        elif [[ -f /etc/os-release ]] && grep -q debian /etc/os-release; then
-            eval "${PACMAN_INSTALL} python-pip"
-        else
-            # TODO: handle distros where this is bundled already
-            # TODO: handle distros where this is not in default sources
-            eval "${PACMAN_INSTALL} python2-pip"
-        fi
-    fi
-fi
-
 if git config -f "${PACKAGE_CONFIG}" --get manual.python3 >/dev/null; then
     if ! which python3 >/dev/null; then
         if [[ "$OSTYPE" == "darwin"* ]]; then
