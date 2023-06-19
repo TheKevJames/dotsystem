@@ -64,6 +64,7 @@
 [pipx]
   beancount = bean-web
   fava
+  neovim-remote = nvr
   poetry
   pre-commit
   python-lsp-server = pylsp

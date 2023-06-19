@@ -277,6 +277,9 @@ if git config -f "${PACKAGE_CONFIG}" --get-regexp 'pipx\..*' >/dev/null; then
         # TODO: support this via config
         if [[ "${package}" == "pre-commit" ]]; then
             pre-commit init-templatedir "${XDG_CONFIG_HOME}/git/template/"
+        elif [[ "${package}" == "neovim-remote" ]]; then
+            # eg. so we can use vim-beancount
+            pipx inject "${package}" beancount
         elif [[ "${package}" == "python-lsp-server" ]]; then
             pipx inject "${package}" "python-lsp-server[all]" pyls-isort pyls-mypy
         fi
