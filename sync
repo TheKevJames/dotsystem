@@ -224,6 +224,31 @@ if git config -f "${PACKAGE_CONFIG}" --get-regexp 'cargo\..*' >/dev/null; then
     (( ${#packages[@]} )) && cargo install "${packages[@]}"
 fi
 
+## Install git-based packages
+(
+    IFS=$'\n'
+    for package in $(git config -f "${PACKAGE_CONFIG}" --get-regexp 'git\..*'); do
+        IFS=' ' read -a fields <<< "$package"
+        repo="${fields[0]#git.}"
+        user="${fields[1]}"
+        if [[ ! -d "${XDG_SRC_HOME}/${repo}" ]]; then
+            git clone "https://github.com/${user}/${repo}.git" "${XDG_SRC_HOME}/${repo}"
+
+            # TODO: support this via config
+            if [[ "${repo}" == "git-standup" ]]; then
+                make -C "${XDG_SRC_HOME}/${repo}" install PREFIX="${XDG_BIN_HOME%/bin}"
+            elif [[ "${repo}" == "prettyping" ]]; then
+                chmod a+x "${XDG_SRC_HOME}/${repo}/prettyping"
+                ln -s "${XDG_SRC_HOME}/${repo}/prettyping" "${XDG_BIN_HOME}/prettyping"
+            elif [[ "${repo}" == "vim-plug" ]]; then
+                mkdir -p "${XDG_DATA_HOME}/nvim/site/autoload"
+                cp "${XDG_SRC_HOME}/${repo}/plug.vim" "${XDG_DATA_HOME}/nvim/site/autoload"
+                nvim -c ':PlugInstall' -c 'qa!'
+            fi
+        fi
+    done
+)
+
 ## Install pipx packages
 if git config -f "${PACKAGE_CONFIG}" --get-regexp 'pipx\..*' >/dev/null; then
     if ! which pipx >/dev/null; then
@@ -258,8 +283,8 @@ if git config -f "${PACKAGE_CONFIG}" --get-regexp 'pipx\..*' >/dev/null; then
     done
 fi
 
-## Install outside-of-package-manager packages
-# TODO: re-alphabetize once language package managers are better supported
+## Install packages with special manual requirements
+# TODO: support per-OS package names in config
 if git config -f "${PACKAGE_CONFIG}" --get manual.python3 >/dev/null; then
     if ! which python3 >/dev/null; then
         if [[ "$OSTYPE" == "darwin"* ]]; then
@@ -351,6 +376,7 @@ if git config -f "${PACKAGE_CONFIG}" --get manual.ferdi >/dev/null; then
     fi
 fi
 
+# TODO: support for "downloaded" packages in config spec
 if git config -f "${PACKAGE_CONFIG}" --get manual.gcloud >/dev/null; then
     if ! which gcloud >/dev/null; then
         TEMPFILE=$(mktemp)
@@ -360,16 +386,6 @@ if git config -f "${PACKAGE_CONFIG}" --get manual.gcloud >/dev/null; then
             curl -fsSL "https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-400.0.0-linux-x86_64.tar.gz" > "${TEMPFILE}.tgz"
         fi
         tar xzf "${TEMPFILE}.tgz" -C "${XDG_SRC_HOME}"
-    fi
-fi
-
-if git config -f "${PACKAGE_CONFIG}" --get manual.get-standup >/dev/null; then
-    if ! which git-standup >/dev/null; then
-        git clone https://github.com/kamranahmedse/git-standup.git "${XDG_SRC_HOME}/git-standup"
-        (
-            cd "${XDG_SRC_HOME}/git-standup"
-            sudo make install
-        )
     fi
 fi
 
@@ -449,14 +465,6 @@ if git config -f "${PACKAGE_CONFIG}" --get manual.krew >/dev/null; then
     fi
 fi
 
-# TODO
-if git config -f "${PACKAGE_CONFIG}" --get pkg-renamed.neovim >/dev/null; then
-    if [ ! -f "${XDG_DATA_HOME}/nvim/site/autoload/plug.vim" ]; then
-        curl -fsSLo "${XDG_DATA_HOME}/nvim/site/autoload/plug.vim" --create-dirs "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
-        nvim -c ':PlugInstall' -c 'qa!'
-    fi
-fi
-
 if git config -f "${PACKAGE_CONFIG}" --get manual.ngrok >/dev/null; then
     if ! which ngrok >/dev/null; then
         TEMPFILE=$(mktemp)
@@ -473,13 +481,6 @@ if git config -f "${PACKAGE_CONFIG}" --get manual.ngrok >/dev/null; then
     fi
 fi
 
-if git config -f "${PACKAGE_CONFIG}" --get manual.prettyping >/dev/null; then
-    if ! which prettyping >/dev/null; then
-        sudo curl -fsSLo /usr/local/bin/prettyping "https://raw.githubusercontent.com/denilsonsa/prettyping/master/prettyping"
-        sudo chmod a+x /usr/local/bin/prettyping
-    fi
-fi
-
 if git config -f "${PACKAGE_CONFIG}" --get manual.sublime-text >/dev/null; then
     if [[ "$OSTYPE" == "darwin"* ]]; then
         if [[ ! -f "/Applications/Sublime Text.app/Contents/MacOS/Sublime Text" ]]; then
@@ -493,12 +494,6 @@ if git config -f "${PACKAGE_CONFIG}" --get manual.sublime-text >/dev/null; then
             curl -fsSL "https://packagecontrol.io/Package Control.sublime-package" \
                 -o ~/".config/sublime-text-3/Installed Packages/Package Control.sublime-package"
         fi
-    fi
-fi
-
-if git config -f "${PACKAGE_CONFIG}" --get manual.tmuxifier >/dev/null; then
-    if [[ ! -d "${XDG_SRC_HOME}/tmuxifier" ]]; then
-        git clone https://github.com/jimeh/tmuxifier.git "${XDG_SRC_HOME}/tmuxifier"
     fi
 fi
 

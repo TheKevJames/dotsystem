@@ -45,6 +45,15 @@
   ripgrep = rg
   sd
 
+; tools installed via git clone
+; format:
+;   $repo = $user
+[git]
+  git-standup = kamranahmedse
+  prettyping = denilsonsa
+  tmuxifier = jimeh
+  vim-plug = junegunn
+
 ; python tools, installed via pipx
 ; if any values are set, also install pipx
 ; TODO: also install python3?
@@ -60,21 +69,12 @@
 [manual]
   krew
   kubectl
-  pre-commit
-  prettyping
-  pylsp
-  twine
 
   gcloud
   ngrok
 
-  git-standup
-  tmuxifier
-
   go
-  poetry
   python3
-  pipx
 
   ; dropbox  ; TODO: why is this disabled on dialbox-2?
   ; firefox  ; TODO: why is this disabled on dialbox-2?

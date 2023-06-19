@@ -28,15 +28,13 @@ echo "Upgrading gcloud components..."
 gcloud components update
 
 echo "Upgrading installed-from-source packages..."
-(
-    cd "${XDG_SRC_HOME}/git-standup"
-    git pull
-    sudo make install
-)
-(
-    cd "${XDG_SRC_HOME}/tmuxifier"
-    git pull
-)
+for repo in $(git config -f ~/.config/dotsystem/packages --name-only --get-regexp 'git\..*' | cut -f2 -d.); do
+    (
+        cd "${XDG_SRC_HOME}/${repo}"
+        git pull
+        [[ "${repo}" == "git-standup" ]] && make install PREFIX="${XDG_BIN_HOME%/bin}"
+    )
+done
 
 echo "Upgrading kubectl plugins..."
 kubectl krew update
