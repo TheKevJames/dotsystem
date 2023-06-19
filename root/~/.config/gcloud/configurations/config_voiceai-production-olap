@@ -1,0 +1,5 @@
+[core]
+project = voiceai-production-olap
+account = kjames@dialpad.com
+
+disable_usage_reporting = True
