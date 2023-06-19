@@ -281,18 +281,6 @@ if git config -f "${PACKAGE_CONFIG}" --get manual.python3 >/dev/null; then
     fi
 fi
 
-if git config -f "${PACKAGE_CONFIG}" --get manual.alacritty >/dev/null; then
-    if [[ "$OSTYPE" == "darwin"* ]]; then
-        if [[ ! -f /Applications/Alacritty.app/Contents/MacOS/alacritty ]]; then
-            brew cask install alacritty
-        fi
-    else
-        if ! which alacritty >/dev/null; then
-            eval "${PACMAN_INSTALL} alacritty"
-        fi
-    fi
-fi
-
 if git config -f "${PACKAGE_CONFIG}" --get manual.docker >/dev/null; then
     if ! which docker >/dev/null; then
         if [[ "$OSTYPE" == "darwin"* ]]; then
