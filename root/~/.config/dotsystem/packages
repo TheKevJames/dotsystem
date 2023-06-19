@@ -14,6 +14,7 @@
   gnupg2 = gpg  ; TODO: is this OS-specific?
   jq
   less
+  miller
   tar
   unzip
   wget
