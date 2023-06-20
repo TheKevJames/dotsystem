@@ -64,6 +64,10 @@ nnoremap <leader>ff <cmd>Telescope find_files<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 Plug 'ggandor/leap.nvim'       " leap [sS]..
 
+" diagnostics
+Plug 'folke/trouble.nvim'
+nnoremap <leader>xx <cmd>TroubleToggle<cr>
+
 call plug#end()
 
 " plugin configuration
@@ -98,6 +102,10 @@ lua <<EOF
   require'lspconfig'.yamlls.setup {}
 
   require'leap'.add_default_mappings {}
+
+  require'trouble'.setup {
+    icons = false
+  }
 EOF
 
 function! VimwikiLinkHandler(link)
