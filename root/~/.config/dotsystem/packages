@@ -47,6 +47,7 @@
   pastel
   ripgrep = rg
   sd
+  vivid
 
 ; tools installed via git clone
 ; format:
