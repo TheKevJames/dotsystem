@@ -37,14 +37,11 @@ repos:
     -   id: name-tests-test
     -   id: requirements-txt-fixer
 -   repo: https://github.com/pylint-dev/pylint
-    rev: v2.17.4
+    rev: v3.0.0a6
     hooks:
     -   id: pylint
-        additional_dependencies:
-        - pylint-import-modules==0.3.0
         args:
-        - --allowed-direct-imports="typing.*"
-        - --load-plugins=pylint_import_modules,pylint.extensions.mccabe
+        - --load-plugins=pylint.extensions.mccabe
         - --max-complexity=10
         - --max-line-length=79
         - --max-args=10
@@ -76,7 +73,7 @@ repos:
         args: [--py311-plus]
         exclude: 'root/etc/pythonstart'
 -   repo: https://github.com/asottile/pyupgrade
-    rev: v3.8.0
+    rev: v3.9.0
     hooks:
     -   id: pyupgrade
         args: [--py37-plus]
