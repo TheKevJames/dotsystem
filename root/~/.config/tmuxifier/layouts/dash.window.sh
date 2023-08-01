@@ -8,7 +8,6 @@ split_v 65
 
 # ...yeah.
 run_cmd $'nvim -c \'execute "normal \\\\ww"\'' 0
-run_cmd "cd ~/src/personal/mosura; poetry run uvicorn mosura.app:app --reload" 1
 run_cmd "task due" 2
 run_cmd "cctui" 3
 
