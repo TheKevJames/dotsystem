@@ -21,9 +21,6 @@ nnoremap ; :
 nmap <F3> i<C-R>=strftime("%Y-%m-%d")<CR><Esc>
 imap <F3> <C-R>=strftime("%Y-%m-%d")<CR>
 
-filetype plugin indent on  " enable filetype detection
-syntax on                  " show syntax highlighting
-
 let g:python3_host_prog = '~/.local/pipx/venvs/neovim-remote/bin/python3'
 let g:node_host_prog = '/opt/local/bin/neovim-node-host'
 let g:loaded_ruby_provider = 0
@@ -31,38 +28,39 @@ let g:loaded_perl_provider = 0
 
 call plug#begin('~/.local/share/nvim/plugged')
 
+" theme
 let g:gruvbox_termcolors=16
-Plug 'morhetz/gruvbox'  " gruvbox
+Plug 'morhetz/gruvbox'
 
-Plug 'airblade/vim-gitgutter'  " git
+" git
+Plug 'airblade/vim-gitgutter'
 
+" wiki
 let g:vimwiki_list = [
-  \{'path': '~/Dropbox/work/vimwiki', 'syntax': 'markdown', 'ext': '.md'},
-  \{'path': '~/Dropbox/vimwiki', 'syntax': 'markdown', 'ext': '.md'}
+  \{'path': '~/sync/work/vimwiki', 'syntax': 'markdown', 'ext': '.md'},
+  \{'path': '~/sync/vimwiki', 'syntax': 'markdown', 'ext': '.md'}
 \]
-Plug 'vimwiki/vimwiki'      " wiki
+Plug 'vimwiki/vimwiki'
 
 " language-specific
 "" treesitter
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-
-"" specific language features
-let b:beancount_root = '~/Dropbox/finance/index.beancount'
-Plug 'nathangrigg/vim-beancount'
-Plug 'tpope/vim-commentary'
 
 "" lsp
 Plug 'williamboman/mason.nvim', { 'do': ':MasonUpdate' }  " Package Manager
 Plug 'williamboman/mason-lspconfig.nvim'
 Plug 'neovim/nvim-lspconfig'
 
+" commenting
+Plug 'tpope/vim-commentary'     " gc..
+
 " fuzzy find / navigation
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }  " fzf
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
 nnoremap <leader>ff <cmd>Telescope find_files<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
-Plug 'ggandor/leap.nvim'       " leap [sS]..
+Plug 'ggandor/leap.nvim'       " [sS]..
 
 " diagnostics
 Plug 'folke/trouble.nvim'
@@ -70,43 +68,18 @@ nnoremap <leader>xx <cmd>TroubleToggle<cr>
 
 call plug#end()
 
+" for debugging LSP issues
+" lua vim.lsp.set_log_level("trace")
+
 " plugin configuration
 colorscheme gruvbox
 
-lua <<EOF
-  require'nvim-treesitter.configs'.setup {
-    ensure_installed = { "bash", "beancount", "dockerfile", "dot", "json", "json5", "make", "python", "regex", "sql", "terraform", "toml", "yaml" },
-    highlight = {
-      enable = true,
-    },
-    indent = {
-      enable = true,
-    },
-  }
-
-  require'mason'.setup {}
-  require'mason-lspconfig'.setup {
-    ensure_installed = { "bashls", "beancount", "dockerls", "docker_compose_language_service", "dotls", "esbonio", "jsonls", "pylsp", "sqlls", "taplo", "terraformls", "yamlls" },
-  }
-  require'lspconfig'.bashls.setup {}
-  require'lspconfig'.beancount.setup {}
-  require'lspconfig'.dockerls.setup {}
-  require'lspconfig'.docker_compose_language_service.setup {}
-  require'lspconfig'.dotls.setup {}
-  require'lspconfig'.esbonio.setup {}
-  require'lspconfig'.jsonls.setup {}
-  require'lspconfig'.pylsp.setup {}
-  require'lspconfig'.sqlls.setup {}
-  require'lspconfig'.taplo.setup {}
-  require'lspconfig'.terraformls.setup {}
-  require'lspconfig'.yamlls.setup {}
-
-  require'leap'.add_default_mappings {}
-
-  require'trouble'.setup {
-    icons = false
-  }
-EOF
+lua require('cfg-nvim-treesitter')
+lua require('mason').setup({})
+lua require('cfg-mason-lspconfig')
+lua require('cfg-lspconfig')
+lua require('leap').add_default_mappings({})
+lua require('trouble').setup({ icons = false })
 
 function! VimwikiLinkHandler(link)
   " Use Vim to open external files with the 'vfile:' scheme.  E.g.:
