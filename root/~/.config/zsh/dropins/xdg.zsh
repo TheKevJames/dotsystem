@@ -31,9 +31,15 @@ export WINEPREFIX="${XDG_DATA_HOME}/wine/prefixes/default"
 
 alias arc="arc --arcrc-file ${XDG_DATA_HOME}/arc/rc"
 alias cpan="cpan -j ${XDG_CONFIG_HOME}/cpan/Config.pm"
-# https://github.com/mbrt/gmailctl
-alias gmailctl="gmailctl --config=${XDG_CONFIG_HOME}/gmailctl"
 alias lmms="lmms --config=${XDG_CONFIG_HOME}/lmms/config"
 alias wget="wget --hsts-file ${XDG_DATA_HOME}/wget/hsts"
+
+# https://github.com/mbrt/gmailctl
+function gmailctl() {
+    echo "Use gcmailctlp or gmailctlw for personal/work accounts."
+    return 1
+}
+alias gmailctlp="command gmailctl --config=${XDG_CONFIG_HOME}/gmailctl-personal"
+alias gmailctlw="command gmailctl --config=${XDG_CONFIG_HOME}/gmailctl-work"
 
 export PATH="${KREW_ROOT}/bin:${PYENV_ROOT}/shims:${CARGO_HOME}/bin:${GOPATH}/bin:${PATH}"
