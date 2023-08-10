@@ -6,6 +6,7 @@ require'nvim-treesitter.configs'.setup {
     "dot",
     "json",
     "json5",
+    "jsonnet",
     "make",
     "python",
     "regex",

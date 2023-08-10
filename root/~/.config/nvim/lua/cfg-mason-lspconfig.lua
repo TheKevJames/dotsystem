@@ -9,6 +9,7 @@ mason_lspconfig.setup {
     "dotls",
     "esbonio",
     "jsonls",
+    "jsonnet_ls",
     "pylsp",
     "sqlls",
     "taplo",
