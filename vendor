@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+declare -A REPOS
+declare -A SOURCES
+
+SOURCES=()
+SOURCES["root/~/.config/zsh/plugins/_extract"]="plugins/extract/_extract"
+SOURCES["root/~/.config/zsh/plugins/completion.zsh"]="lib/completion.zsh"
+SOURCES["root/~/.config/zsh/plugins/extract.plugin.zsh"]="plugins/extract/extract.plugin.zsh"
+SOURCES["root/~/.config/zsh/plugins/shrink-path.plugin.zsh"]="plugins/shrink-path/shrink-path.plugin.zsh"
+REPOS["ohmyzsh/ohmyzsh"]=$(declare -p SOURCES)
+
+SOURCES=()
+SOURCES["root/~/.config/zsh/plugins/async-git-prompt.plugin.zsh"]="async-git-prompt.plugin.zsh"
+REPOS["pawel-slowik/zsh-async-git-prompt"]=$(declare -p SOURCES)
+
+for repo in "${!REPOS[@]}"; do
+    SHA=$(gh api "repos/${repo}/commits/master" -q '.sha')
+
+    eval "${REPOS["${repo}"]}"
+    for fname in "${!SOURCES[@]}"; do
+        echo "Updating ${fname} from ${repo}..."
+        {
+            echo "# This file is vendored, run ./vendor to update it."
+            echo "# Last Update: $(date +'%Y-%m-%d')"
+            echo "# Commit Hash: ${SHA}"
+            echo "#"
+        } > "${fname}"
+        curl -s "https://raw.githubusercontent.com/${repo}/${SHA}/${SOURCES[${fname}]}" >> "${fname}"
+
+        # TODO: would be great to do this via override file
+        if [[ "${fname}" == "root/~/.config/zsh/plugins/async-git-prompt.plugin.zsh" ]]; then
+            sed -i~ 's#^GIT_PROMPT_FIFO_DIR=.*#GIT_PROMPT_FIFO_DIR="/tmp/zsh-git-prompt"#' "${fname}"
+            rm -f "${fname}~"
+        fi
+    done
+done

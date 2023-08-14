@@ -7,14 +7,9 @@ if [[ -z "$LC_CTYPE" && -z "$LC_ALL" ]]; then
     export LC_CTYPE=${LANG%%:*}
 fi
 
-for config_file in ~/.config/zsh/plugins/*.zsh; do
-    source $config_file
-done
-
-for config_file in ~/.config/zsh/dropins/*.zsh; do
-    source $config_file
-done
-
+for config_file in ~/.config/zsh/overrides/*.zsh; do source "${config_file}"; done
+for config_file in ~/.config/zsh/plugins/*.zsh; do source "${config_file}"; done
+for config_file in ~/.config/zsh/dropins/*.zsh; do source "${config_file}"; done
 unset config_file
 
 # TODO: there have been some improvements since I last grabbed this
