@@ -1,3 +1,4 @@
+# shellcheck shell=bash
 export REALNAME="Kevin James"
 
 export EMAIL="KevinJames@thekev.in"

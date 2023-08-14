@@ -1,23 +1,53 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-if [[ "$@" == *"-h"* ]]; then
-    echo "syncs your system from your dotsystem config"
-    echo
-    echo "Options:"
-    echo "  --bootstrap         force bootstrap mode (normally auto-detected)"
-    echo "  --force             force over-write of all missing/modified files"
-    echo "  --skip-packages     do not update installed packages"
-
-    exit 0
-fi
-
-echo "Running dotsystem..."
-
 # Variables
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-BOOTSTRAP=$(if [[ "$@" == *"--bootstrap"* ]] || [[ ! -f ~/.ssh/id_ed25519 ]]; then echo "y"; else echo "n"; fi)
-FORCE=$(if [[ "$@" == *"--force"* ]]; then echo "y"; else echo "n"; fi)
+BOOTSTRAP="n"
+FORCE="n"
+SKIP="n"
+
+while getopts bfhs-: OPT; do
+    # support long options: https://stackoverflow.com/a/28466267/519360
+    if [ "$OPT" = "-" ]; then
+        OPT="${OPTARG%%=*}"
+        OPTARG="${OPTARG#"${OPT}"}"
+        OPTARG="${OPTARG#=}"
+    fi
+
+    case "${OPT}" in
+        b | bootstrap )
+            BOOTSTRAP="y" ;;
+        f | force )
+            FORCE="y" ;;
+        h | help )
+            echo "syncs your system from your dotsystem config";
+            echo;
+            echo "Options:";
+            echo "  --bootstrap         force bootstrap mode (normally auto-detected)";
+            echo "  --force             force over-write of all missing/modified files";
+            echo "  --skip-packages     do not update installed packages";
+            exit 0 ;;
+        s | skip-packages )
+            SKIP="y" ;;
+        ??* )
+            echo "Illegal option --${OPT}";
+            exit 1 ;;
+        ? )
+            exit 1 ;;
+    esac
+done
+
+if [[ ! -f ~/.ssh/id_ed25519 ]]; then
+    echo "No ssh key found, forcing bootstrap mode..."
+    echo
+    BOOTSTRAP="y"
+fi
+
+echo "Running dotsystem with settings..."
+echo "  Bootstrap: ${BOOTSTRAP}"
+echo "  Force: ${FORCE}"
+echo "  Skip Packages: ${SKIP}"
 
 source "${DIR}/root/~/.zshenv"
 
@@ -45,7 +75,7 @@ fi
 
 if [[ "${BOOTSTRAP}" == "y" ]]; then
     echo "Detected fresh system, beginning bootstrap mode..."
-    if [[ "$@" == *"--skip-packages"* ]]; then
+    if [[ "${SKIP}" == "y" ]]; then
         if ! which m4 >/dev/null; then
             echo "m4 is not installed but --skip-packages is set, exiting."
             exit 1
@@ -61,7 +91,7 @@ if [[ "${BOOTSTRAP}" == "y" ]]; then
     fi
 
     # set hostname
-    read -p "Enter system hostname: " NEW_HOSTNAME
+    read -rp "Enter system hostname: " NEW_HOSTNAME
     sudo hostname "${NEW_HOSTNAME}"
     if [[ "$OSTYPE" == "darwin"* ]]; then
         sudo scutil --set HostName "${NEW_HOSTNAME}"
@@ -83,7 +113,7 @@ ensure_dir() {
 }
 
 ensure_file() {
-    ensure_dir $(dirname "$1")
+    ensure_dir "$(dirname "$1")"
     if [ ! -f "$1" ]; then
         touch "$1" 2>/dev/null || sudo touch "$1"
     fi
@@ -138,35 +168,40 @@ echo "define(\`M4_HOSTNAME', \`${HOSTNAME}')" >> "${TEMPFILE}"
 echo "divert(0)dnl" >> "${TEMPFILE}"
 set_file "${TEMPFILE}" "${XDG_DATA_HOME}/dotsystem/config.m4"
 
-IFS=$(echo -en "\n\b"); for file in $(find "${DIR}/root" -type f); do
+# TODO: why does the while version break "select"?
+# while IFS= read -rd '' file; do
+IFS=$(echo -en "\n\b")
+# shellcheck disable=SC2044
+for file in $(find "${DIR}/root" -type f); do
     if [[ "${file##*.}" == "m4" ]]; then
         TEMPFILE=$(mktemp)
         m4 \
             "${XDG_DATA_HOME}/dotsystem/config.m4" \
             "${file}" 2>/dev/null > "${TEMPFILE}"
         file_noext="${file%.*}"
-        set_file "${TEMPFILE}" "/${file_noext#${DIR}/root/}"
+        set_file "${TEMPFILE}" "/${file_noext#"${DIR}"/root/}"
     elif [[ "${file##*.}" == "once" ]]; then
         file_noext="${file%.*}"
-        DEST="/${file_noext#${DIR}/root/}"
+        DEST="/${file_noext#"${DIR}"/root/}"
         DEST=${DEST/\~/$HOME}
         if [[ ! -f "$DEST" ]]; then
             set_file "${file}" "${DEST}"
         fi
     else
-        set_file "${file}" "/${file#${DIR}/root/}"
+        set_file "${file}" "/${file#"${DIR}"/root/}"
     fi
 done
+# done < <(find "${DIR}/root" -type f -print0)
 
 ## Configure OSX one-offs
 if [[ "$OSTYPE" == "darwin"* ]]; then
     sudo cp "${XDG_CONFIG_HOME}"/osx/in.thekev.caffeinate.plist /Library/LaunchAgents/in.thekev.caffeinate.plist
-    bash "${XDG_CONFIG_HOME}"/osx/config.sh
+    bash "${XDG_CONFIG_HOME}/osx/config"
 fi
 
 echo "done."
 
-if [[ "$@" == *"--skip-packages"* ]]; then
+if [[ "${SKIP}" == "y" ]]; then
     exit 0
 fi
 
@@ -177,18 +212,16 @@ eval "${PACMAN_REFRESH}" >/dev/null
 PACKAGE_CONFIG="${XDG_CONFIG_HOME}/dotsystem/packages"
 echo "Installing packages..."
 packages=()
-source <(
-    IFS=$'\n'
-    for package in $(git config -f "${PACKAGE_CONFIG}" --get-regexp 'pkg\..*'); do
-        IFS=' ' read -a fields <<< "$package"
-        pkg="${fields[0]#pkg.}"
-        binary="${fields[1]:-${pkg}}"
-        if ! which "${binary}" >/dev/null 2>&1; then
-            echo "packages+=(${pkg})"
-        fi
-    done
-)
-(( ${#packages[@]} )) && eval "${PACMAN_INSTALL}" "${packages[@]}"
+while IFS=$'\r' read -r package; do
+    IFS=' ' read -ra fields <<< "$package"
+    pkg="${fields[0]#pkg.}"
+    binary="${fields[1]:-${pkg}}"
+    if ! which "${binary}" >/dev/null 2>&1; then
+        packages+=("${pkg}")
+    fi
+done < <(git config -f "${PACKAGE_CONFIG}" --get-regexp 'pkg\..*')
+
+(( ${#packages[@]} )) && eval "${PACMAN_INSTALL}" "${packages[*]}"
 
 ## Configure OSX one-offs
 if [[ "$OSTYPE" == "darwin"* ]]; then
@@ -210,44 +243,38 @@ if git config -f "${PACKAGE_CONFIG}" --get-regexp 'cargo\..*' >/dev/null; then
     pathadd "${XDG_DATA_HOME}/cargo/bin"
 
     packages=()
-    source <(
-        IFS=$'\n'
-        for package in $(git config -f "${PACKAGE_CONFIG}" --get-regexp 'cargo\..*'); do
-            IFS=' ' read -a fields <<< "$package"
-            pkg="${fields[0]#cargo.}"
-            binary="${fields[1]:-${pkg}}"
-            if ! which "${binary}" >/dev/null 2>&1; then
-                echo "packages+=(${pkg})"
-            fi
-        done
-    )
+    while IFS=$'\r' read -r package; do
+        IFS=' ' read -ra fields <<< "$package"
+        pkg="${fields[0]#cargo.}"
+        binary="${fields[1]:-${pkg}}"
+        if ! which "${binary}" >/dev/null 2>&1; then
+            packages+=("${pkg}")
+        fi
+    done < <(git config -f "${PACKAGE_CONFIG}" --get-regexp 'cargo\..*')
     (( ${#packages[@]} )) && cargo install "${packages[@]}"
 fi
 
 ## Install git-based packages
-(
-    IFS=$'\n'
-    for package in $(git config -f "${PACKAGE_CONFIG}" --get-regexp 'git\..*'); do
-        IFS=' ' read -a fields <<< "$package"
-        repo="${fields[0]#git.}"
-        user="${fields[1]}"
-        if [[ ! -d "${XDG_SRC_HOME}/${repo}" ]]; then
-            git clone "https://github.com/${user}/${repo}.git" "${XDG_SRC_HOME}/${repo}"
+while IFS=$'\r' read -r package; do
+    IFS=' ' read -ra fields <<< "$package"
+    repo="${fields[0]#git.}"
+    user="${fields[1]}"
+    if [[ ! -d "${XDG_SRC_HOME}/${repo}" ]]; then
+        git clone "https://github.com/${user}/${repo}.git" "${XDG_SRC_HOME}/${repo}"
 
-            # TODO: support this via config
-            if [[ "${repo}" == "git-standup" ]]; then
-                make -C "${XDG_SRC_HOME}/${repo}" install PREFIX="${XDG_BIN_HOME%/bin}"
-            elif [[ "${repo}" == "prettyping" ]]; then
-                chmod a+x "${XDG_SRC_HOME}/${repo}/prettyping"
-                ln -s "${XDG_SRC_HOME}/${repo}/prettyping" "${XDG_BIN_HOME}/prettyping"
-            elif [[ "${repo}" == "vim-plug" ]]; then
-                mkdir -p "${XDG_DATA_HOME}/nvim/site/autoload"
-                cp "${XDG_SRC_HOME}/${repo}/plug.vim" "${XDG_DATA_HOME}/nvim/site/autoload"
-                nvim -c ':PlugInstall' -c 'qa!'
-            fi
+        # TODO: support this via config
+        if [[ "${repo}" == "git-standup" ]]; then
+            make -C "${XDG_SRC_HOME}/${repo}" install PREFIX="${XDG_BIN_HOME%/bin}"
+        elif [[ "${repo}" == "prettyping" ]]; then
+            chmod a+x "${XDG_SRC_HOME}/${repo}/prettyping"
+            ln -s "${XDG_SRC_HOME}/${repo}/prettyping" "${XDG_BIN_HOME}/prettyping"
+        elif [[ "${repo}" == "vim-plug" ]]; then
+            mkdir -p "${XDG_DATA_HOME}/nvim/site/autoload"
+            cp "${XDG_SRC_HOME}/${repo}/plug.vim" "${XDG_DATA_HOME}/nvim/site/autoload"
+            nvim -c ':PlugInstall' -c 'qa!'
         fi
-    done
-)
+    fi
+done < <(git config -f "${PACKAGE_CONFIG}" --get-regexp 'git\..*')
 
 ## Install pipx packages
 if git config -f "${PACKAGE_CONFIG}" --get-regexp 'pipx\..*' >/dev/null; then
@@ -260,17 +287,14 @@ if git config -f "${PACKAGE_CONFIG}" --get-regexp 'pipx\..*' >/dev/null; then
     pathadd "${XDG_BIN_HOME}"
 
     packages=()
-    source <(
-        IFS=$'\n'
-        for package in $(git config -f "${PACKAGE_CONFIG}" --get-regexp 'pipx\..*'); do
-            IFS=' ' read -a fields <<< "$package"
-            pkg="${fields[0]#pipx.}"
-            binary="${fields[1]:-${pkg}}"
-            if ! which "${binary}" >/dev/null 2>&1; then
-                echo "packages+=(${pkg})"
-            fi
-        done
-    )
+    while IFS=$'\r' read -r package; do
+        IFS=' ' read -ra fields <<< "$package"
+        pkg="${fields[0]#pipx.}"
+        binary="${fields[1]:-${pkg}}"
+        if ! which "${binary}" >/dev/null 2>&1; then
+            packages+=("${pkg}")
+        fi
+    done < <(git config -f "${PACKAGE_CONFIG}" --get-regexp 'pipx\..*')
     (( ${#packages[@]} )) && for package in "${packages[@]}"; do
         pipx install "${package}"
 
@@ -459,7 +483,7 @@ if git config -f "${PACKAGE_CONFIG}" --get manual.krew >/dev/null; then
             ARCH="$(uname -m | sed -e 's/x86_64/amd64/' -e 's/\(arm\)\(64\)\?.*/\1\2/' -e 's/aarch64$/arm64/')" &&
             KREW="krew-${OS}_${ARCH}" &&
             curl -fsSLO "https://github.com/kubernetes-sigs/krew/releases/latest/download/${KREW}.tar.gz" &&
-            tar zxvf ${KREW}.tar.gz &&
+            tar zxvf "${KREW}.tar.gz" &&
             ./"$KREW" install krew
         )
 
@@ -506,8 +530,8 @@ if [[ "${BOOTSTRAP}" == "y" ]]; then
     if [[ -f /etc/os-release ]] && grep -q fedora /etc/os-release; then
         sudo dnf install util-linux-user
     fi
-    chsh -s $(which zsh)
-    sudo chsh -s $(which zsh)
+    chsh -s "$(which zsh)"
+    sudo chsh -s "$(which zsh)"
 
     echo "Uploading new ssh key to Github..."
     gh auth login

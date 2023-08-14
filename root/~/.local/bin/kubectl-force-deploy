@@ -1,16 +1,5 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-NAME="${1:-}"
-
-while getopts 'n:' flag; do
-    case "${flag}" in
-        n) NAME="${OPTARG}"                  ;;
-        *) echo "Unexpected option ${flag}";
-            exit 1                            ;;
-    esac
-done
-
-[[ -z "${NAME}" ]] && { echo "NAME is unset"; exit 1; }
-
-kubectl patch deployment "${NAME}" -p '{"spec":{"template":{"metadata":{"annotations":{"date":"'$(date +'%s')'"}}}}}'
+NAME="${1?NAME is unset}"
+kubectl patch deployment "${NAME}" -p '{"spec":{"template":{"metadata":{"annotations":{"date":"'"$(date +'%s')"'"}}}}}'

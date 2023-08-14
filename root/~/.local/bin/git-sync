@@ -21,6 +21,8 @@ git pull
 echo "Searching for squash-merged branches..."
 for branch in $(git for-each-ref refs/heads/ '--format=%(refname:short)'); do
     MERGE_BASE=$(git merge-base "${DEFAULT_BRANCH}" "${branch}")
+    # TODO: check out if shellcheck can make this better
+    # shellcheck disable=SC1083,SC2046,SC2086
     if [[ $(git cherry "${DEFAULT_BRANCH}" $(git commit-tree $(git rev-parse $branch^{tree}) -p "${MERGE_BASE}" -m _)) == '-'* ]]; then
         if [[ "${PRUNE}" == "yes" ]]; then
             git branch -D "${branch}"

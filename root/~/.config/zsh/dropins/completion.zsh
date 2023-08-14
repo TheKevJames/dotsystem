@@ -1,9 +1,10 @@
+# shellcheck shell=bash
 # yoinked from https://github.com/robbyrussell/oh-my-zsh/blob/52fdae4b3d17f7ab602124ec8792865b5fc03236/lib/completion.zsh
 # (with some modifications)
 zmodload -i zsh/complist
 
 # define what counts as word characters (think ctrl-w)
-WORDCHARS=''
+export WORDCHARS=''
 
 unsetopt menu_complete   # do not autoselect the first completion entry
 unsetopt flowcontrol
@@ -55,9 +56,9 @@ zstyle '*' single-ignored show
 
 expand-or-complete-with-dots() {
     # toggle line-wrapping off and back on again
-    [[ -n "$terminfo[rmam]" && -n "$terminfo[smam]" ]] && echoti rmam
+    [[ -n "${terminfo[rmam]}" && -n "${terminfo[smam]}" ]] && echoti rmam
     print -Pn "%{%F{red}......%f%}"
-    [[ -n "$terminfo[rmam]" && -n "$terminfo[smam]" ]] && echoti smam
+    [[ -n "${terminfo[rmam]}" && -n "${terminfo[smam]}" ]] && echoti smam
 
     zle expand-or-complete
     zle redisplay

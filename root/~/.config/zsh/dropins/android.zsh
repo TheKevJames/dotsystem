@@ -1,3 +1,4 @@
+# shellcheck shell=bash
 # port install android
 export ANDROID_HOME=/opt/local/share/java/android-sdk-macosx
 export PATH="${ANDROID_HOME}/platform-tools:${PATH}"

@@ -1,3 +1,4 @@
+# shellcheck shell=bash
 if [[ "$OSTYPE" == "darwin"* ]]; then
     # convenience commands
     osx_clean() {

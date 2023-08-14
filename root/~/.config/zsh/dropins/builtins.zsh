@@ -1,7 +1,9 @@
+# shellcheck shell=bash
 # https://github.com/sharkdp/bat
 # alias cat='bat'
 alias less='bat'
-export PAGER="$(type -p less | awk '{print $NF}')"  # ie. PAGER=/path/to/less
+PAGER="$(type -p less | awk '{print $NF}')"  # ie. PAGER=/path/to/less
+export PAGER
 export MANPAGER="sh -c 'col -b | bat -l man -p'"
 export LESS='-R'
 

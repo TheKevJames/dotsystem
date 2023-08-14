@@ -200,7 +200,7 @@ function git_get_status() {
                 symbol="${GIT_PROMPT_SYMBOLS[$k]}"
                 if [[ ${git_strings[$k]} != "" ]] then
                     buffer+="$symbol${git_strings[$k]}"
-                elif [[ ${git_numbers[$k]} != "" ]] then
+                    elif [[ ${git_numbers[$k]} != "" ]] then
                     if [[ ${git_numbers[$k]} != 0 ]] then
                         buffer+="$symbol${git_numbers[$k]}"
                     fi

@@ -2,11 +2,11 @@
 set -euo pipefail
 
 for folder in $(fd -td -d1 .); do
-  # TODO: no "grep kjames" for personal repos
-  branches=$(git --git-dir "./${folder}/.git" branch -a | grep -E '(kj|kjames)/' ||:)
-  if [ ! -z "${branches:-}" ]; then
-    echo "${folder}"
-    echo "${branches}"
-    echo
-  fi
+    # TODO: no "grep kjames" for personal repos
+    branches=$(git --git-dir "./${folder}/.git" branch -a | grep -E '(kj|kjames)/' ||:)
+    if [ -n "${branches:-}" ]; then
+        echo "${folder}"
+        echo "${branches}"
+        echo
+    fi
 done

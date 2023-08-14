@@ -1,3 +1,4 @@
+# shellcheck shell=bash
 # Yoinked starting point from:
 # https://github.com/robbyrussell/oh-my-zsh/blob/52fdae4b3d17f7ab602124ec8792865b5fc03236/lib/key-bindings.zsh
 
@@ -22,8 +23,8 @@ bindkey '\ew' kill-region
 
 # [Ctrl-r] - search backward incrementally for a specified string. Augmented with fzf.
 fzf-history-widget-accept() {
-  fzf-history-widget
-  zle accept-line
+    fzf-history-widget
+    zle accept-line
 }
 zle     -N   fzf-history-widget-accept
 bindkey '^r' fzf-history-widget-accept
@@ -35,6 +36,7 @@ bindkey '^t' history-beginning-search-backward
 bindkey -s '^y' ''
 
 # start typing + [Up-Arrow] - fuzzy find history forward
+# shellcheck disable=SC2154
 if [[ "${terminfo[kcuu1]}" != "" ]]; then
     autoload -U up-line-or-beginning-search
     zle -N up-line-or-beginning-search
@@ -89,7 +91,8 @@ setopt multios
 self-insert-redir() {
     integer l=$#LBUFFER
     zle self-insert
-    (( $l >= $#LBUFFER )) && LBUFFER[-1]=" $LBUFFER[-1]"
+    # shellcheck disable=SC2004,SC2154
+    (( $l >= $#LBUFFER )) && LBUFFER[-1]=" ${LBUFFER[-1]}"
 }
 zle -N self-insert-redir
 for op in \| \< \> \& ; do

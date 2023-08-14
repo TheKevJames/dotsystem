@@ -1,3 +1,4 @@
+# shellcheck shell=bash
 export ALACRITTY_LOG="${XDG_DATA_HOME}/alacritty/history"
 export AWS_CONFIG_FILE="${XDG_CONFIG_HOME}/aws/config"
 export AWS_SHARED_CREDENTIALS_FILE="${XDG_CONFIG_HOME}/aws/credentials"
@@ -29,17 +30,17 @@ export THEANORC="${XDG_CONFIG_HOME}/theano/.theanorc"
 export THEANO_FLAGS="base_compiledir=${XDG_DATA_HOME}/theano"
 export WINEPREFIX="${XDG_DATA_HOME}/wine/prefixes/default"
 
-alias arc="arc --arcrc-file ${XDG_DATA_HOME}/arc/rc"
-alias cpan="cpan -j ${XDG_CONFIG_HOME}/cpan/Config.pm"
-alias lmms="lmms --config=${XDG_CONFIG_HOME}/lmms/config"
-alias wget="wget --hsts-file ${XDG_DATA_HOME}/wget/hsts"
+alias arc='arc --arcrc-file ${XDG_DATA_HOME}/arc/rc'
+alias cpan='cpan -j ${XDG_CONFIG_HOME}/cpan/Config.pm'
+alias lmms='lmms --config=${XDG_CONFIG_HOME}/lmms/config'
+alias wget='wget --hsts-file ${XDG_DATA_HOME}/wget/hsts'
 
 # https://github.com/mbrt/gmailctl
 function gmailctl() {
     echo "Use gcmailctlp or gmailctlw for personal/work accounts."
     return 1
 }
-alias gmailctlp="command gmailctl --config=${XDG_CONFIG_HOME}/gmailctl-personal"
-alias gmailctlw="command gmailctl --config=${XDG_CONFIG_HOME}/gmailctl-work"
+alias gmailctlp='command gmailctl --config=${XDG_CONFIG_HOME}/gmailctl-personal'
+alias gmailctlw='command gmailctl --config=${XDG_CONFIG_HOME}/gmailctl-work'
 
 export PATH="${KREW_ROOT}/bin:${PYENV_ROOT}/shims:${CARGO_HOME}/bin:${GOPATH}/bin:${PATH}"

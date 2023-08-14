@@ -1,1 +1,3 @@
-export GPG_TTY=$(tty)
+# shellcheck shell=bash
+GPG_TTY=$(tty)
+export GPG_TTY

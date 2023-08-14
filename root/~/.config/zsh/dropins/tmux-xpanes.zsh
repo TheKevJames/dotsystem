@@ -1,3 +1,4 @@
+# shellcheck shell=bash
 # Open 16 panes:
 # $ xpanes {1..16}
 #

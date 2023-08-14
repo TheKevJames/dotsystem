@@ -1,2 +1,4 @@
 #!/usr/bin/env bash
-docker run --rm -v ${PWD}:/mnt/out $1 /bin/cp $2 /mnt/out/decoder.py
+set -euo pipefail
+
+docker run --rm -v "${PWD}:/mnt/out" "${1}" /bin/cp "${2}" /mnt/out/decoder.py
