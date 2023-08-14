@@ -40,11 +40,11 @@ function update_tmux_k8s() {
 
 function gcloud() {
     if [[ "$@" =~ " ssh " ]]; then
-        echo update_tmux_ssh "${@:$#}"
-        echo running gcloud "$@"
-        echo update_tmux_ssh ""
+        update_tmux_ssh "${@:$#}"
+        command gcloud "$@"
+        update_tmux_ssh ""
     else
-        echo gcloud "$@"
+        command gcloud "$@"
     fi
     update_tmux_gcp
 }
