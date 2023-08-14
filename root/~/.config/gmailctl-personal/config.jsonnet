@@ -3,6 +3,11 @@
 local lib = import 'gmailctl.libsonnet';
 local me = "kevin.j.carruthers@gmail.com";
 
+local delete(read=true) = {
+  delete: true,
+  markImportant: false,
+  markRead: read,
+};
 local label(label, archive=true, read=false) = {
   archive: archive,
   labels: [ label ],
@@ -26,6 +31,17 @@ local rules = [
         { from: "support@namecheap.com" },
         { from: "uber.us@uber.com" },
         { and: [
+          { from: "banco@millenniumbcp.pt" },
+          { subject: "Documentos em formato digital" },
+        ]},
+        { and: [
+          { from: "no-reply@glovoapp.com" },
+          { or: [
+            { subject: "Details of your glovo" },
+            { subject: "Glovo Confirmation" },
+          ]},
+        ]},
+        { and: [
           { from: "noreply@steampowered.com" },
           { subject: "Thank you for your Steam purchase!" },
         ]},
@@ -36,6 +52,10 @@ local rules = [
         { and: [
           { from: "service@paypal.com" },
           { subject: "Receipt for Your Payment" },
+        ]},
+        { and: [
+          { from: "social@brimfinancial.com" },
+          { subject: "Your foreign purchase was successful" },
         ]},
       ],
     },
@@ -79,6 +99,21 @@ local rules = [
       ],
     },
     actions: label("Security", archive=false),
+  },
+  {
+    filter: {
+      or: [
+        { and: [
+          { from: "ibanking@ib.rbc.com" },
+          { subject: "Your RBC Royal Bank eStatement is ready" },
+        ]},
+        { and: [
+          { from: "info@mail.coinbase.com" },
+          { subject: "Your July Coinbase statement is ready to download" },
+        ]},
+      ],
+    },
+    actions: delete(),
   },
 ];
 
