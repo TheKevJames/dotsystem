@@ -7,7 +7,7 @@ default_language_version:
 
 repos:
 -   repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.4.0
+    rev: v4.5.0
     hooks:
     -   id: check-case-conflict
     -   id: check-executables-have-shebangs
@@ -37,7 +37,7 @@ repos:
     -   id: name-tests-test
     -   id: requirements-txt-fixer
 -   repo: https://github.com/PyCQA/pylint
-    rev: v3.0.0a7
+    rev: v3.0.1
     hooks:
     # TODO: pylint-import-modules support for pylint v3 (or alternative linter)
     -   id: pylint
@@ -65,7 +65,7 @@ repos:
     -   id: remove-crlf
     # -   id: remove-tabs  # TODO: reenable
 -   repo: https://github.com/asottile/reorder-python-imports
-    rev: v3.11.0
+    rev: v3.12.0
     hooks:
     -   id: reorder-python-imports
         args: [--py37-plus]
@@ -74,7 +74,7 @@ repos:
         args: [--py311-plus]
         exclude: 'root/etc/pythonstart'
 -   repo: https://github.com/asottile/pyupgrade
-    rev: v3.13.0
+    rev: v3.15.0
     hooks:
     -   id: pyupgrade
         args: [--py37-plus]
@@ -156,7 +156,7 @@ repos:
 
 # json
 - repo: https://github.com/python-jsonschema/check-jsonschema
-  rev: 0.26.3
+  rev: 0.27.0
   hooks:
     - id: check-github-workflows
     - id: check-renovate
@@ -176,7 +176,7 @@ repos:
 #     -   id: bashate
 #         args: [--max-line-length=80]
 -   repo: https://github.com/shellcheck-py/shellcheck-py
-    rev: v0.9.0.5
+    rev: v0.9.0.6
     hooks:
     -   id: shellcheck
         exclude: '^(root/~/.config/tmuxifier/layouts/.*)|(root/~/.config/zsh/dropins/prompt.zsh)|(root/~/.config/zsh/plugins/.*)$'
