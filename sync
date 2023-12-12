@@ -49,6 +49,7 @@ echo "  Bootstrap: ${BOOTSTRAP}"
 echo "  Force: ${FORCE}"
 echo "  Skip Packages: ${SKIP}"
 
+# shellcheck disable=SC1091
 source "${DIR}/root/~/.zshenv"
 
 if which zypper >/dev/null; then
@@ -221,7 +222,8 @@ while IFS=$'\r' read -r package; do
     fi
 done < <(git config -f "${PACKAGE_CONFIG}" --get-regexp 'pkg\..*')
 
-(( ${#packages[@]} )) && eval "${PACMAN_INSTALL}" "${packages[*]}"
+# shellcheck disable=SC2294
+(( ${#packages[@]} )) && eval "${PACMAN_INSTALL}" "${packages[@]}"
 
 ## Configure OSX one-offs
 if [[ "$OSTYPE" == "darwin"* ]]; then

@@ -2,4 +2,3 @@
 project = talkiq-echelon
 account = kjames@dialpad.com
 disable_usage_reporting = True
-
