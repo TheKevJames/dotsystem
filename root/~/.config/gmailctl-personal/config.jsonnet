@@ -24,6 +24,7 @@ local rules = [
         { from: "CustomerServiceOnline@billpay.pge.com" },
         { from: "billing@mailgun.net" },
         { from: "ebill@conservicemail.com" },
+        { from: "faturacao.eletronica@galp.com" },
         { from: "googlepay-noreply@google.com" },
         { from: "payments-noreply@google.com" },
         { from: "receipts-portugal@bolt.eu" },
@@ -31,8 +32,26 @@ local rules = [
         { from: "support@namecheap.com" },
         { from: "uber.us@uber.com" },
         { and: [
+          { from: "ActivoBank.Informa@activobank.pt" },
+          { or: [
+            { subject: "Documentos em formato digital" },
+            { subject: "Extrato Combinado" },
+          ]},
+        ]},
+        { and: [
           { from: "banco@millenniumbcp.pt" },
-          { subject: "Documentos em formato digital" },
+          { or: [
+            { subject: "Documentos em formato digital" },
+            { subject: "Extrato Combinado" },
+          ]},
+        ]},
+        { and: [
+          { from: "endesa.pt@cgi.com" },
+          { subject: "Documento de Pagamento Eletrónico" },
+        ]},
+        { and: [
+          { from: "help@accts.epicgames.com" },
+          { subject: "Your Epic Games Receipt" },
         ]},
         { and: [
           { from: "no-reply@glovoapp.com" },
@@ -55,7 +74,10 @@ local rules = [
         ]},
         { and: [
           { from: "social@brimfinancial.com" },
-          { subject: "Your foreign purchase was successful" },
+          { or: [
+            { subject: "Your foreign purchase was successful" },
+            { subject: "Your Payment Was Received" },
+          ]},
         ]},
       ],
     },
@@ -109,7 +131,23 @@ local rules = [
         ]},
         { and: [
           { from: "info@mail.coinbase.com" },
-          { subject: "Your July Coinbase statement is ready to download" },
+          { subject: "Coinbase statement is ready to download" },
+        ]},
+        { and: [
+          { from: "no-reply@alertsp.chase.com" },
+          { subject: "Your statement is ready for account" },
+        ]},
+        { and: [
+          { from: "no-reply@em.wealthfront.com" },
+          { subject: "Your monthly Cash Account statement from Green Dot Bank is available" },
+        ]},
+        { and: [
+          { from: "notifications@m.wealthsimple.com" },
+          { subject: "statement is available" },
+        ]},
+        { and: [
+          { from: "PayPal@emails.paypal.com" },
+          { subject: "account statement is available." },
         ]},
       ],
     },
