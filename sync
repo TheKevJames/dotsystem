@@ -277,6 +277,7 @@ while IFS=$'\r' read -r package; do
 done < <(git config -f "${PACKAGE_CONFIG}" --get-regexp 'git\..*')
 
 ## Install pipx packages
+# TODO: needs to happen *after* python install...
 if git config -f "${PACKAGE_CONFIG}" --get-regexp 'pipx\..*' >/dev/null; then
     if ! which pipx >/dev/null; then
         python3 -m pip install --user pipx
@@ -312,6 +313,7 @@ fi
 
 ## Install packages with special manual requirements
 # TODO: support per-OS package names in config
+# TODO: upgrade to latest
 if git config -f "${PACKAGE_CONFIG}" --get manual.python3 >/dev/null; then
     if ! which python3 >/dev/null; then
         if [[ "$OSTYPE" == "darwin"* ]]; then
@@ -336,7 +338,7 @@ fi
 if git config -f "${PACKAGE_CONFIG}" --get manual.docker >/dev/null; then
     if ! which docker >/dev/null; then
         if [[ "$OSTYPE" == "darwin"* ]]; then
-            brew cask install docker
+            eval "${PACMAN_INSTALL}" colima docker docker-compose-plugin
         elif [[ -f /etc/os-release ]] && grep -q Ubuntu /etc/os-release; then
             # https://docs.docker.com/install/linux/docker-ce/ubuntu/
             sudo apt-get update -qy
@@ -568,8 +570,10 @@ fi
 echo "done."
 
 # TODO: install nim. port install nim on osx
-# TODO: install podman. port install podman on osx
 # TODO: install skhd and yabai on osx
 # TODO: install git-absorb. port install git-absorb on osx
+# TODO: install pandoc. port install pandoc on osx
+# TODO: consider installing tmate. port install tmate on osx
+# TODO: consider installing pv. port install pv on osx
 # TODO: secrets:
 # ngrok config add-authtoken <foo>
