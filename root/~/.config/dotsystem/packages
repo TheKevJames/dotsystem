@@ -19,6 +19,7 @@
   tar
   unzip
   wget
+  ; TODO: OSX needs pinentry, others too?
 
   ; git
   gh

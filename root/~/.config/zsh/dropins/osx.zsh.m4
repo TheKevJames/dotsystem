@@ -42,11 +42,8 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 fi
 
 # TODO: grant sudoers permissions:
-# echo "$(whoami) ALL=(ALL) NOPASSWD: $(which yabai)" | sudo tee /etc/sudoers.d/yabai
-# echo "$(whoami) ALL=(ALL) NOPASSWD: $(which skhd)" | sudo tee /etc/sudoers.d/skhd
+# echo "$(whoami) ALL=(root) NOPASSWD: sha256:$(shasum -a 256 $(which yabai)) $(which yabai) --load-sa" | sudo tee /etc/sudoers.d/yabai
 
 # restart yabai / skhd services:
-# sudo launchctl bootout gui/$(id -u $(whoami)) /Library/LaunchAgents/org.macports.yabai.plist
-# sudo launchctl bootstrap gui/$(id -u $(whoami)) /Library/LaunchAgents/org.macports.yabai.plist
-# sudo launchctl bootout gui/$(id -u $(whoami)) /Library/LaunchAgents/org.macports.skhd.plist
-# sudo launchctl bootstrap gui/$(id -u $(whoami)) /Library/LaunchAgents/org.macports.skhd.plist
+# yabai --start-service
+# skhd --start-service
