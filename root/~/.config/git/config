@@ -4,6 +4,8 @@
     branch-v = for-each-ref --sort=-committerdate refs/heads/ --format='%(authordate:short) %(color:red)%(objectname:short) %(color:yellow)%(refname:short)%(color:reset) (%(color:green)%(committerdate:relative)%(color:reset))'
     branches = branch -a
     commits = !echo "chore, docs, feat, fix, perf, refactor, style, test"
+    diff-cat = -c core.pager=cat diff
+    diff-bat = -c core.pager=bat diff
     diff-sbs = -c delta.side-by-side=true diff
     lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --decorate-refs-exclude='tags/*'
     lgabs = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cD) %C(bold blue)<%an>%Creset' --abbrev-commit --decorate-refs-exclude='tags/*'
@@ -16,6 +18,8 @@
     recent-branches = !git reflog | grep 'checkout:' | head | awk '{print $8}' | awk '!x[$0]++'
     remotes = remote -v
     sha = !git rev-parse HEAD | grep --color $(git rev-parse --short=0 HEAD)
+    show-cat = -c core.pager=cat show
+    show-bat = -c core.pager=bat show
     show-sbs = -c delta.side-by-side=true show
     stale = !git branch -r | grep -v HEAD | grep -v 'origin/master$' | xargs -I{} git log --no-merges -n 1 --format=\"%ci | %cr | %an | {}\" {} | sort -n
     tags = tag -l --sort=version:refname
@@ -44,7 +48,6 @@
     ignorecase = false
     # TODO: fix delta block comments!
     pager = delta
-    # pager = bat
 
 [credential]
     helper = cache --timeout=3600 --socket=~/.local/share/git/creds.sock
