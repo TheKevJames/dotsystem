@@ -39,6 +39,10 @@ local rules = [
           ]},
         ]},
         { and: [
+          { from: "apoiocliente@vodafone.pt" },
+          { subject: "Faturação Vodafone" },
+        ]},
+        { and: [
           { from: "banco@millenniumbcp.pt" },
           { or: [
             { subject: "Documentos em formato digital" },
@@ -46,8 +50,19 @@ local rules = [
           ]},
         ]},
         { and: [
+          { from: "customercare@remitbee.com" },
+          { or: [
+            { subject: "Remitbee - Transaction Completed Successfully" },
+            { subject: "Remitbee - funds were deposited into your Wallet" },
+          ]},
+        ]},
+        { and: [
           { from: "endesa.pt@cgi.com" },
           { subject: "Documento de Pagamento Eletrónico" },
+        ]},
+        { and: [
+          { from: "alert@eqbank.ca" },
+          { subject: "EQ Bank: EFT withdrawal" },
         ]},
         { and: [
           { from: "help@accts.epicgames.com" },
@@ -65,6 +80,10 @@ local rules = [
           { subject: "Thank you for your Steam purchase!" },
         ]},
         { and: [
+          { from: "notify@payments.interac.ca" },
+          { subject: "INTERAC e-Transfer: Your money transfer to REMITBEE INCORPORATED was deposited." },
+        ]},
+        { and: [
           { from: "online.communications@alerts.comcast.net" },
           { subject: "Your bill is ready" },
         ]},
@@ -77,6 +96,17 @@ local rules = [
           { or: [
             { subject: "Your foreign purchase was successful" },
             { subject: "Your Payment Was Received" },
+          ]},
+        ]},
+        { and: [
+          { from: "support@wealthsimple.com" },
+          { subject: "You made a deposit" },
+        ]},
+        { and: [
+          { from: "transaction@remitbee.com" },
+          { or: [
+            { subject: "Action Required: Transaction pending due to documents" },
+            { subject: "Remitbee Transaction Receipt" },
           ]},
         ]},
       ],
@@ -95,7 +125,10 @@ local rules = [
   {
     filter: {
       and: [
-        { from: "support@wealthfront.com" },
+        { or: [
+          { from: "no-reply@em.wealthfront.com" },
+          { from: "support@wealthfront.com" },
+        ]},
         { subject: "Investment prospectus" },
       ],
     },

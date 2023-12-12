@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
+# TODO: yanked releases, test case pytest-asyncio 0.22.0
 curl -s "https://pypi.org/pypi/${1?usage: pypi-versions foobar}/json" \
     | jq -r '.releases | keys | reverse | .[]'
