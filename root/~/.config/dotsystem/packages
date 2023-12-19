@@ -71,7 +71,6 @@
   poetry
   pre-commit
   python-lsp-server = pylsp
-  twine
   shellcheck-py = shellcheck
   yq
 
