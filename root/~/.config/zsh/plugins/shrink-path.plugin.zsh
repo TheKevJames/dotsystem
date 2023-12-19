@@ -1,6 +1,6 @@
 # This file is vendored, run ./vendor to update it.
-# Last Update: 2023-08-14
-# Commit Hash: fd219a94ab585fa699a0e842335a9f33dcbb613b
+# Last Update: 2023-12-19
+# Commit Hash: 48ccc7b36de8efb2bd7beb9bd6e0a6f6fe03b95d
 #
 # Shrink directory paths, e.g. /home/me/foo/bar/quux -> ~/f/b/quux.
 #
