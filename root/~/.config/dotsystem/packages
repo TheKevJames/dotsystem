@@ -28,7 +28,6 @@
 
   ; lang
   clang
-  shellcheck
 
   ; apps
   htop
@@ -73,6 +72,7 @@
   pre-commit
   python-lsp-server = pylsp
   twine
+  shellcheck-py = shellcheck
   yq
 
 ; anything with a manual install process defined in ./sync
