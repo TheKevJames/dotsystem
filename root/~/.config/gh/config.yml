@@ -2,7 +2,4 @@ git_protocol: ssh
 editor:
 prompt: enabled
 pager:
-
-aliases:
-    auth-personal: '!cp ~/.config/gh/hosts.personal.yml ~/.config/gh/hosts.yml && gh auth status'
-    auth-dialpad: '!cp ~/.config/gh/hosts.dialpad.yml ~/.config/gh/hosts.yml && gh auth status'
+version: "1"
