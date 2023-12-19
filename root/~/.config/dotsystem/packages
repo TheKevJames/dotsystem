@@ -2,8 +2,8 @@
 ; if the binary doesn't match the package name, use:
 ;   $pkg = $binary
 [pkg]
-  ; buildtools
   autoconf
+  cmake
   m4
   make
 

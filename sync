@@ -281,6 +281,7 @@ done < <(git config -f "${PACKAGE_CONFIG}" --get-regexp 'git\..*')
 ## Install pipx packages
 # TODO: needs to happen *after* python install...
 if git config -f "${PACKAGE_CONFIG}" --get-regexp 'pipx\..*' >/dev/null; then
+    # TODO: install pipx from apt/port/etc
     if ! which pipx >/dev/null; then
         python3 -m pip install --user pipx
         if [[ "$OSTYPE" == "darwin"* ]]; then
