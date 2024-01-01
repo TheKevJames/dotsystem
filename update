@@ -8,8 +8,6 @@ if which zypper >/dev/null; then
 elif which port >/dev/null; then
     sudo port selfupdate
     sudo port upgrade outdated
-    # TODO
-    # sudo port_cutleaves
 elif which apt-get >/dev/null; then
     sudo apt-get update
     sudo apt-get upgrade
@@ -19,6 +17,7 @@ else
     echo "ERROR: could not determine package manager."
     exit 1
 fi
+# TODO: add eg. `port cut_leaves` and other pruning? or new prune script?
 
 echo "Upgrading cargo packages..."
 cargo-upgrade

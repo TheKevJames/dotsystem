@@ -1,3 +1,5 @@
+# TODO: global exclude any vendored files?
+
 ci:
     autofix_commit_msg: 'refactor(lint): apply automatic lint fixes'
     autoupdate_commit_msg: 'chore(deps): bump pre-commit linter versions'
@@ -63,7 +65,8 @@ repos:
     rev: v1.5.4
     hooks:
     -   id: remove-crlf
-    # -   id: remove-tabs  # TODO: reenable
+    -   id: remove-tabs
+        exclude: "(%gconf.xml)|(vlcrc)|(root/~/.config/zsh/plugins/async-git-prompt.plugin.zsh)"
 -   repo: https://github.com/asottile/reorder-python-imports
     rev: v3.12.0
     hooks:
