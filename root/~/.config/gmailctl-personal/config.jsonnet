@@ -39,6 +39,10 @@ local rules = [
           ]},
         ]},
         { and: [
+          { from: "alert@eqbank.ca" },
+          { subject: "EQ Bank: EFT withdrawal" },
+        ]},
+        { and: [
           { from: "apoiocliente@vodafone.pt" },
           { subject: "Faturação Vodafone" },
         ]},
@@ -61,8 +65,12 @@ local rules = [
           { subject: "Documento de Pagamento Eletrónico" },
         ]},
         { and: [
-          { from: "alert@eqbank.ca" },
-          { subject: "EQ Bank: EFT withdrawal" },
+          { from: "facturaelectronica@pingodoce.pt" },
+          { subject: "Fatura Eletrónica Pingo Doce" },
+        ]},
+        { and: [
+          { from: "hello@1password.com" },
+          { subject: "Your 1Password invoice" },
         ]},
         { and: [
           { from: "help@accts.epicgames.com" },
@@ -72,6 +80,7 @@ local rules = [
           { from: "no-reply@glovoapp.com" },
           { or: [
             { subject: "Details of your glovo" },
+            { subject: "Details of your order" },
             { subject: "Glovo Confirmation" },
           ]},
         ]},
