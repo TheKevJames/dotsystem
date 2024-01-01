@@ -14,7 +14,6 @@
     lgtmine = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --branches="maste[r]" --branches="kj" --branches="kjames"
     org-members = "!f() { gh api orgs/$1/members --paginate | jq -r '.[].login'; }; f"
     pr-pbcopy = !hub pr show -f'%U' | pbcopy
-    pre-commit-init = !cp ~/.config/git/pre-commit-config.yaml $(git rev-parse --show-toplevel)/.pre-commit-config.yaml
     recent-branches = !git reflog | grep 'checkout:' | head | awk '{print $8}' | awk '!x[$0]++'
     remotes = remote -v
     sha = !git rev-parse HEAD | grep --color $(git rev-parse --short=0 HEAD)
