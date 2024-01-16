@@ -9,7 +9,6 @@
 
   ; utils
   curl
-  dyff
   entr
   gmailctl
   gnupg2 = gpg  ; TODO: is this OS-specific?
@@ -24,7 +23,9 @@
 
   ; git
   gh
-  git
+  git  ; TODO: overwrite this and other vendored installations on OSX
+  ; git version 2.39.2 (Apple Git-145)  ; Ew!
+  ; git version 2.43.0                  ; Woo! /opt/local/share/git/contrib/git-jump/git-jump
 
   ; lang
   clang

@@ -58,10 +58,6 @@
     renames = copies
     tool = nvimdiff
 
-[diff "dyff"]
-    # TODO: make this opt-in, not opt-out
-    command = "f() { dyff --color on between --omit-header \"$2\" \"$5\"; }; f"
-
 [diff "pdf"]
     textconv = pdf2txt
 
