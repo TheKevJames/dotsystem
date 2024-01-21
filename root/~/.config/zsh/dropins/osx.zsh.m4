@@ -41,9 +41,6 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     ulimit -u 512
 fi
 
-# TODO: grant sudoers permissions:
-# echo "$(whoami) ALL=(root) NOPASSWD: sha256:$(shasum -a 256 $(which yabai)) $(which yabai) --load-sa" | sudo tee /etc/sudoers.d/yabai
-
 # restart yabai / skhd services:
 # yabai --start-service
 # skhd --start-service
