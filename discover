@@ -10,6 +10,7 @@ for folder in ".config/gcloud/configurations" ".config/nvim" ".config/tmuxifier/
     # TODO: filter out expected:
     #   .local/bin/git-standup (and other src builds -> local bins)
     #   .config/zsh/dropins/osx.zsh (and other m4 -> dorpped extension)
+    # TODO: print full path when in subfolder
     comm -23 \
         <(find ~/"${folder}" -mindepth 1 -type f | awk -F/ '{print $NF}' | sort -n) \
         <(find "./root/~/${folder}" -mindepth 1 -type f | awk -F/ '{print $NF}' | sort -n)

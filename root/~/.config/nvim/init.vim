@@ -5,6 +5,7 @@ set laststatus=0           " hide statusline
 set foldmethod=expr        " use nvim-treesitter for folding expressions
 set foldexpr=nvim_treesitter#foldexpr()
 set nofoldenable           " no default folds on startup
+set mouse=                 " disable mouse usage
 set number                 " show line numbers
 set relativenumber         " line numbers should be relative
 set shiftwidth=4           " tabs are 4 spaces
