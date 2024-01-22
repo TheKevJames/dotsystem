@@ -2,6 +2,14 @@
 # Yoinked starting point from:
 # https://github.com/robbyrussell/oh-my-zsh/blob/52fdae4b3d17f7ab602124ec8792865b5fc03236/lib/key-bindings.zsh
 
+# Load fzf key bindings. Note that some will be overridden below!
+# This sets the following:
+# [Ctrl-t] - Paste the selected file path(s) into the command line
+# [Alt-c] - cd into the selected directory
+# [Ctrl-r] - Paste the selected command from history into the command line
+# shellcheck disable=SC1091
+source "${XDG_DATA_HOME}/nvim/plugged/fzf/shell/key-bindings.zsh"
+
 # Make sure that the terminal is in application mode when zle is active, since
 # only then values from $terminfo are valid
 if (( ${+terminfo[smkx]} )) && (( ${+terminfo[rmkx]} )); then
@@ -28,7 +36,6 @@ fzf-history-widget-accept() {
 }
 zle     -N   fzf-history-widget-accept
 bindkey '^r' fzf-history-widget-accept
-# bindkey '^r' history-incremental-search-backward
 
 # [Ctrl-t] - search backward from current partial command
 bindkey '^t' history-beginning-search-backward

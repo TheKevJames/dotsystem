@@ -35,6 +35,7 @@ repos:
         args: [--allow-multiple-documents]
       - id: detect-private-key
       - id: end-of-file-fixer
+        exclude: '^root/~/.config/gcloud/configurations/.*$'
       - id: mixed-line-ending
         args: [--fix=lf]
       - id: trailing-whitespace
