@@ -69,7 +69,7 @@ The following are some extra fixes that I worked out before coming across
 - irb. Partial support by setting ``$IRBRC``.
 - jira. But `at least jira has a TODO`_.
 - julia. Support by setting ``$JULIA_PKGDIR`` and ``$JULIA_HISTORY``.
-- kubectl. Suport by setting ``$KUBECONFIG`` and ``$KUBECACHEDIR``
+- kubectl. Support by setting ``$KUBECONFIG`` and ``$KUBECACHEDIR``
 - theano. Support by setting ``$THEANORC`` and including ``base_compiledir`` in ``$THEANO_FLAGS``.
 - zsh. Partial support by setting ``$ZDOTDIR`` and ``$HISTFILE``. Your
   ``~/.zshenv`` file is effectively hardcoded.
