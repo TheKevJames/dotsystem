@@ -127,9 +127,17 @@ local rules = [
       or: [
         { from: "noreply@robinhood.com" },
         { from: "notifications@robinhood.com" },
+        { and: [
+          { from: "support@wealthsimple.com" },
+          { or: [
+            { subject: "You earned a dividend" },
+            { subject: "You're staking more" },
+            { subject: "Your order has been filled" },
+          ]},
+        ]},
       ],
     },
-    actions: label("Cash/Stock"),
+    actions: label("Cash/Invest"),
   },
   {
     filter: {
@@ -181,7 +189,14 @@ local rules = [
         ]},
         { and: [
           { from: "no-reply@em.wealthfront.com" },
-          { subject: "Your monthly Cash Account statement from Green Dot Bank is available" },
+          { or: [
+            { subject: "Your monthly Cash Account statement from Green Dot Bank is available" },
+            { subject: "Your Monthly Wealthfront Brokerage Statement" },
+          ]},
+        ]},
+        { and: [
+          { from: "no-reply@revolut.com" },
+          { subject: "View your documents" },
         ]},
         { and: [
           { from: "notifications@m.wealthsimple.com" },
@@ -190,6 +205,14 @@ local rules = [
         { and: [
           { from: "PayPal@emails.paypal.com" },
           { subject: "account statement is available." },
+        ]},
+        { and: [
+          { from: "social@brimfinancial.com" },
+          { subject: "Your statement is ready" },
+        ]},
+        { and: [
+          { from: "venmo@venmo.com" },
+          { subject: "Venmo Quarterly Statement" },
         ]},
       ],
     },
