@@ -8,6 +8,7 @@
   make
 
   ; utils
+  bandwhich
   curl
   entr
   gmailctl
