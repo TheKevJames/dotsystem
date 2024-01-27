@@ -1,14 +1,21 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+usage() {
+    echo "$0 [-c COUNT] [-t TIMEOUT]"                >/dev/stderr;
+    echo "  -c COUNT    maximum attempts"            >/dev/stderr;
+    echo "  -t TIMEOUT  sleep time between attempts" >/dev/stderr;
+}
+
 COUNT=9999
 TIMEOUT=10
 
-while getopts 'c:t:' flag; do
+while getopts 'c:ht:' flag; do
     case "${flag}" in
-        c) COUNT="${OPTARG}"; shift          ;;
-        t) TIMEOUT="${OPTARG}"; shift        ;;
-        *) error "Unexpected option ${flag}" ;;
+        c) COUNT="${OPTARG}" ;;
+        t) TIMEOUT="${OPTARG}" ;;
+        h) usage; exit 0 ;;
+        ?) usage; exit 1 ;;
     esac
 done
 

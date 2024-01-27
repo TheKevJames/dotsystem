@@ -1,4 +1,2 @@
 #!/usr/bin/env bash
-# TODO: support `x.y.z.foobar1`. Maybe replace the 3rd+ dots with hyphens?
-# Test with `pypi-versions flake8 | grep 3.0.2`
 sed '/-/!{s/$/-/;};' | sort -Vr | sed 's/-$//'

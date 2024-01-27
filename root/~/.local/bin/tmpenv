@@ -2,10 +2,13 @@
 set -euo pipefail
 
 usage() {
-    echo 'source <('"$0" [-c] [-p PYTHON]')';
-    echo "  -c           chdir into venv";
-    echo "  -p PYTHON    override python version";
+    echo 'source <('"$0" [-c] [-p PYTHON]')'      >/dev/stderr;
+    echo "  -c           chdir into venv"         >/dev/stderr;
+    echo "  -p PYTHON    override python version" >/dev/stderr;
 }
+
+CHDIR=""
+PYTHON=""
 
 while getopts 'chp:' flag; do
     case "${flag}" in

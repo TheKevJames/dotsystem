@@ -1,12 +1,35 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# TODO: include remote branches with prefix
+usage() {
+    echo "$0 [-r PREFIX]"                             >/dev/stderr;
+    echo "  -r PREFIX    include remotes with prefix" >/dev/stderr;
+}
+
+REMOTE_PREFIX=""
+
+while getopts 'hr:' flag; do
+    case "${flag}" in
+        r) REMOTE_PREFIX="${OPTARG}" ;;
+        h) usage; exit 0 ;;
+        ?) usage; exit 1 ;;
+    esac
+done
+
 for folder in $(fd -td -d1 .); do
-    branches=$(git --git-dir "./${folder}/.git" branch | grep -vE '^[ \*] master$' | grep -vE '^[ \*] main$' ||:)
-    if [ -n "${branches:-}" ]; then
-        echo "${folder}"
-        echo "${branches}"
-        echo
+    readarray -t branches <<<"$(git --git-dir "./${folder}/.git" branch | grep -vE '^[ \*] master$' | grep -vE '^[ \*] main$' ||:)"
+    if [[ -n "${REMOTE_PREFIX}" ]]; then
+        readarray -t remotes <<<"$(git --git-dir "./${folder}/.git" branch -a | grep -E '^[ \*] remotes/\w+/'"${REMOTE_PREFIX}" ||:)"
     fi
+
+    results=()
+    while read -r; do
+        [[ -n "${REPLY}" ]] && results+=("$REPLY")
+    done < <(printf '%s\n' "${branches[@]}" "${remotes[@]}" | sed -E 's#remotes/[[:alnum:]]+/##' | sort -u)
+
+    [[ -n "${results[*]}" ]] && {
+        echo "${folder}"
+        ( IFS=$'\n'; echo "${results[*]}" )
+        echo
+    }
 done
