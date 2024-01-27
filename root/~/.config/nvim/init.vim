@@ -1,11 +1,13 @@
+" TODO: convert to init.lua
 set clipboard=unnamedplus  " use system clipboard
 set expandtab              " spaces > tabs
+set foldexpr=nvim_treesitter#foldexpr()
+set foldmethod=expr        " use nvim-treesitter for folding expressions
 set hlsearch               " show highlights on search
 set laststatus=0           " hide statusline
-set foldmethod=expr        " use nvim-treesitter for folding expressions
-set foldexpr=nvim_treesitter#foldexpr()
-set nofoldenable           " no default folds on startup
+set lazyredraw             " disable redrawing during macros
 set mouse=                 " disable mouse usage
+set nofoldenable           " no default folds on startup
 set number                 " show line numbers
 set relativenumber         " line numbers should be relative
 set shiftwidth=4           " tabs are 4 spaces
@@ -66,6 +68,7 @@ Plug 'ggandor/leap.nvim'       " [sS]..
 " diagnostics
 Plug 'folke/trouble.nvim'
 nnoremap <leader>xx <cmd>TroubleToggle<cr>
+nnoremap <leader>xq <cmd>TroubleToggle quickfix<cr>
 
 call plug#end()
 
