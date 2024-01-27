@@ -7,8 +7,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
         sudo rm -rfv ~/.Trash
         sudo rm -rfv /private/var/log/asl/*.asl
     }
-    # TODO: auto-fix the nosudo
-    # echo "$(whoami) $(hostname) = (root) NOPASSWD: /usr/bin/osascript" | sudo tee /etc/sudoers.d/osascript
+
     osx_volume() {
         if [ -z "${1}" ]; then
             # wtf

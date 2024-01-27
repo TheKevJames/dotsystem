@@ -91,11 +91,14 @@ if [[ "${BOOTSTRAP}" == "y" ]]; then
         eval "${PACMAN_INSTALL} m4"
     fi
 
-    # shadow OSX's managed git version with a reasonably up-to-date one
     if [[ "$OSTYPE" == "darwin"* ]]; then
+        # shadow OSX's managed git version with a reasonably up-to-date one
         echo "Fetching a newer version of git..."
         eval "${PACMAN_REFRESH}" >/dev/null
         eval "${PACMAN_INSTALL} git"
+
+        echo "Enabling nosudo for osascript..."
+        echo "$(whoami) $(hostname) = (root) NOPASSWD: /usr/bin/osascript" | sudo tee /etc/sudoers.d/osascript
     fi
 
     # set hostname
