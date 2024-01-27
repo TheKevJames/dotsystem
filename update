@@ -22,7 +22,6 @@ echo "Running post-upgrade steps..."
 if which zypper >/dev/null; then
     :
 elif which port >/dev/null; then
-    # TODO: add eg. `port cut_leaves` and other pruning? or new prune script?
     which yabai && {
         sudo codesign -fs 'yabai-cert' /opt/local/bin/yabai
 
