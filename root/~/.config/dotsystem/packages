@@ -23,9 +23,7 @@
 
   ; git
   gh
-  git  ; TODO: overwrite this and other vendored installations on OSX
-  ; git version 2.39.2 (Apple Git-145)  ; Ew!
-  ; git version 2.43.0                  ; Woo! /opt/local/share/git/contrib/git-jump/git-jump
+  git
 
   ; lang
   clang

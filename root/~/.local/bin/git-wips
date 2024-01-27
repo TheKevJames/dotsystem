@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# TODO: include remote branches with prefix
 for folder in $(fd -td -d1 .); do
     branches=$(git --git-dir "./${folder}/.git" branch | grep -vE '^[ \*] master$' | grep -vE '^[ \*] main$' ||:)
     if [ -n "${branches:-}" ]; then
