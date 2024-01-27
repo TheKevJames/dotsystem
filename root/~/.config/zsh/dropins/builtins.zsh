@@ -7,12 +7,12 @@ export PAGER
 export MANPAGER="sh -c 'col -b | bat -l man -p'"
 export LESS='-R'
 
-# https://the.exa.website/
-alias l='exa -la'
-alias la='exa -la'
-alias ll='exa -l'
-alias ls='exa'
-alias lsa='exa -la'
+# https://eza.rocks/
+alias l='eza -la'
+alias la='eza -la'
+alias ll='eza -l'
+alias ls='eza'
+alias lsa='eza -la'
 
 # http://denilson.sa.nom.br/prettyping/
 alias ping='prettyping'

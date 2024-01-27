@@ -40,7 +40,7 @@
 [cargo]
   bat
   cctui
-  exa
+  eza
   git-delta = delta
   fd-find = fd
   hexyl
