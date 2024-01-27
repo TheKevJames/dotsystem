@@ -574,7 +574,16 @@ fi
 
 echo "Installing shell completions..."
 if which kubectl >/dev/null; then
-    kubectl completion zsh > ~/.config/zsh/completions/kubectl.zsh
+    if which fzf >/dev/null; then
+        # Based on:
+        # https://github.com/junegunn/fzf/wiki/Examples#kubectl
+        # shellcheck disable=SC2016
+        kubectl completion zsh \
+            | sed 's#${requestComp} 2>/dev/null#${requestComp} 2>/dev/null | sed '"'"'$d'"'"' | fzf  --multi=0 #g' \
+            > ~/.config/zsh/completions/kubectl.zsh
+    else
+        kubectl completion zsh > ~/.config/zsh/completions/kubectl.zsh
+    fi
 fi
 
 echo "done."
