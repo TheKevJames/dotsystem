@@ -64,8 +64,7 @@ return {
                 -- https://github.com/polarmutex/beancount-language-server
                 beancount = {
                     init_options = {
-                        -- TODO: why does using ~ break? Should have been fixed in v1.3.1
-                        journal_file = "/Users/kevin/sync/finance/index.beancount",
+                        journal_file = "~/sync/finance/index.beancount",
                     },
                 },
 
