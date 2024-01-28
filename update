@@ -59,7 +59,6 @@ for repo in $(git config -f ~/.config/dotsystem/packages --name-only --get-regex
         cd "${XDG_SRC_HOME}/${repo}"
         git pull
         [[ "${repo}" == "git-standup" ]] && make install PREFIX="${XDG_BIN_HOME%/bin}"
-        [[ "${repo}" == "vim-plug" ]] && cp "./plug.vim" "${XDG_DATA_HOME}/nvim/site/autoload"
     )
 done
 
@@ -68,7 +67,7 @@ kubectl krew update
 kubectl krew upgrade
 
 echo "Upgrading neovim plugins..."
-nvim -c ':PlugUpgrade' -c ':PlugUpdate' -c 'qa!'
+nvim --headless '+Lazy! sync' +qa
 
 echo "Upgrading ngrok..."
 sudo ngrok update

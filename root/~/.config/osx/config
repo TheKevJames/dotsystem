@@ -84,3 +84,7 @@ defaults write com.apple.ActivityMonitor ShowCategory -int 0
 ## enable infinite caffeination
 # TODO: fix caffeinate service loading
 # sudo launchctl load /Library/LaunchAgents/in.thekev.caffeinate.plist
+
+# TODO: configure Terminal.app
+# tmux a
+# MesloLGM Nerd Font 11

@@ -280,10 +280,6 @@ while IFS=$'\r' read -r package; do
         elif [[ "${repo}" == "prettyping" ]]; then
             chmod a+x "${XDG_SRC_HOME}/${repo}/prettyping"
             ln -s "${XDG_SRC_HOME}/${repo}/prettyping" "${XDG_BIN_HOME}/prettyping"
-        elif [[ "${repo}" == "vim-plug" ]]; then
-            mkdir -p "${XDG_DATA_HOME}/nvim/site/autoload"
-            cp "${XDG_SRC_HOME}/${repo}/plug.vim" "${XDG_DATA_HOME}/nvim/site/autoload"
-            nvim -c ':PlugInstall' -c 'qa!'
         elif [[ "${repo}" == "xdg-ninja" ]]; then
             chmod a+x "${XDG_SRC_HOME}/${repo}/xdg-ninja.sh"
             ln -s "${XDG_SRC_HOME}/${repo}/xdg-ninja.sh" "${XDG_BIN_HOME}/xdg-ninja"
@@ -507,6 +503,25 @@ if git config -f "${PACKAGE_CONFIG}" --get manual.krew >/dev/null; then
 
         # TODO: install via packages list
         kubectl krew install ctx mtail ns
+    fi
+fi
+
+if git config -f "${PACKAGE_CONFIG}" --get manual.meslo >/dev/null; then
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        path="/Library/Fonts/NerdFonts"
+    else
+        path="/usr/local/share/fonts/NerdFonts"
+    fi
+
+    if [[ ! -f "${path}/MesloLGLNerdFont-Regular.ttf" ]]; then
+        TEMPFILE=$(mktemp)
+        curl -fsSL https://github.com/ryanoasis/nerd-fonts/releases/latest/download/Meslo.tar.xz > "${TEMPFILE}.tar.xz"
+        sudo mkdir -p "${path}"
+        sudo tar xzf "${TEMPFILE}.tar.xz" -C "${path}"
+
+        if [[ "$OSTYPE" != "darwin"* ]]; then
+            fc-cache -f "${path}"
+        fi
     fi
 fi
 

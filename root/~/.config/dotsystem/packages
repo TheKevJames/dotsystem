@@ -59,7 +59,6 @@
   prettyping = denilsonsa
   tmux-xpanes = greymd
   tmuxifier = jimeh
-  vim-plug = junegunn
   xdg-ninja = b3nj5m1n
 
 ; python tools, installed via pipx
@@ -81,6 +80,8 @@
   docker
   krew
   kubectl
+
+  meslo
 
   gcloud
   ngrok
