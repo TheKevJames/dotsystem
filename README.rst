@@ -67,13 +67,15 @@ The following are some extra fixes that I worked out before coming across
 - gmailctl. Support with ``--config`` flag.
 - helm. Support by setting ``$HELM_HOME``.
 - irb. Partial support by setting ``$IRBRC``.
-- jira. But `at least jira has a TODO`_.
-- julia. Support by setting ``$JULIA_PKGDIR`` and ``$JULIA_HISTORY``.
+- jira. Partial support by setting ``$HOME``, which frankly I'm not sure counts.
 - kubectl. Support by setting ``$KUBECONFIG`` and ``$KUBECACHEDIR``
 - theano. Support by setting ``$THEANORC`` and including ``base_compiledir`` in ``$THEANO_FLAGS``.
-- zsh. Partial support by setting ``$ZDOTDIR`` and ``$HISTFILE``. Your
-  ``~/.zshenv`` file is effectively hardcoded.
 
+Besides the ones ``xdg-ninja`` knows about, I'm also tracking:
+
+- colima (``~/.colima``). `Broken on OSX`_.
+- lima (``~/.lima``).
+
+.. _Broken on OSX: https://github.com/abiosoft/colima/pull/757
 .. _XDG Base Directory Spec: https://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html
-.. _at least jira has a TODO: https://github.com/go-jira/jira/issues/235
 .. _xdg-ninja: https://github.com/b3nj5m1n/xdg-ninja
