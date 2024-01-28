@@ -71,6 +71,8 @@ return {
 
                 jsonls = {},
 
+                marksman = {},
+
                 -- TODO: one of the following, once I switch to choosenim
                 -- nim_langserver = {},
                 -- nimls = {},
