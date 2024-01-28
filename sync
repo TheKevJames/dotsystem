@@ -284,6 +284,9 @@ while IFS=$'\r' read -r package; do
             mkdir -p "${XDG_DATA_HOME}/nvim/site/autoload"
             cp "${XDG_SRC_HOME}/${repo}/plug.vim" "${XDG_DATA_HOME}/nvim/site/autoload"
             nvim -c ':PlugInstall' -c 'qa!'
+        elif [[ "${repo}" == "xdg-ninja" ]]; then
+            chmod a+x "${XDG_SRC_HOME}/${repo}/xdg-ninja.sh"
+            ln -s "${XDG_SRC_HOME}/${repo}/xdg-ninja.sh" "${XDG_BIN_HOME}/xdg-ninja"
         fi
     fi
 done < <(git config -f "${PACKAGE_CONFIG}" --get-regexp 'git\..*')

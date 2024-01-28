@@ -60,6 +60,7 @@
   tmux-xpanes = greymd
   tmuxifier = jimeh
   vim-plug = junegunn
+  xdg-ninja = b3nj5m1n
 
 ; python tools, installed via pipx
 ; if any values are set, also install pipx
