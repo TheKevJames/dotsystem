@@ -1,2 +1,11 @@
 # Search hidden files by default, --no-hidden to override.
 --hidden
+# ...except the git dir
+--glob=!.git/
+# also ignore:
+--glob=!*.ipynb
+--glob=!*.js.map
+--glob=!*.min.css
+--glob=!*.min.js
+--glob=!poetry.lock
+--glob=!venv/
