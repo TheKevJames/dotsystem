@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+set -euo pipefail
+# ARG_OPTIONAL_BOOLEAN([local],[],[include local branches],[on])
+# ARG_OPTIONAL_SINGLE([remote-prefix],[r],[include remotes with prefix],[])
+# ARG_POSITIONAL_DOUBLEDASH([])
+# ARG_POSITIONAL_SINGLE([folder],[search folder],[.])
+# ARG_HELP([Find WIP branches])
+# ARGBASH_SET_INDENT([    ])
+# ARGBASH_GO()
+# [
+
+# TODO: support pointing at current dir, eg. with something like:
+#   fd -td -d2 -u '^.git$' "${_arg_folder}"
+for folder in $(fd -td -d1 "${_arg_folder:-.}"); do
+    if [ "${_arg_local:-on}" = on ]; then
+        readarray -t branches <<<"$(git --git-dir "./${folder}/.git" branch \
+                                    | grep -vE '^[ \*] master$' \
+                                    | grep -vE '^[ \*] main$' \
+                                    ||:)"
+    fi
+    if [[ -n "${_arg_remote_prefix}" ]]; then
+        readarray -t remotes <<<"$(git --git-dir "./${folder}/.git" branch -a \
+                                   | grep -E '^[ \*] remotes/\w+/'"${_arg_remote_prefix}" \
+                                   ||:)"
+    fi
+
+    results=()
+    while read -r; do
+        [[ -n "${REPLY}" ]] && results+=("$REPLY")
+    done < <(printf '%s\n' "${branches[@]}" "${remotes[@]}" | sed -E 's#remotes/[[:alnum:]]+/##' | sort -u)
+
+    [[ -n "${results[*]}" ]] && {
+        echo "${folder}"
+        ( IFS=$'\n'; echo "${results[*]}" )
+        echo
+    }
+done
+
+# ]

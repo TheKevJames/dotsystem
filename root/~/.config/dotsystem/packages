@@ -55,6 +55,7 @@
 ; format:
 ;   $repo = $user
 [git]
+  argbash = matejak
   git-standup = kamranahmedse
   prettyping = denilsonsa
   tmux-xpanes = greymd
