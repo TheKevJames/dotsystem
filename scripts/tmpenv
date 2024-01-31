@@ -1,0 +1,14 @@
+#!/bin/bash
+# ARG_OPTIONAL_BOOLEAN([chdir],[c],[chdir into venv],[off])
+# ARG_OPTIONAL_SINGLE([python],[p],[python version],[python3])
+# ARG_HELP([source <('"$0" [-c] [-p PYTHON]')])
+# ARGBASH_SET_INDENT([    ])
+# ARGBASH_GO
+# [
+
+DIR=$(mktemp -d -t "$(basename "${0}")")
+"${_arg_python:-python3}" -m venv "${DIR}"
+echo source "${DIR}/bin/activate"
+[ "${_arg_chdir:-off}" = on ] && echo pushd "${DIR}"
+
+# ]

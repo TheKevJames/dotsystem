@@ -1,0 +1,18 @@
+#!/bin/bash
+# ARG_OPTIONAL_SINGLE([count],[c],[maximum attempts],[9999])
+# ARG_OPTIONAL_SINGLE([timeout],[t],[sleep time between attempts],[10])
+# ARG_POSITIONAL_DOUBLEDASH([])
+# ARG_POSITIONAL_INF([command],[command to run],1)
+# ARG_HELP([Retry command until it succeeds])
+# ARGBASH_SET_INDENT([    ])
+# ARGBASH_GO
+# [
+
+n=0
+until [ $n -ge "${_arg_count:-9999}" ]; do
+    "${_arg_command[@]:-true}" && break
+    n=$((n+1))
+    sleep "${_arg_timeout:-10}"
+done
+
+# ]
