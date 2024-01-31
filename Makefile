@@ -4,8 +4,11 @@ SOURCEDIR = scripts
 SOURCES = $(wildcard scripts/*)
 OBJECTS = $(patsubst scripts/%, root/~/.local/bin/%, $(SOURCES))
 
-.PHONY: all
+.PHONY: all clean
 all: $(OBJECTS)
 
 $(BUILDDIR)/%: $(SOURCEDIR)/%
 	argbash -o $@ $<
+
+clean:
+	rm $(OBJECTS)
