@@ -32,7 +32,8 @@ function update_tmux_gcp() {
 }
 
 function update_tmux_k8s() {
-    K8S=$(awk '/current-context:/ {print $2}' ~/.config/kube)
+    if [[ ! -f "${XDG_CONFIG_DIR}/kube" ]]; then return; fi
+    K8S=$(awk '/current-context:/ {print $2}' "${XDG_CONFIG_DIR}/kube")
     tmux set-option -g @custom_window_k8s_title "${K8S}"
     if grep -E 'echelon|production' <(echo "${K8S}") >/dev/null; then
         tmux set-option -g @custom_window_k8s_color 'red'
