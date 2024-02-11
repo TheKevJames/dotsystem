@@ -22,9 +22,9 @@ vim.o.showmatch = true                  -- show matching bracket on insertion
 vim.o.synmaxcol = 512                   -- set maximum line length for syntax highlighing
 
 -- TODO: detect from file, when possible
--- TODO: verify overridden in relevant languages
 vim.o.expandtab = true          -- spaces > tabs
 vim.o.shiftwidth = 4            -- tabs are 4 spaces by default
+vim.o.softtabstop = 4           -- tabs are 4 spaces by default
 
 -- TODO: change method for languages without treesitter?
 -- https://www.vimfromscratch.com/articles/vim-folding
@@ -38,6 +38,13 @@ vim.o.relativenumber = true     -- line numbers should be relative
 
 vim.g.netrw_banner = 0          -- hide useless banner info
 vim.g.netrw_liststyle = 3       -- use tree view by default
+
+vim.filetype.add({
+  extension = {
+    pp = "ruby",
+    tfvars = "terraform",
+  }
+})
 
 vim.g.loaded_perl_provider = 0
 vim.g.loaded_ruby_provider = 0
