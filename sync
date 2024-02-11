@@ -230,8 +230,11 @@ while IFS=$'\r' read -r package; do
     if ! which "${binary}" >/dev/null 2>&1; then
         packages+=("${pkg}")
     fi
-done < <(cat <(git config -f "${PACKAGE_CONFIG}" --get-regexp 'pkg\..*') \
-             <(git config -f "${PACKAGE_CONFIG}" --get-regexp "$(uname -s)\..*" | sed "s/$(uname -s)/pkg/i"))
+done < \
+    <(cat \
+        <(git config -f "${PACKAGE_CONFIG}" --get-regexp 'pkg\..*') \
+        <(git config -f "${PACKAGE_CONFIG}" --get-regexp "$(uname -s)\..*" | sed "s/$(uname -s)/pkg/i") \
+    )
 
 # shellcheck disable=SC2294
 (( ${#packages[@]} )) && eval "${PACMAN_INSTALL}" "${packages[@]}"
@@ -289,17 +292,7 @@ while IFS=$'\r' read -r package; do
 done < <(git config -f "${PACKAGE_CONFIG}" --get-regexp 'git\..*')
 
 ## Install pipx packages
-# TODO: needs to happen *after* python install...
 if git config -f "${PACKAGE_CONFIG}" --get-regexp 'pipx\..*' >/dev/null; then
-    # TODO: install pipx from apt/port/etc
-    if ! which pipx >/dev/null; then
-        python3 -m pip install --user pipx
-        if [[ "$OSTYPE" == "darwin"* ]]; then
-            ln -s "$(python3 -c 'import site; print(site.USER_BASE)')/bin/pipx" "${XDG_BIN_HOME}/pipx"
-        fi
-    fi
-    pathadd "${XDG_BIN_HOME}"
-
     packages=()
     while IFS=$'\r' read -r package; do
         IFS=' ' read -ra fields <<< "$package"
@@ -309,45 +302,18 @@ if git config -f "${PACKAGE_CONFIG}" --get-regexp 'pipx\..*' >/dev/null; then
             packages+=("${pkg}")
         fi
     done < <(git config -f "${PACKAGE_CONFIG}" --get-regexp 'pipx\..*')
+
     (( ${#packages[@]} )) && for package in "${packages[@]}"; do
         pipx install "${package}"
 
         # TODO: support this via config
         if [[ "${package}" == "pre-commit" ]]; then
             pre-commit init-templatedir "${XDG_CONFIG_HOME}/git/template/"
-        elif [[ "${package}" == "neovim-remote" ]]; then
-            # eg. so we can use vim-beancount
-            pipx inject "${package}" beancount
-        elif [[ "${package}" == "python-lsp-server" ]]; then
-            pipx inject "${package}" "python-lsp-server[all]" pyls-isort pyls-mypy
         fi
     done
 fi
 
 ## Install packages with special manual requirements
-# TODO: support per-OS package names in config
-# TODO: upgrade to latest
-if git config -f "${PACKAGE_CONFIG}" --get manual.python3 >/dev/null; then
-    if ! which python3 >/dev/null; then
-        if [[ "$OSTYPE" == "darwin"* ]]; then
-            eval "${PACMAN_INSTALL} py37-pip"
-        else
-            eval "${PACMAN_INSTALL} python3"
-        fi
-    fi
-
-    if ! python3 -m pip --version >/dev/null; then
-        if [[ "$OSTYPE" == "darwin"* ]]; then
-            eval "${PACMAN_INSTALL} py37-pip"
-        elif [[ -f /etc/os-release ]] && grep -q debian /etc/os-release; then
-            eval "${PACMAN_INSTALL} python3-pip python3-venv"
-        else
-            # TODO: handle distros where this is bundled already
-            eval "${PACMAN_INSTALL} python3-pip"
-        fi
-    fi
-fi
-
 if git config -f "${PACKAGE_CONFIG}" --get manual.docker >/dev/null; then
     if ! which docker >/dev/null; then
         if [[ "$OSTYPE" == "darwin"* ]]; then
