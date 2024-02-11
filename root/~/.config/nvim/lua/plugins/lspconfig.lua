@@ -1,5 +1,6 @@
 -- for debugging LSP issues, set:
 -- vim.lsp.set_log_level('trace')
+vim.lsp.set_log_level('off')
 
 vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('UserLspConfig', {}),
@@ -15,7 +16,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', '<leader>K', vim.lsp.buf.hover, opts)
     vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
     vim.keymap.set({'n', 'v'}, '<leader>ca', vim.lsp.buf.code_action, opts)
-    vim.keymap.set('n', '<leader>f', function()
+    vim.keymap.set('n', '<leader>cf', function()
       vim.lsp.buf.format { async = true }
     end, opts)
   end,
@@ -69,7 +70,32 @@ return {
 
                 esbonio = {},
 
-                jsonls = {},
+                -- https://github.com/hrsh7th/vscode-langservers-extracted
+                jsonls = {
+                    filetypes = { "json", "jsonc", "json5" },
+                    handlers = {
+                        -- TODO: fix a real json5 LSP
+                        ["textDocument/publishDiagnostics"] = function(err, result, ctx, config)
+                            if string.match(result.uri, "%.json5$", -6) and result.diagnostics ~= nil then
+                                local disabled = {
+                                    [519] = "Trailing comma",
+                                    [521] = "Comments are not permitted in JSON",
+                                }
+
+                                local idx = 1
+                                while idx <= #result.diagnostics do
+                                    if disabled[result.diagnostics[idx].code] then
+                                        table.remove(result.diagnostics, idx)
+                                    else
+                                        idx = idx + 1
+                                    end
+                                end
+                            end
+
+                            vim.lsp.diagnostic.on_publish_diagnostics(err, result, ctx, config)
+                        end,
+                    },
+                },
 
                 marksman = {},
 
