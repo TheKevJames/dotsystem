@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if command -v pre-commit > /dev/null; then
+    HERE="$(cd "$(dirname "$0")" && pwd)"
+    ARGS=(hook-impl --config=.pre-commit-config.yaml --hook-type=commit-msg --skip-on-missing-config)
+    ARGS+=(--hook-dir "$HERE" -- "$@")
+
+    exec pre-commit "${ARGS[@]}"
+fi

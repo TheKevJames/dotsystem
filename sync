@@ -293,24 +293,14 @@ done < <(git config -f "${PACKAGE_CONFIG}" --get-regexp 'git\..*')
 
 ## Install pipx packages
 if git config -f "${PACKAGE_CONFIG}" --get-regexp 'pipx\..*' >/dev/null; then
-    packages=()
     while IFS=$'\r' read -r package; do
         IFS=' ' read -ra fields <<< "$package"
         pkg="${fields[0]#pipx.}"
         binary="${fields[1]:-${pkg}}"
         if ! which "${binary}" >/dev/null 2>&1; then
-            packages+=("${pkg}")
+            pipx install "${pkg}"
         fi
     done < <(git config -f "${PACKAGE_CONFIG}" --get-regexp 'pipx\..*')
-
-    (( ${#packages[@]} )) && for package in "${packages[@]}"; do
-        pipx install "${package}"
-
-        # TODO: support this via config
-        if [[ "${package}" == "pre-commit" ]]; then
-            pre-commit init-templatedir "${XDG_CONFIG_HOME}/git/template/"
-        fi
-    done
 fi
 
 ## Install packages with special manual requirements
