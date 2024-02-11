@@ -12,6 +12,7 @@ end
 
 vim.opt.rtp:prepend(lazypath)           -- load lazy.nvim
 
+-- TODO: unbreak highlighitng for languages without lsps
 vim.o.clipboard = 'unnamedplus'         -- use system clipboard
 vim.o.hlsearch = true                   -- show highlights on search
 vim.o.laststatus = 0                    -- hide statusline
@@ -45,5 +46,10 @@ vim.g.python3_host_prog = '~/.local/pipx/venvs/neovim-remote/bin/python3'
 
 vim.keymap.set('n', ';', ':')           -- avoid hitting <shift>
 vim.keymap.set('n', '<space>', 'za')    -- toggle current fold with <space>
+vim.keymap.set('n', ',', ':noh<cr>')    -- hide highlights
+-- E/W                  --> e/w but space separated
+-- ctrl+t / ctrl+d      --> indent / de-indent (insert mode)
+-- g;                   --> jump to last edit
+-- #                    --> opposite of *
 
 require('lazy').setup('plugins')
