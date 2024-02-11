@@ -16,6 +16,7 @@
   jq
   less
   miller = mlr
+  pandoc = pandoc  ; TODO: verify on linux
   tar
   unzip
   wget
@@ -23,6 +24,7 @@
   ; git
   gh
   git
+  git-absorb = git-absorb  ; TODO: verify on linux
 
   ; lang
   clang
@@ -33,6 +35,16 @@
   neovim = nvim
   tmux
   zsh
+
+; packages from the OS package manager, OSX only
+[Darwin]
+  npm10 = npm  ; TODO: do we need this on Linux for neovim? npm install -g neovim-node-host
+  pinentry = pinentry  ; TODO: do we need this on Linux for gpg?
+  skhd
+  yabai
+
+; packages from the OS package manager, Linux only
+[Linux]
 
 ; rust tools, installed via cargo
 ; if any values are set, also install rustup/cargo

@@ -230,7 +230,8 @@ while IFS=$'\r' read -r package; do
     if ! which "${binary}" >/dev/null 2>&1; then
         packages+=("${pkg}")
     fi
-done < <(git config -f "${PACKAGE_CONFIG}" --get-regexp 'pkg\..*')
+done < <(cat <(git config -f "${PACKAGE_CONFIG}" --get-regexp 'pkg\..*') \
+             <(git config -f "${PACKAGE_CONFIG}" --get-regexp "$(uname -s)\..*" | sed "s/$(uname -s)/pkg/i"))
 
 # shellcheck disable=SC2294
 (( ${#packages[@]} )) && eval "${PACMAN_INSTALL}" "${packages[@]}"
@@ -609,11 +610,6 @@ fi
 
 echo "done."
 
-# TODO: install nim. port install nim on osx
-# TODO: install skhd and yabai on osx
-# TODO: install pinentry on osx. Check if needs installation on *nix (for gpg)
-# TODO: install git-absorb. port install git-absorb on osx
-# TODO: install pandoc. port install pandoc on osx
 # TODO: consider installing tmate. port install tmate on osx
 # TODO: consider installing pv. port install pv on osx
 # TODO: secrets:
