@@ -1,17 +1,36 @@
-#!/usr/bin/env bash
-set -euo pipefail
+#!/usr/bin/env python3
+import pathlib
 
-echo "Discovering files in need of backup..."
 
-for folder in ".config/gcloud/configurations" ".config/nvim" ".config/tmuxifier/layouts" ".config/zsh/dropins" ".local/bin"; do
-    # TODO: don't print when empty
-    echo
-    echo "The following files in ${folder} may be in need of backup:"
-    # TODO: filter out expected:
-    #   .local/bin/git-standup (and other src builds -> local bins)
-    #   .config/zsh/dropins/osx.zsh (and other m4 -> dorpped extension)
-    # TODO: print full path when in subfolder
-    comm -23 \
-        <(find ~/"${folder}" -mindepth 1 -type f | awk -F/ '{print $NF}' | sort -n) \
-        <(find "./root/~/${folder}" -mindepth 1 -type f | awk -F/ '{print $NF}' | sort -n)
-done
+HOME = pathlib.Path.home()
+ROOT = pathlib.Path(__file__).parent / 'root' / '~'
+FOLDERS = [
+    '.config/gcloud/configurations',
+    '.config/nvim',
+    '.config/tmuxifier/layouts',
+    '.config/zsh/dropins',
+    '.local/bin',
+]
+
+
+def main() -> None:
+    print('Discovering files in need of backup...')
+
+    for folder in FOLDERS:
+        # TODO: don't print when empty
+        print()
+        print(f'The following files in {folder} may be in need of backup:')
+
+        for file in (HOME / folder).glob('**/*'):
+            # TODO: filter out expected:
+            #   .local/bin/git-standup (and other src builds -> local bins)
+            #   .config/zsh/dropins/osx.zsh (and other m4 -> dorpped extension)
+            if file.is_file() and not file.is_symlink():
+                sourcefile = ROOT / file.relative_to(HOME)
+                if not sourcefile.exists():
+                    # TODO: print full path when in subfolder
+                    print(file.name)
+
+
+if __name__ == '__main__':
+    main()
