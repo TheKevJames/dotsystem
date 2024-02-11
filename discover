@@ -12,17 +12,20 @@ FOLDERS = [
     '.config/zsh/dropins',
     '.local/bin',
 ]
+IGNORE = {
+    'lazy-lock.json',
+}
 
 
 def find(folder: pathlib.Path) -> Iterator[pathlib.Path]:
     for file in (HOME / folder).rglob('*'):
-        # TODO: filter out expected:
-        #   .local/bin/git-standup (and other src builds -> local bins)
-        if file.is_file() and not file.is_symlink():
-            sourcefile = ROOT / file.relative_to(HOME)
-            m4file = sourcefile.with_suffix(f'{sourcefile.suffix}.m4')
-            if not any(x.exists() for x in (sourcefile, m4file)):
-                yield file
+        if not file.is_file() or file.is_symlink() or file.name in IGNORE:
+            continue
+
+        sourcefile = ROOT / file.relative_to(HOME)
+        m4file = sourcefile.with_suffix(f'{sourcefile.suffix}.m4')
+        if not any(x.exists() for x in (sourcefile, m4file)):
+            yield file
 
 
 def main() -> None:
