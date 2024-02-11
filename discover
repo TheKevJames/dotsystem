@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import pathlib
+from collections.abc import Iterator
 
 
 HOME = pathlib.Path.home()
@@ -13,22 +14,27 @@ FOLDERS = [
 ]
 
 
+def find(folder: pathlib.Path) -> Iterator[pathlib.Path]:
+    for file in (HOME / folder).glob('**/*'):
+        # TODO: filter out expected:
+        #   .local/bin/git-standup (and other src builds -> local bins)
+        #   .config/zsh/dropins/osx.zsh (and other m4 -> dorpped extension)
+        if file.is_file() and not file.is_symlink():
+            sourcefile = ROOT / file.relative_to(HOME)
+            if not sourcefile.exists():
+                yield file
+
+
 def main() -> None:
     print('Discovering files in need of backup...')
 
     for folder in FOLDERS:
-        # TODO: don't print when empty
-        print()
-        print(f'The following files in {folder} may be in need of backup:')
-
-        for file in (HOME / folder).glob('**/*'):
-            # TODO: filter out expected:
-            #   .local/bin/git-standup (and other src builds -> local bins)
-            #   .config/zsh/dropins/osx.zsh (and other m4 -> dorpped extension)
-            if file.is_file() and not file.is_symlink():
-                sourcefile = ROOT / file.relative_to(HOME)
-                if not sourcefile.exists():
-                    print(file)
+        files = list(find(folder))
+        if files:
+            print()
+            print(f'The following files in {folder} may be in need of backup:')
+            for file in files:
+                print(file)
 
 
 if __name__ == '__main__':
