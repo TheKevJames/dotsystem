@@ -44,6 +44,9 @@ else
     exit 1
 fi
 
+echo "Upgrading rust..."
+rustup update
+
 echo "Upgrading cargo packages..."
 cargo-upgrade
 

@@ -19,8 +19,6 @@
   tar
   unzip
   wget
-  ; TODO: OSX needs pinentry, others too?
-  ; pinentry and pinentry-mac might be auto-installed via gnupg2 deps now?
 
   ; git
   gh
