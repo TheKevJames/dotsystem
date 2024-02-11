@@ -28,8 +28,7 @@ def main() -> None:
             if file.is_file() and not file.is_symlink():
                 sourcefile = ROOT / file.relative_to(HOME)
                 if not sourcefile.exists():
-                    # TODO: print full path when in subfolder
-                    print(file.name)
+                    print(file)
 
 
 if __name__ == '__main__':
