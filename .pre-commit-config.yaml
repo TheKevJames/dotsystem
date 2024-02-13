@@ -143,6 +143,8 @@ repos:
         args:
           - --python-version
           - '3.11'
+          - --
+          - --scripts-are-modules
   - repo: local
     hooks:
       - id: poetry-check
