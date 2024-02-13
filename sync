@@ -459,7 +459,7 @@ if git config -f "${PACKAGE_CONFIG}" --get manual.krew >/dev/null; then
         )
 
         # TODO: install via packages list
-        kubectl krew install ctx mtail ns
+        kubectl krew install ctx deprecations mtail neat ns
     fi
 fi
 
