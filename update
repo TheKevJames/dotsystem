@@ -58,11 +58,10 @@ gcloud components update
 
 echo "Upgrading installed-from-source packages..."
 for repo in $(git config -f ~/.config/dotsystem/packages --name-only --get-regexp 'git\..*' | cut -f2 -d.); do
-    (
-        cd "${XDG_SRC_HOME}/${repo}"
-        git pull
-        [[ "${repo}" == "git-standup" ]] && make install PREFIX="${XDG_BIN_HOME%/bin}"
-    )
+    pushd "${XDG_SRC_HOME}/${repo}"
+    git pull
+    [[ "${repo}" == "git-standup" ]] && make install PREFIX="${XDG_BIN_HOME%/bin}"
+    popd
 done
 
 echo "Upgrading kubectl plugins..."
