@@ -88,7 +88,7 @@ repos:
         args: [--py311-plus]
         exclude: 'root/etc/pythonstart'
   - repo: https://github.com/asottile/pyupgrade
-    rev: v3.15.1
+    rev: v3.15.2
     hooks:
       - id: pyupgrade
         args: [--py37-plus]
