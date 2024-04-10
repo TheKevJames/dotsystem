@@ -12,6 +12,11 @@ return {
             'nvim-telescope/telescope.nvim',
             'nvim-tree/nvim-web-devicons',
         },
-        config = true,
+        opts = {
+            -- TODO: why does my token keep losing this scope?
+            suppress_missing_scope = {
+                projects_v2 = true,
+            },
+        },
     },
 }
