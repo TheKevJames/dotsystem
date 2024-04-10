@@ -70,6 +70,8 @@ kubectl krew upgrade
 
 echo "Upgrading neovim plugins..."
 nvim --headless '+Lazy! sync' +qa
+nvim --headless '+MasonUpdate' +qa
+# :Mason, then hit "U"
 
 echo "Upgrading ngrok..."
 sudo ngrok update
