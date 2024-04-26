@@ -109,7 +109,10 @@ local rules = [
         ]},
         { and: [
           { from: "support@wealthsimple.com" },
-          { subject: "You made a deposit" },
+          { or: [
+            { subject: "Direct deposit received" },
+            { subject: "You made a deposit" },
+          ]},
         ]},
         { and: [
           { from: "transaction@remitbee.com" },
@@ -133,6 +136,8 @@ local rules = [
             { subject: "You earned a dividend" },
             { subject: "You're staking more" },
             { subject: "Your order has been filled" },
+            { subject: "Your transfer is complete!" },
+            { subject: "Your transfer is on its way!" },
           ]},
         ]},
       ],
