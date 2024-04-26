@@ -13,6 +13,7 @@ FOLDERS = [
     '.local/bin',
 ]
 IGNORE = {
+    'git-standup',  # TODO: sync with ./sync
     'lazy-lock.json',
 }
 
