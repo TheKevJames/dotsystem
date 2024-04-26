@@ -1,4 +1,4 @@
-vim.keymap.set('n', '<leader>ex', '<cmd>Oil<cr>')
+vim.keymap.set('n', '<leader>e', '<cmd>Oil<cr>')
 
 return {
     {
@@ -9,6 +9,10 @@ return {
             view_options = {
                 show_hidden = false,
                 is_hidden_file = function(name, bufnr)
+                    local HIDE = {
+                        ['__pycache__'] = true
+                    }
+                    if (HIDE[name] == true) then return true end
                     if not (vim.startswith(name, '.')) then return false end
 
                     local SHOW = {
