@@ -2,6 +2,7 @@
 --hidden
 # ...except the git dir
 --glob=!.git/
+--glob=!.terraform/
 # also ignore:
 --glob=!*.ipynb
 --glob=!*.js.map
