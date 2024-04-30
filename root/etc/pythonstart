@@ -29,7 +29,7 @@ except Exception:
 readline.parse_and_bind('tab: complete')
 
 
-def save_history(history_path=HISTORY):
+def save_history(history_path: pathlib.Path = HISTORY) -> None:
     # N.B. `save_history` is run outside of the context of this file.
     # pylint: disable=redefined-outer-name,reimported,import-outside-toplevel
     import readline

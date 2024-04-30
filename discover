@@ -18,7 +18,7 @@ IGNORE = {
 }
 
 
-def find(folder: pathlib.Path) -> Iterator[pathlib.Path]:
+def find(folder: str) -> Iterator[pathlib.Path]:
     for file in (HOME / folder).rglob('*'):
         if not file.is_file() or file.is_symlink() or file.name in IGNORE:
             continue

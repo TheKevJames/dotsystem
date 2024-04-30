@@ -1,5 +1,3 @@
-# TODO: global exclude any vendored files?
-
 ci:
     autofix_commit_msg: 'refactor(lint): apply automatic lint fixes'
     autoupdate_commit_msg: 'chore(deps): bump pre-commit linter versions'
@@ -11,6 +9,9 @@ default_install_hook_types:
 
 default_language_version:
     python: python3.11
+
+# TODO: sync this with ./vendor
+exclude: '^root/~/.config/zsh/plugins/.*$'
 
 repos:
   - repo: https://github.com/compilerla/conventional-pre-commit
@@ -77,7 +78,7 @@ repos:
     hooks:
       - id: remove-crlf
       - id: remove-tabs
-        exclude: "(%gconf.xml)|(vlcrc)|(root/~/.config/zsh/plugins/async-git-prompt.plugin.zsh)|(Makefile)"
+        exclude: '(%gconf.xml)|(vlcrc)|(Makefile)'
   - repo: https://github.com/asottile/reorder-python-imports
     rev: v3.12.0
     hooks:
@@ -100,6 +101,24 @@ repos:
     rev: v3.1.0
     hooks:
       - id: add-trailing-comma
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.10.0
+    hooks:
+      - id: mypy
+        require_serial: True
+        # N.B. mypy requires an installed version of whatever third-party
+        # library it is asked to check against. In practice, that means
+        # whenever we see an error telling us to do so, we should add the
+        # relevant library to `additional_dependencies`.
+        # Note that some libraries keep their type hints in packages named
+        # `types-$lib` or `$lib-stubs`.
+        additional_dependencies: []
+        args:
+          - --show-error-codes
+          - --strict
+          - --strict-equality
+          - --warn-unreachable
+          - --scripts-are-modules
   - repo: https://github.com/asottile/yesqa
     rev: v1.5.0
     hooks:
@@ -107,12 +126,26 @@ repos:
         # N.B. keep these in sync with flake8, otherwise yesqa will remove
         # required noqa's related to these plugins
         additional_dependencies: &flake8deps
-        - flake8-2020==1.8.1
-        - flake8-broken-line==1.0.0
-        - flake8-builtins==2.2.0
-        - flake8-commas==2.1.0
-        - flake8-comprehensions==3.14.0
-        - flake8-typing-imports==1.15.0
+          # renovate: datasource=pypi depName=flake8-2020
+          - flake8-2020==1.8.1
+          # renovate: datasource=pypi depName=flake8-broken-line
+          - flake8-broken-line==1.0.0
+          # renovate: datasource=pypi depName=flake8-builtins
+          - flake8-builtins==2.5.0
+          # renovate: datasource=pypi depName=flake8-comprehensions
+          - flake8-comprehensions==3.14.0
+          # renovate: datasource=pypi depName=flake8-import-restrictions
+          - flake8-import-restrictions==2.0.1
+  - repo: https://github.com/guilatrova/tryceratops
+    rev: v2.3.2
+    hooks:
+      - id: tryceratops
+        args:
+          - --autofix
+          - -iTRY003
+          - -iTRY100
+          - -iTRY101
+          - -iTRY301
   - repo: https://github.com/hhatto/autopep8
     rev: v2.1.0
     hooks:
@@ -134,8 +167,9 @@ repos:
           # E501: Line too long. Covered by autopep8.
           # E741: Do not use variables named 'I', 'O', or 'l'.
           # W503: Line break occurred before a binary operator. Breaks PEP8.
-          - --ignore=E501,E741,W503
-          - --min-python-version=3.11
+          # IMR200: Imports should only happen on module level, not locally. Covered by pylint.
+          # IMR241: When using 'from', import submodules not elements.
+          - --ignore=E501,E741,W503,IMR200,IMR241
   - repo: https://github.com/dosisod/refurb
     rev: v2.0.0
     hooks:
@@ -153,10 +187,11 @@ repos:
         entry: bash -c 'set -e; for toml in "$@"; do pushd ./${toml%pyproject.toml}; poetry check; popd; done' --
         language: python
         additional_dependencies:
-          - poetry>=1.5.0
+          # renovate: datasource=pypi depName=poetry
+          - poetry==1.8.2
         pass_filenames: true
         files: 'pyproject\.toml$'
-      - id: poetry-use-version-ranges
+      - id: pyproject-use-version-ranges
         name: avoid using carets for version ranges
         description: 'Avoid using carets for version ranges'
         entry: '\^'
@@ -188,7 +223,8 @@ repos:
       - id: check-github-workflows
       - id: check-renovate
         additional_dependencies:
-        - pyjson5
+          # renovate: datasource=pypi depName=pyjson5
+          - pyjson5==1.6.6
 
 # docker
   - repo: https://github.com/AleksaC/hadolint-py
@@ -233,18 +269,17 @@ repos:
     rev: v6.2.1
     hooks:
       - id: beautysh
-        exclude: '^root/~/.config/zsh/plugins/.*$'
-# TODO: fixme
-#   - repo: https://github.com/openstack/bashate
-#     rev: 2.1.1
-#     hooks:
-#       - id: bashate
-#         args: [--max-line-length=80]
+  # TODO: fixme
+  # - repo: https://github.com/openstack/bashate
+  #   rev: 2.1.1
+  #   hooks:
+  #     - id: bashate
+  #       args: [--max-line-length=80]
   - repo: https://github.com/shellcheck-py/shellcheck-py
     rev: v0.10.0.1
     hooks:
       - id: shellcheck
-        exclude: '^(root/~/.config/tmuxifier/layouts/.*)|(root/~/.config/zsh/dropins/prompt.zsh)|(root/~/.config/zsh/plugins/.*)$'
+        exclude: '^(root/~/.config/tmuxifier/layouts/.*)|(root/~/.config/zsh/dropins/prompt.zsh)$'
   - repo: https://github.com/jumanjihouse/pre-commit-hooks
     rev: 3.0.0
     hooks:
