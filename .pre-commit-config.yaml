@@ -265,16 +265,12 @@ repos:
       - id: terraform_validate
 
 # shell
-  - repo: https://github.com/lovesegfault/beautysh
-    rev: v6.2.1
-    hooks:
-      - id: beautysh
-  # TODO: fixme
-  # - repo: https://github.com/openstack/bashate
-  #   rev: 2.1.1
-  #   hooks:
-  #     - id: bashate
-  #       args: [--max-line-length=80]
+# TODO: fixme
+#   - repo: https://github.com/openstack/bashate
+#     rev: 2.1.1
+#     hooks:
+#       - id: bashate
+#         args: [--max-line-length=80]
   - repo: https://github.com/shellcheck-py/shellcheck-py
     rev: v0.10.0.1
     hooks:
