@@ -3,6 +3,7 @@ return {
         'nvim-treesitter/nvim-treesitter',
         build = ':TSUpdate',
         opts = {
+            auto_install = true,
             ensure_installed = {
                 "bash",
                 "beancount",
@@ -11,6 +12,7 @@ return {
                 "json",
                 "json5",
                 "jsonnet",
+                "lua",
                 "make",
                 "python",
                 "regex",

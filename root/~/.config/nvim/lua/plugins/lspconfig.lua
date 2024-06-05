@@ -98,6 +98,8 @@ return {
                     },
                 },
 
+                lua_ls = {},
+
                 marksman = {},
 
                 -- TODO: one of the following, once I switch to choosenim
