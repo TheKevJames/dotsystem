@@ -1,0 +1,41 @@
+## nvim-surround @surround
+Swap surrounding characters from A to B (eg. cs"') | csAB
+Delete surrounding character A (eg. ds") | dsA
+Surround word with character A (eg. ysiw") | ysiwA
+Surround line with character A (eg. yss") | yssA
+Surround line from cursor with character A (eg. ys$") | ys$A
+
+## gitsigns @git
+Toggle git blame | <leader>gb
+
+## oil @files @folders
+Open oil | <leader>e
+
+## leap @jump
+Jump forwards to match | sAB[C]
+Jump backwards to match | SAB[C]
+
+## lsp
+Go to declaration | <leader>gD
+Go to definition | <leader>gd
+Go to references | <leader>gr
+Open LSP hover menu | <leader>K
+Rename variable | <leader>rn
+Run code action | <leader>ca
+Run code formatter | <leader>cf
+
+## splitjoin @split @join @multiline @blocks
+Split one-liner to multiple lines | gS
+Join multi-line block into single statement | gJ
+
+## telescope @find @grep
+Find files by name | <leader>ff
+Find files via grep | <leader>fg
+
+## trouble @quickfix @diagnostics
+Open Diagnostics | <leader>xx
+Open Quickfix List | <leader>xq
+
+## vimwiki @wiki
+Open default wiki | <leader>ww
+Open selected wiki | <leader>wsA
