@@ -12,12 +12,12 @@ end
 
 vim.opt.rtp:prepend(lazypath)           -- load lazy.nvim
 
--- TODO: unbreak highlighitng for languages without lsps
+-- TODO: unbreak highlighting for languages without lsps
 vim.o.clipboard = 'unnamedplus'         -- use system clipboard
 vim.o.hlsearch = true                   -- show highlights on search
 vim.o.laststatus = 0                    -- hide statusline
 vim.o.lazyredraw = true                 -- disable redrawing during macros
-vim.o.mouse = false                     -- disable mouse usage
+vim.o.mouse = ""                        -- disable mouse usage
 vim.o.showmatch = true                  -- show matching bracket on insertion
 vim.o.synmaxcol = 512                   -- set maximum line length for syntax highlighing
 
