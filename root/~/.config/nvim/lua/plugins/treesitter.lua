@@ -13,6 +13,8 @@ return {
             "jsonnet",
             "lua",
             "make",
+            "markdown",
+            "markdown_inline",
             "python",
             "regex",
             "sql",
