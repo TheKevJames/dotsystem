@@ -22,13 +22,10 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end,
 })
 
+vim.g.beancount_account_completion = "default"
+vim.g.beancount_detailed_first = 1
+
 return {
-  {
-    -- TODO: nuke once completion works in lsp client:
-    -- https://github.com/polarmutex/beancount-language-server/issues/32
-    -- TODO: figure out why the lsp client isn't highlighting
-    'nathangrigg/vim-beancount',
-  },
   {
     'williamboman/mason.nvim',
     build = ':MasonUpdate',
@@ -40,6 +37,11 @@ return {
     dependencies = { 'williamboman/mason.nvim' },
     opts = {
       automatic_installation = true,
+      ensure_installed = {
+        -- :MasonInstall beancount-language-server@1.3.3
+        -- https://github.com/polarmutex/beancount-language-server/issues/32
+        "beancount@1.3.3",
+      },
     },
   },
   {
