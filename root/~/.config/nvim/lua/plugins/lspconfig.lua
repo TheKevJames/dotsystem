@@ -2,15 +2,29 @@
 -- vim.lsp.set_log_level('trace')
 vim.lsp.set_log_level('off')
 
+-- this gets run when an LSP connects to a particular buffer
 vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('UserLspConfig', {}),
-  callback = function(ev)
-    vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc' -- autocomplete with <c-x><c-o>
 
-    -- TODO: enable more?
-    -- https://github.com/neovim/nvim-lspconfig#Suggested-configuration
-    local opts = { buffer = ev.buf }
-    -- TODO: might need keymap for https://gpanders.com/blog/whats-new-in-neovim-0.10/#lsp-inlay-hints
+  callback = function(args)
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    local bufnr = args.buf
+
+    -- autocomplete with <c-x><c-o>
+    if client.server_capabilities.completionProvider then
+      vim.bo[bufnr].omnifunc = 'v:lua.vim.lsp.omnifunc'
+    end
+
+    -- https://neovim.io/doc/user/tagsrch.html#tag-commands
+    if client.server_capabilities.definitionProvider then
+      vim.bo[bufnr].tagfunc = "v:lua.vim.lsp.tagfunc"
+    end
+
+    -- if client.server_capabilities.inlayHintProvider then
+    --   vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+    -- end
+
+    local opts = { buffer = bufnr }
     vim.keymap.set('n', '<leader>gD', vim.lsp.buf.declaration, opts)
     vim.keymap.set('n', '<leader>gd', vim.lsp.buf.definition, opts)
     vim.keymap.set('n', '<leader>gr', vim.lsp.buf.references, opts)
@@ -19,6 +33,12 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', '<leader>cf', function()
       vim.lsp.buf.format { async = true }
     end, opts)
+  end,
+})
+
+vim.api.nvim_create_autocmd("LspDetach", {
+  callback = function(_)
+    vim.cmd("setlocal tagfunc< omnifunc<")
   end,
 })
 
@@ -48,18 +68,22 @@ return {
     'neovim/nvim-lspconfig',
     dependencies = { 'williamboman/mason-lspconfig.nvim' },
     config = function(_, opts)
+      local capabilities = vim.lsp.protocol.make_client_capabilities()
+
       for server, server_opts in pairs(opts.servers) do
         require('lspconfig')[server].setup(vim.tbl_deep_extend(
           'keep',
           server_opts,
           {
             capabilities = capabilities,
-            on_attach = on_attach,
           }
         ))
       end
     end,
     opts = {
+      inlay_hints = {
+        enabled = false,
+      },
       servers = {
         -- https://github.com/bash-lsp/bash-language-server
         bashls = {},
@@ -88,6 +112,12 @@ return {
               diagnostics = {
                 -- TODO: make this conditional, eg. only in neovim config files
                 globals = { 'vim' },
+              },
+              hint = {
+                enable = false
+              },
+              telemetry = {
+                enable = false,
               },
             },
           },
