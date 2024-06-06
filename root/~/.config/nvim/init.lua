@@ -48,7 +48,10 @@ vim.filetype.add({
 
 vim.g.loaded_perl_provider = 0
 vim.g.loaded_ruby_provider = 0
-vim.g.node_host_prog = '/opt/local/bin/neovim-node-host'
+-- npm install -g neovim
+-- vim.g.node_host_prog = "$(npm root -g)/neovim/bin/cli.js"
+vim.g.node_host_prog = '~/.local/share/npm/lib/node_modules/neovim/bin/cli.js'
+-- pipx install nvr
 vim.g.python3_host_prog = '~/.local/pipx/venvs/neovim-remote/bin/python3'
 
 vim.keymap.set('n', ';', ':')        -- avoid hitting <shift>
