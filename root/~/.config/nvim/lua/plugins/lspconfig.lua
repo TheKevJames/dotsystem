@@ -77,34 +77,20 @@ return {
 
                 esbonio = {},
 
+                -- TODO: find a json5 LSP
                 -- https://github.com/hrsh7th/vscode-langservers-extracted
-                jsonls = {
-                    filetypes = { "json", "jsonc", "json5" },
-                    handlers = {
-                        -- TODO: fix a real json5 LSP
-                        ["textDocument/publishDiagnostics"] = function(err, result, ctx, config)
-                            if string.match(result.uri, "%.json5$", -6) and result.diagnostics ~= nil then
-                                local disabled = {
-                                    [519] = "Trailing comma",
-                                    [521] = "Comments are not permitted in JSON",
-                                }
+                jsonls = {},
 
-                                local idx = 1
-                                while idx <= #result.diagnostics do
-                                    if disabled[result.diagnostics[idx].code] then
-                                        table.remove(result.diagnostics, idx)
-                                    else
-                                        idx = idx + 1
-                                    end
-                                end
-                            end
-
-                            vim.lsp.diagnostic.on_publish_diagnostics(err, result, ctx, config)
-                        end,
+                lua_ls = {
+                    settings = {
+                        Lua = {
+                            diagnostics = {
+                                -- TODO: make this conditional, eg. only in neovim config files
+                                globals = {'vim'},
+                            },
+                        },
                     },
                 },
-
-                lua_ls = {},
 
                 marksman = {},
 
