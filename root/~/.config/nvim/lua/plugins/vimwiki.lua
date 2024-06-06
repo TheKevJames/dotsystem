@@ -21,18 +21,18 @@ vim.cmd [[
 ]]
 
 vim.g.vimwiki_list = {
-    {
-        path = '~/sync/work/vimwiki',
-        syntax = 'markdown',
-        ext = '.md',
-    },
-    {
-        path = '~/sync/vimwiki',
-        syntax = 'markdown',
-        ext = '.md',
-    },
+  {
+    path = '~/sync/work/vimwiki',
+    syntax = 'markdown',
+    ext = '.md',
+  },
+  {
+    path = '~/sync/vimwiki',
+    syntax = 'markdown',
+    ext = '.md',
+  },
 }
 
 return {
-    'vimwiki/vimwiki',
+  'vimwiki/vimwiki',
 }

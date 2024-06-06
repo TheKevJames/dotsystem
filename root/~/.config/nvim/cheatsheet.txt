@@ -1,15 +1,12 @@
-## nvim-surround @surround
-Swap surrounding characters from A to B (eg. cs"') | csAB
-Delete surrounding character A (eg. ds") | dsA
-Surround word with character A (eg. ysiw") | ysiwA
-Surround line with character A (eg. yss") | yssA
-Surround line from cursor with character A (eg. ys$") | ys$A
+## asdf
+Space-separated end-of-word | E
+Space-separated start-of-word | W
+Indent (insert mode) | ctrl+t
+Dedent (insert mode) | ctrl+d
+Jump to last edit | g;
 
 ## gitsigns @git
 Toggle git blame | <leader>gb
-
-## oil @files @folders
-Open oil | <leader>e
 
 ## leap @jump
 Jump forwards to match | sAB[C]
@@ -23,6 +20,16 @@ Open LSP hover menu | <leader>K
 Rename variable | <leader>rn
 Run code action | <leader>ca
 Run code formatter | <leader>cf
+
+## nvim-surround @surround
+Swap surrounding characters from A to B (eg. cs"') | csAB
+Delete surrounding character A (eg. ds") | dsA
+Surround word with character A (eg. ysiw") | ysiwA
+Surround line with character A (eg. yss") | yssA
+Surround line from cursor with character A (eg. ys$") | ys$A
+
+## oil @files @folders
+Open oil | <leader>e
 
 ## splitjoin @split @join @multiline @blocks
 Split one-liner to multiple lines | gS
