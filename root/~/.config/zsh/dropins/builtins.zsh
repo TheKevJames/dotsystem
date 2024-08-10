@@ -13,6 +13,7 @@ alias la='eza -la'
 alias ll='eza -l'
 alias ls='eza'
 alias lsa='eza -la'
+export TIME_STYLE=long-iso
 
 # http://denilson.sa.nom.br/prettyping/
 alias ping='prettyping'
