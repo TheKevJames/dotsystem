@@ -78,7 +78,7 @@
 
 ; python tools, installed via pipx
 [pipx]
-  beancount = bean-web
+  beancount = bean-check
   fava
   neovim-remote = nvr
   poetry
