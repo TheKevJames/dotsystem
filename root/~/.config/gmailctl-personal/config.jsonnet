@@ -57,6 +57,7 @@ local rules = [
           { from: "customercare@remitbee.com" },
           { or: [
             { subject: "Remitbee - Transaction Completed Successfully" },
+            { subject: "Remitbee - funds were deposited into your RB balance" },
             { subject: "Remitbee - funds were deposited into your Wallet" },
           ]},
         ]},
@@ -112,6 +113,7 @@ local rules = [
           { or: [
             { subject: "Direct deposit received" },
             { subject: "You made a deposit" },
+            { subject: "You sent a bill payment" },
           ]},
         ]},
         { and: [
@@ -135,6 +137,8 @@ local rules = [
           { or: [
             { subject: "You earned a dividend" },
             { subject: "You're staking more" },
+            { subject: "Your funds have been converted" },
+            { subject: "Your order has been cancelled" },
             { subject: "Your order has been filled" },
             { subject: "Your transfer is complete!" },
             { subject: "Your transfer is on its way!" },
