@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+REPO="${1?REPO must be specified}"
+
+docker run --rm -it ghcr.io/regclient/regctl:latest tag ls "${REPO}"
