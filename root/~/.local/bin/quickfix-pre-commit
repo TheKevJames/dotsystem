@@ -1,0 +1,52 @@
+#!/usr/bin/env python3
+import subprocess
+import sys
+import tempfile
+
+
+def main() -> None:
+    if len(sys.argv) > 1 and {'-h', '--help'} & set(sys.argv):
+        print(f'vim -q $({sys.argv[0]})')
+        return
+
+    # TODO: passthrough args?
+    results = subprocess.run(
+        ('pre-commit', 'run', '-a'),
+        capture_output=True,
+        check=False,
+    )
+
+    qfix: set[str] = set()
+    handling_failure = ''
+    for line in results.stdout.decode('utf-8').splitlines():
+        if line[-6:] in {'Passed', 'Failed', 'kipped'}:
+            handling_failure = ''
+            continue
+
+        if line.startswith('- hook id:'):
+            _, hook = line.split(': ', 1)
+            handling_failure = hook
+            continue
+
+        assert handling_failure
+        if line.startswith('- exit code:'):
+            continue
+        if not line.strip():
+            continue
+
+        if handling_failure == 'check-merge-conflict':
+            qfix.add(f'{line}\n')
+        if handling_failure == 'pylint':
+            if not line.startswith('****'):
+                fname, lineno, _colno, code, err = line.split(':')
+                qfix.add(f'{fname}:{lineno}:{code.strip()} {err.strip()}\n')
+        else:
+            assert False, handling_failure
+
+    with tempfile.NamedTemporaryFile('w+', prefix='qfix.', delete=False) as f:
+        f.writelines(sorted(qfix))
+        print(f.name)
+
+
+if __name__ == '__main__':
+    main()
