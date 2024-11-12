@@ -43,6 +43,8 @@
   npm10 = npm  ; TODO: do we need this on Linux for neovim? npm install -g neovim-node-host
   pinentry = pinentry  ; TODO: do we need this on Linux for gpg?
   python311 = python3.11
+  python312 = python3.12
+  python313 = python3.13
   skhd
   yabai
 
