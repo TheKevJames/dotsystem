@@ -5,7 +5,7 @@ declare -A REPOS
 declare -A SOURCES
 
 SOURCES=()
-SOURCES["root/~/.config/zsh/plugins/_extract"]="plugins/extract/_extract"
+SOURCES["root/~/.config/zsh/plugins/_extract"]="plugins/extract/_extract"  # TODO: add *.epub (unzip)
 SOURCES["root/~/.config/zsh/plugins/completion.zsh"]="lib/completion.zsh"
 SOURCES["root/~/.config/zsh/plugins/extract.plugin.zsh"]="plugins/extract/extract.plugin.zsh"
 SOURCES["root/~/.config/zsh/plugins/shrink-path.plugin.zsh"]="plugins/shrink-path/shrink-path.plugin.zsh"

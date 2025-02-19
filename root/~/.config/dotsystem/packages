@@ -81,6 +81,8 @@
 ; python tools, installed via pipx
 [pipx]
   beancount = bean-check
+  beancount-importer = bean-import
+  beanquery = bean-query
   fava
   neovim-remote = nvr
   poetry
