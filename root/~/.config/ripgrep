@@ -9,4 +9,5 @@
 --glob=!*.min.css
 --glob=!*.min.js
 --glob=!poetry.lock
+--glob=!poetry.rest.lock
 --glob=!venv/
