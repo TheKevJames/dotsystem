@@ -1,3 +1,6 @@
 [user]
     email = kjames@dialpad.com
     signingKey = 4263362F3E5CB3FF
+
+[url "git@github.com:dialpad/"]
+    insteadOf = "dialpad:"
