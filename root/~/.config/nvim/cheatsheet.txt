@@ -4,6 +4,7 @@ Space-separated start-of-word | W
 Indent (insert mode) | ctrl+t
 Dedent (insert mode) | ctrl+d
 Jump to last edit | g;
+Toggle comments | gc
 
 ## gitsigns @git
 Toggle git blame | <leader>gb
