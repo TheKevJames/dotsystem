@@ -90,7 +90,11 @@ local rules = [
           { subject: "Thank you for your Steam purchase!" },
         ]},
         { and: [
-          { from: "notify@payments.interac.ca" },
+          { or: [
+            { from: "catch@payments.interac.ca" },
+            { from: "notify@payments.interac.ca" },
+          ]},
+          { subject: "INTERAC e-Transfer: Your funds" },
           { subject: "INTERAC e-Transfer: Your money transfer to REMITBEE INCORPORATED was deposited." },
         ]},
         { and: [
@@ -114,6 +118,7 @@ local rules = [
             { subject: "Direct deposit received" },
             { subject: "You made a deposit" },
             { subject: "You sent a bill payment" },
+            { subject: "You've withdrawn funds from Wealthsimple" },
           ]},
         ]},
         { and: [
@@ -142,6 +147,8 @@ local rules = [
             { subject: "Your order has been filled" },
             { subject: "Your transfer is complete!" },
             { subject: "Your transfer is on its way!" },
+            { subject: "Your order has been rejected" },
+            { subject: "Your order has expired" },
           ]},
         ]},
       ],
