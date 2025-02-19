@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# TODO: also capture stashes
 set -euo pipefail
 # ARG_OPTIONAL_BOOLEAN([local],[],[include local branches],[on])
 # ARG_OPTIONAL_SINGLE([remote-prefix],[r],[include remotes with prefix],[])

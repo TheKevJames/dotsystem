@@ -18,6 +18,7 @@ export TIME_STYLE=long-iso
 # http://denilson.sa.nom.br/prettyping/
 alias ping='prettyping'
 
+# TODO: investigate btop
 # https://hisham.hm/htop/
 alias top='htop'
 
