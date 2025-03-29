@@ -18,9 +18,8 @@ export TIME_STYLE=long-iso
 # http://denilson.sa.nom.br/prettyping/
 alias ping='prettyping'
 
-# TODO: investigate btop
-# https://hisham.hm/htop/
-alias top='htop'
+# https://github.com/aristocratos/btop
+alias top='btop'
 
 # https://github.com/neovim/neovim
 alias vim='nvim'
