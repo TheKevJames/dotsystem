@@ -8,6 +8,12 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
         sudo rm -rfv /private/var/log/asl/*.asl
     }
 
+    osx_mute() {
+        osascript -e "set volume output muted true"
+    }
+    osx_unmute() {
+        osascript -e "set volume output muted false"
+    }
     osx_volume() {
         if [ -z "${1}" ]; then
             # wtf
