@@ -39,7 +39,9 @@ vim.o.relativenumber = true                   -- line numbers should be relative
 vim.o.winborder = 'rounded'                   -- enable rounded borders in floating windows
 
 vim.diagnostic.config({
-  virtual_text = { current_line = true }      -- show virtual diagnostic text only when on current line
+  -- TODO: do I like this?
+  virtual_lines = true                        -- show diagnostic text as virtual lines
+  -- virtual_text = { current_line = true }      -- show diagnostic text inline, only when on current line
 })
 
 vim.g.netrw_banner = 0                        -- hide useless banner info
