@@ -36,6 +36,11 @@ vim.o.foldlevelstart = 99                     -- when enabling folding, don't au
 
 vim.o.number = true                           -- show line numbers
 vim.o.relativenumber = true                   -- line numbers should be relative
+vim.o.winborder = 'rounded'                   -- enable rounded borders in floating windows
+
+vim.diagnostic.config({
+  virtual_text = { current_line = true }      -- show virtual diagnostic text only when on current line
+})
 
 vim.g.netrw_banner = 0                        -- hide useless banner info
 vim.g.netrw_liststyle = 3                     -- use tree view by default
@@ -58,5 +63,8 @@ vim.g.python3_host_prog = '~/.local/pipx/venvs/neovim-remote/bin/python3'
 vim.keymap.set('n', ';', ':')        -- avoid hitting <shift>
 vim.keymap.set('n', '<space>', 'za') -- toggle current fold with <space>
 vim.keymap.set('n', ',', ':noh<cr>') -- hide highlights
+
+-- ctrl-n: next, ctrl-p: previous, ctrl-y: yes, ctrl-e: exit
+vim.cmd('set completeopt+=noinsert,fuzzy')  -- require keypress (ctrl-y) to autocomplete, support fuzzy matches
 
 require('lazy').setup('plugins')
