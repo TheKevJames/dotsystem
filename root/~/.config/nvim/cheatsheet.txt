@@ -36,6 +36,10 @@ Open oil | <leader>e
 Split one-liner to multiple lines | gS
 Join multi-line block into single statement | gJ
 
+## spider
+Underscore-separated end-of-word | ,e
+Underscore-separated start-of-word | ,w
+
 ## telescope @find @grep
 Find files by name | <leader>ff
 Find files via grep | <leader>fg
