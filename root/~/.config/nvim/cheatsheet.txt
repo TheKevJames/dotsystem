@@ -16,8 +16,10 @@ Jump backwards to match | SAB[C]
 ## lsp
 Go to declaration | <leader>gD
 Go to definition | <leader>gd
+Go to implementation | <leader>gi
 Go to references | <leader>gr
-Open LSP hover menu | <leader>K
+Open Signature help | ctrl+S
+Open LSP hover menu | K
 Rename variable | <leader>rn
 Run code action | <leader>ca
 Run code formatter | <leader>cf

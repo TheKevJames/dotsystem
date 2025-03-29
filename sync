@@ -299,6 +299,12 @@ if git config -f "${PACKAGE_CONFIG}" --get-regexp 'pipx\..*' >/dev/null; then
         binary="${fields[1]:-${pkg}}"
         if ! which "${binary}" >/dev/null 2>&1; then
             pipx install "${pkg}"
+            # TODO: support injecting in spec
+            if [[ "${binary}" == "nvr" ]]; then
+                # N.B. required by beancount-language-server
+                # Can we update our LSP config to use beancount from the PATH instead?
+                pipx inject "${binary}" beancount
+            fi
         fi
     done < <(git config -f "${PACKAGE_CONFIG}" --get-regexp 'pipx\..*')
 fi

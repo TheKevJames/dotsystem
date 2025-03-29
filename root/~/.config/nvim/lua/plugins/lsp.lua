@@ -14,8 +14,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end
 
     -- support :tags
-    -- go to definiton: ctrl-] / <leader>gd
-    -- jump back: ctrl-t
+    -- go to definiton: ctrl+] / <leader>gd
+    -- jump back: ctrl+t
     -- https://neovim.io/doc/user/tagsrch.html#tag-commands
     if client.server_capabilities.definitionProvider then
       vim.bo[bufnr].tagfunc = 'v:lua.vim.lsp.tagfunc'
@@ -30,6 +30,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     local opts = { buffer = bufnr }
     vim.keymap.set('n', '<leader>gD', vim.lsp.buf.declaration, opts)
     vim.keymap.set('n', '<leader>gd', vim.lsp.buf.definition, opts)
+    vim.keymap.set('n', '<leader>gi', vim.lsp.buf.implementation, opts)
     vim.keymap.set('n', '<leader>gr', vim.lsp.buf.references, opts)
     vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
     vim.keymap.set({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, opts)
@@ -82,8 +83,6 @@ return {
       ensure_installed = {
         -- LSP
         'bash-language-server',            -- bashls
-        -- TODO: use cmp-beancount for account completion?
-        -- https://github.com/polarmutex/beancount-language-server/issues/32
         'beancount-language-server',       -- beancount
         'docker-compose-language-service', -- docker_compose_language_service
         'dockerfile-language-server',      -- dockerls

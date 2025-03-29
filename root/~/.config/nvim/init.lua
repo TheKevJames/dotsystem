@@ -67,6 +67,6 @@ vim.keymap.set('n', '<space>', 'za') -- toggle current fold with <space>
 vim.keymap.set('n', ',', ':noh<cr>') -- hide highlights
 
 -- ctrl-n: next, ctrl-p: previous, ctrl-y: yes, ctrl-e: exit
-vim.cmd('set completeopt+=noinsert,fuzzy')  -- require keypress (ctrl-y) to autocomplete, support fuzzy matches
+vim.cmd('set completeopt+=fuzzy,noinsert')  -- require keypress (ctrl-y) to autocomplete, support fuzzy matches
 
 require('lazy').setup('plugins')

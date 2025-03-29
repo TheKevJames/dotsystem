@@ -1,9 +1,5 @@
 return {
   {
-    -- TODO: nuke once treesitter highlighting works
-    'nathangrigg/vim-beancount',
-  },
-  {
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
     opts = {
