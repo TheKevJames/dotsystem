@@ -20,17 +20,11 @@ local rules = [
   {
     filter: {
       or: [
-        { from: "Chase QuickPay Team" },
-        { from: "CustomerServiceOnline@billpay.pge.com" },
-        { from: "billing@mailgun.net" },
-        { from: "ebill@conservicemail.com" },
-        { from: "faturacao.eletronica@galp.com" },
-        { from: "googlepay-noreply@google.com" },
-        { from: "payments-noreply@google.com" },
-        { from: "receipts-portugal@bolt.eu" },
-        { from: "renewals@namecheap.com" },
-        { from: "support@namecheap.com" },
-        { from: "uber.us@uber.com" },
+        { and: [
+          { from: "hello@1password.com" },
+          { subject: "Your 1Password invoice" },
+        ]},
+
         { and: [
           { from: "ActivoBank.Informa@activobank.pt" },
           { or: [
@@ -38,57 +32,56 @@ local rules = [
             { subject: "Extrato Combinado" },
           ]},
         ]},
+
+        { from: "receipts-portugal@bolt.eu" },
+
         { and: [
-          { from: "alert@eqbank.ca" },
-          { subject: "EQ Bank: EFT withdrawal" },
-        ]},
-        { and: [
-          { from: "apoiocliente@vodafone.pt" },
-          { subject: "Faturação Vodafone" },
-        ]},
-        { and: [
-          { from: "banco@millenniumbcp.pt" },
+          { from: "social@brimfinancial.com" },
           { or: [
-            { subject: "Documentos em formato digital" },
-            { subject: "Extrato Combinado" },
+            { subject: "Your foreign purchase was successful" },
+            { subject: "Your Payment Was Received" },
           ]},
         ]},
-        { and: [
-          { from: "customercare@remitbee.com" },
-          { or: [
-            { subject: "Remitbee - Transaction Completed Successfully" },
-            { subject: "Remitbee - funds were deposited into your RB balance" },
-            { subject: "Remitbee - funds were deposited into your Wallet" },
-          ]},
-        ]},
+
+        { from: "no-reply@alertsp.chase.com" },
+
+        { from: "ebill@conservicemail.com" },
+
         { and: [
           { from: "endesa.pt@cgi.com" },
           { subject: "Documento de Pagamento Eletrónico" },
         ]},
+
         { and: [
-          { from: "facturaelectronica@pingodoce.pt" },
-          { subject: "Fatura Eletrónica Pingo Doce" },
+          { from: "online.communications@alerts.comcast.net" },
+          { subject: "Your bill is ready" },
         ]},
+
         { and: [
-          { from: "hello@1password.com" },
-          { subject: "Your 1Password invoice" },
+          { from: "alert@eqbank.ca" },
+          { subject: "EQ Bank: EFT withdrawal" },
         ]},
+
         { and: [
           { from: "help@accts.epicgames.com" },
           { subject: "Your Epic Games Receipt" },
         ]},
+
+        { from: "faturacao.eletronica@galp.com" },
+
+        { from: "googlepay-noreply@google.com" },
+        { from: "payments-noreply@google.com" },
+
         { and: [
           { from: "no-reply@glovoapp.com" },
           { or: [
             { subject: "Details of your glovo" },
             { subject: "Details of your order" },
+            { subject: "Detalhes do teu pedido" },
             { subject: "Glovo Confirmation" },
           ]},
         ]},
-        { and: [
-          { from: "noreply@steampowered.com" },
-          { subject: "Thank you for your Steam purchase!" },
-        ]},
+
         { and: [
           { or: [
             { from: "catch@payments.interac.ca" },
@@ -97,35 +90,71 @@ local rules = [
           { subject: "INTERAC e-Transfer: Your funds" },
           { subject: "INTERAC e-Transfer: Your money transfer to REMITBEE INCORPORATED was deposited." },
         ]},
+
+        { from: "billing@mailgun.net" },
+
         { and: [
-          { from: "online.communications@alerts.comcast.net" },
-          { subject: "Your bill is ready" },
+          { from: "banco@millenniumbcp.pt" },
+          { or: [
+            { subject: "Documentos em formato digital" },
+            { subject: "Extrato Combinado" },
+          ]},
         ]},
+
+        { from: "renewals@namecheap.com" },
+        { from: "support@namecheap.com" },
+
         { and: [
           { from: "service@paypal.com" },
           { subject: "Receipt for Your Payment" },
         ]},
+
+        { from: "CustomerServiceOnline@billpay.pge.com" },
+
         { and: [
-          { from: "social@brimfinancial.com" },
+          { from: "facturaelectronica@pingodoce.pt" },
+          { subject: "Fatura Eletrónica Pingo Doce" },
+        ]},
+
+        { and: [
           { or: [
-            { subject: "Your foreign purchase was successful" },
-            { subject: "Your Payment Was Received" },
+            { from: "customercare@remitbee.com" },
+            { from: "noreply@account.remitbee.com" },
+            { from: "transaction@remitbee.com" },
+          ]},
+          { or: [
+            { subject: "ACTION REQUIRED: - Steps for Interac E- Transfer Auto-deposit" },
+            { subject: "Action Required: Transaction pending due to documents" },
+            { subject: "RemitBee - Funds were deposited into your RB balance" },
+            { subject: "RemitBee Transaction Receipt" },
+            { subject: "Remitbee - Transaction Completed Successfully" },
+            { subject: "Remitbee - funds were deposited into your Wallet" },
           ]},
         ]},
+
         { and: [
-          { from: "support@wealthsimple.com" },
+          { from: "noreply@steampowered.com" },
+          { subject: "Thank you for your Steam purchase!" },
+        ]},
+
+        { from: "noreply@uber.com" },
+        { from: "uber.us@uber.com" },
+
+        { and: [
+          { from: "apoiocliente@vodafone.pt" },
+          { subject: "Faturação Vodafone" },
+        ]},
+
+        { and: [
+          { or: [
+            { from: "notifications@o.wealthsimple.com" },
+            { from: "support@wealthsimple.com" },
+          ]},
           { or: [
             { subject: "Direct deposit received" },
             { subject: "You made a deposit" },
             { subject: "You sent a bill payment" },
             { subject: "You've withdrawn funds from Wealthsimple" },
-          ]},
-        ]},
-        { and: [
-          { from: "transaction@remitbee.com" },
-          { or: [
-            { subject: "Action Required: Transaction pending due to documents" },
-            { subject: "Remitbee Transaction Receipt" },
           ]},
         ]},
       ],
@@ -247,6 +276,8 @@ local labels = [
   { name: "Jobs" },
   { name: "News" },
   { name: "RSS" },
+  { name: "Property" },
+  { name: "Property/FerreiraBorges" },
   { name: "Records" },
   { name: "Security" },
 ];
