@@ -13,6 +13,10 @@ Toggle git blame | <leader>gb
 Jump forwards to match | sAB[C]
 Jump backwards to match | SAB[C]
 
+## flit @jump
+Find next character | f
+Find previous character | F
+
 ## lsp
 Go to declaration | <leader>gD
 Go to definition | <leader>gd
