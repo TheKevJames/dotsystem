@@ -1,10 +1,12 @@
 #!/usr/bin/env bash
+# TODO: also capture stashes
 set -euo pipefail
 # ARG_OPTIONAL_BOOLEAN([local],[],[include local branches],[on])
+# ARG_OPTIONAL_BOOLEAN([stash],[],[include local stashes],[on])
 # ARG_OPTIONAL_SINGLE([remote-prefix],[r],[include remotes with prefix],[])
 # ARG_POSITIONAL_DOUBLEDASH([])
 # ARG_POSITIONAL_SINGLE([folder],[search folder],[.])
-# ARG_HELP([Find WIP branches])
+# ARG_HELP([Find WIP branches and stashes])
 # ARGBASH_SET_INDENT([    ])
 # ARGBASH_GO()
 # needed because of Argbash --> m4_ignore([
@@ -34,15 +36,17 @@ _positionals=()
 _arg_folder="."
 # THE DEFAULTS INITIALIZATION - OPTIONALS
 _arg_local="on"
+_arg_stash="on"
 _arg_remote_prefix=
 
 
 print_help()
 {
-    printf '%s\n' "Find WIP branches"
-    printf 'Usage: %s [--(no-)local] [-r|--remote-prefix <arg>] [-h|--help] [--] [<folder>]\n' "$0"
+    printf '%s\n' "Find WIP branches and stashes"
+    printf 'Usage: %s [--(no-)local] [--(no-)stash] [-r|--remote-prefix <arg>] [-h|--help] [--] [<folder>]\n' "$0"
     printf '\t%s\n' "<folder>: search folder (default: '.')"
     printf '\t%s\n' "--local, --no-local: include local branches (on by default)"
+    printf '\t%s\n' "--stash, --no-stash: include local stashes (on by default)"
     printf '\t%s\n' "-r, --remote-prefix: include remotes with prefix (no default)"
     printf '\t%s\n' "-h, --help: Prints help"
 }
@@ -68,6 +72,10 @@ parse_commandline()
             --no-local|--local)
                 _arg_local="on"
                 test "${1:0:5}" = "--no-" && _arg_local="off"
+                ;;
+            --no-stash|--stash)
+                _arg_stash="on"
+                test "${1:0:5}" = "--no-" && _arg_stash="off"
                 ;;
             -r|--remote-prefix)
                 test $# -lt 2 && die "Missing value for the optional argument '$_key'." 1
@@ -143,11 +151,15 @@ for folder in $(fd -td -d1 "${_arg_folder:-.}"); do
                                    | grep -E '^[ \*] remotes/\w+/'"${_arg_remote_prefix}" \
                                    ||:)"
     fi
+    if [ "${_arg_stash:-on}" = on ]; then
+        readarray -t stashes <<<"$(git --git-dir "./${folder}/.git" stash list \
+                                   ||:)"
+    fi
 
     results=()
     while read -r; do
         [[ -n "${REPLY}" ]] && results+=("$REPLY")
-    done < <(printf '%s\n' "${branches[@]}" "${remotes[@]}" | sed -E 's#remotes/[[:alnum:]]+/##' | sort -u)
+    done < <(printf '%s\n' "${branches[@]}" "${remotes[@]}" "${stashes[@]}" | sed -E 's#remotes/[[:alnum:]]+/##' | sort -u)
 
     [[ -n "${results[*]}" ]] && {
         echo "${folder}"

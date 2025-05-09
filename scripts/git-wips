@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
-# TODO: also capture stashes
+# TODO: also capture dirty working directories
 set -euo pipefail
 # ARG_OPTIONAL_BOOLEAN([local],[],[include local branches],[on])
+# ARG_OPTIONAL_BOOLEAN([stash],[],[include local stashes],[on])
 # ARG_OPTIONAL_SINGLE([remote-prefix],[r],[include remotes with prefix],[])
 # ARG_POSITIONAL_DOUBLEDASH([])
 # ARG_POSITIONAL_SINGLE([folder],[search folder],[.])
-# ARG_HELP([Find WIP branches])
+# ARG_HELP([Find WIP branches and stashes])
 # ARGBASH_SET_INDENT([    ])
 # ARGBASH_GO()
 # [
@@ -24,11 +25,15 @@ for folder in $(fd -td -d1 "${_arg_folder:-.}"); do
                                    | grep -E '^[ \*] remotes/\w+/'"${_arg_remote_prefix}" \
                                    ||:)"
     fi
+    if [ "${_arg_stash:-on}" = on ]; then
+        readarray -t stashes <<<"$(git --git-dir "./${folder}/.git" stash list \
+                                   ||:)"
+    fi
 
     results=()
     while read -r; do
         [[ -n "${REPLY}" ]] && results+=("$REPLY")
-    done < <(printf '%s\n' "${branches[@]}" "${remotes[@]}" | sed -E 's#remotes/[[:alnum:]]+/##' | sort -u)
+    done < <(printf '%s\n' "${branches[@]}" "${remotes[@]}" "${stashes[@]}" | sed -E 's#remotes/[[:alnum:]]+/##' | sort -u)
 
     [[ -n "${results[*]}" ]] && {
         echo "${folder}"
