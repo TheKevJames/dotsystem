@@ -1,6 +1,6 @@
 # This file is vendored, run ./vendor to update it.
-# Last Update: 2023-12-19
-# Commit Hash: 48ccc7b36de8efb2bd7beb9bd6e0a6f6fe03b95d
+# Last Update: 2025-05-09
+# Commit Hash: 62afbdebb96bf91c044a92b75d86f85a67da67a7
 #
 # fixme - the load process here seems a bit bizarre
 zmodload -i zsh/complist
@@ -53,7 +53,7 @@ zstyle ':completion:*:*:*:users' ignored-patterns \
         adm amanda apache at avahi avahi-autoipd beaglidx bin cacti canna \
         clamav daemon dbus distcache dnsmasq dovecot fax ftp games gdm \
         gkrellmd gopher hacluster haldaemon halt hsqldb ident junkbust kdm \
-        ldap lp mail mailman mailnull man messagebus  mldonkey mysql nagios \
+        ldap lp mail mailman mailnull man messagebus mldonkey mysql nagios \
         named netdump news nfsnobody nobody nscd ntp nut nx obsrun openvpn \
         operator pcap polkitd postfix postgres privoxy pulse pvm quagga radvd \
         rpc rpcuser rpm rtkit scard shutdown squid sshd statd svn sync tftp \

@@ -1,6 +1,6 @@
 # This file is vendored, run ./vendor to update it.
-# Last Update: 2023-12-19
-# Commit Hash: 48ccc7b36de8efb2bd7beb9bd6e0a6f6fe03b95d
+# Last Update: 2025-05-09
+# Commit Hash: 62afbdebb96bf91c044a92b75d86f85a67da67a7
 #
 alias x=extract
 
@@ -74,24 +74,24 @@ EOF
       (*.tar.lz4) lz4 -c -d "$full_path" | tar xvf - ;;
       (*.tar.lrz) (( $+commands[lrzuntar] )) && lrzuntar "$full_path" ;;
       (*.gz) (( $+commands[pigz] )) && pigz -cdk "$full_path" > "${file:t:r}" || gunzip -ck "$full_path" > "${file:t:r}" ;;
-      (*.bz2) bunzip2 "$full_path" ;;
+      (*.bz2) (( $+commands[pbzip2] )) && pbzip2 -d "$full_path" || bunzip2 "$full_path" ;;
       (*.xz) unxz "$full_path" ;;
       (*.lrz) (( $+commands[lrunzip] )) && lrunzip "$full_path" ;;
       (*.lz4) lz4 -d "$full_path" ;;
       (*.lzma) unlzma "$full_path" ;;
       (*.z) uncompress "$full_path" ;;
-      (*.zip|*.war|*.jar|*.ear|*.sublime-package|*.ipa|*.ipsw|*.xpi|*.apk|*.aar|*.whl) unzip "$full_path" ;;
+      (*.zip|*.war|*.jar|*.ear|*.sublime-package|*.ipa|*.ipsw|*.xpi|*.apk|*.aar|*.whl|*.vsix|*.crx) unzip "$full_path" ;;
       (*.rar) unrar x -ad "$full_path" ;;
       (*.rpm)
         rpm2cpio "$full_path" | cpio --quiet -id ;;
-      (*.7z) 7za x "$full_path" ;;
+      (*.7z | *.7z.[0-9]*) 7za x "$full_path" ;;
       (*.deb)
         command mkdir -p "control" "data"
         ar vx "$full_path" > /dev/null
         builtin cd -q control; extract ../control.tar.*
         builtin cd -q ../data; extract ../data.tar.*
         builtin cd -q ..; command rm *.tar.* debian-binary ;;
-      (*.zst) unzstd "$full_path" ;;
+      (*.zst) unzstd --stdout "$full_path" > "${file:t:r}" ;;
       (*.cab|*.exe) cabextract "$full_path" ;;
       (*.cpio|*.obscpio) cpio -idmvF "$full_path" ;;
       (*.zpaq) zpaq x "$full_path" ;;
