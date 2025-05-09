@@ -75,6 +75,7 @@ local rules = [
         { and: [
           { from: "no-reply@glovoapp.com" },
           { or: [
+            { subject: "As suas faturas" },
             { subject: "Details of your glovo" },
             { subject: "Details of your order" },
             { subject: "Detalhes do teu pedido" },
