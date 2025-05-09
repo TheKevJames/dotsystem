@@ -28,9 +28,9 @@ vim.o.shiftwidth = 4   -- tabs are 4 spaces by default
 vim.o.softtabstop = 4  -- tabs are 4 spaces by default
 
 -- TODO: change method for languages without treesitter?
--- https://www.vimfromscratch.com/articles/vim-folding
-vim.o.foldexpr = 'nvim_treesitter#foldexpr()' -- use nvim-treesitter for folding expressions
-vim.o.foldmethod = 'expr'
+vim.o.foldmethod = 'expr'                     -- use nvim-treesitter for folding expressions
+vim.o.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+vim.o.foldtext = 'v:lua.vim.treesitter.foldtext()'
 vim.o.foldenable = false                      -- no default folds at startup
 vim.o.foldlevelstart = 99                     -- when enabling folding, don't autofold others
 
@@ -39,9 +39,7 @@ vim.o.relativenumber = true                   -- line numbers should be relative
 vim.o.winborder = 'rounded'                   -- enable rounded borders in floating windows
 
 vim.diagnostic.config({
-  -- TODO: do I like this?
-  virtual_lines = true                        -- show diagnostic text as virtual lines
-  -- virtual_text = { current_line = true }      -- show diagnostic text inline, only when on current line
+  virtual_text = true                         -- show diagnostic text as virtual lines
 })
 
 vim.g.netrw_banner = 0                        -- hide useless banner info
