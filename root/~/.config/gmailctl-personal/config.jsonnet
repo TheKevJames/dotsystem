@@ -153,9 +153,13 @@ local rules = [
           ]},
           { or: [
             { subject: "Direct deposit received" },
+            { subject: "You earned a dividend" },
             { subject: "You made a deposit" },
             { subject: "You sent a bill payment" },
             { subject: "You've withdrawn funds from Wealthsimple" },
+            { subject: "Your deposit is complete!" },
+            { subject: "Your deposit is on the way!" },
+            { subject: "Your transfer is complete!" },
           ]},
         ]},
       ],
@@ -187,15 +191,16 @@ local rules = [
   },
   {
     filter: {
-      and: [
-        { or: [
-          { from: "no-reply@em.wealthfront.com" },
-          { from: "support@wealthfront.com" },
-        ]},
-        { subject: "Investment prospectus" },
+      or: [
+        { from: "architect-newsletter@mailer.infoq.com" },
+        { from: "betterengineers@substack.com" },
+        { from: "buzzrobot@substack.com" },
+        { from: "daily@chartr.co" },
+        { from: "lex@sreweekly.com" },
+        { from: "notifications@e-news.wealthsimple.com" },
       ],
     },
-    actions: label("News"),
+    actions: label("News/Lists"),
   },
   {
     filter: {
@@ -273,9 +278,11 @@ local labels = [
   { name: "Cash/Invest" },
   { name: "Cash/Stock" },
   { name: "Dev" },
+  { name: "Events" },
   { name: "Family" },
   { name: "Jobs" },
   { name: "News" },
+  { name: "News/Lists" },
   { name: "RSS" },
   { name: "Property" },
   { name: "Property/FerreiraBorges" },
