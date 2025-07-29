@@ -70,14 +70,15 @@ vim.lsp.enable({
 
 return {
   {
-    'williamboman/mason.nvim',
+    'mason-org/mason.nvim',
+    version = '^1.0.0',  -- TODO: unpin once v2 is fixed (TODO: what broke?)
     build = ':MasonUpdate',
     lazy = false,
     config = true,
   },
   {
     'WhoIsSethDaniel/mason-tool-installer.nvim',
-    dependencies = { 'williamboman/mason.nvim' },
+    dependencies = { 'mason-org/mason.nvim' },
     opts = {
       -- https://github.com/williamboman/mason-lspconfig.nvim/blob/main/lua/mason-lspconfig/mappings/server.lua
       ensure_installed = {
