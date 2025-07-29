@@ -1,5 +1,5 @@
 # This file is vendored, run ./vendor to update it.
-# Last Update: 2025-05-09
+# Last Update: 2025-07-29
 # Commit Hash: 9c0985cacc67a71ef8e2f7c6a0b5294f2e1f0e90
 #
 if [[ -z $GIT_PROMPT_ORDER ]]; then

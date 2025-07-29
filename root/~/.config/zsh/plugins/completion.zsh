@@ -1,6 +1,6 @@
 # This file is vendored, run ./vendor to update it.
-# Last Update: 2025-05-09
-# Commit Hash: 62afbdebb96bf91c044a92b75d86f85a67da67a7
+# Last Update: 2025-07-29
+# Commit Hash: 5c804257ceb5b3062b876afae290adf72c474aad
 #
 # fixme - the load process here seems a bit bizarre
 zmodload -i zsh/complist
@@ -44,7 +44,7 @@ fi
 # disable named-directories autocompletion
 zstyle ':completion:*:cd:*' tag-order local-directories directory-stack path-directories
 
-# Use caching so that commands like apt and dpkg complete are useable
+# Use caching so that commands like apt and dpkg complete are usable
 zstyle ':completion:*' use-cache yes
 zstyle ':completion:*' cache-path $ZSH_CACHE_DIR
 
