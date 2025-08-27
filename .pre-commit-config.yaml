@@ -271,7 +271,7 @@ repos:
 #       - id: bashate
 #         args: [--max-line-length=80]
   - repo: https://github.com/shellcheck-py/shellcheck-py
-    rev: v0.10.0.1
+    rev: v0.11.0.1
     hooks:
       - id: shellcheck
         exclude: '^(root/~/.config/tmuxifier/layouts/.*)|(root/~/.config/zsh/dropins/prompt.zsh)$'
