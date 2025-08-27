@@ -130,6 +130,7 @@ ensure_file() {
     fi
 }
 
+# TODO: "update git repo" doesn't make sense for template files
 set_file() {
     DEST=${2/\~/$HOME}
     ensure_file "${DEST}" || {
