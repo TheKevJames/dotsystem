@@ -1,6 +1,9 @@
 *~
 !~
 
+# aider
+.aider*
+
 # cvs
 CVS/
 .cvsignore

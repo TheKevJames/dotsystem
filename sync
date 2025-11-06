@@ -52,6 +52,7 @@ echo "  Skip Packages: ${SKIP}"
 # shellcheck disable=SC1091
 source "${DIR}/root/~/.zshenv"
 
+# TODO: add cleanups, eg. port reclaim and apt autoremove
 if which zypper >/dev/null; then
     PACMAN_REFRESH="sudo zypper refresh"
     PACMAN_INSTALL="sudo zypper install"
