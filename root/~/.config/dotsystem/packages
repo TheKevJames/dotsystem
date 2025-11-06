@@ -45,6 +45,7 @@
   python311 = python3.11
   python312 = python3.12
   python313 = python3.13
+  python314 = python3.14
   skhd
   yabai
 
