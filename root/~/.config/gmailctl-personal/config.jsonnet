@@ -33,6 +33,8 @@ local rules = [
           ]},
         ]},
 
+        { from: "portugal-food@bolt.eu" },
+        { from: "receipts@bolt.eu" },
         { from: "receipts-portugal@bolt.eu" },
 
         { and: [
@@ -83,15 +85,6 @@ local rules = [
           ]},
         ]},
 
-        { and: [
-          { or: [
-            { from: "catch@payments.interac.ca" },
-            { from: "notify@payments.interac.ca" },
-          ]},
-          { subject: "INTERAC e-Transfer: Your funds" },
-          { subject: "INTERAC e-Transfer: Your money transfer to REMITBEE INCORPORATED was deposited." },
-        ]},
-
         { from: "billing@mailgun.net" },
 
         { and: [
@@ -101,6 +94,9 @@ local rules = [
             { subject: "Extrato Combinado" },
           ]},
         ]},
+
+        { from: "catch@payments.interac.ca" },
+        { from: "notify@payments.interac.ca" },
 
         { from: "renewals@namecheap.com" },
         { from: "support@namecheap.com" },
@@ -130,6 +126,8 @@ local rules = [
             { subject: "RemitBee Transaction Receipt" },
             { subject: "Remitbee - Transaction Completed Successfully" },
             { subject: "Remitbee - funds were deposited into your Wallet" },
+            { subject: "Transaction Completed Successfully" },
+            { subject: "Your Currency Exchange Has Been Approved" },
           ]},
         ]},
 
@@ -148,19 +146,21 @@ local rules = [
 
         { and: [
           { or: [
-            { from: "notifications@o.wealthsimple.com" },
+            { from: "notifications@m.wealthsimple.com" },
             { from: "support@wealthsimple.com" },
           ]},
           { or: [
             { subject: "Direct deposit received" },
-            { subject: "You earned a dividend" },
+            { subject: "You made a credit card payment" },
             { subject: "You made a deposit" },
             { subject: "You sent a bill payment" },
             { subject: "You've withdrawn funds from Wealthsimple" },
             { subject: "Your deposit is complete!" },
             { subject: "Your deposit is on the way!" },
+            { subject: "Your latest credit card statement is ready" },
             { subject: "Your transfer is complete!" },
           ]},
+
         ]},
       ],
     },
@@ -172,17 +172,20 @@ local rules = [
         { from: "noreply@robinhood.com" },
         { from: "notifications@robinhood.com" },
         { and: [
-          { from: "support@wealthsimple.com" },
+          { or: [
+            { from: "support@wealthsimple.com" },
+            { from: "notifications@o.wealthsimple.com" },
+          ]},
           { or: [
             { subject: "You earned a dividend" },
             { subject: "You're staking more" },
             { subject: "Your funds have been converted" },
             { subject: "Your order has been cancelled" },
             { subject: "Your order has been filled" },
-            { subject: "Your transfer is complete!" },
-            { subject: "Your transfer is on its way!" },
             { subject: "Your order has been rejected" },
             { subject: "Your order has expired" },
+            { subject: "Your transfer is complete!" },
+            { subject: "Your transfer is on its way!" },
           ]},
         ]},
       ],
@@ -196,11 +199,22 @@ local rules = [
         { from: "betterengineers@substack.com" },
         { from: "buzzrobot@substack.com" },
         { from: "daily@chartr.co" },
+        { from: "dailydigest@email.join1440.com" },
         { from: "lex@sreweekly.com" },
         { from: "notifications@e-news.wealthsimple.com" },
+        { from: "scalablethread@substack.com" },
+        { from: "sunday@email.join1440.com" },
       ],
     },
     actions: label("News/Lists"),
+  },
+  {
+    filter: {
+      or: [
+        { from: "jorgebranco@substack.com" },
+      ],
+    },
+    actions: label("News/Lists", archive=false),
   },
   {
     filter: {
@@ -274,8 +288,10 @@ local rules = [
 local labels = [
   { name: "Cash" },
   { name: "Cash/Bills" },
+  { name: "Cash/Events" },
   { name: "Cash/Giftcards" },
   { name: "Cash/Invest" },
+  { name: "Cash/Orders" },
   { name: "Cash/Stock" },
   { name: "Dev" },
   { name: "Events" },
