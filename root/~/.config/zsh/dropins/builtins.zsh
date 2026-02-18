@@ -4,6 +4,8 @@
 alias less='bat'
 PAGER="$(type -p less | awk '{print $NF}')"  # ie. PAGER=/path/to/less
 export PAGER
+# TODO: consider using neovim
+# export MANPAGER="nvim +Man!"
 export MANPAGER="sh -c 'col -b | bat -l man -p'"
 export LESS='-R'
 
