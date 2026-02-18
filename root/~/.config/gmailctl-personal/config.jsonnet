@@ -122,6 +122,7 @@ local rules = [
           { or: [
             { subject: "ACTION REQUIRED: - Steps for Interac E- Transfer Auto-deposit" },
             { subject: "Action Required: Transaction pending due to documents" },
+            { subject: "Funds were deposited" },
             { subject: "RemitBee - Funds were deposited into your RB balance" },
             { subject: "RemitBee Transaction Receipt" },
             { subject: "Remitbee - Transaction Completed Successfully" },
@@ -147,6 +148,7 @@ local rules = [
         { and: [
           { or: [
             { from: "notifications@m.wealthsimple.com" },
+            { from: "notifications@o.wealthsimple.com" },
             { from: "support@wealthsimple.com" },
           ]},
           { or: [
@@ -159,6 +161,7 @@ local rules = [
             { subject: "Your deposit is on the way!" },
             { subject: "Your latest credit card statement is ready" },
             { subject: "Your transfer is complete!" },
+            { subject: "Your transfer is on its way!" },
           ]},
 
         ]},
@@ -173,8 +176,9 @@ local rules = [
         { from: "notifications@robinhood.com" },
         { and: [
           { or: [
-            { from: "support@wealthsimple.com" },
+            { from: "notifications@m.wealthsimple.com" },
             { from: "notifications@o.wealthsimple.com" },
+            { from: "support@wealthsimple.com" },
           ]},
           { or: [
             { subject: "You earned a dividend" },
@@ -184,8 +188,6 @@ local rules = [
             { subject: "Your order has been filled" },
             { subject: "Your order has been rejected" },
             { subject: "Your order has expired" },
-            { subject: "Your transfer is complete!" },
-            { subject: "Your transfer is on its way!" },
           ]},
         ]},
       ],
@@ -195,6 +197,7 @@ local rules = [
   {
     filter: {
       or: [
+        { from: "architect-newsletter@mail.infoq.com" },
         { from: "architect-newsletter@mailer.infoq.com" },
         { from: "betterengineers@substack.com" },
         { from: "buzzrobot@substack.com" },
@@ -211,6 +214,7 @@ local rules = [
   {
     filter: {
       or: [
+        { from: "info@portugalresident.com" },
         { from: "jorgebranco@substack.com" },
       ],
     },
@@ -253,6 +257,10 @@ local rules = [
           { subject: "Your statement is ready for account" },
         ]},
         { and: [
+          { from: "no.reply.alerts@chase.com" },
+          { subject: "Your latest statement is now available" },
+        ]},
+        { and: [
           { from: "no-reply@em.wealthfront.com" },
           { or: [
             { subject: "Your monthly Cash Account statement from Green Dot Bank is available" },
@@ -260,8 +268,15 @@ local rules = [
           ]},
         ]},
         { and: [
+          { from: "info@trading212.com" },
+          { subject: "Monthly Statement now available" },
+        ]},
+        { and: [
           { from: "no-reply@revolut.com" },
-          { subject: "View your documents" },
+          { or: [
+            { subject: "View your documents" },
+            { subject: "Your monthly account statement is here" },
+          ]},
         ]},
         { and: [
           { from: "notifications@m.wealthsimple.com" },
@@ -278,6 +293,14 @@ local rules = [
         { and: [
           { from: "venmo@venmo.com" },
           { subject: "Venmo Quarterly Statement" },
+        ]},
+        { and: [
+          { from: "support@s.usa.experian.com" },
+          { subject: "Your monthly account statement is here, Kevin" },
+        ]},
+        { and: [
+          { from: "noreply@robinhood.com" },
+          { subject: "Your crypto monthly statement is available" },
         ]},
       ],
     },

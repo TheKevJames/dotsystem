@@ -39,19 +39,24 @@ local rules = [
     filter: listProduct,
     actions: labelAndArchive("Product"),
   },
+
   {
     filter: listTelephony,
     actions: labelAndArchive("Telephony"),
   },
+
   {
     filter: {
       or: [
         listElasticsearch,
         { from: "alerts@okta.com" },
+        { from: "alerts@trustalerts.okta.com" },
+        { from: "firebase-noreply@google.com" },
       ],
     },
     actions: labelAndArchive("Alerts"),
   },
+
   {
     filter: {
       or: [
@@ -73,11 +78,13 @@ local rules = [
     },
     actions: labelAndArchive("Alerts", markRead=false),
   },
+
   {
     filter: {
       or: [
         { from: "billing@grafana.com" },
         { from: "'Pusher' via UberVoice Eng" },
+        { from: "'Pusher' via VoiceAI Eng" },
         { and: [
           { from: "no_reply@am.atlassian.com" },
           { subject: "invoice" },
@@ -116,6 +123,7 @@ local rules = [
     },
     actions: labelAndArchive("Billing"),
   },
+
   {
     filter: {
       and: [
@@ -130,9 +138,12 @@ local rules = [
     },
     actions: labelAndArchive("Calendar"),
   },
+
   {
     filter: {
       or: [
+        { from: "engbot@dialpad.com" },
+        { replyto: "builds@circleci.com" },
         { to: "dialpad-dev@noreply.github.com" },
         { and: [
           { from: "Travis CI" },
@@ -142,10 +153,21 @@ local rules = [
           listVoiceAI,
           { from: "builds@circleci.com" },
         ]},
+        { and: [
+          { from: "ops@talkiq.com" },
+          { replyto: "no-reply@builds.circleci.com" },
+          { to: "ops@talkiq.com" },
+        ]},
+        { and: [
+          { from: "ops@talkiq.com" },
+          { replyto: "no-reply@circleci.com" },
+          { to: "ops@talkiq.com" },
+        ]},
       ],
     },
     actions: labelAndArchive("CI"),
   },
+
   {
     filter: {
       from: "concierge@expensify.com",
@@ -155,6 +177,7 @@ local rules = [
       labels: [ "Expenses" ],
     },
   },
+
   {
     filter: {
       or: [
@@ -164,6 +187,16 @@ local rules = [
     },
     actions: labelAndArchive("Jira", markRead=false),
   },
+
+  {
+    filter: {
+      or: [
+        { from: "support@dialpad.com" },
+      ],
+    },
+    actions: labelAndArchive("Misc"),
+  },
+
   {
     filter: {
       or: [
@@ -179,19 +212,41 @@ local rules = [
     },
     actions: labelAndArchive("Newsletter"),
   },
+
   {
     filter: {
-      and: [
-        { list: "team@dialpad.com" },
-        { or: [
-          { subject: "#SocialSkim" },
-          { subject: "Weekly HR News Flash" },
-          { subject: "Welcome our New Dialers" },
-        ]},
+      or: [
+        { from: "techbytes@dialpad.com" },
+        { subject: "#SocialSkim" },
+        { subject: "Weekly HR News Flash" },
+        { subject: "Welcome our New Dialers" },
       ],
     },
     actions: labelAndArchive("Newsletter", markRead=false),
   },
+
+  {
+    filter: {
+      or: [
+        { from: "adpfeedback@adp.com" },
+      ],
+    },
+    actions: labelAndArchive("Payroll", markRead=false),
+  },
+
+  {
+    filter: {
+      or: [
+        { from: "noreply@dialpad.com" },
+        { and: [
+            { to: "firespotter@noreply.github.com" },
+            { subject: "Deployment review in dialpad/firespotter" },
+        ]},
+      ],
+    },
+    actions: labelAndArchive("Product"),
+  },
+
   {
     filter: {
       and: [
@@ -206,9 +261,11 @@ local rules = [
     },
     actions: labelAndArchive("Release"),
   },
+
   {
     filter: {
       or: [
+        { from: "cloudsupport@google.com" },
         { and: [
           { from: "esupport@google.com" },
           { subject: "New Case Comment" },
@@ -226,6 +283,7 @@ local rules = [
     },
     actions: labelAndArchive("Support", markRead=false),
   },
+
   {
     filter: {
       or: [
@@ -238,13 +296,6 @@ local rules = [
         { and: [
           { list: "team@dialpad.com" },
           { from: "stickers@dialpad.com" },
-        ]},
-        { and: [
-          { from: "noreply@dialpad.com" },
-          { or: [
-            { subject: "Emergency location updated" },
-            { subject: "Dialpad Weekly Insights Report" },
-          ]},
         ]},
         { and: [
           { from: "voicemail@dialpad.com" },
@@ -271,6 +322,7 @@ local labels = [
   { name: "Hiring" },
   { name: "Jira" },
   { name: "Meetings" },
+  { name: "Misc" },
   { name: "Newsletter" },
   { name: "Payroll" },
   { name: "Product" },
