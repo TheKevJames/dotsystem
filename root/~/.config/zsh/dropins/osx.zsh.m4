@@ -43,7 +43,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     mkdir -p "${XDG_RUNTIME_DIR}"
 
     ulimit -n 2048
-    ulimit -u 512
+    ulimit -u 1024
 fi
 
 # restart yabai / skhd services:
