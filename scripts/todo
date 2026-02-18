@@ -1,0 +1,19 @@
+#!/bin/bash
+# ARG_POSITIONAL_SINGLE([folder],[search folder],[.])
+# ARG_HELP([Find TODOs in the current directory])
+# ARGBASH_SET_INDENT([    ])
+# ARGBASH_GO
+# [
+
+folder="${_arg_folder:-.}"
+
+echo "Finding TODO comments..."
+rg "TODO" "${folder}"
+rg "FIXME" "${folder}"
+echo
+
+echo "Finding disabled warnings..."
+rg "filterwarnings" -tpy "${folder}"
+rg "filterwarnings" -ttoml "${folder}"
+
+# ]
