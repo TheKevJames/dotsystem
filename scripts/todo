@@ -8,8 +8,8 @@
 folder="${_arg_folder:-.}"
 
 echo "Finding TODO comments..."
-rg "TODO" "${folder}"
-rg "FIXME" "${folder}"
+rg "TODO" -Tcsv "${folder}"
+rg "FIXME" -Tcsv "${folder}"
 echo
 
 echo "Finding disabled warnings..."
