@@ -22,15 +22,16 @@ echo "Running post-upgrade steps..."
 if which zypper >/dev/null; then
     :
 elif which port >/dev/null; then
-    which yabai && {
-        sudo codesign -fs 'yabai-cert' /opt/local/bin/yabai
+    # TODO: fix this
+    # which yabai && {
+    #     sudo codesign -fs 'yabai-cert' /opt/local/bin/yabai
 
-        # Grant sudo access for yabai
-        echo "$(whoami) ALL=(root) NOPASSWD: sha256:$(shasum -a 256 "$(which yabai)") --load-sa" | sudo tee /etc/sudoers.d/yabai
+    #     # Grant sudo access for yabai
+    #     echo "$(whoami) ALL=(root) NOPASSWD: sha256:$(shasum -a 256 "$(which yabai)") --load-sa" | sudo tee /etc/sudoers.d/yabai
 
-        sudo yabai --load-sa
-        yabai --restart-service
-    }
+    #     sudo yabai --load-sa
+    #     yabai --restart-service
+    # }
 
     which skhd && {
         skhd --restart-service

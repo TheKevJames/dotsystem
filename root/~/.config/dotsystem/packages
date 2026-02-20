@@ -34,7 +34,6 @@
 
   ; apps
   btop
-  ; kitty  ; TODO: migrate off. On OSX, backup `defaults read com.apple.Terminal`
   neovim = nvim
   tmux
   zsh
