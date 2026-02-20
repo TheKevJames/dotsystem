@@ -41,7 +41,7 @@
 
 ; packages from the OS package manager, OSX only
 [Darwin]
-  npm10 = npm  ; TODO: do we need this on Linux for neovim? npm install -g neovim-node-host
+  npm10 = npm
   pinentry = pinentry  ; TODO: do we need this on Linux for gpg?
   python311 = python3.11
   python312 = python3.12
@@ -53,6 +53,7 @@
 ; packages from the OS package manager, Linux only
 [Linux]
   python3 = python3
+  ; TODO: npm
 
 ; rust tools, installed via cargo
 ; if any values are set, also install rustup/cargo
@@ -79,6 +80,13 @@
   tmux-xpanes = greymd
   tmuxifier = jimeh
   xdg-ninja = b3nj5m1n
+
+; js tools, installed via npm
+[npm]
+  ; TODO: support for @-prefix
+  ; @likec4/language-server = likec4-language-server
+  ; @mariozechner/pi-coding-agent = pi
+  neovim = neovim-node-host
 
 ; python tools, installed via pipx
 [pipx]

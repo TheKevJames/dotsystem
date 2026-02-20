@@ -293,6 +293,18 @@ while IFS=$'\r' read -r package; do
     fi
 done < <(git config -f "${PACKAGE_CONFIG}" --get-regexp 'git\..*')
 
+## Install npm packages
+if git config -f "${PACKAGE_CONFIG}" --get-regexp 'npm\..*' >/dev/null; then
+    while IFS=$'\r' read -r package; do
+        IFS=' ' read -ra fields <<< "$package"
+        pkg="${fields[0]#npm.}"
+        binary="${fields[1]:-${pkg}}"
+        if ! which "${binary}" >/dev/null 2>&1; then
+            npm install -g "${pkg}"
+        fi
+    done < <(git config -f "${PACKAGE_CONFIG}" --get-regexp 'npm\..*')
+fi
+
 ## Install pipx packages
 if git config -f "${PACKAGE_CONFIG}" --get-regexp 'pipx\..*' >/dev/null; then
     while IFS=$'\r' read -r package; do
