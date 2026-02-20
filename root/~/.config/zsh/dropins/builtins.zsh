@@ -1,6 +1,5 @@
 # shellcheck shell=bash
 # https://github.com/sharkdp/bat
-# alias cat='bat'
 alias less='bat'
 PAGER="$(type -p less | awk '{print $NF}')"  # ie. PAGER=/path/to/less
 export PAGER

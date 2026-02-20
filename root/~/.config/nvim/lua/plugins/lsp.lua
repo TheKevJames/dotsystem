@@ -49,24 +49,25 @@ vim.api.nvim_create_autocmd('LspDetach', {
 vim.g.beancount_account_completion = 'default'
 vim.g.beancount_detailed_first = 1
 
--- TODO: can we just load everything from lsp/* ?
+-- automatically enable every LSP that has a config file in ~/.config/nvim/lsp/*.lua
+local function lsp_servers_from_config_dir()
+  local lsp_dir = vim.fn.stdpath('config') .. '/lsp'
+  local server_files = vim.fn.globpath(lsp_dir, '*.lua', false, true)
+
+  local servers = {}
+  for _, file in ipairs(server_files) do
+    local name = vim.fs.basename(file):gsub('%.lua$', '')
+    if name ~= 'init' then
+      table.insert(servers, name)
+    end
+  end
+
+  table.sort(servers)
+  return servers
+end
+
 -- TODO: switch to choosenim, then use nimls or nim_langserver
-vim.lsp.enable({
-  'bashls',
-  'beancount',
-  'docker_compose_language_service',
-  'dockerls',
-  'dotls',
-  'esbonio',
-  'jsonls',
-  'lua_ls',
-  'marksman',
-  'pylsp',
-  'sqlls',
-  'taplo',
-  'terraformls',
-  'yamlls',
-})
+vim.lsp.enable(lsp_servers_from_config_dir())
 
 return {
   {
