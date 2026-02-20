@@ -1,0 +1,18 @@
+{
+  "defaultProvider": "openai",
+  "defaultModel": "gpt-5.2",
+  "defaultThinkingLevel": "medium",
+  "theme": "dark",
+  "enableSkillCommands": true,
+  "compaction": {
+    "enabled": true,
+    "reserveTokens": 19200,
+    "keepRecentTokens": 19200
+  },
+  "retry": {
+    "enabled": true,
+    "maxRetries": 3
+  },
+  "quietStartup": true,
+  "lastChangelogVersion": "0.54.0"
+}

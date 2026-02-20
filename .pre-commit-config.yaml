@@ -244,18 +244,6 @@ repos:
       - id: pretty-format-kotlin
         args: [--autofix]
 
-# javascript
-  - repo: https://github.com/pre-commit/mirrors-fixmyjs
-    rev: v2.0.0
-    hooks:
-      - id: fixmyjs
-        exclude: '(.*.min.js)'
-  - repo: https://github.com/pre-commit/mirrors-jshint
-    rev: v2.13.6
-    hooks:
-      - id: jshint
-        exclude: '(.*.min.js)'
-
 # terraform
   - repo: https://github.com/antonbabenko/pre-commit-terraform
     rev: v1.105.0
