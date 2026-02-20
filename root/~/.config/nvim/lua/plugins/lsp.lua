@@ -72,7 +72,6 @@ vim.lsp.enable(lsp_servers_from_config_dir())
 return {
   {
     'mason-org/mason.nvim',
-    version = '^1.0.0',  -- TODO: unpin once v2 is fixed (TODO: what broke?)
     build = ':MasonUpdate',
     lazy = false,
     config = true,
