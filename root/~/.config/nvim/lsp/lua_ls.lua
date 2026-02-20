@@ -1,5 +1,4 @@
 -- https://github.com/luals/lua-language-server
--- TODO: consider setting on_init to load neovim directory
 return {
   cmd = { 'lua-language-server' },
   filetypes = { 'lua' },
@@ -9,7 +8,6 @@ return {
   settings = {
     Lua = {
       diagnostics = {
-        -- TODO: make this conditional, eg. only in neovim config files
         globals = { 'vim' },
       },
       hint = {
