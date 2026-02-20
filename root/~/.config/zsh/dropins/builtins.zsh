@@ -4,9 +4,6 @@
 alias less='bat'
 PAGER="$(type -p less | awk '{print $NF}')"  # ie. PAGER=/path/to/less
 export PAGER
-# TODO: consider using neovim
-# export MANPAGER="nvim +Man!"
-export MANPAGER="sh -c 'col -b | bat -l man -p'"
 export LESS='-R'
 
 # https://eza.rocks/
@@ -25,6 +22,7 @@ alias top='btop'
 
 # https://github.com/neovim/neovim
 alias vim='nvim'
+export MANPAGER='nvim +Man!'
 
 # https://github.com/sharkdp/hexyl
 alias xxd='hexyl'
