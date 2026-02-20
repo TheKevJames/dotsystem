@@ -1,6 +1,6 @@
 # This file is vendored, run ./vendor to update it.
-# Last Update: 2025-07-29
-# Commit Hash: 5c804257ceb5b3062b876afae290adf72c474aad
+# Last Update: 2026-02-20
+# Commit Hash: 52d93f18d61f11db69b4591d7fc7bd5578954d30
 #
 alias x=extract
 
@@ -80,11 +80,19 @@ EOF
       (*.lz4) lz4 -d "$full_path" ;;
       (*.lzma) unlzma "$full_path" ;;
       (*.z) uncompress "$full_path" ;;
-      (*.zip|*.war|*.jar|*.ear|*.sublime-package|*.ipa|*.ipsw|*.xpi|*.apk|*.aar|*.whl|*.vsix|*.crx) unzip "$full_path" ;;
-      (*.rar) unrar x -ad "$full_path" ;;
+      (*.zip|*.war|*.jar|*.ear|*.sublime-package|*.ipa|*.ipsw|*.xpi|*.apk|*.aar|*.whl|*.vsix|*.crx|*.pk3|*.pk4) unzip "$full_path" ;;
+      (*.rar)
+        if (( $+commands[unrar] )); then
+          unrar x -ad "$full_path"
+        elif (( $+commands[unar] )); then
+          unar -o . "$full_path"
+        else
+          echo "extract: cannot extract RAR files: install unrar or unar" >&2
+          success=1
+        fi ;;
       (*.rpm)
         rpm2cpio "$full_path" | cpio --quiet -id ;;
-      (*.7z | *.7z.[0-9]*) 7za x "$full_path" ;;
+      (*.7z | *.7z.[0-9]* | *.pk7) 7za x "$full_path" ;;
       (*.deb)
         command mkdir -p "control" "data"
         ar vx "$full_path" > /dev/null
