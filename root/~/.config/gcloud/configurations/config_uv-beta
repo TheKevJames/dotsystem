@@ -1,5 +1,0 @@
-[core]
-project = uv-beta
-account = kjames@dialpad.com
-
-disable_usage_reporting = True
