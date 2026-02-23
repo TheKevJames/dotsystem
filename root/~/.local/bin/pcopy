@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if hash pbcopy 2>/dev/null; then
+    pbcopy
+elif hash xclip 2>/dev/null; then
+    xclip -selection clipboard
+else
+    echo >&2 "error: no copy tool found"
+    exit 1
+fi
