@@ -62,6 +62,7 @@
   bat
   cctui
   difftastic = difft
+  eb
   eza
   fd-find = fd
   git-delta = delta
