@@ -59,11 +59,13 @@
 [cargo]
   bat
   cctui
+  difftastic = difft
   eza
-  git-delta = delta
   fd-find = fd
+  git-delta = delta
   hexyl
   hyperfine
+  mergiraf
   pastel
   ripgrep = rg
   sd
