@@ -6,11 +6,11 @@ export PAGER
 export LESS='-R'
 
 # https://eza.rocks/
-alias l='eza -la'
-alias la='eza -la'
-alias ll='eza -l'
-alias ls='eza'
-alias lsa='eza -la'
+alias l='eza -la --group-directories-first'
+alias la='eza -la --group-directories-first'
+alias ll='eza -l --group-directories-first'
+alias ls='eza --group-directories-first'
+alias lsa='eza -la --group-directories-first'
 export TIME_STYLE=long-iso
 
 # http://denilson.sa.nom.br/prettyping/
