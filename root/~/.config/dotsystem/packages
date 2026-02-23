@@ -13,6 +13,7 @@
   bison
   curl
   entr
+  glow
   gmailctl
   gnupg2 = gpg  ; TODO: is this OS-specific?
   jq
