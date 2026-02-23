@@ -54,7 +54,7 @@
 
 [diff]
     algorithm = histogram
-    colorMoved = zebra
+    colorMoved = default
     mnemonicPrefix = true
     renames = copies
     tool = nvimdiff
@@ -122,7 +122,10 @@
     browser = firefox
 
 [delta]
+    dark = true
+    syntax-theme = gruvbox-dark
     navigate = true
+    line-numbers = true
 
 [hub]
     protocol = ssh
