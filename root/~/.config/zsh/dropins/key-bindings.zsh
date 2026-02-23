@@ -7,7 +7,6 @@
 # [Ctrl-t] - Paste the selected file path(s) into the command line
 # [Alt-c] - cd into the selected directory
 # [Ctrl-r] - Paste the selected command from history into the command line
-# shellcheck disable=SC1091
 source "${XDG_DATA_HOME}/nvim/lazy/fzf/shell/key-bindings.zsh"
 
 # Make sure that the terminal is in application mode when zle is active, since

@@ -1,17 +1,15 @@
 # shellcheck shell=bash
 autoload -U colors && colors
 
-# TODO: how best to handle PATH config order? Currently, dropin load order is
-# undefined (alphabetical?), an color.sh < xdg.sh, so vivid isn't yet on the
-# path.
-VIVID_DIR="${XDG_DATA_HOME}/cargo/bin"
-LS_COLORS=$("${VIVID_DIR}/vivid" generate gruvbox-dark)
+source "$(dirname "$(realpath "$0")")/xdg.zsh"
+LS_COLORS=$(vivid generate gruvbox-dark)
 export LS_COLORS
 
 declare -A HOSTNAME_COLORS=(
-    ["applebox"]=green
-    ["pi-0"]=green
-    ["pi-1"]=green
+    ["applebox"]=red
+    ["bmaxbox"]=red
+    ["pi-0"]=red
+    ["pi-1"]=red
 )
 
 function update_tmux_ssh() {

@@ -49,7 +49,6 @@ echo "  Bootstrap: ${BOOTSTRAP}"
 echo "  Force: ${FORCE}"
 echo "  Skip Packages: ${SKIP}"
 
-# shellcheck disable=SC1091
 source "${DIR}/root/~/.zshenv"
 
 # TODO: add cleanups, eg. port reclaim and apt autoremove
