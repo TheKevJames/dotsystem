@@ -9,6 +9,6 @@ Generate documentation for the following code. Include:
 4. **Configuration** — Available options and defaults
 5. **Error handling** — What errors can occur and how to handle them
 
-Match the project's existing documentation style. Use JSDoc/docstrings as appropriate.
+Match the project's existing documentation style. Use docstrings as appropriate.
 
 $@

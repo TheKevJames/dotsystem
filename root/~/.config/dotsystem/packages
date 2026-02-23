@@ -41,6 +41,7 @@
 
 ; packages from the OS package manager, OSX only
 [Darwin]
+  jira-cli = jira  ; TODO: linux
   npm10 = npm
   pinentry = pinentry  ; TODO: do we need this on Linux for gpg?
   python311 = python3.11
