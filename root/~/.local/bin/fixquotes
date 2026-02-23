@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# shellcheck disable=SC1112
+sed 's/[“”]/"/g; s/[‘’]/'"'"'/g'
