@@ -36,7 +36,6 @@ repos:
         args: [--allow-multiple-documents]
       - id: detect-private-key
       - id: end-of-file-fixer
-        exclude: '^root/~/.config/gcloud/configurations/.*$'
       - id: mixed-line-ending
         args: [--fix=lf]
       - id: trailing-whitespace
@@ -52,7 +51,6 @@ repos:
   - repo: https://github.com/PyCQA/pylint
     rev: v4.0.5
     hooks:
-    # TODO: pylint-import-modules support for pylint v3 (or alternative linter)
       - id: pylint
         args:
           - --load-plugins=pylint.extensions.mccabe
@@ -62,7 +60,6 @@ repos:
           - --max-positional-arguments=10
           - --max-args=10
           - --score=n
-          # TODO: narrow these down
           - -d broad-except
           - -d duplicate-code
           - -d fixme
@@ -84,20 +81,12 @@ repos:
     rev: v3.16.0
     hooks:
       - id: reorder-python-imports
-        args: [--py37-plus]
-        files: 'root/etc/pythonstart'
-      - id: reorder-python-imports
         args: [--py311-plus]
-        exclude: 'root/etc/pythonstart'
   - repo: https://github.com/asottile/pyupgrade
     rev: v3.21.2
     hooks:
       - id: pyupgrade
-        args: [--py37-plus]
-        files: 'root/etc/pythonstart'
-      - id: pyupgrade
         args: [--py311-plus]
-        exclude: 'root/etc/pythonstart'
   - repo: https://github.com/asottile/add-trailing-comma
     rev: v4.0.0
     hooks:
@@ -132,6 +121,7 @@ repos:
           - flake8-2020==1.8.1
           - flake8-broken-line==1.0.0
           - flake8-builtins==3.1.0
+          - flake8-complicated-walrus==2.1.0
           - flake8-comprehensions==3.17.0
           - flake8-import-restrictions==2.1
   - repo: https://github.com/guilatrova/tryceratops
@@ -159,7 +149,6 @@ repos:
     rev: 7.3.0
     hooks:
       - id: flake8
-        language: python
         additional_dependencies: *flake8deps
         args:
           # https://www.flake8rules.com/
@@ -196,6 +185,14 @@ repos:
         language: pygrep
         types: [toml]
         files: 'pyproject.toml$'
+      - id: pyproject-no-unpinned-git-deps
+        name: disallow git dependencies without rev/tag
+        description: 'Disallow Poetry/PDM git dependencies unless they are pinned with a rev or tag on the same line'
+        # Flags lines that contain `git = "..."` but do NOT also contain `rev =` or `tag =`.
+        entry: '^(?!\s*#)(?=[^#]*\bgit\s*=\s*"[^"]+")(?![^#]*\b(?:rev|tag)\s*=).*$'
+        language: pygrep
+        types: [toml]
+        files: 'pyproject\.toml$'
       - id: pytest-fixtures-require-scope
         name: ensure pytest fixture scopes are explicitly set
         description: 'Ensure we explicitly set pytest fixture scopes'

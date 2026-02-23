@@ -108,7 +108,7 @@
 
 [rebase]
     autoSquash = true  # https://git-scm.com/docs/git-rebase#Documentation/git-rebase.txt---autosquash
-    updateRefs = false  # TODO: play with this, maybe toggle on?
+    updateRefs = false
 
 [rerere]
     enabled = true

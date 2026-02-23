@@ -1,5 +1,4 @@
 -- https://github.com/swyddfa/esbonio
--- TODO: only start esbonio in sphinx projects
 return {
   cmd = { 'esbonio' },
   filetypes = { 'rst' },
