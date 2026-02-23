@@ -1,9 +1,0 @@
-{{/* table template */ -}}
-{{$w := sub termWidth 63 -}}
-+{{ "-" | rep 12 }}+{{ "-" | rep $w }}+{{ "-" | rep 10 }}+{{ "-" | rep 10 }}+{{ "-" | rep 14 }}+{{ "-" | rep 10 }}+
-| {{ "Issue" | printf "%-10s" }} | {{ "Summary" | printf (printf "%%-%ds" (sub $w 2)) }} | {{ "Type" | printf "%-8s"}} | {{ "Priority" | printf "%-8s" }} | {{ "Status" | printf "%-12s" }} | {{ "Assignee" | printf "%-8s" }} |
-+{{ "-" | rep 12 }}+{{ "-" | rep $w }}+{{ "-" | rep 10 }}+{{ "-" | rep 10 }}+{{ "-" | rep 14 }}+{{ "-" | rep 10 }}+
-{{ range .issues -}}
-  | {{ .key | printf "%-10s"}} | {{ .fields.summary | abbrev (sub $w 2) | printf (printf "%%-%ds" (sub $w 2)) }} | {{.fields.issuetype.name | regReplace "New " "" | printf "%-8s" }} | {{if .fields.priority}}{{.fields.priority.name | printf "%-8s" }}{{else}}<unassigned>{{end}} | {{.fields.status.name | regReplace "Ready for Production" "Ready" | printf "%-12s" }} | {{if .fields.assignee }}{{.fields.assignee.displayName | regReplace " .*" "" | printf "%-8s" }}{{else}}Unassigned{{end}} |
-{{ end -}}
-+{{ "-" | rep 12 }}+{{ "-" | rep $w }}+{{ "-" | rep 10 }}+{{ "-" | rep 10 }}+{{ "-" | rep 14 }}+{{ "-" | rep 10 }}+

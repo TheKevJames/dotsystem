@@ -45,7 +45,4 @@ function gmailctl() {
 alias gmailctlp='command gmailctl --config=${XDG_CONFIG_HOME}/gmailctl-personal'
 alias gmailctlw='command gmailctl --config=${XDG_CONFIG_HOME}/gmailctl-work'
 
-# https://github.com/go-jira/jira
-alias jira='HOME=${XDG_CONFIG_HOME}/jira/ jira'
-
 export PATH="${KREW_ROOT}/bin:${PYENV_ROOT}/shims:${CARGO_HOME}/bin:${GOPATH}/bin:${PATH}"

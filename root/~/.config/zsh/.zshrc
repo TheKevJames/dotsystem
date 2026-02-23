@@ -32,8 +32,7 @@ _zpcompinit_custom() {
 }
 _zpcompinit_custom
 
-for config_file (~/.config/zsh/completions/*.zsh); do
-    source $config_file
-done
+for config_file in ~/.config/zsh/completions/*.zsh; do source "${config_file}"; done
+unset config_file
 
 # zprof

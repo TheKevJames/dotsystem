@@ -67,7 +67,6 @@ The following are some extra fixes that I worked out before coming across
 - gmailctl. Support with ``--config`` flag.
 - helm. Support by setting ``$HELM_HOME``.
 - irb. Partial support by setting ``$IRBRC``.
-- jira. Partial support by setting ``$HOME``, which frankly I'm not sure counts.
 - kubectl. Support by setting ``$KUBECONFIG`` and ``$KUBECACHEDIR``
 - theano. Support by setting ``$THEANORC`` and including ``base_compiledir`` in ``$THEANO_FLAGS``.
 
