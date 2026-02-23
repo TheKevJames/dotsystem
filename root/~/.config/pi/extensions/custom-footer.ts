@@ -1,3 +1,7 @@
+// This file is vendored, run ./vendor to update it.
+// Last Update: 2026-02-23
+// Commit Hash: 31956c149d779863aa23e8ea43be5b1a914d9600
+//
 /**
  * Custom Footer Extension — Enhanced status bar
  *

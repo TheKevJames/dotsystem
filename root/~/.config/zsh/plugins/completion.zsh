@@ -1,6 +1,6 @@
 # This file is vendored, run ./vendor to update it.
-# Last Update: 2026-02-20
-# Commit Hash: 52d93f18d61f11db69b4591d7fc7bd5578954d30
+# Last Update: 2026-02-23
+# Commit Hash: 400591e71c894063eb08b6cae18ab66c19a1b756
 #
 # fixme - the load process here seems a bit bizarre
 zmodload -i zsh/complist

@@ -1,3 +1,7 @@
+// This file is vendored, run ./vendor to update it.
+// Last Update: 2026-02-23
+// Commit Hash: 31956c149d779863aa23e8ea43be5b1a914d9600
+//
 /**
  * 智能压缩扩展 — 在发送给 LLM 前裁剪大块内容
  *
@@ -12,7 +16,7 @@ const MAX_USER_BLOCK_CHARS = 12000;
 const KEEP_HEAD = 1500;
 const KEEP_TAIL = 2500;
 
-function truncateText(text: string, max: number, head = KEEP_HEAD, tail = KEEP_TAIL): string {
+export function truncateText(text: string, max: number, head = KEEP_HEAD, tail = KEEP_TAIL): string {
   if (text.length <= max) return text;
   const lines = text.split("\n");
   if (lines.length <= 10) return text; // 短文本不裁
@@ -22,7 +26,7 @@ function truncateText(text: string, max: number, head = KEEP_HEAD, tail = KEEP_T
   return `${headText}\n\n[...truncated ${removedLines} lines...]\n\n${tailText}`;
 }
 
-function compactContent(content: any): any {
+export function compactContent(content: any): any {
   if (typeof content === "string") {
     return truncateText(content, MAX_TOOL_OUTPUT_CHARS);
   }

@@ -15,17 +15,30 @@ SOURCES=()
 SOURCES["root/~/.config/zsh/plugins/async-git-prompt.plugin.zsh"]="async-git-prompt.plugin.zsh"
 REPOS["pawel-slowik/zsh-async-git-prompt"]=$(declare -p SOURCES)
 
+# TODO: consider the following
+# https://github.com/telagod/oh-pi/blob/main/pi-package/extensions/bg-process.ts
+# TODO: vendor the skills (context7, debug-helper, git-workflow, web-fetch, web-search) without breaking markdown
+SOURCES=()
+SOURCES["root/~/.config/pi/extensions/auto-session-name.ts"]="pi-package/extensions/auto-session-name.ts"
+SOURCES["root/~/.config/pi/extensions/compact-header.ts"]="pi-package/extensions/compact-header.ts"
+SOURCES["root/~/.config/pi/extensions/custom-footer.ts"]="pi-package/extensions/custom-footer.ts"
+SOURCES["root/~/.config/pi/extensions/git-guard.ts"]="pi-package/extensions/git-guard.ts"
+SOURCES["root/~/.config/pi/extensions/smart-compact.ts"]="pi-package/extensions/smart-compact.ts"
+REPOS["telagod/oh-pi"]=$(declare -p SOURCES)
+
 for repo in "${!REPOS[@]}"; do
-    SHA=$(gh api "repos/${repo}/commits/master" -q '.sha')
+    [ "${repo}" == "telagod/oh-pi" ] && branch="main" || branch="master"
+    SHA=$(gh api "repos/${repo}/commits/${branch}" -q '.sha')
 
     eval "${REPOS["${repo}"]}"
     for fname in "${!SOURCES[@]}"; do
         echo "Updating ${fname} from ${repo}..."
+        [ "${fname##*.}" == "ts" ] && cc="//" || cc="#"
         {
-            echo "# This file is vendored, run ./vendor to update it."
-            echo "# Last Update: $(date +'%Y-%m-%d')"
-            echo "# Commit Hash: ${SHA}"
-            echo "#"
+            echo "${cc} This file is vendored, run ./vendor to update it."
+            echo "${cc} Last Update: $(date +'%Y-%m-%d')"
+            echo "${cc} Commit Hash: ${SHA}"
+            echo "${cc}"
         } > "${fname}"
         curl -s "https://raw.githubusercontent.com/${repo}/${SHA}/${SOURCES[${fname}]}" >> "${fname}"
 
