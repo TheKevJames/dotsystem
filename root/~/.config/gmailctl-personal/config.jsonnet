@@ -326,6 +326,7 @@ local labels = [
   { name: "Property" },
   { name: "Property/FerreiraBorges" },
   { name: "Records" },
+  { name: "Records/HealthConcierge" },
   { name: "Security" },
 ];
 
