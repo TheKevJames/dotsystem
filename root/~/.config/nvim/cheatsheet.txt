@@ -22,6 +22,7 @@ Go to declaration | <leader>gD
 Go to definition | <leader>gd
 Go to implementation | <leader>gi
 Go to references | <leader>gr
+Jump back | ctrl+t
 Open Signature help | ctrl+S
 Open LSP hover menu | K
 Rename variable | <leader>rn
