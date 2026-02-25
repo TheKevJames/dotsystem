@@ -8,7 +8,6 @@
   make
 
   ; utils
-  ; 1password-cli  ; TODO: track down on linux, figure out how to make leading digits work in this file
   bandwhich
   bison
   curl
@@ -41,20 +40,24 @@
 
 ; packages from the OS package manager, OSX only
 [Darwin]
-  jira-cli = jira  ; TODO: linux
+  jira-cli = jira
   npm10 = npm
-  pinentry = pinentry  ; TODO: do we need this on Linux for gpg?
+  pinentry
   python311 = python3.11
   python312 = python3.12
   python313 = python3.13
   python314 = python3.14
   skhd
+  syncthing
   yabai
 
 ; packages from the OS package manager, Linux only
 [Linux]
   python3 = python3
+  ; TODO: syncthing
   ; TODO: npm
+  ; TODO: jira-cli = jira
+  ; TODO: pinentry  ; do we need this for gpg?
 
 ; rust tools, installed via cargo
 ; if any values are set, also install rustup/cargo
