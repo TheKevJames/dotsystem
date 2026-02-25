@@ -30,6 +30,9 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     # Fix compilations
     export ARCHFLAGS="-arch $(uname -m)"
     export RUSTFLAGS="-L/Library/Developer/CommandLineTools/SDKs/MacOSX$(sw_vers -productVersion).sdk/usr/lib"
+    if [ "$(uname -m)" = "arm64" ]; then
+        export DOCKER_DEFAULT_PLATFORM=linux/amd64
+    fi
 
     # Because this will often work better than setting a real value
     export BROWSER="open"
@@ -45,7 +48,3 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     ulimit -n 2048
     ulimit -u 1024
 fi
-
-# restart yabai / skhd services:
-# yabai --start-service
-# skhd --start-service

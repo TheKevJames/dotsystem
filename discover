@@ -28,7 +28,8 @@ def find(folder: str) -> Iterator[pathlib.Path]:
         sourcefile = ROOT / file.relative_to(HOME)
         m4file = sourcefile.with_suffix(f'{sourcefile.suffix}.m4')
         if not any(x.exists() for x in (sourcefile, m4file)):
-            yield file
+            if not file.name.startswith('nobackup-'):
+                yield file
 
 
 def main() -> None:
