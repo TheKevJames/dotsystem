@@ -46,6 +46,15 @@ vim.api.nvim_create_autocmd('LspDetach', {
   end,
 })
 
+-- 2026-02-25: Taplo is hanging on shutdown, so force stop it to avoid latency
+vim.api.nvim_create_autocmd('QuitPre', {
+  callback = function()
+    for _, client in ipairs(vim.lsp.get_clients({ name = 'taplo' })) do
+      client:stop(true)
+    end
+  end,
+})
+
 vim.g.beancount_account_completion = 'default'
 vim.g.beancount_detailed_first = 1
 
@@ -80,6 +89,8 @@ return {
     'WhoIsSethDaniel/mason-tool-installer.nvim',
     dependencies = { 'mason-org/mason.nvim' },
     opts = {
+      -- TODO: verify :MasonToolsUpdate is handling this via ./dotsystem/update
+      -- auto_update = true,
       -- https://github.com/williamboman/mason-lspconfig.nvim/blob/main/lua/mason-lspconfig/mappings/server.lua
       ensure_installed = {
         -- LSP
