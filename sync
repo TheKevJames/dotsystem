@@ -589,3 +589,4 @@ echo "done."
 # TODO: consider installing pv. port install pv on osx
 # TODO: secrets:
 # ngrok config add-authtoken <foo>
+# TODO: flatten if statements in config files (eg. `if [ "$(uname ..."` should be done in ./sync, not at terminal load time
