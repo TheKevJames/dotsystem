@@ -15,6 +15,7 @@ FOLDERS = [
     '.local/bin',
 ]
 IGNORE = {
+    'circleci',  # TODO: add to packages, sync with ./sync
     'git-standup',  # TODO: sync with ./sync
     'lazy-lock.json',
 }

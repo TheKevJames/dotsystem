@@ -23,7 +23,7 @@
     show-sbs = -c delta.side-by-side=true show
     stale = !git branch -r | grep -v HEAD | grep -v 'origin/master$' | xargs -I{} git log --no-merges -n 1 --format=\"%ci | %cr | %an | {}\" {} | sort -n
     tags = tag -l --sort=version:refname
-    url = "!f() { echo https://$(git remote get-url origin | sed 's/github.com-dialpad/github.com/' | sed 's/^git@//' | sed 's/.git$//' | tr ':' '/')/tree/$(git rev-parse HEAD)/$1; }; f | pbcopy && pbpaste"
+    url = "!echo https://$(git remote get-url origin | sed 's/github.com-dialpad/github.com/' | sed 's/^git@//' | sed 's/.git$//' | tr ':' '/')/tree/$(git rev-parse HEAD)/$1 | pbcopy && pbpaste"
     whoami = !gh api 'https://api.github.com/user' | jq -r .login
     # TODO: migrate from delta?
     # https://difftastic.wilfred.me.uk/git.html#difftastic-by-default
