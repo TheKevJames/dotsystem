@@ -3,6 +3,7 @@
 set -euo pipefail
 # ARG_OPTIONAL_BOOLEAN([local],[],[include local branches],[on])
 # ARG_OPTIONAL_BOOLEAN([stash],[],[include local stashes],[on])
+# ARG_OPTIONAL_BOOLEAN([pr],[],[append open PR number to branches],[off])
 # ARG_OPTIONAL_SINGLE([remote-prefix],[r],[include remotes with prefix],[])
 # ARG_POSITIONAL_DOUBLEDASH([])
 # ARG_POSITIONAL_SINGLE([folder],[search folder],[.])
@@ -14,6 +15,10 @@ set -euo pipefail
 # TODO: support pointing at current dir, eg. with something like:
 #   fd -td -d2 -u '^.git$' "${_arg_folder}"
 for folder in $(fd -td -d1 "${_arg_folder:-.}"); do
+    branches=()
+    remotes=()
+    stashes=()
+
     if [ "${_arg_local:-on}" = on ]; then
         readarray -t branches <<<"$(git --git-dir "./${folder}/.git" branch \
                                     | grep -vE '^[ \*] master$' \
@@ -34,6 +39,33 @@ for folder in $(fd -td -d1 "${_arg_folder:-.}"); do
     while read -r; do
         [[ -n "${REPLY}" ]] && results+=("$REPLY")
     done < <(printf '%s\n' "${branches[@]}" "${remotes[@]}" "${stashes[@]}" | sed -E 's#remotes/[[:alnum:]]+/##' | sort -u)
+
+    if [ "${_arg_pr:-off}" = on ] && { [ "${#branches[@]}" -gt 0 ] || [ "${#remotes[@]}" -gt 0 ]; }; then
+        if pr_entries="$(cd "./${folder}" && gh pr list --state open --limit 500 --json number,headRefName --template '{{range .}}{{.headRefName}}{{"\t"}}{{.number}}{{"\n"}}{{end}}')"; then
+            annotated_results=()
+            for line in "${results[@]}"; do
+                if [[ "${line}" =~ ^stash@\{ ]]; then
+                    annotated_results+=("${line}")
+                    continue
+                fi
+
+                branch_name="${line}"
+                if [[ "${line}" =~ ^[[:space:]\*]+(.+)$ ]]; then
+                    branch_name="${BASH_REMATCH[1]}"
+                fi
+
+                pr_number="$(awk -F $'\t' -v branch="${branch_name}" '$1 == branch { print $2; exit }' <<<"${pr_entries}")"
+                if [[ -n "${pr_number}" ]]; then
+                    annotated_results+=("${line} (#${pr_number})")
+                else
+                    annotated_results+=("${line}")
+                fi
+            done
+            results=("${annotated_results[@]}")
+        else
+            echo "warning: ${folder}: failed to fetch open PRs; skipping PR annotation" >&2
+        fi
+    fi
 
     [[ -n "${results[*]}" ]] && {
         echo "${folder}"

@@ -15,7 +15,7 @@
   },
   "shellCommandPrefix": "export MANPAGER=cat",
   "quietStartup": true,
-  "lastChangelogVersion": "0.55.0",
+  "lastChangelogVersion": "0.55.1",
   "enabledModels": [
     "google/gemini-3-flash-preview",
     "google/gemini-3.1-pro-preview",
