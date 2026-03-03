@@ -10,9 +10,9 @@ FOLDERS = [
     '.config/tmuxifier/layouts',
     '.config/zsh/dropins',
     '.local/bin',
-    '.pi/extensions',
-    '.pi/prompts',
-    '.pi/skills',
+    '.pi/agent/extensions',
+    '.pi/agent/prompts',
+    '.pi/agent/skills',
 ]
 IGNORE = {
     'circleci',  # TODO: add to packages, sync with ./sync

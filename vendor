@@ -19,10 +19,10 @@ REPOS["pawel-slowik/zsh-async-git-prompt"]=$(declare -p SOURCES)
 # https://github.com/telagod/oh-pi/blob/main/pi-package/extensions/bg-process.ts
 # TODO: vendor the skills (context7, debug-helper, git-workflow, web-fetch, web-search) without breaking markdown
 SOURCES=()
-SOURCES["root/~/.pi/extensions/auto-session-name.ts"]="pi-package/extensions/auto-session-name.ts"
-SOURCES["root/~/.pi/extensions/compact-header.ts"]="pi-package/extensions/compact-header.ts"
-SOURCES["root/~/.pi/extensions/custom-footer.ts"]="pi-package/extensions/custom-footer.ts"
-SOURCES["root/~/.pi/extensions/safe-guard.ts"]="pi-package/extensions/safe-guard.ts"
+SOURCES["root/~/.pi/agent/extensions/auto-session-name.ts"]="pi-package/extensions/auto-session-name.ts"
+SOURCES["root/~/.pi/agent/extensions/compact-header.ts"]="pi-package/extensions/compact-header.ts"
+SOURCES["root/~/.pi/agent/extensions/custom-footer.ts"]="pi-package/extensions/custom-footer.ts"
+SOURCES["root/~/.pi/agent/extensions/safe-guard.ts"]="pi-package/extensions/safe-guard.ts"
 REPOS["telagod/oh-pi"]=$(declare -p SOURCES)
 
 for repo in "${!REPOS[@]}"; do
