@@ -1,6 +1,6 @@
 # This file is vendored, run ./vendor to update it.
-# Last Update: 2026-02-23
-# Commit Hash: 400591e71c894063eb08b6cae18ab66c19a1b756
+# Last Update: 2026-03-03
+# Commit Hash: 25d4d753bfe235040ebaea068b21feca8570e156
 #
 #compdef extract
 #autoload

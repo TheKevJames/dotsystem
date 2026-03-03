@@ -1,0 +1,20 @@
+{
+  "cursorUp": [
+    "up"
+  ],
+  "cursorDown": [
+    "down"
+  ],
+  "cursorLeft": [
+    "left"
+  ],
+  "cursorRight": [
+    "right"
+  ],
+  "cursorWordLeft": [
+    "ctrl+left"
+  ],
+  "cursorWordRight": [
+    "ctrl+right"
+  ]
+}

@@ -1,6 +1,6 @@
 // This file is vendored, run ./vendor to update it.
-// Last Update: 2026-02-23
-// Commit Hash: 31956c149d779863aa23e8ea43be5b1a914d9600
+// Last Update: 2026-03-03
+// Commit Hash: c2b61fb69718b73e88be9ee766e5d7b6e7292854
 //
 /**
  * oh-pi Auto Session Name Extension

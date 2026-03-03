@@ -1,0 +1,25 @@
+{
+  "crew": {
+    "concurrency": {
+      "workers": 2,
+      "max": 10
+    },
+    "dependencies": "advisory",
+    "coordination": "chatty",
+    "models": {
+      "analyst": "gpt-5.3-codex",
+      "planner": "gpt-5.3-codex",
+      "reviewer": "gpt-5.3-codex",
+      "worker": "gpt-5.3-codex"
+    },
+    "planning": {
+      "maxPasses": 1
+    },
+    "work": {
+      "maxAttemptsPerTask": 5,
+      "maxWaves": 50,
+      "stopOnBlock": false,
+      "shutdownGracePeriodMs": 30000
+    }
+  }
+}

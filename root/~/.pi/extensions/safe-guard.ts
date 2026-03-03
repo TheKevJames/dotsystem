@@ -1,3 +1,7 @@
+// This file is vendored, run ./vendor to update it.
+// Last Update: 2026-03-03
+// Commit Hash: c2b61fb69718b73e88be9ee766e5d7b6e7292854
+//
 /**
  * oh-pi Safe Guard Extension
  *
@@ -5,7 +9,7 @@
  */
 import type { ExtensionAPI } from "@mariozechner/pi-coding-agent";
 
-const DANGEROUS_PATTERNS = [
+export const DANGEROUS_PATTERNS = [
   /\brm\s+(-[a-zA-Z]*f[a-zA-Z]*\s+|.*-rf\b|.*--force\b)/,
   /\bsudo\s+rm\b/,
   /\b(DROP|TRUNCATE|DELETE\s+FROM)\b/i,
@@ -15,7 +19,7 @@ const DANGEROUS_PATTERNS = [
   />\s*\/dev\/sd[a-z]/,
 ];
 
-const PROTECTED_PATHS = [".env", ".git/", "node_modules/", ".pi/", "id_rsa", ".ssh/"];
+export const PROTECTED_PATHS = [".env", ".git/", "node_modules/", ".pi/", "id_rsa", ".ssh/"];
 
 export default function (pi: ExtensionAPI) {
   pi.on("tool_call", async (event, ctx) => {
