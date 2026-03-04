@@ -4,6 +4,8 @@
 - Use meaningful variable names
 - Keep functions under 50 lines
 - Add comments for complex logic only
+- Prefer importing modules instead of classes or functions, unless you are importing from `typing` or `collections.abc`
+- Only rename imports (using `as`) when required to solve naming collisions
 
 ## Git
 - Conventional Commits: feat/fix/refactor/docs/test/chore
@@ -25,12 +27,18 @@
 - Use `pre-commit run -a` after any changes to validate
 - Never remove `TODO` comments without asking me, unless you are solving that particular TODO
 
-# Python Tooling
+## File Access
+- Never read files in the following folders unless explicitly necessary: `.mypy_cache`, `.pytest_cache`, `__pycache__`.
+
+### CSS and JavaScript
+- Prefer CSS over JavaScript when both can effectively solve a rendering issue
+
+### Python
 Never use ``pip`` or ``pip install`` directly.
 
 - System tools should be managed with ``pipx``
-- Python projects should generally be managed with ``poetry``
-- The python projects in ``~/src/gluru/*`` should be managed with ``uv``
+- Prefer `poetry` for managing python projects
+- Only use `uv` if a project contains a `uv.lock` file and does not contain a `poetry.lock` file
 
 # System Features
 You have access to the following additional shell tools that will help you find and discover things:

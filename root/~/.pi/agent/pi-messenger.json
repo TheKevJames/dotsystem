@@ -1,7 +1,7 @@
 {
   "crew": {
     "concurrency": {
-      "workers": 2,
+      "workers": 4,
       "max": 10
     },
     "dependencies": "advisory",
@@ -13,7 +13,7 @@
       "worker": "anthropic/claude-haiku-4-5"
     },
     "planning": {
-      "maxPasses": 1
+      "maxPasses": 2
     },
     "work": {
       "maxAttemptsPerTask": 5,

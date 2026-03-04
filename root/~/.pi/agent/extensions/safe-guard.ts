@@ -19,7 +19,7 @@ export const DANGEROUS_PATTERNS = [
   />\s*\/dev\/sd[a-z]/,
 ];
 
-export const PROTECTED_PATHS = [".env", ".git/", "node_modules/", ".pi/", "id_rsa", ".ssh/"];
+export const PROTECTED_PATHS = [".env", ".git/", "node_modules/", "id_rsa", ".ssh/"];
 
 export default function (pi: ExtensionAPI) {
   pi.on("tool_call", async (event, ctx) => {
