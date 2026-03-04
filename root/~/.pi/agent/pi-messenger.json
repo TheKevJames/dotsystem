@@ -7,10 +7,10 @@
     "dependencies": "advisory",
     "coordination": "chatty",
     "models": {
-      "analyst": "gpt-5.3-codex",
-      "planner": "gpt-5.3-codex",
-      "reviewer": "gpt-5.3-codex",
-      "worker": "gpt-5.3-codex"
+      "analyst": "anthropic/claude-haiku-4-5",
+      "planner": "anthropic/claude-opus-4-6",
+      "reviewer": "anthropic/claude-opus-4-6",
+      "worker": "anthropic/claude-haiku-4-5"
     },
     "planning": {
       "maxPasses": 1

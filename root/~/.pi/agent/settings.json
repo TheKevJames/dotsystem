@@ -1,6 +1,6 @@
 {
-  "defaultProvider": "openai",
-  "defaultModel": "gpt-5.3-codex",
+  "defaultProvider": "anthropic",
+  "defaultModel": "claude-opus-4-6",
   "defaultThinkingLevel": "high",
   "theme": "dark",
   "enableSkillCommands": true,
@@ -24,8 +24,13 @@
     "openai/gpt-5.3-codex",
     "openai/gpt-5.3-codex-spark",
     "openai/o4-mini",
-    "qwen3:8b"
+    "ollama/qwen3:8b",
+    "anthropic/claude-haiku-4-5",
+    "anthropic/claude-opus-4-6",
+    "anthropic/claude-sonnet-4-6"
   ],
   "hideThinkingBlock": false,
-  "packages": []
+  "packages": [
+    "npm:pi-messenger"
+  ]
 }
