@@ -1,9 +1,6 @@
 *~
 !~
 
-# aider
-.aider*
-
 # cvs
 CVS/
 .cvsignore
@@ -20,6 +17,9 @@ CVS/
 # mercurial
 .hg/
 .hgignore
+
+# pi
+.pi/messenger/*
 
 # pyenv
 .python-version
