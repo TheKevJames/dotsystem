@@ -1,5 +1,5 @@
 // This file is vendored, run ./vendor to update it.
-// Last Update: 2026-03-03
+// Last Update: 2026-03-04
 // Commit Hash: c2b61fb69718b73e88be9ee766e5d7b6e7292854
 //
 /**
