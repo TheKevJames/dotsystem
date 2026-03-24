@@ -85,6 +85,11 @@ local rules = [
           ]},
         ]},
 
+        { and: [
+          { from: "clientes@clientesiberdrola.pt" },
+          { subject: "Iberdrola: Fatura Eletrónica" },
+        ]},
+
         { from: "billing@mailgun.net" },
 
         { and: [
@@ -324,6 +329,7 @@ local labels = [
   { name: "News/Lists" },
   { name: "RSS" },
   { name: "Property" },
+  { name: "Property/DomPedroAlmeidaPortugal" },
   { name: "Property/FerreiraBorges" },
   { name: "Records" },
   { name: "Records/HealthConcierge" },
