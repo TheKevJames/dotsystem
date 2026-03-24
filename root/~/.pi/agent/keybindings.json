@@ -1,20 +1,20 @@
 {
-  "cursorUp": [
+  "tui.editor.cursorUp": [
     "up"
   ],
-  "cursorDown": [
+  "tui.editor.cursorDown": [
     "down"
   ],
-  "cursorLeft": [
+  "tui.editor.cursorLeft": [
     "left"
   ],
-  "cursorRight": [
+  "tui.editor.cursorRight": [
     "right"
   ],
-  "cursorWordLeft": [
+  "tui.editor.cursorWordLeft": [
     "ctrl+left"
   ],
-  "cursorWordRight": [
+  "tui.editor.cursorWordRight": [
     "ctrl+right"
   ]
 }

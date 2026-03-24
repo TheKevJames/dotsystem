@@ -13,6 +13,14 @@ export default function (pi: ExtensionAPI) {
   pi.on("session_start", async (_event, ctx) => {
     if (!ctx.hasUI) return;
 
+    const systemPrompt = ctx.getSystemPrompt();
+    // TODO(thekevjames): un-vendor this file
+    const agentsPaths = systemPrompt
+      .split('\n')
+      .filter(line => /^## .*AGENTS\.md$/.test(line))
+      .map(line => line.slice(3).replace(process.env.HOME ?? '', '~'));
+    const configValue = agentsPaths.join("  ") || "none";
+
     ctx.ui.setHeader((_tui, theme) => ({
       render(width: number): string[] {
         const d = (s: string) => theme.fg("dim", s);
@@ -48,7 +56,7 @@ export default function (pi: ExtensionAPI) {
           [d("version"), a(`v${VERSION}  ${provider}`)],
           [d("model"),   a(model)],
           [d("think"),   a(thinking)],
-          [d(""),        d("")],
+          [d("configs"), a(configValue)],
           [d(""),        d("")],
         ];
 

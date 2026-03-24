@@ -13,7 +13,7 @@
       "worker": "anthropic/claude-haiku-4-5"
     },
     "planning": {
-      "maxPasses": 2
+      "maxPasses": 1
     },
     "work": {
       "maxAttemptsPerTask": 5,

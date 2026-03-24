@@ -55,6 +55,7 @@ pipx upgrade-all
 
 echo "Upgrading npm packages..."
 npm outdated -g --depth=0 --json | jq -r '. | keys[]' | xargs npm update -g
+pi update
 
 echo "Upgrading gcloud components..."
 gcloud components update

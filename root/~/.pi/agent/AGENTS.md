@@ -26,6 +26,7 @@
 - If you ever run into issues where you think the environment is not set up properly, for example where you can't run tests, can't import a library from my codebase, can't run an interpreter, etc, ask me how to proceed.
 - Use `pre-commit run -a` after any changes to validate
 - Never remove `TODO` comments without asking me, unless you are solving that particular TODO
+- Never say 'applied/implemented/done' unless you can immediately cite: (a) tool output confirming the edit, and (b) git diff (or re-read of the edited block).
 
 ## File Access
 - Never read files in the following folders unless explicitly necessary: `.mypy_cache`, `.pytest_cache`, `__pycache__`.
@@ -44,8 +45,10 @@ Never use ``pip`` or ``pip install`` directly.
 You have access to the following additional shell tools that will help you find and discover things:
 
 ```
+ast-grep (command: sg)
 difftastic (command: difft)
 eb
+entr
 fd-find (command: fd)
 gh
 hyperfine
@@ -56,5 +59,6 @@ ngrok
 pre-commit
 ripgrep (command: rg)
 shellcheck
+sqlite3
 yq
 ```

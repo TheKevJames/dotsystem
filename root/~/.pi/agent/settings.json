@@ -1,6 +1,6 @@
 {
-  "defaultProvider": "anthropic",
-  "defaultModel": "claude-opus-4-6",
+  "defaultProvider": "openai",
+  "defaultModel": "gpt-5.2-pro",
   "defaultThinkingLevel": "high",
   "theme": "dark",
   "enableSkillCommands": true,
@@ -15,7 +15,7 @@
   },
   "shellCommandPrefix": "export MANPAGER=cat",
   "quietStartup": true,
-  "lastChangelogVersion": "0.55.3",
+  "lastChangelogVersion": "0.62.0",
   "enabledModels": [
     "google/gemini-3-flash-preview",
     "google/gemini-3.1-pro-preview",
