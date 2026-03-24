@@ -5,6 +5,7 @@ Indent (insert mode) | ctrl+t
 Dedent (insert mode) | ctrl+d
 Jump to last edit | g;
 Toggle comments | gc
+Duplicate and comment | ycc
 
 ## gitsigns @git
 Toggle git blame | <leader>gb

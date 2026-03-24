@@ -60,9 +60,10 @@ vim.g.node_host_prog = '~/.local/share/npm/lib/node_modules/neovim/bin/cli.js'
 -- pipx install nvr
 vim.g.python3_host_prog = '~/.local/pipx/venvs/neovim-remote/bin/python3'
 
-vim.keymap.set('n', ';', ':')        -- avoid hitting <shift>
-vim.keymap.set('n', '<space>', 'za') -- toggle current fold with <space>
-vim.keymap.set('n', ',', ':noh<cr>') -- hide highlights
+vim.keymap.set('n', ';', ':')                           -- avoid hitting <shift>
+vim.keymap.set('n', '<space>', 'za')                    -- toggle current fold with <space>
+vim.keymap.set('n', ',', ':noh<cr>')                    -- hide highlights
+vim.keymap.set('n', 'ycc', 'yygccp', { remap = true })  -- duplicate and comment out line
 
 -- ctrl-n: next, ctrl-p: previous, ctrl-y: yes, ctrl-e: exit
 vim.cmd('set completeopt+=fuzzy,noinsert')  -- require keypress (ctrl-y) to autocomplete, support fuzzy matches
