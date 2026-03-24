@@ -62,6 +62,7 @@
 ; rust tools, installed via cargo
 ; if any values are set, also install rustup/cargo
 [cargo]
+  ast-grep = sg
   bat
   cctui
   difftastic = difft
