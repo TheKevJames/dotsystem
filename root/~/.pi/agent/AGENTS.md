@@ -55,7 +55,6 @@ hyperfine
 jira-cli (command: jira)
 jq
 miller (command: mlr)
-ngrok
 pre-commit
 ripgrep (command: rg)
 shellcheck

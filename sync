@@ -501,22 +501,6 @@ if git config -f "${PACKAGE_CONFIG}" --get manual.meslo >/dev/null; then
     fi
 fi
 
-if git config -f "${PACKAGE_CONFIG}" --get manual.ngrok >/dev/null; then
-    if ! which ngrok >/dev/null; then
-        TEMPFILE=$(mktemp)
-        if [[ "$OSTYPE" == "darwin"* ]]; then
-            if [[ $(uname -p) == 'arm' ]]; then
-                curl -fsSL "https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-darwin-arm64.zip" > "${TEMPFILE}.zip"
-            else
-                curl -fsSL "https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-darwin-amd64.zip" > "${TEMPFILE}.zip"
-            fi
-        else
-            curl -fsSL "https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz" > "${TEMPFILE}.zip"
-        fi
-        sudo unzip "${TEMPFILE}.zip" -d /usr/local/bin
-    fi
-fi
-
 if git config -f "${PACKAGE_CONFIG}" --get manual.sublime-text >/dev/null; then
     if [[ "$OSTYPE" == "darwin"* ]]; then
         if [[ ! -f "/Applications/Sublime Text.app/Contents/MacOS/Sublime Text" ]]; then

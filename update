@@ -79,7 +79,4 @@ nvim --headless '+MasonToolsUpdate' +qa
 nvim --headless '+TSUpdate' +qa
 # :Mason, then hit "U"  # TODO: no longer necessary now that we do the MasonToolsUpdate?
 
-echo "Upgrading ngrok..."
-sudo ngrok update
-
 echo "done."
