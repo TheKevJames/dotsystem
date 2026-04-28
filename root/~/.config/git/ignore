@@ -19,6 +19,7 @@ CVS/
 .hgignore
 
 # pi
+.pi/*
 .pi/messenger/*
 
 # pyenv
