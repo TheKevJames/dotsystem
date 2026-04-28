@@ -41,6 +41,9 @@ Never use ``pip`` or ``pip install`` directly.
 - Prefer `poetry` for managing python projects
 - Only use `uv` if a project contains a `uv.lock` file and does not contain a `poetry.lock` file
 
+### Redis
+Refer to `https://redis.antirez.com/` when working with redis.
+
 # System Features
 You have access to the following additional shell tools that will help you find and discover things:
 
@@ -55,6 +58,7 @@ hyperfine
 jira-cli (command: jira)
 jq
 miller (command: mlr)
+ngrok
 pre-commit
 ripgrep (command: rg)
 shellcheck
