@@ -282,6 +282,8 @@ while IFS=$'\r' read -r package; do
         # TODO: support this via config
         if [[ "${repo}" == "git-standup" ]]; then
             make -C "${XDG_SRC_HOME}/${repo}" install PREFIX="${XDG_BIN_HOME%/bin}"
+        elif [[ "${repo}" == "gogcli" ]]; then
+            make -C "${XDG_SRC_HOME}/${repo}" BIN_DIR="${XDG_BIN_HOME%/bin}"
         elif [[ "${repo}" == "prettyping" ]]; then
             chmod a+x "${XDG_SRC_HOME}/${repo}/prettyping"
             ln -s "${XDG_SRC_HOME}/${repo}/prettyping" "${XDG_BIN_HOME}/prettyping"

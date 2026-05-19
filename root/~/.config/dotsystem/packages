@@ -85,6 +85,7 @@
 [git]
   argbash = matejak
   git-standup = kamranahmedse
+  gogcli = steipete
   prettyping = denilsonsa
   tmux-xpanes = greymd
   tmuxifier = jimeh

@@ -1,6 +1,6 @@
 {
-  "defaultProvider": "openai",
-  "defaultModel": "gpt-5.2-pro",
+  "defaultProvider": "google",
+  "defaultModel": "gemini-3.1-pro-preview",
   "defaultThinkingLevel": "high",
   "theme": "dark",
   "enableSkillCommands": true,
@@ -15,19 +15,17 @@
   },
   "shellCommandPrefix": "export MANPAGER=cat",
   "quietStartup": true,
-  "lastChangelogVersion": "0.62.0",
+  "lastChangelogVersion": "0.70.5",
   "enabledModels": [
-    "google/gemini-3-flash-preview",
     "google/gemini-3.1-pro-preview",
-    "openai/gpt-5.2",
-    "openai/gpt-5.2-pro",
     "openai/gpt-5.3-codex",
     "openai/gpt-5.3-codex-spark",
-    "openai/o4-mini",
     "ollama/qwen3:8b",
     "anthropic/claude-haiku-4-5",
     "anthropic/claude-opus-4-6",
-    "anthropic/claude-sonnet-4-6"
+    "anthropic/claude-sonnet-4-6",
+    "openai/gpt-5.4",
+    "openai/gpt-5.4-pro"
   ],
   "hideThinkingBlock": false,
   "packages": [
