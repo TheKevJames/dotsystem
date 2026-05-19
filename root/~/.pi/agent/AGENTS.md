@@ -27,10 +27,16 @@
 - Use `pre-commit run -a` after any changes to validate
 - Never remove `TODO` comments without asking me, unless you are solving that particular TODO
 - Never say 'applied/implemented/done' unless you can immediately cite: (a) tool output confirming the edit, and (b) git diff (or re-read of the edited block).
+- When a task can be solved with a built-in feature of the tool/framework, prefer that over custom workarounds
+- Search docs before building regex/scripting solutions
+- Do not fabricate theories or assume system state — verify with actual data before proposing root causes
+- When you don't know something about a tool's API, read its documentation first rather than guessing and iterating
+- When asked to fix X, apply the minimal targeted fix — do not broaden scope without asking
 
 ## File Access
 - Never read files in the following folders unless explicitly necessary: `.mypy_cache`, `.pytest_cache`, `__pycache__`.
 
+## Specific File/Application Types
 ### CSS and JavaScript
 - Prefer CSS over JavaScript when both can effectively solve a rendering issue
 
@@ -40,6 +46,7 @@ Never use ``pip`` or ``pip install`` directly.
 - System tools should be managed with ``pipx``
 - Prefer `poetry` for managing python projects
 - Only use `uv` if a project contains a `uv.lock` file and does not contain a `poetry.lock` file
+- Prefer modern APIs (such as `pathlib`) over deprecated/older alternatives (eg. `os`)
 
 ### Redis
 Refer to `https://redis.antirez.com/` when working with redis.
@@ -54,6 +61,7 @@ eb
 entr
 fd-find (command: fd)
 gh
+gog
 hyperfine
 jira-cli (command: jira)
 jq

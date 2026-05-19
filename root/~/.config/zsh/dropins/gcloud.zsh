@@ -3,3 +3,6 @@ export PATH="${XDG_SRC_HOME}/google-cloud-sdk/bin:${PATH}"
 
 CLOUDSDK_PYTHON=$(which python3.11)
 export CLOUDSDK_PYTHON
+
+# gogcli
+export GOG_ACCOUNT=kjames@dialpad.com
