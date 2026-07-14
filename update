@@ -75,8 +75,7 @@ kubectl krew upgrade
 echo "Upgrading neovim plugins..."
 nvim --headless '+Lazy! sync' +qa
 nvim --headless '+MasonUpdate' +qa
-nvim --headless '+MasonToolsUpdate' +qa
-nvim --headless '+TSUpdate' +qa
-# :Mason, then hit "U"  # TODO: no longer necessary now that we do the MasonToolsUpdate?
+nvim --headless '+MasonToolsUpdateSync' +qa
+nvim --headless '+TSUpdateSync' +qa
 
 echo "done."

@@ -180,11 +180,10 @@ echo "define(\`M4_HOSTNAME', \`${HOSTNAME}')" >> "${TEMPFILE}"
 echo "divert(0)dnl" >> "${TEMPFILE}"
 set_file "${TEMPFILE}" "${XDG_DATA_HOME}/dotsystem/config.m4"
 
-# TODO: why does the while version break "select"?
-# while IFS= read -rd '' file; do
-IFS=$(echo -en "\n\b")
-# shellcheck disable=SC2044
-for file in $(find "${DIR}/root" -type f); do
+# N.B. feed `find` on fd 3 so the loop body's stdin (fd 0) stays the terminal.
+# Otherwise `select` inside `set_file` would read from the file list instead of
+# the user, and the interactive prompt would break.
+while IFS= read -rd '' file <&3; do
     if [[ "${file##*.}" == "m4" ]]; then
         TEMPFILE=$(mktemp)
         m4 \
@@ -202,8 +201,7 @@ for file in $(find "${DIR}/root" -type f); do
     else
         set_file "${file}" "/${file#"${DIR}"/root/}"
     fi
-done
-# done < <(find "${DIR}/root" -type f -print0)
+done 3< <(find "${DIR}/root" -type f -print0)
 
 ## Configure OSX one-offs
 if [[ "$OSTYPE" == "darwin"* ]]; then
