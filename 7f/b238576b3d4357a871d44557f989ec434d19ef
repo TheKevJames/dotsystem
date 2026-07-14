@@ -1,0 +1,21 @@
+sync
+  s_399bd04877c845::t_7c95f06d21b300 148,150-153
+  s_399bd04877c845::t_9daced544a49d8 149
+  s_399bd04877c845::t_be17873faac672 154-156
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.13",
+  "base_commit_sha": "7fb238576b3d4357a871d44557f989ec434d19ef",
+  "prompts": {},
+  "sessions": {
+    "s_399bd04877c845": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "019f619a-0c5b-726b-9288-b6f5fe94f014",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Kevin James <KevinJames@thekev.in>"
+    }
+  }
+}
