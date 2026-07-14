@@ -1,0 +1,29 @@
+sync
+  s_9a790f932a8e95::t_e30c9a1aba939d 183-186,204
+update
+  s_7d6094ae962e93::t_908fbb2bb142ac 78-79
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.13",
+  "base_commit_sha": "61e121956cdcd35085a4982a9e3b19d29a42d5b6",
+  "prompts": {},
+  "sessions": {
+    "s_7d6094ae962e93": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "019f6175-32fc-73ca-9940-a03d130ceadf",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Kevin James <KevinJames@thekev.in>"
+    },
+    "s_9a790f932a8e95": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "019f617d-70b7-730f-9fe1-f0f6c4bad4df",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Kevin James <KevinJames@thekev.in>"
+    }
+  }
+}
