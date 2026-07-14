@@ -11,7 +11,9 @@ for config_file in ~/.config/zsh/plugins/*.zsh; do source "${config_file}"; done
 for config_file in ~/.config/zsh/dropins/*.zsh; do source "${config_file}"; done
 unset config_file
 
-# TODO: there have been some improvements since I last grabbed this
+# TODO: there have been some improvements since I last grabbed this, integrate
+# them or find a good way to vendor this gist / vendor this function from a
+# good and updated source
 # https://gist.github.com/ctechols/ca1035271ad134841284
 _zpcompinit_custom() {
     setopt extendedglob local_options

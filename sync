@@ -130,7 +130,6 @@ ensure_file() {
     fi
 }
 
-# TODO: "update git repo" doesn't make sense for template files
 set_file() {
     DEST=${2/\~/$HOME}
     ensure_file "${DEST}" || {
@@ -146,8 +145,17 @@ set_file() {
             cp "${1}" "${DEST}" 2>/dev/null || sudo cp "${1}" "${DEST}"
             if [[ "${DEST}" == *"/bin/"* ]]; then sudo chmod a+x "${DEST}"; fi
         else
+            options=("Yes" "No")
+            if [[ "${1}" == "${DIR}"/* ]]; then
+                # N.B. "update git repo from local changes" copies the live
+                # file back over $1, so it only makes sense when $1 is the repo
+                # source. Templated files (eg. m4 output) are rendered into a
+                # throwaway temp outside ${DIR}, so we detect repo sources by
+                # their path and omit the option otherwise.
+                options+=("Update git repo from local changes")
+            fi
             echo "Apply this change?"
-            select yn in "Yes" "No" "Update git repo from local changes"; do
+            select yn in "${options[@]}"; do
                 case $yn in
                     Yes )
                         cp "${1}" "${DEST}" 2>/dev/null || sudo cp "${1}" "${DEST}";

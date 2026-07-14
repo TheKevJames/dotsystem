@@ -27,7 +27,9 @@ vim.o.expandtab = true -- spaces > tabs
 vim.o.shiftwidth = 4   -- tabs are 4 spaces by default
 vim.o.softtabstop = 4  -- tabs are 4 spaces by default
 
--- TODO: change method for languages without treesitter?
+-- TODO: for languages without treesitter, this foldmethod is not going to
+-- work. Should we fallback to something simpler, like indent level? Or use
+-- expr but override the actual expression to be something else?
 vim.o.foldmethod = 'expr'                     -- use nvim-treesitter for folding expressions
 vim.o.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
 vim.o.foldtext = 'v:lua.vim.treesitter.foldtext()'
