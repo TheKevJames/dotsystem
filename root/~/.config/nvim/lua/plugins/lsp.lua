@@ -89,8 +89,8 @@ return {
     'WhoIsSethDaniel/mason-tool-installer.nvim',
     dependencies = { 'mason-org/mason.nvim' },
     opts = {
-      -- TODO: verify :MasonToolsUpdate is handling this via ./dotsystem/update
-      -- auto_update = true,
+      -- :MasonToolsUpdate triggers updates, see ./update script
+      auto_update = false,
       -- https://github.com/williamboman/mason-lspconfig.nvim/blob/main/lua/mason-lspconfig/mappings/server.lua
       ensure_installed = {
         -- LSP

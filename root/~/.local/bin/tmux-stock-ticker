@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+set -euo pipefail
+# Displays 24h price changes for the tmux status bar.
+# Output contains tmux style tags (#[fg=...]) so it must be used inside
+# a status-right #(...) substitution.
+STOCK="$1"
+
+CACHE_FILE="/tmp/tmux_stock_ticker_${STOCK}"
+CACHE_TTL=300  # seconds — refresh at most once every 5 minutes
+
+# Return cached value if it is still fresh.
+if [[ -f "$CACHE_FILE" ]]; then
+    file_time=$(stat -f %m "$CACHE_FILE" 2>/dev/null || stat -c %Y "$CACHE_FILE" 2>/dev/null)
+    now=$(date +%s)
+    age=$(( now - file_time ))
+    if [[ $age -lt $CACHE_TTL ]]; then
+        cat "$CACHE_FILE"
+        exit 0
+    fi
+fi
+
+data=$(curl -sf --max-time 5 \
+    -H "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36" \
+    "https://query1.finance.yahoo.com/v8/finance/chart/${STOCK}?interval=1d&range=2d" \
+    2>/dev/null) || true
+
+current=$(printf '%s' "$data" \
+    | jq -r '.chart.result[0].meta.regularMarketPrice' 2>/dev/null || true)
+prev=$(printf '%s' "$data" \
+    | jq -r '.chart.result[0].meta.chartPreviousClose' 2>/dev/null || true)
+
+if [[ -z "$current" || "$current" == "null" || -z "$prev" || "$prev" == "null" ]]; then
+    result="#[fg=white]${STOCK} ?"
+    printf '%s' "$result" | tee "$CACHE_FILE"
+    exit 0
+fi
+
+pct=$(awk "BEGIN { printf \"%.2f\", ($current - $prev) / $prev * 100 }")
+
+if awk "BEGIN { exit ($pct >= 0) ? 0 : 1 }"; then
+    arrow="↑"
+    color="#[fg=green]"
+else
+    arrow="↓"
+    color="#[fg=red]"
+fi
+
+abs_pct=$(awk "BEGIN { x = $pct; if (x < 0) x = -x; printf \"%.2f\", x }")
+
+result="${color}${STOCK} ${arrow} ${abs_pct}%#[fg=white]"
+printf '%s' "$result" | tee "$CACHE_FILE"
