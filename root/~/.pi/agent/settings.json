@@ -1,6 +1,6 @@
 {
   "defaultProvider": "anthropic",
-  "defaultModel": "claude-sonnet-4-6",
+  "defaultModel": "claude-opus-4-8",
   "defaultThinkingLevel": "high",
   "theme": "dark",
   "enableSkillCommands": true,
@@ -15,21 +15,26 @@
   },
   "shellCommandPrefix": "export MANPAGER=cat",
   "quietStartup": true,
-  "lastChangelogVersion": "0.74.0",
+  "lastChangelogVersion": "0.80.6",
   "enabledModels": [
-    "google/gemini-3.1-pro-preview",
-    "openai/gpt-5.3-codex",
-    "openai/gpt-5.3-codex-spark",
-    "ollama/qwen3:8b",
+    "anthropic/claude-fable-5",
     "anthropic/claude-haiku-4-5",
     "anthropic/claude-opus-4-6",
+    "anthropic/claude-opus-4-7",
+    "anthropic/claude-opus-4-8",
     "anthropic/claude-sonnet-4-6",
+    "anthropic/claude-sonnet-5",
+    "google/gemini-3.1-pro-preview",
+    "ollama/glm-5.1:cloud",
+    "ollama/qwen3.6:latest",
+    "ollama/qwen3:8b",
+    "openai/gpt-5.3-codex",
+    "openai/gpt-5.3-codex-spark",
     "openai/gpt-5.4",
     "openai/gpt-5.4-pro",
-    "anthropic/claude-opus-4-7"
+    "openai/gpt-5.5",
+    "openai/gpt-5.5-pro"
   ],
   "hideThinkingBlock": false,
-  "packages": [
-    "npm:pi-messenger"
-  ]
+  "packages": []
 }

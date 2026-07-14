@@ -7,6 +7,12 @@
       "models": [
         {
           "id": "qwen3:8b"
+        },
+        {
+          "id": "qwen3.6:latest"
+        },
+        {
+          "id": "glm-5.1:cloud"
         }
       ]
     }

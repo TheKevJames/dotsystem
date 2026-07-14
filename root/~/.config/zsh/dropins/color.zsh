@@ -66,6 +66,8 @@ function ssh() {
     fi
 }
 
-# TODO: on tmux startup only
+# TODO: run these once on tmux startup rather than on every new shell/pane.
+# They already re-run when a gcloud/kubectl command might change them, so
+# invoking them for each new pane is superfluous.
 update_tmux_gcp
 update_tmux_k8s
