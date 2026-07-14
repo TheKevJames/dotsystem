@@ -50,6 +50,7 @@ echo "  Force: ${FORCE}"
 echo "  Skip Packages: ${SKIP}"
 
 source "${DIR}/root/~/.zshenv"
+source "${DIR}/root/~/.config/zsh/dropins/xdg.zsh"
 
 # TODO: add cleanups, eg. port reclaim and apt autoremove
 if which zypper >/dev/null; then
@@ -434,12 +435,10 @@ if git config -f "${PACKAGE_CONFIG}" --get manual.go >/dev/null; then
         fi
     fi
 
-    # TODO: move to packages configuration file
-    export GOPATH="${XDG_DATA_HOME}/go"
     # TODO: consider switching to a subset implementation, only I *really* need
     # this for the emergency key...
     # Switching off would also let me purge golang...
-    if [ ! -f "${XDG_DATA_HOME}/go/bin/passphrase2pgp" ]; then
+    if [ ! -f "${GOPATH}/bin/passphrase2pgp" ]; then
         pathadd /usr/local/go/bin
         go install nullprogram.com/x/passphrase2pgp@v1.2.0
     fi
@@ -541,8 +540,8 @@ if [[ "${BOOTSTRAP}" == "y" ]]; then
     # Now that our ssh key is connected to Github...
     git remote set-url origin git@github.com:TheKevJames/dotsystem.git
 
-    # TODO: set GNUPGHOME correctly first
     echo "Importing gpg keys..."
+    mkdir -p "${GNUPGHOME}" && chmod 700 "${GNUPGHOME}"
     pathadd "${XDG_DATA_HOME}/go/bin"
     # TODO: configure emails in env
     for email in "KevinJames@thekev.in" "kevin@talkiq.com" "kjames@dialpad.com"; do
