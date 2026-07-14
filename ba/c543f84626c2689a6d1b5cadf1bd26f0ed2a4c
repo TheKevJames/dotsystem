@@ -1,0 +1,21 @@
+sync
+  s_5ceeb02d1831f4::t_23f71d188638b5 53,441,544
+root/~/.config/zsh/dropins/xdg.zsh
+  s_5ceeb02d1831f4::t_3cdec708c15a9c 15
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.13",
+  "base_commit_sha": "bac543f84626c2689a6d1b5cadf1bd26f0ed2a4c",
+  "prompts": {},
+  "sessions": {
+    "s_5ceeb02d1831f4": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "019f61a9-b1cc-7d48-a127-181230b7263e",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Kevin James <KevinJames@thekev.in>"
+    }
+  }
+}
