@@ -1,0 +1,35 @@
+root/~/.config/zsh/dropins/color.zsh
+  s_9a790f932a8e95::t_33110e3ab6c78d 69-71
+root/~/.pi/agent/AGENTS.md
+  s_7d6094ae962e93::t_725acc16002cbd 9,14-15,27-28,31,37-38,46-47,56
+root/~/.pi/agent/auth.json
+  s_7d6094ae962e93::t_7842ee9de74bd0 4,8,12
+root/~/.pi/agent/models.json
+  s_7d6094ae962e93::t_3ffcd00178ffad 10-15
+root/~/.pi/agent/prompts/debug.md
+  s_7d6094ae962e93::t_4a064b4624fbd8 2,4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.13",
+  "base_commit_sha": "68e76e1a8a2fb30dd088b83015b2eeac60e80bd9",
+  "prompts": {},
+  "sessions": {
+    "s_7d6094ae962e93": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "019f6175-32fc-73ca-9940-a03d130ceadf",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Kevin James <KevinJames@thekev.in>"
+    },
+    "s_9a790f932a8e95": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "019f617d-70b7-730f-9fe1-f0f6c4bad4df",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Kevin James <KevinJames@thekev.in>"
+    }
+  }
+}
