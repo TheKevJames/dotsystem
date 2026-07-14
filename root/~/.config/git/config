@@ -139,6 +139,10 @@
 [hub]
     protocol = ssh
 
+[trace2]
+    eventTarget = af_unix:stream:/Users/kevin/.git-ai/internal/daemon/trace2.sock
+    eventNesting = 0
+
 [includeIf "gitdir:~/src/talkiq/"]
     path = ~/.config/git/config-talkiq
 

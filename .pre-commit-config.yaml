@@ -249,7 +249,9 @@ repos:
       - id: terraform_validate
 
 # shell
-# TODO: fixme
+# TODO: re-enable bashate. Disabled at some point (reason forgotten -- likely
+# it wanted to rewrite files we weren't ready to touch yet). Re-audit its
+# changes before turning back on.
 #   - repo: https://github.com/openstack/bashate
 #     rev: 2.1.1
 #     hooks:
