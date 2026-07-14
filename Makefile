@@ -1,3 +1,4 @@
+# TODO: update any relevant `bin` scripts to use this builder
 BUILDDIR = root/~/.local/bin
 SOURCEDIR = scripts
 
