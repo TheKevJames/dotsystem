@@ -1,0 +1,19 @@
+root/~/.config/nvim/lua/plugins/lsp.lua
+  s_9a790f932a8e95::t_b6bb44a67bb05f 92-93
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.13",
+  "base_commit_sha": "4edd90b2b125d63406c909c1d5f3aa1c8351acab",
+  "prompts": {},
+  "sessions": {
+    "s_9a790f932a8e95": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "019f617d-70b7-730f-9fe1-f0f6c4bad4df",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Kevin James <KevinJames@thekev.in>"
+    }
+  }
+}
