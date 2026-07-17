@@ -1,0 +1,19 @@
+root/~/.pi/agent/extensions/custom-footer.ts
+  s_f7ddfdbeedcc43::t_c048ac90a1fc87 2-3
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "a26f49fddb13dceceb290c3ca4664fbb37680ad9",
+  "prompts": {},
+  "sessions": {
+    "s_f7ddfdbeedcc43": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "019f60c9-c5d9-7651-81a0-94da1d875d50",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Kevin James <KevinJames@thekev.in>"
+    }
+  }
+}
