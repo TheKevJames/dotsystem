@@ -1,6 +1,6 @@
 // This file is vendored, run ./vendor to update it.
-// Last Update: 2026-03-04
-// Commit Hash: c2b61fb69718b73e88be9ee766e5d7b6e7292854
+// Last Update: 2026-07-17
+// Commit Hash: e609f5d5c935079e36c88944252b168ff0907a27
 //
 /**
  * oh-pi Compact Header — table-style startup info with dynamic column widths
@@ -13,14 +13,6 @@ export default function (pi: ExtensionAPI) {
   pi.on("session_start", async (_event, ctx) => {
     if (!ctx.hasUI) return;
 
-    const systemPrompt = ctx.getSystemPrompt();
-    // TODO(thekevjames): un-vendor this file
-    const agentsPaths = systemPrompt
-      .split('\n')
-      .filter(line => /^## .*AGENTS\.md$/.test(line))
-      .map(line => line.slice(3).replace(process.env.HOME ?? '', '~'));
-    const configValue = agentsPaths.join("  ") || "none";
-
     ctx.ui.setHeader((_tui, theme) => ({
       render(width: number): string[] {
         const d = (s: string) => theme.fg("dim", s);
@@ -32,6 +24,12 @@ export default function (pi: ExtensionAPI) {
         const model = ctx.model ? `${ctx.model.id}` : "no model";
         const thinking = pi.getThinkingLevel();
         const provider = ctx.model?.provider ?? "";
+        // TODO(thekevjames): un-vendor this file
+        const configs = ctx.getSystemPrompt()
+          .split('\n')
+          .filter(line => /^<project_instructions path=".*">$/.test(line))
+          .map(line => line.slice(28, -2).replace(process.env.HOME ?? '', '~'))
+          .join(" < ") || "none";
 
         const pad = (s: string, w: number) => s + " ".repeat(Math.max(0, w - visibleWidth(s)));
         const t = (s: string) => truncateToWidth(s, width);
@@ -56,7 +54,7 @@ export default function (pi: ExtensionAPI) {
           [d("version"), a(`v${VERSION}  ${provider}`)],
           [d("model"),   a(model)],
           [d("think"),   a(thinking)],
-          [d("configs"), a(configValue)],
+          [d("configs"), a(configs)],
           [d(""),        d("")],
         ];
 
