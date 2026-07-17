@@ -160,6 +160,7 @@ local rules = [
             { subject: "Direct deposit received" },
             { subject: "You made a credit card payment" },
             { subject: "You made a deposit" },
+            { subject: "You made a transfer" },
             { subject: "You sent a bill payment" },
             { subject: "You've withdrawn funds from Wealthsimple" },
             { subject: "Your deposit is complete!" },
