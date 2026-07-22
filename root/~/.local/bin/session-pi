@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import json
 import os
 import pathlib
 import sys
@@ -9,11 +10,27 @@ STATE = os.getenv('XDG_STATE_HOME') or pathlib.Path.home() / '.local' / 'state'
 DATA = (pathlib.Path(STATE) / 'session-pi').resolve()
 
 
-def get_session_id() -> str:
+def find_path(provided: str) -> str:
     sessions = (pathlib.Path.home() / '.pi' / 'agent' / 'sessions').resolve()
-    folder = sessions / f'-{str(pathlib.Path.cwd()).replace("/", "-")}--'
+    for session in sessions.glob('**/*.jsonl'):
+        session_id = session.name.split('_')[1].split('.')[0]
+        if session_id == provided:
+            path: str = json.loads(session.read_text().splitlines()[0])['cwd']
+            return path
+
+    print(f'session {provided} not found')
+    sys.exit(1)
+
+
+def get_session() -> tuple[str, str]:
+    path = str(pathlib.Path.cwd().resolve())
+
+    sessions = (pathlib.Path.home() / '.pi' / 'agent' / 'sessions').resolve()
+    folder = sessions / f'-{path.replace("/", "-")}--'
     latest = max(list(folder.glob('*')), key=lambda f: f.stat().st_ctime)
-    return latest.name.split('_')[1].split('.')[0]
+
+    session_id = latest.name.split('_')[1].split('.')[0]
+    return (path, session_id)
 
 
 def print_state(state: list[str]) -> None:
@@ -62,15 +79,19 @@ def do_load(name: str) -> int:
     return 1
 
 
-def do_save(name: str, session_id: str) -> int:
-    path = str(pathlib.Path.cwd().resolve())
+def do_save(name: str, session_id: str | None) -> int:
+    if session_id is not None:
+        path = find_path(session_id)
+    else:
+        path, session_id = get_session()
+
     path = path.replace(str(pathlib.Path.home()), '~')
     data = (path, name, session_id)
 
     state = DATA.read_text().splitlines()
     for item in state:
         _, item_name, _ = item.split('\t')
-        if name != item_name:
+        if name == item_name:
             print(f'duplicate session {name}')
             return 1
 
@@ -93,7 +114,7 @@ def main() -> int:
             return do_load(name)
         if sys.argv[1] == 'save':
             name = sys.argv[2]
-            session_id = sys.argv[3] if len(sys.argv) > 3 else get_session_id()
+            session_id = sys.argv[3] if len(sys.argv) > 3 else None
             return do_save(name, session_id)
     except Exception:
         traceback.print_exc()
@@ -102,7 +123,7 @@ def main() -> int:
     print(f'  {sys.argv[0]} list')
     print(f'  {sys.argv[0]} delete NAME')
     print(f'  {sys.argv[0]} load NAME')
-    print(f'  {sys.argv[0]} save NAME')
+    print(f'  {sys.argv[0]} save NAME [SESSIONID]')
     return 1
 
 
