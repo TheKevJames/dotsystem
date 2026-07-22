@@ -1,0 +1,110 @@
+#!/usr/bin/env python3
+import os
+import pathlib
+import sys
+import traceback
+
+
+STATE = os.getenv('XDG_STATE_HOME') or pathlib.Path.home() / '.local' / 'state'
+DATA = (pathlib.Path(STATE) / 'session-pi').resolve()
+
+
+def get_session_id() -> str:
+    sessions = (pathlib.Path.home() / '.pi' / 'agent' / 'sessions').resolve()
+    folder = sessions / f'-{str(pathlib.Path.cwd()).replace("/", "-")}--'
+    latest = max(list(folder.glob('*')), key=lambda f: f.stat().st_ctime)
+    return latest.name.split('_')[1].split('.')[0]
+
+
+def print_state(state: list[str]) -> None:
+    for line in state:
+        path, name, _ = line.split('\t')
+        print(f'{path}: {name}')
+
+
+def do_delete(name: str) -> int:
+    state = DATA.read_text().splitlines()
+
+    found = False
+    trimmed: list[str] = []
+    for item in state:
+        path, item_name, _ = item.split('\t')
+        if item_name == name:
+            print(f'DELETE {path}: {item_name}')
+            found = True
+        else:
+            trimmed.append(item)
+
+    DATA.write_text('\n'.join(trimmed))
+    print_state(trimmed)
+    return 0 if found else 1
+
+
+def do_list() -> int:
+    print_state(DATA.read_text().splitlines())
+    return 0
+
+
+def do_load(name: str) -> int:
+    state = DATA.read_text().splitlines()
+    for item in state:
+        path, item_name, session_id = item.split('\t')
+        if name == item_name:
+            os.chdir(pathlib.Path(path).expanduser())
+            os.execvp(
+                'pi',
+                ('pi', '--session-id', session_id),
+            )
+            # implicit return here, execvp forks
+
+    print(f'invalid session {name}')
+    print_state(state)
+    return 1
+
+
+def do_save(name: str, session_id: str) -> int:
+    path = str(pathlib.Path.cwd().resolve())
+    path = path.replace(str(pathlib.Path.home()), '~')
+    data = (path, name, session_id)
+
+    state = DATA.read_text().splitlines()
+    for item in state:
+        _, item_name, _ = item.split('\t')
+        if name != item_name:
+            print(f'duplicate session {name}')
+            return 1
+
+    state += ['\t'.join(data)]
+    DATA.write_text('\n'.join(state))
+    print_state(state)
+    return 0
+
+
+def main() -> int:
+    DATA.touch()
+    try:
+        if sys.argv[1] == 'delete':
+            name = sys.argv[2]
+            return do_delete(name)
+        if sys.argv[1] == 'list':
+            return do_list()
+        if sys.argv[1] == 'load':
+            name = sys.argv[2]
+            return do_load(name)
+        if sys.argv[1] == 'save':
+            name = sys.argv[2]
+            session_id = sys.argv[3] if len(sys.argv) > 3 else get_session_id()
+            return do_save(name, session_id)
+    except Exception:
+        traceback.print_exc()
+
+    print('usage:')
+    print(f'  {sys.argv[0]} list')
+    print(f'  {sys.argv[0]} delete NAME')
+    print(f'  {sys.argv[0]} load NAME')
+    print(f'  {sys.argv[0]} save NAME')
+    return 1
+
+
+if __name__ == '__main__':
+    sys.exit(main())

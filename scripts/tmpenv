@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # ARG_OPTIONAL_BOOLEAN([chdir],[c],[chdir into venv],[off])
 # ARG_OPTIONAL_SINGLE([python],[p],[python version],[python3])
 # ARG_HELP([source <('"$0" [-c] [-p PYTHON]')])

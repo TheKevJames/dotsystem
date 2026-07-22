@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # ARG_OPTIONAL_SINGLE([count],[c],[maximum attempts],[9999])
 # ARG_OPTIONAL_SINGLE([timeout],[t],[sleep time between attempts],[10])
 # ARG_POSITIONAL_DOUBLEDASH([])

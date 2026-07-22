@@ -1,4 +1,5 @@
 # TODO: update any relevant `bin` scripts to use this builder
+# TODO: or, maybe, just switch to using python/whatever
 BUILDDIR = root/~/.local/bin
 SOURCEDIR = scripts
 
