@@ -36,6 +36,7 @@ repos:
         args: [--allow-multiple-documents]
       - id: detect-private-key
       - id: end-of-file-fixer
+        exclude: 'root/~/.pi/agent/settings.json'
       - id: mixed-line-ending
         args: [--fix=lf]
       - id: trailing-whitespace
