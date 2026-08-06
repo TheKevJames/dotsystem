@@ -104,18 +104,21 @@ def do_save(name: str, session_id: str | None) -> int:
 def main() -> int:
     DATA.touch()
     try:
-        if sys.argv[1] == 'delete':
-            name = sys.argv[2]
-            return do_delete(name)
-        if sys.argv[1] == 'list':
+        if len(sys.argv) == 1 or sys.argv[1] == 'list':
             return do_list()
-        if sys.argv[1] == 'load':
+
+        if sys.argv[1] in {'--help', 'help'}:
+            pass
+
+        if len(sys.argv) == 3:
             name = sys.argv[2]
-            return do_load(name)
-        if sys.argv[1] == 'save':
-            name = sys.argv[2]
-            session_id = sys.argv[3] if len(sys.argv) > 3 else None
-            return do_save(name, session_id)
+            if sys.argv[1] == 'delete':
+                return do_delete(name)
+            if sys.argv[1] == 'load':
+                return do_load(name)
+            if sys.argv[1] == 'save':
+                session_id = sys.argv[3] if len(sys.argv) > 3 else None
+                return do_save(name, session_id)
     except Exception:
         traceback.print_exc()
 
