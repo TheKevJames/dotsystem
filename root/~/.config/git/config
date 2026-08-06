@@ -83,7 +83,7 @@
     prune = true
 
 [init]
-    defaultBranch = master
+    defaultBranch = main
     templatedir = ~/.config/git/template
 
 [interactive]
@@ -140,8 +140,8 @@
     protocol = ssh
 
 [trace2]
-    eventTarget = af_unix:stream:/Users/kevin/.git-ai/internal/daemon/trace2.sock
     eventNesting = 0
+    eventTarget = af_unix:stream:/Users/kevin/.git-ai/internal/daemon/trace2.sock
 
 [includeIf "gitdir:~/src/talkiq/"]
     path = ~/.config/git/config-talkiq
