@@ -1,0 +1,14 @@
+root/~/.local/bin/session-pi
+  h_b8efbacaba1c31 107,109-113,115-121
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.21",
+  "base_commit_sha": "4e1745c46f07e3a669d9e4b6d6f1b37490c6f1e4",
+  "prompts": {},
+  "humans": {
+    "h_b8efbacaba1c31": {
+      "author": "Kevin James <KevinJames@thekev.in>"
+    }
+  }
+}
