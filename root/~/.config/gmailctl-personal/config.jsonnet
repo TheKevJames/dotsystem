@@ -220,6 +220,7 @@ local rules = [
   {
     filter: {
       or: [
+        { from: "daily@lisbonletter.com" },
         { from: "info@portugalresident.com" },
         { from: "jorgebranco@substack.com" },
       ],
