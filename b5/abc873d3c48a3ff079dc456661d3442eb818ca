@@ -1,0 +1,22 @@
+root/~/.config/dotsystem/packages
+  h_b8efbacaba1c31 109
+root/~/.pi/agent/AGENTS.md
+  h_b8efbacaba1c31 29,41,85
+root/~/.pi/agent/skills/poetry/SKILL.md
+  h_b8efbacaba1c31 109-110,112
+root/~/.pi/agent/skills/terraform/SKILL.md
+  h_b8efbacaba1c31 87,152
+vendor
+  h_b8efbacaba1c31 50
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.21",
+  "base_commit_sha": "b5abc873d3c48a3ff079dc456661d3442eb818ca",
+  "prompts": {},
+  "humans": {
+    "h_b8efbacaba1c31": {
+      "author": "Kevin James <KevinJames@thekev.in>"
+    }
+  }
+}
