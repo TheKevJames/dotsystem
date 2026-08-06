@@ -1,0 +1,14 @@
+root/~/.pi/agent/settings.json
+  h_b8efbacaba1c31 18,39-73
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.21",
+  "base_commit_sha": "8db6b255427cd923ca29d55eca963fc2a12c4060",
+  "prompts": {},
+  "humans": {
+    "h_b8efbacaba1c31": {
+      "author": "Kevin James <KevinJames@thekev.in>"
+    }
+  }
+}
