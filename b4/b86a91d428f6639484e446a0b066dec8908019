@@ -1,0 +1,19 @@
+root/~/.config/git/config
+  s_ab6366365d1a6e::t_c151e843052bcb 86,144
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.21",
+  "base_commit_sha": "b4b86a91d428f6639484e446a0b066dec8908019",
+  "prompts": {},
+  "sessions": {
+    "s_ab6366365d1a6e": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "019fd714-5924-7885-93e9-edcec4a6d05c",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Kevin James <KevinJames@thekev.in>"
+    }
+  }
+}
