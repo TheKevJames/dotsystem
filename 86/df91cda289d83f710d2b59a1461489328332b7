@@ -1,0 +1,14 @@
+root/~/.config/gmailctl-personal/config.jsonnet
+  h_b8efbacaba1c31 223
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.21",
+  "base_commit_sha": "86df91cda289d83f710d2b59a1461489328332b7",
+  "prompts": {},
+  "humans": {
+    "h_b8efbacaba1c31": {
+      "author": "Kevin James <KevinJames@thekev.in>"
+    }
+  }
+}
