@@ -47,4 +47,4 @@ for repo in "${!REPOS[@]}"; do
 done
 
 # normalize any whitespace/etc
-pre-commit run -a
+prek run -a

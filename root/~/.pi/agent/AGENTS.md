@@ -26,7 +26,7 @@
 - Ask before chosing a new approach - do not assume my preferences
 - Do not install packages globally or configure my environment - ask me if you think you need to do this. You may make use of and install to local, git-controlled environments, such as running `poetry sync` and using the associated venv
 - If you ever run into issues where you think the environment is not set up properly, for example where you can't run tests, can't import a library from my codebase, can't run an interpreter, etc, ask me how to proceed
-- Use `pre-commit run -a` after any changes to validate
+- Use `prek run -a` after any changes to validate
 - Never remove `TODO` comments without asking me, unless you are solving that particular TODO
 - Never say 'applied/implemented/done' unless you can immediately cite: (a) tool output confirming the edit, and (b) git diff (or re-read of the edited block)
 - When a task can be solved with a built-in feature of the tool/framework, prefer that over custom workarounds
@@ -38,7 +38,7 @@
 - Update docs, TODOs, diagrams, changelogs, etc after changing anything they refer to
 
 ## Testing and Linting
-- use `pre-commit` for linting and static analysis
+- use `prek` for linting and static analysis
 - avoid unit tests which test the implementation rather than the interface
 - prefer property testing approaches and tools like `hypothesis`
 - running the full test harness must be fast -- consolidate tests, reduce test scope for capturing precise issues, avoid low-value tests
@@ -82,7 +82,7 @@ jira-cli (command: jira)
 jq
 miller (command: mlr)
 ngrok
-pre-commit
+prek
 ripgrep (command: rg)
 shellcheck
 sqlite3

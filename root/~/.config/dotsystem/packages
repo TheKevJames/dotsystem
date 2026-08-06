@@ -106,6 +106,7 @@
   fava
   neovim-remote = nvr
   poetry
+  prek
   pre-commit
   shellcheck-py = shellcheck
   yq

@@ -84,7 +84,7 @@ local {
 
 ## Validation
 
-The below validation should normally run with `pre-commit run -a`, or can be
+The below validation should normally run with `prek run -a`, or can be
 run individually for specific checks.
 
 ### terraform validate
@@ -149,5 +149,5 @@ module "gke" {
 ## Tips
 - Always apply the **minimal targeted fix** — do not broaden `ignore_changes` or add extra resources without asking
 - When suggesting changes to `ignore_changes`, explicitly list what will and won't be ignored
-- Run `pre-commit run -a` if the project uses pre-commit hooks
+- Run `prek run -a` if the project uses pre-commit hooks
 - For large provider migrations, plan the approach (removed/import vs moved) before writing code

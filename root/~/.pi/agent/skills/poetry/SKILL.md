@@ -106,10 +106,10 @@ poetry check
 poetry lock --check  # Verify lockfile matches pyproject.toml
 ```
 
-### Pre-commit integration
-Many projects validate `pyproject.toml` via pre-commit:
+### pre-commit / prek integration
+Many projects validate `pyproject.toml` via prek:
 ```bash
-pre-commit run -a
+prek run -a
 ```
 
 ## Tips
