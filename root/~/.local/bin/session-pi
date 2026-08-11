@@ -10,9 +10,20 @@ STATE = os.getenv('XDG_STATE_HOME') or pathlib.Path.home() / '.local' / 'state'
 DATA = (pathlib.Path(STATE) / 'session-pi').resolve()
 
 
+def sessions_dir() -> pathlib.Path:
+    return (pathlib.Path(STATE) / 'pi' / 'sessions').resolve()
+
+
+# Sessions live flat in the store as `<TIMESTAMP>_<uuid>.jsonl`; subagent
+# sidecar files sit under `<TIMESTAMP>_<uuid>/` subdirs, so a non-recursive
+# glob keeps us to the real top-level sessions and skips those underscore-less
+# inner files.
+def top_level_sessions() -> list[pathlib.Path]:
+    return [s for s in sessions_dir().glob('*.jsonl') if '_' in s.name]
+
+
 def find_path(provided: str) -> str:
-    sessions = (pathlib.Path(STATE) / 'pi' / 'sessions').resolve()
-    for session in sessions.glob('**/*.jsonl'):
+    for session in top_level_sessions():
         session_id = session.name.split('_')[1].split('.')[0]
         if session_id == provided:
             path: str = json.loads(session.read_text().splitlines()[0])['cwd']
@@ -25,10 +36,20 @@ def find_path(provided: str) -> str:
 def get_session() -> tuple[str, str]:
     path = str(pathlib.Path.cwd().resolve())
 
-    sessions = (pathlib.Path(STATE) / 'pi' / 'sessions').resolve()
-    folder = sessions / f'-{path.replace("/", "-")}--'
-    latest = max(list(folder.glob('*')), key=lambda f: f.stat().st_ctime)
+    candidates = []
+    for session in top_level_sessions():
+        try:
+            header = json.loads(session.read_text().splitlines()[0])
+        except (OSError, ValueError, IndexError):
+            continue
+        if header.get('cwd') == path:
+            candidates.append(session)
 
+    if not candidates:
+        print(f'no session found for {path}')
+        sys.exit(1)
+
+    latest = max(candidates, key=lambda f: f.stat().st_ctime)
     session_id = latest.name.split('_')[1].split('.')[0]
     return (path, session_id)
 
