@@ -5,7 +5,11 @@ description: Fetch a web page and extract readable text content. Use when user n
 
 # web-fetch
 
-Fetch a web page and extract readable text content.
+Fetch a web page and extract readable, LLM-ready content via the Jina Reader
+(`r.jina.ai`), which handles JS rendering and cleanup. Requires `JINA_API_KEY`
+and fails fast when it is unset. If Jina is rate-limited (HTTP 429) or
+unavailable, it falls back to a direct fetch with naive HTML tag-stripping and
+prints a warning to stderr.
 
 ## Usage
 
@@ -14,7 +18,7 @@ Fetch a web page and extract readable text content.
 ```
 
 - `<url>` — URL to fetch
-- `--raw` — Output raw HTML instead of extracted text
+- `--raw` — Output raw HTML instead of extracted content
 
 ## Examples
 
