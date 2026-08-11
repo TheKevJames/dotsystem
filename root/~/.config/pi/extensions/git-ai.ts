@@ -4,9 +4,10 @@ import { readFile } from "node:fs/promises";
 import { homedir } from "node:os";
 import { resolve, isAbsolute, join } from "node:path";
 
+// TODO: use XDG vars
 const GIT_AI_BIN = join(homedir(), '.local', 'bin', 'git-ai');
 // Optional user-owned override file. Managed installer never writes it.
-const OVERRIDE_CONFIG_PATH = join(homedir(), '.pi', 'agent', 'git-ai.override.json');
+const OVERRIDE_CONFIG_PATH = join(homedir(), '.config', 'pi', 'git-ai.override.json');
 
 type CanonicalToolName = 'edit' | 'write' | 'replace' | 'rename' | 'bash';
 type HookEventName = 'before_edit' | 'after_edit' | 'before_command' | 'after_command';

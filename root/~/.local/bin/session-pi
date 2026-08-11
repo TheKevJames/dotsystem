@@ -11,7 +11,7 @@ DATA = (pathlib.Path(STATE) / 'session-pi').resolve()
 
 
 def find_path(provided: str) -> str:
-    sessions = (pathlib.Path.home() / '.pi' / 'agent' / 'sessions').resolve()
+    sessions = (pathlib.Path(STATE) / 'pi' / 'sessions').resolve()
     for session in sessions.glob('**/*.jsonl'):
         session_id = session.name.split('_')[1].split('.')[0]
         if session_id == provided:
@@ -25,7 +25,7 @@ def find_path(provided: str) -> str:
 def get_session() -> tuple[str, str]:
     path = str(pathlib.Path.cwd().resolve())
 
-    sessions = (pathlib.Path.home() / '.pi' / 'agent' / 'sessions').resolve()
+    sessions = (pathlib.Path(STATE) / 'pi' / 'sessions').resolve()
     folder = sessions / f'-{path.replace("/", "-")}--'
     latest = max(list(folder.glob('*')), key=lambda f: f.stat().st_ctime)
 

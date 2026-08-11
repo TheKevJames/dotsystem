@@ -15,7 +15,7 @@
   },
   "shellCommandPrefix": "export MANPAGER=cat",
   "quietStartup": true,
-  "lastChangelogVersion": "0.84.0",
+  "lastChangelogVersion": "0.84.1",
   "enabledModels": [
     "anthropic/claude-fable-5",
     "anthropic/claude-haiku-4-5",
@@ -57,7 +57,7 @@
         "disabled": true
       },
       "researcher": {
-        "disabled": true
+        "inheritSkills": true
       },
       "reviewer": {
         "disabled": true

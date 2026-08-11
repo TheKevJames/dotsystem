@@ -18,10 +18,6 @@ CVS/
 .hg/
 .hgignore
 
-# pi
-.pi/*
-.pi/messenger/*
-
 # pyenv
 .python-version
 

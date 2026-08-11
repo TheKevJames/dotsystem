@@ -17,9 +17,9 @@ REPOS["pawel-slowik/zsh-async-git-prompt"]=$(declare -p SOURCES)
 
 # TODO: vendor the skills (context7, debug-helper, git-workflow, web-fetch, web-search) without breaking markdown
 SOURCES=()
-SOURCES["root/~/.pi/agent/extensions/auto-session-name.ts"]="pi-package/extensions/auto-session-name.ts"
-SOURCES["root/~/.pi/agent/extensions/compact-header.ts"]="pi-package/extensions/compact-header.ts"
-SOURCES["root/~/.pi/agent/extensions/custom-footer.ts"]="pi-package/extensions/custom-footer.ts"
+SOURCES["root/~/.config/pi/extensions/auto-session-name.ts"]="pi-package/extensions/auto-session-name.ts"
+SOURCES["root/~/.config/pi/extensions/compact-header.ts"]="pi-package/extensions/compact-header.ts"
+SOURCES["root/~/.config/pi/extensions/custom-footer.ts"]="pi-package/extensions/custom-footer.ts"
 REPOS["telagod/oh-pi"]=$(declare -p SOURCES)
 
 for repo in "${!REPOS[@]}"; do
