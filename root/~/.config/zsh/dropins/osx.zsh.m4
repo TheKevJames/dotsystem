@@ -1,13 +1,6 @@
 # shellcheck shell=bash
 if [[ "$OSTYPE" == "darwin"* ]]; then
     # convenience commands
-    osx_clean() {
-        sudo find "${1:-/}" -type f -name '*.DS_Store' -ls -delete
-        sudo rm -rfv /Volumes/*/.Trashes
-        sudo rm -rfv ~/.Trash
-        sudo rm -rfv /private/var/log/asl/*.asl
-    }
-
     osx_mute() {
         osascript -e "set volume output muted true"
     }

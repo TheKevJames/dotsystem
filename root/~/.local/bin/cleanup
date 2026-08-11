@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    read -rp "Remove DS_Store files? [Yn] " yn
+    if [[ "${yn,,}" == "y" ]]; then
+        sudo find "${1:-/}" -type f -name '*.DS_Store' -ls -delete
+    fi
+
+    read -rp "Empty trash? [Yn] " yn
+    if [[ "${yn,,}" == "y" ]]; then
+        sudo rm -rfv /Volumes/*/.Trashes
+        sudo rm -rfv ~/.Trash
+    fi
+
+    read -rp "Remove logs? [Yn] " yn
+    if [[ "${yn,,}" == "y" ]]; then
+        sudo rm -rfv /private/var/log/asl/*.asl
+    fi
+
+    read -rp "Clear poetry envs? [Yn] " yn
+    if [[ "${yn,,}" == "y" ]]; then
+        rm -fr ~/Library/Caches/pypoetry/virtualenvs
+    fi
+fi
+
+read -rp "Clear poetry cache? [Yn] " yn
+if [[ "${yn,,}" == "y" ]]; then
+    poetry cache clear --all
+fi
+
+read -rp "Clear pre-commit cache? [Yn] " yn
+if [[ "${yn,,}" == "y" ]]; then
+    pre-commit clean
+fi
+
+read -rp "Clear pip cache? [Yn] " yn
+if [[ "${yn,,}" == "y" ]]; then
+    python3 -m pip cache purge
+fi
