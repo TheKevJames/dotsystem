@@ -1,0 +1,14 @@
+sync
+  h_b8efbacaba1c31 410,412
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "b7bc4789ea021ad477c86525a01cf96f0bf81781",
+  "prompts": {},
+  "humans": {
+    "h_b8efbacaba1c31": {
+      "author": "Kevin James <KevinJames@thekev.in>"
+    }
+  }
+}
