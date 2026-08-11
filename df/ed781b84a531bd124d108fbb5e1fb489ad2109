@@ -1,0 +1,29 @@
+root/~/.config/pi/skills/web-search/SKILL.md
+  s_4715fd60894b4e::t_f0dabafc64432b 3,8-9
+  s_4715fd60894b4e::t_bc4387c2196ff7 10-12
+root/~/.config/pi/skills/web-search/search.js
+  s_4715fd60894b4e::t_4cd122f2c41ad5 3-5,16,56
+  s_4715fd60894b4e::t_299242a73ade58 6,17-50,52-55,57-58
+root/~/.config/pi/skills/web-fetch/SKILL.md
+  s_4715fd60894b4e::t_e6b188ec27b9ce 8,21
+  s_4715fd60894b4e::t_ca1680a1c0c98b 9-12
+root/~/.config/pi/skills/web-fetch/fetch.js
+  s_4715fd60894b4e::t_6b79fd66449db2 3-6,13,31-32
+  s_4715fd60894b4e::t_02504aff57d560 15-16,28-30,33-54
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "dfed781b84a531bd124d108fbb5e1fb489ad2109",
+  "prompts": {},
+  "sessions": {
+    "s_4715fd60894b4e": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "019ff1e8-28fa-7fbe-b628-d852dff17fc0",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Kevin James <KevinJames@thekev.in>"
+    }
+  }
+}
