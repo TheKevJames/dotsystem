@@ -1,0 +1,14 @@
+root/~/.local/bin/update-repo
+  h_b8efbacaba1c31 1-28
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "ddda60a22b6732f11ed586869dca4b4fe9da1065",
+  "prompts": {},
+  "humans": {
+    "h_b8efbacaba1c31": {
+      "author": "Kevin James <KevinJames@thekev.in>"
+    }
+  }
+}
