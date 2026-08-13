@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+TARGET="${1:-.}"
+TEMPLATE="${2:-${HOME}/src/personal/.github}"
+echo "Updating ${TARGET} from ${TEMPLATE}..."
+
+if [[ -f "${TARGET}/.github/FUNDING.yml" ]]; then
+    echo "Removing .github/FUNDING.yml..."
+    rm "${TARGET}/.github/FUNDING.yml"
+fi
+
+for file in $(fd -tf --hidden --strip-cwd-prefix --base-directory "${TEMPLATE}" . | grep -vE '^(\.git/.*)|(\.github/FUNDING.yml)$'); do
+    if [[ ! -f "${TARGET}/${file}" ]]; then
+        echo "Copying ${file}..."
+        if [[ "${file}" != "${file%/*}" ]]; then
+            mkdir -p "${TARGET}/${file%/*}"
+        fi
+        cp "${TEMPLATE}/${file}" "${TARGET}/${file}"
+    elif ! diff "${TEMPLATE}/${file}" "${TARGET}/${file}" >/dev/null; then
+        echo "Should we copy ${file}? Diff:"
+        diff "${TEMPLATE}/${file}" "${TARGET}/${file}" ||:
+        read -rp "Overwrite? [Yn] " yn
+        if [[ "${yn,,}" == "y" ]]; then
+            cp "${TEMPLATE}/${file}" "${TARGET}/${file}"
+        fi
+    fi
+done
