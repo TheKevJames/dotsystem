@@ -1,6 +1,6 @@
 -- for debugging LSP issues, set:
--- vim.lsp.set_log_level('trace')
-vim.lsp.set_log_level('off')
+-- vim.lsp.log.set_level('trace')
+vim.lsp.log.set_level('off')
 
 -- this gets run when an LSP connects to a particular buffer
 vim.api.nvim_create_autocmd('LspAttach', {
