@@ -40,6 +40,7 @@
 
 ; packages from the OS package manager, OSX only
 [Darwin]
+  dust  ; TODO: move to cargo?
   jira-cli = jira
   npm10 = npm
   pinentry
@@ -47,9 +48,8 @@
   python312 = python3.12
   python313 = python3.13
   python314 = python3.14
-  skhd
   syncthing
-  yabai
+  ; TODO: aerospace  ; https://nikitabobko.github.io/AeroSpace/guide#manual-installation
 
 ; packages from the OS package manager, Linux only
 [Linux]

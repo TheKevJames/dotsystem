@@ -18,32 +18,6 @@ else
     exit 1
 fi
 
-echo "Running post-upgrade steps..."
-if which zypper >/dev/null; then
-    :
-elif which port >/dev/null; then
-    which yabai && {
-        sudo codesign -fs 'yabai-cert' /opt/local/bin/yabai
-
-        # Grant sudo access for yabai
-        echo "$(whoami) ALL=(root) NOPASSWD: sha256:$(shasum -a 256 "$(which yabai)") --load-sa" | sudo tee /etc/sudoers.d/yabai
-
-        sudo yabai --load-sa
-        yabai --restart-service
-    }
-
-    which skhd && {
-        skhd --restart-service
-    }
-elif which apt-get >/dev/null; then
-    :
-elif which dnf >/dev/null; then
-    :
-else
-    echo "ERROR: could not determine package manager."
-    exit 1
-fi
-
 echo "Upgrading rust..."
 rustup update
 
