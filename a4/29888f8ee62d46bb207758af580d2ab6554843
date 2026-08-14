@@ -1,0 +1,14 @@
+root/~/.config/nvim/lua/plugins/lsp.lua
+  h_b8efbacaba1c31 2-3
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "a429888f8ee62d46bb207758af580d2ab6554843",
+  "prompts": {},
+  "humans": {
+    "h_b8efbacaba1c31": {
+      "author": "Kevin James <KevinJames@thekev.in>"
+    }
+  }
+}
