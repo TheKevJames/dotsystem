@@ -18,6 +18,9 @@ CVS/
 .hg/
 .hgignore
 
+# pi
+.pi/
+
 # pyenv
 .python-version
 

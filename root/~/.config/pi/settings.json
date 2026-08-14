@@ -15,7 +15,7 @@
   },
   "shellCommandPrefix": "export MANPAGER=cat",
   "quietStartup": true,
-  "lastChangelogVersion": "0.84.1",
+  "lastChangelogVersion": "0.84.2",
   "enabledModels": [
     "anthropic/claude-fable-5",
     "anthropic/claude-haiku-4-5",
