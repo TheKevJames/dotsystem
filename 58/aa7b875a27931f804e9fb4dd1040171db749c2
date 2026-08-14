@@ -1,0 +1,16 @@
+root/~/.config/git/ignore
+  h_b8efbacaba1c31 21-23
+root/~/.config/pi/settings.json
+  h_b8efbacaba1c31 18,73
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "58aa7b875a27931f804e9fb4dd1040171db749c2",
+  "prompts": {},
+  "humans": {
+    "h_b8efbacaba1c31": {
+      "author": "Kevin James <KevinJames@thekev.in>"
+    }
+  }
+}
