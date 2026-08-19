@@ -313,6 +313,18 @@ if git config -f "${PACKAGE_CONFIG}" --get-regexp 'npm\..*' >/dev/null; then
     done < <(git config -f "${PACKAGE_CONFIG}" --get-regexp 'npm\..*')
 fi
 
+## Install pi extensions
+if git config -f "${PACKAGE_CONFIG}" --get-regexp 'pi\..*' >/dev/null; then
+    while IFS=$'\r' read -r package; do
+        IFS=' ' read -ra fields <<< "$package"
+        pkg="${fields[0]#pi.}"
+        binary="${fields[1]:-${pkg}}"
+        if [[ ! -e "${XDG_CONFIG_HOME}/pi/npm/node_modules/${pkg}" ]]; then
+            pi install "${binary}"
+        fi
+    done < <(git config -f "${PACKAGE_CONFIG}" --get-regexp 'pi\..*')
+fi
+
 ## Install pipx packages
 if git config -f "${PACKAGE_CONFIG}" --get-regexp 'pipx\..*' >/dev/null; then
     while IFS=$'\r' read -r package; do

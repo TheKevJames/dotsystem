@@ -40,7 +40,7 @@
 
 ; packages from the OS package manager, OSX only
 [Darwin]
-  dust  ; TODO: move to cargo?
+  dust = dust  ; TODO: move to cargo?
   jira-cli = jira
   npm10 = npm
   pinentry
@@ -94,9 +94,15 @@
 ; js tools, installed via npm
 [npm]
   ; TODO: support for @-prefix
+  ; @google/clasp = clasp
   ; @likec4/language-server = likec4-language-server
   ; @mariozechner/pi-coding-agent = pi
+  confluence-cli
   neovim = neovim-node-host
+
+; pi extensions, installed via pi
+[pi]
+  pi-subagents = npm:pi-subagents
 
 ; python tools, installed via pipx
 [pipx]
