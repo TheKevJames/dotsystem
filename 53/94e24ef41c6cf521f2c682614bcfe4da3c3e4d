@@ -1,0 +1,16 @@
+root/~/.config/dotsystem/packages
+  h_b8efbacaba1c31 43,97,100,103-106
+sync
+  h_b8efbacaba1c31 316-327
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "5394e24ef41c6cf521f2c682614bcfe4da3c3e4d",
+  "prompts": {},
+  "humans": {
+    "h_b8efbacaba1c31": {
+      "author": "Kevin James <KevinJames@thekev.in>"
+    }
+  }
+}
