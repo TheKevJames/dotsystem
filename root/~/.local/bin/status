@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+
+USAGE="Usage: status --help|--here|--away|'message goes here'"
+FLAG="${1:?${USAGE}}"
+
+if [[ "${FLAG}" == "--help" ]] || [[ "${FLAG}" == "help" ]]; then
+    echo "${USAGE}" >/dev/stderr
+    exit 1
+elif [[ "${FLAG}" == "--here" ]] || [[ "${FLAG}" == "here" ]]; then
+    EMOJI=":computer:"
+    MESSAGE="Working Hours: ~GMT-3"
+elif [[ "${FLAG}" == "--away" ]] || [[ "${FLAG}" == "away" ]]; then
+    EMOJI=":house:"
+    MESSAGE="Working Hours: ~GMT-3"
+else
+    EMOJI=":computer:"
+    MESSAGE="$*"
+fi
+
+# Dialpad
+echo "Setting Dialpad status..."
+curl -XPATCH \
+    -H 'accept: application/json' \
+    --json '{"status_message": "'"${EMOJI}"' '"${MESSAGE}"'"}' \
+    "https://dialpad.com/api/v2/users/4628916404486144/status?apikey=${DIALPAD_API_KEY}"
+echo
+echo
+
+# Google Chat
+CHAT_SCOPE="https://www.googleapis.com/auth/chat.users.availability"
+QUOTA_PROJECT="voiceai-infra"
+
+TOKEN="$(gcloud auth application-default print-access-token --scopes="${CHAT_SCOPE}" 2>/dev/null)"
+declare -A LOOKUP=([":house:"]="$(printf '\U0001F3E0')" [":computer:"]="$(printf '\U1F4BB')")
+GEMOJI="${LOOKUP[${EMOJI}]}"
+
+echo "Setting Google Chat status..."
+curl -sS -XPATCH \
+  -H "Authorization: Bearer ${TOKEN}" \
+  -H "X-Goog-User-Project: ${QUOTA_PROJECT}" \
+  --json '{"customStatus": {"text": "'"${MESSAGE}"'", "emoji": {"unicode": "'"${GEMOJI}"'"}, "ttl": "28800s"}}' \
+  "https://chat.googleapis.com/v1/users/me/availability?updateMask=customStatus"
