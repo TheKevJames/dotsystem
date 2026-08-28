@@ -1,13 +1,9 @@
-// This file is vendored, run ./vendor to update it.
-// Last Update: 2026-07-17
-// Commit Hash: e609f5d5c935079e36c88944252b168ff0907a27
-//
 /**
- * oh-pi Auto Session Name Extension
+ * auto-session-name
  *
  * Automatically names sessions based on the first user message.
  */
-import type { ExtensionAPI } from "@mariozechner/pi-coding-agent";
+import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
 
 export default function (pi: ExtensionAPI) {
   let named = false;
@@ -17,7 +13,9 @@ export default function (pi: ExtensionAPI) {
   });
 
   pi.on("agent_end", async (event) => {
-    if (named) return;
+    // Re-check the live name here, not just the session_start snapshot, so a
+    // /name set after startup but before the first agent_end is not clobbered.
+    if (named || pi.getSessionName()) return;
     const userMsg = event.messages.find((m) => m.role === "user");
     if (!userMsg) return;
     const text = typeof userMsg.content === "string"
