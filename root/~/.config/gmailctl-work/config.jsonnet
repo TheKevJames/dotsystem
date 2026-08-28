@@ -52,6 +52,7 @@ local rules = [
         { from: "alerts@okta.com" },
         { from: "alerts@trustalerts.okta.com" },
         { from: "firebase-noreply@google.com" },
+        { from: "noreply-maintenance@redis.com" },
       ],
     },
     actions: labelAndArchive("Alerts"),
