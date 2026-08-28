@@ -2,7 +2,9 @@
 set -euo pipefail
 
 
-gcloud auth login --no-launch-browser
+export BROWSER="${XDG_BIN_HOME}/gauth-browser"
+
+gcloud auth login
 # gcloud auth login --update-adc --no-launch-browser
 # gcloud auth application-default login \
 #   --client-id-file="${HOME}/.config/gmailctl-work/credentials.json" \
