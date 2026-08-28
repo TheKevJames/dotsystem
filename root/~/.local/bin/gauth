@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+
+gcloud auth login --no-launch-browser
+# gcloud auth login --update-adc --no-launch-browser
+# gcloud auth application-default login \
+#   --client-id-file="${HOME}/.config/gmailctl-work/credentials.json" \
+#   --scopes=openid,https://www.googleapis.com/auth/cloud-platform,https://www.googleapis.com/auth/userinfo.email,https://www.googleapis.com/auth/chat.users.availability
