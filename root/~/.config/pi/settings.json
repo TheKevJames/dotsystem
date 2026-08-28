@@ -15,25 +15,10 @@
   },
   "shellCommandPrefix": "export MANPAGER=cat",
   "quietStartup": true,
-  "lastChangelogVersion": "0.84.2",
+  "lastChangelogVersion": "0.84.3",
   "enabledModels": [
-    "anthropic/claude-fable-5",
-    "anthropic/claude-haiku-4-5",
-    "anthropic/claude-opus-4-6",
-    "anthropic/claude-opus-4-7",
     "anthropic/claude-opus-4-8",
-    "anthropic/claude-sonnet-4-6",
-    "anthropic/claude-sonnet-5",
-    "google/gemini-3.1-pro-preview",
-    "ollama/glm-5.1:cloud",
-    "ollama/qwen3.6:latest",
-    "ollama/qwen3:8b",
-    "openai/gpt-5.3-codex",
-    "openai/gpt-5.3-codex-spark",
-    "openai/gpt-5.4",
-    "openai/gpt-5.4-pro",
-    "openai/gpt-5.5",
-    "openai/gpt-5.5-pro"
+    "google/gemini-3.7-flash"
   ],
   "hideThinkingBlock": false,
   "packages": [
