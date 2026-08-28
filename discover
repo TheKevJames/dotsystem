@@ -14,10 +14,15 @@ FOLDERS = [
     '.config/zsh/dropins',
     '.local/bin',
 ]
+# TODO: synchronize this list with packagers installed by ./sync
 IGNORE = {
-    'circleci',  # TODO: add to packages, sync with ./sync
-    'git-standup',  # TODO: sync with ./sync
+    'aerospace',
+    'circleci',
+    'git-standup',
+    'gog',
     'lazy-lock.json',
+    'logcli',
+    'observe',
 }
 
 
