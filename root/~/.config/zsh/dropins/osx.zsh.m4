@@ -21,7 +21,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     command -v sha1sum >/dev/null || alias sha1sum="shasum"
 
     # alias coreutils when there are no BSD versions
-    command -v gtimeout >/dev/null || alias timeout="gtimeout"
+    command -v timeout >/dev/null || alias timeout="gtimeout"
 
     # Fix compilations
     export ARCHFLAGS="-arch $(uname -m)"

@@ -40,7 +40,10 @@
 - When asked to fix X, apply the minimal targeted fix — do not broaden scope without asking
 - Transient / flaky test failures should always be marked for investigation - do not interrupt your current work, but suggest it for immediate follow-up once you're done
 - Update docs, TODOs, diagrams, changelogs, etc after changing anything they refer to
-- Use the bash tool's `timeout` parameter, or `gtimeout` if you need a shell-level timeout
+
+## Tool Use
+- Use the bash tool's `timeout` parameter when useful
+- Read targeted ranges of files using the read tool with `offset` and `limit`
 
 ## Testing and Linting
 - use `prek` for linting and static analysis
