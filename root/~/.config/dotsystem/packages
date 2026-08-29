@@ -12,6 +12,8 @@
   bison
   curl
   entr
+  gron = gron  ; TODO: verify on linux
+  grpcurl = grpcurl  ; TODO: verify on linux
   glow
   gmailctl
   gnupg2 = gpg  ; TODO: is this OS-specific?

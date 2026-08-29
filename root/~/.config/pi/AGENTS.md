@@ -86,9 +86,13 @@ entr
 fd-find (command: fd)
 gh
 gog
+gron
+grpcurl
 hyperfine
 jira-cli (command: jira)
 jq
+kubectl mtail
+kubectl stern
 miller (command: mlr)
 ngrok
 prek
