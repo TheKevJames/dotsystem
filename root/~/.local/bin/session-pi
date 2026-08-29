@@ -22,10 +22,13 @@ def top_level_sessions() -> list[pathlib.Path]:
     return [s for s in sessions_dir().glob('*.jsonl') if '_' in s.name]
 
 
+def path_to_id(path: pathlib.Path) -> str:
+    return path.name.split('_')[1].split('.')[0]
+
+
 def find_path(provided: str) -> str:
     for session in top_level_sessions():
-        session_id = session.name.split('_')[1].split('.')[0]
-        if session_id == provided:
+        if path_to_id(session) == provided:
             path: str = json.loads(session.read_text().splitlines()[0])['cwd']
             return path
 
@@ -50,14 +53,25 @@ def get_session() -> tuple[str, str]:
         sys.exit(1)
 
     latest = max(candidates, key=lambda f: f.stat().st_ctime)
-    session_id = latest.name.split('_')[1].split('.')[0]
-    return (path, session_id)
+    return (path, path_to_id(latest))
 
 
 def print_state(state: list[str]) -> None:
     for line in state:
         path, name, _ = line.split('\t')
         print(f'{path}: {name}')
+
+
+def do_clean() -> int:
+    ids = [data.rsplit('\t', 1)[-1] for data in DATA.read_text().splitlines()]
+
+    for session in top_level_sessions():
+        session_id = path_to_id(session)
+        if session_id not in ids:
+            print(f'Deleting session {session_id}...')
+            session.unlink()
+
+    return 0
 
 
 def do_delete(name: str) -> int:
@@ -127,6 +141,8 @@ def main() -> int:
     try:
         if len(sys.argv) == 1 or sys.argv[1] == 'list':
             return do_list()
+        if sys.argv[1] == 'clean':
+            return do_clean()
 
         if sys.argv[1] in {'--help', 'help'}:
             pass
@@ -145,6 +161,7 @@ def main() -> int:
 
     print('usage:')
     print(f'  {sys.argv[0]} list')
+    print(f'  {sys.argv[0]} clean')
     print(f'  {sys.argv[0]} delete NAME')
     print(f'  {sys.argv[0]} load NAME')
     print(f'  {sys.argv[0]} save NAME [SESSIONID]')
