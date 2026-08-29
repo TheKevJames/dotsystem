@@ -4,6 +4,7 @@
 - Use meaningful variable names
 - Keep functions under ~50 lines
 - Add comments only where they will be useful later to future people reading the code: do not re-state what the code does, or reference why it is being added (git log already does that), but instead only explain complicated gotchas or non-obvious reasons why the code should not change, assuming that experienced and high-level engineers are the target audience
+- Comments should not refer to previous versions, eg. never add a comment stating how the code was before your change
 - Only rename imports (using `as`) when required to solve naming collisions
 - Before implementing a feature as a special case, ask: "is this actually the general rule applied to a new domain?" If yes, implement the general rule and remove the special case, even if it's more work
 - Helper scripts should live in "bin/"
@@ -14,6 +15,7 @@
 - Commit body suffix should always be "Closes #xxx" when that commit resolves an issue on our issue tracker
 - Never force-push to master/main -- force-pushing to a branch is OK, as is pushing to master/main
 - Naming: when creating branches, prefix them with "kjames/"
+- Use stacked PRs where appropriate
 
 ## Safety
 - Never hardcode secrets or API keys
@@ -38,6 +40,7 @@
 - When asked to fix X, apply the minimal targeted fix — do not broaden scope without asking
 - Transient / flaky test failures should always be marked for investigation - do not interrupt your current work, but suggest it for immediate follow-up once you're done
 - Update docs, TODOs, diagrams, changelogs, etc after changing anything they refer to
+- Use the bash tool's `timeout` parameter, or `gtimeout` if you need a shell-level timeout
 
 ## Testing and Linting
 - use `prek` for linting and static analysis
@@ -57,8 +60,9 @@
 - Before implementing any UI component (tooltip, badge, modal, dropdown, etc.), search for an existing instance of the same component type in the codebase and replicate its implementation exactly. Never reach for a browser native (e.g. title=, <details>) if a custom pattern already exists.
 
 ### Python
-- Never use ``pip`` or ``pip install`` directly
-- System tools should be managed with ``pipx``
+- Bare `python` is not installed, use `python3` or the poetry venv
+- Never use `pip` or `pip install` directly
+- System tools should be managed with `pipx`
 - Prefer `poetry` for managing python projects
 - Only use `uv` if a project contains a `uv.lock` file and does not contain a `poetry.lock` file
 - Prefer modern APIs (such as `pathlib`) over deprecated/older alternatives (eg. `os`)
