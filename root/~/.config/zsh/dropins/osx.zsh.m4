@@ -17,8 +17,11 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     }
 
     # missing commands
-    command -v md5sum > /dev/null || alias md5sum="md5"
-    command -v sha1sum > /dev/null || alias sha1sum="shasum"
+    command -v md5sum >/dev/null || alias md5sum="md5"
+    command -v sha1sum >/dev/null || alias sha1sum="shasum"
+
+    # alias coreutils when there are no BSD versions
+    command -v gtimeout >/dev/null || alias timeout="gtimeout"
 
     # Fix compilations
     export ARCHFLAGS="-arch $(uname -m)"
