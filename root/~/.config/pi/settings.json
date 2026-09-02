@@ -24,6 +24,9 @@
   "packages": [
     "npm:pi-subagents"
   ],
+  "skills": [
+     "~/.config/matt-pocock/skills"
+  ],
   "subagents": {
     "agentOverrides": {
       "delegate": {

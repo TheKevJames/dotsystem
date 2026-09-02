@@ -7,18 +7,29 @@ $PI_CODING_AGENT_BAKERY_DIR if set, else $PI_CODING_AGENT_DIR/bakery,
 else ~/.pi/agent/bakery.
 """
 import argparse
+import contextlib
+import fcntl
 import json
 import operator
 import os
 import pathlib
+import pty
 import shutil
 import socket
+import struct
+import subprocess
 import sys
+import termios
 import time
 from collections.abc import Callable
 
 
 WAIT_POLL_INTERVAL = 0.25
+# pi runs an interactive TUI that exits immediately without a terminal, so a
+# headless session is spawned under a PTY sized like a normal terminal.
+SPAWN_PTY_ROWS = 40
+SPAWN_PTY_COLS = 120
+SPAWN_REGISTER_TIMEOUT = 20.0
 SOCKET_SUFFIX = '.sock'
 ALIAS_SUFFIX = '.alias'
 STATE_COLORS = {'idle': 32, 'working': 33, 'blocked': 31, 'dead': 90}
@@ -535,6 +546,77 @@ def attach_target(session: str) -> tuple[str, str | None] | None:
     return None
 
 
+def run_headless_pi(session: str, cwd: pathlib.Path | None) -> None:
+    """Run `pi --name session` under a PTY, draining output until it exits.
+
+    Draining is required: an unread PTY buffer eventually fills and blocks the
+    TUI. This never returns; call it only from the detached spawn grandchild.
+    """
+    master, slave = pty.openpty()
+    winsize = struct.pack('HHHH', SPAWN_PTY_ROWS, SPAWN_PTY_COLS, 0, 0)
+    fcntl.ioctl(slave, termios.TIOCSWINSZ, winsize)
+    with open(os.devnull, 'rb') as devnull:
+        os.dup2(devnull.fileno(), 0)
+    with open(os.devnull, 'ab') as devnull:
+        os.dup2(devnull.fileno(), 1)
+        os.dup2(devnull.fileno(), 2)
+    with subprocess.Popen(
+        ('pi', '--name', session),
+        cwd=cwd,
+        stdin=slave,
+        stdout=slave,
+        stderr=slave,
+        start_new_session=True,
+        close_fds=True,
+    ):
+        os.close(slave)
+        with contextlib.suppress(OSError):
+            while os.read(master, 65536):
+                pass
+
+
+def spawn_detached(session: str, cwd: pathlib.Path | None) -> None:
+    """Double-fork so the pi drainer is reparented to init and disowned."""
+    intermediate = os.fork()
+    if intermediate > 0:
+        os.waitpid(intermediate, 0)
+        return
+    os.setsid()
+    if os.fork() > 0:
+        os._exit(0)
+    run_headless_pi(session, cwd)
+    os._exit(0)
+
+
+def wait_for_registration(session: str, timeout: float) -> bool:
+    alias = bakery_dir() / f'{session}{ALIAS_SUFFIX}'
+    deadline = time.monotonic() + timeout
+    while time.monotonic() < deadline:
+        if alias.is_symlink() and query_status(resolve_socket(session)):
+            return True
+        time.sleep(WAIT_POLL_INTERVAL)
+    return False
+
+
+def do_spawn(args: argparse.Namespace) -> int:
+    if not is_safe_name(args.session):
+        sys.exit(f'invalid session: {args.session}')
+    if resolve_socket(args.session).is_socket():
+        sys.exit(f'session already running: {args.session}')
+    cwd = pathlib.Path(args.dir).expanduser().resolve() if args.dir else None
+    if cwd is not None and not cwd.is_dir():
+        sys.exit(f'not a directory: {cwd}')
+    spawn_detached(args.session, cwd)
+    if not wait_for_registration(args.session, SPAWN_REGISTER_TIMEOUT):
+        sys.exit(f'spawn timed out waiting for {args.session} to register')
+    print(f'spawned {args.session}')
+    return 0
+
+
+def has_session_file(session_id: str) -> bool:
+    return any(path_to_id(p) == session_id for p in top_level_sessions())
+
+
 def do_attach(args: argparse.Namespace) -> int:
     target = attach_target(args.session)
     if target is None:
@@ -542,6 +624,10 @@ def do_attach(args: argparse.Namespace) -> int:
     session_id, cwd = target
     if not session_id:
         sys.exit(f'session has no id: {args.session}')
+    # pi writes the session file only after the first assistant reply; without
+    # it `pi --session-id` would silently start a fresh session instead.
+    if not has_session_file(session_id):
+        sys.exit(f'no saved history yet for {args.session}; nothing to attach')
     if cwd:
         os.chdir(pathlib.Path(cwd).expanduser())
     os.execvp('pi', ('pi', '--session-id', session_id))
@@ -624,6 +710,17 @@ def build_parser() -> argparse.ArgumentParser:
         '--force', action='store_true', help='delete without prompting',
     )
     gc.set_defaults(func=do_gc)
+
+    spawn = sub.add_parser(
+        'spawn', help='spawn a headless background pi session',
+    )
+    spawn.add_argument('session', help='name for the new session')
+    spawn.add_argument(
+        'dir',
+        nargs='?',
+        help='directory to spawn in (default: current directory)',
+    )
+    spawn.set_defaults(func=do_spawn)
 
     attach = sub.add_parser(
         'attach', help='attach to a live or pinned session',
