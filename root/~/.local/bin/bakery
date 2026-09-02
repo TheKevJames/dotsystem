@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 # pylint: disable=too-many-lines
-"""Control plane for the pi bakery extension.
+"""
+Control plane for the pi bakery extension.
 
 Talks to per-session control sockets under the bakery directory:
 $PI_CODING_AGENT_BAKERY_DIR if set, else $PI_CODING_AGENT_DIR/bakery,
 else ~/.pi/agent/bakery.
 """
+
 import argparse
 import contextlib
 import fcntl
@@ -22,7 +24,6 @@ import sys
 import termios
 import time
 from collections.abc import Callable
-
 
 WAIT_POLL_INTERVAL = 0.25
 # pi runs an interactive TUI that exits immediately without a terminal, so a
@@ -41,7 +42,8 @@ def bakery_dir() -> pathlib.Path:
         return pathlib.Path(override).resolve()
     config = os.getenv('PI_CODING_AGENT_DIR', '').strip()
     base = (
-        pathlib.Path(config) if config
+        pathlib.Path(config)
+        if config
         else pathlib.Path.home() / '.pi' / 'agent'
     )
     return (base / 'bakery').resolve()
@@ -78,7 +80,8 @@ def resolve_socket(session: str) -> pathlib.Path:
 def sessions_dir() -> pathlib.Path:
     state = os.getenv('XDG_STATE_HOME', '').strip()
     base = (
-        pathlib.Path(state) if state
+        pathlib.Path(state)
+        if state
         else pathlib.Path.home() / '.local' / 'state'
     )
     return (base / 'pi' / 'sessions').resolve()
@@ -98,7 +101,8 @@ def path_to_id(path: pathlib.Path) -> str:
 
 
 def read_session(path: pathlib.Path) -> tuple[str, str, str | None] | None:
-    """Parse (session_id, cwd, name) from a session file, else None.
+    """
+    Parse (session_id, cwd, name) from a session file, else None.
 
     name is the latest `session_info` entry's name, i.e. the session's /name.
     """
@@ -175,11 +179,10 @@ def cwd_for_id(session_id: str) -> str | None:
 
 
 def rpc(
-    socket_path: pathlib.Path,
-    command: dict[str, object],
-    timeout: float,
+    socket_path: pathlib.Path, command: dict[str, object], timeout: float
 ) -> dict[str, object]:
-    """Send one JSON-RPC command and return its response.
+    """
+    Send one JSON-RPC command and return its response.
 
     Raises OSError if the socket cannot be reached or returns no response.
     """
@@ -202,8 +205,7 @@ def rpc(
 
 
 def query_status(
-    socket_path: pathlib.Path,
-    timeout: float = 0.5,
+    socket_path: pathlib.Path, timeout: float = 0.5
 ) -> str | None:
     """Return a live session's status, or None if the socket is dead."""
     try:
@@ -470,7 +472,8 @@ def do_pin(args: argparse.Namespace) -> int:
 def do_unpin(args: argparse.Namespace) -> int:
     pins = read_pins()
     removed = [
-        name for name, info in pins.items()
+        name
+        for name, info in pins.items()
         if args.session in (name, info.get('sessionId'))
     ]
     if not removed:
@@ -547,7 +550,8 @@ def attach_target(session: str) -> tuple[str, str | None] | None:
 
 
 def run_headless_pi(session: str, cwd: pathlib.Path | None) -> None:
-    """Run `pi --name session` under a PTY, draining output until it exits.
+    """
+    Run `pi --name session` under a PTY, draining output until it exits.
 
     Draining is required: an unread PTY buffer eventually fills and blocks the
     TUI. This never returns; call it only from the detached spawn grandchild.
@@ -637,22 +641,22 @@ def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog='bakery', description=__doc__)
     sub = parser.add_subparsers(dest='command')
 
-    sub.add_parser(
-        'list', help='list live sessions',
-    ).set_defaults(func=do_list)
+    sub.add_parser('list', help='list live sessions').set_defaults(
+        func=do_list
+    )
 
     show = sub.add_parser('show', help='show a session id, name, and state')
     show.add_argument('session', help='session id or name')
     show.set_defaults(func=do_show)
 
     read = sub.add_parser(
-        'read', help='print the most recent assistant message',
+        'read', help='print the most recent assistant message'
     )
     read.add_argument('session', help='session id or name')
     read.set_defaults(func=do_read)
 
     wait = sub.add_parser(
-        'wait', help='wait until a session is idle or blocked',
+        'wait', help='wait until a session is idle or blocked'
     )
     wait.add_argument('session', help='session id or name')
     wait.add_argument(
@@ -663,9 +667,7 @@ def build_parser() -> argparse.ArgumentParser:
     )
     wait.set_defaults(func=do_wait)
 
-    kill = sub.add_parser(
-        'kill', help='gracefully shut down an idle session',
-    )
+    kill = sub.add_parser('kill', help='gracefully shut down an idle session')
     kill.add_argument('session', help='session id or name')
     kill.add_argument(
         '--force',
@@ -685,17 +687,14 @@ def build_parser() -> argparse.ArgumentParser:
     )
     send.set_defaults(func=do_send)
 
-    pin = sub.add_parser(
-        'pin', help='pin a session under its /name',
-    )
+    pin = sub.add_parser('pin', help='pin a session under its /name')
     pin.add_argument(
         'session',
         nargs='?',
         help='session id or /name (default: infer from current directory)',
     )
     pin.add_argument(
-        '--alias',
-        help='pin under this name instead of the session /name',
+        '--alias', help='pin under this name instead of the session /name'
     )
     pin.set_defaults(func=do_pin)
 
@@ -704,15 +703,15 @@ def build_parser() -> argparse.ArgumentParser:
     unpin.set_defaults(func=do_unpin)
 
     gc = sub.add_parser(
-        'gc', help='delete session files that are neither live nor pinned',
+        'gc', help='delete session files that are neither live nor pinned'
     )
     gc.add_argument(
-        '--force', action='store_true', help='delete without prompting',
+        '--force', action='store_true', help='delete without prompting'
     )
     gc.set_defaults(func=do_gc)
 
     spawn = sub.add_parser(
-        'spawn', help='spawn a headless background pi session',
+        'spawn', help='spawn a headless background pi session'
     )
     spawn.add_argument('session', help='name for the new session')
     spawn.add_argument(
@@ -723,11 +722,9 @@ def build_parser() -> argparse.ArgumentParser:
     spawn.set_defaults(func=do_spawn)
 
     attach = sub.add_parser(
-        'attach', help='attach to a live or pinned session',
+        'attach', help='attach to a live or pinned session'
     )
-    attach.add_argument(
-        'session', help='pin name, live alias, or session id',
-    )
+    attach.add_argument('session', help='pin name, live alias, or session id')
     attach.set_defaults(func=do_attach)
 
     return parser
@@ -737,7 +734,7 @@ def main() -> int:
     parser = build_parser()
     args = parser.parse_args()
     handler: Callable[[argparse.Namespace], int] | None = getattr(
-        args, 'func', None,
+        args, 'func', None
     )
     if handler is None:
         parser.print_help()

@@ -2,7 +2,6 @@
 import pathlib
 from collections.abc import Iterator
 
-
 HOME = pathlib.Path.home()
 ROOT = pathlib.Path(__file__).parent / 'root' / '~'
 FOLDERS = [

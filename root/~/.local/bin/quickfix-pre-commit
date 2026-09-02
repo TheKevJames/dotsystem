@@ -11,9 +11,7 @@ def main() -> None:
 
     # TODO: passthrough args?
     results = subprocess.run(
-        ('pre-commit', 'run', '-a'),
-        capture_output=True,
-        check=False,
+        ('pre-commit', 'run', '-a'), capture_output=True, check=False
     )
 
     qfix: set[str] = set()

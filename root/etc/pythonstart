@@ -7,12 +7,8 @@ import rlcompleter
 import sys
 import traceback
 
-
 XDG_STATE_HOME = pathlib.Path(
-    os.environ.get(
-        'XDG_STATE_HOME',
-        pathlib.Path.home() / '.local' / 'state',
-    ),
+    os.environ.get('XDG_STATE_HOME', pathlib.Path.home() / '.local' / 'state')
 )
 HISTORY = XDG_STATE_HOME / f'python{sys.version_info[0]}' / 'history'
 
@@ -33,6 +29,7 @@ def save_history(history_path: pathlib.Path = HISTORY) -> None:
     # N.B. `save_history` is run outside of the context of this file.
     # pylint: disable=redefined-outer-name,reimported,import-outside-toplevel
     import readline
+
     readline.write_history_file(history_path)
 
 
