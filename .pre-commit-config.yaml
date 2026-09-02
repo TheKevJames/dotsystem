@@ -249,14 +249,16 @@ repos:
       - id: tflint
 
 # shell
-# TODO: re-enable bashate. Disabled at some point (reason forgotten -- likely
-# it wanted to rewrite files we weren't ready to touch yet). Re-audit its
-# changes before turning back on.
-#   - repo: https://github.com/openstack/bashate
-#     rev: 2.1.1
-#     hooks:
-#       - id: bashate
-#         args: [--max-line-length=80]
+  - repo: https://github.com/openstack/bashate
+    rev: 2.1.1
+    hooks:
+      - id: bashate
+        args:
+          - --max-line-length=80
+          - -i
+          # TODO: fix E005, E010, E040
+          # E010: Allow inline if-elif-fi blocks
+          - E005,E010,E011,E040
   - repo: https://github.com/shellcheck-py/shellcheck-py
     rev: v0.11.0.1-1
     hooks:

@@ -38,7 +38,7 @@ alias lmms='lmms --config=${XDG_CONFIG_HOME}/lmms/config'
 alias wget='wget --hsts-file ${XDG_DATA_HOME}/wget/hsts'
 
 # https://github.com/mbrt/gmailctl
-function gmailctl() {
+function gmailctl {
     echo "Use gcmailctlp or gmailctlw for personal/work accounts."
     return 1
 }

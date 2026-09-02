@@ -21,18 +21,18 @@ for folder in $(fd -td -d1 "${_arg_folder:-.}"); do
 
     if [ "${_arg_local:-on}" = on ]; then
         readarray -t branches <<<"$(git --git-dir "./${folder}/.git" branch \
-                                    | grep -vE '^[ \*] master$' \
-                                    | grep -vE '^[ \*] main$' \
-                                    ||:)"
+            | grep -vE '^[ \*] master$' \
+            | grep -vE '^[ \*] main$' \
+            ||:)"
     fi
     if [[ -n "${_arg_remote_prefix}" ]]; then
         readarray -t remotes <<<"$(git --git-dir "./${folder}/.git" branch -a \
-                                   | grep -E '^[ \*] remotes/\w+/'"${_arg_remote_prefix}" \
-                                   ||:)"
+            | grep -E '^[ \*] remotes/\w+/'"${_arg_remote_prefix}" \
+            ||:)"
     fi
     if [ "${_arg_stash:-on}" = on ]; then
         readarray -t stashes <<<"$(git --git-dir "./${folder}/.git" stash list \
-                                   ||:)"
+            ||:)"
     fi
 
     results=()

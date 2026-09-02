@@ -12,14 +12,14 @@ declare -A HOSTNAME_COLORS=(
     ["pi-1"]=red
 )
 
-function update_tmux_ssh() {
+function update_tmux_ssh {
     HOSTNAME="${1:-}"
     tmux set-option -p @custom_pane_color "${HOSTNAME_COLORS[$HOSTNAME]:-terminal}"
     [[ -n "${HOSTNAME}" ]] && HOSTNAME="${HOSTNAME} "
     tmux set-option -p @custom_pane_title "${HOSTNAME}"
 }
 
-function update_tmux_gcp() {
+function update_tmux_gcp {
     GCP=$(cat ~/.config/gcloud/active_config)
     tmux set-option -g @custom_window_gcp_title "${GCP}"
     if grep -E 'echelon|production' <(echo "${GCP}") >/dev/null; then
@@ -29,7 +29,7 @@ function update_tmux_gcp() {
     fi
 }
 
-function update_tmux_k8s() {
+function update_tmux_k8s {
     if [[ ! -f "${XDG_CONFIG_HOME}/kube" ]]; then return; fi
     K8S=$(awk '/current-context:/ {print $2}' "${XDG_CONFIG_HOME}/kube")
     tmux set-option -g @custom_window_k8s_title "${K8S}"
@@ -40,7 +40,7 @@ function update_tmux_k8s() {
     fi
 }
 
-function gcloud() {
+function gcloud {
     if [[ "$*" == *" ssh "* ]]; then
         update_tmux_ssh "${@:$#}"
         command gcloud "$@"
@@ -51,12 +51,12 @@ function gcloud() {
     update_tmux_gcp
 }
 
-function kubectl() {
+function kubectl {
     command kubectl "$@"
     update_tmux_k8s
 }
 
-function ssh() {
+function ssh {
     if [[ $(ps -p "$(ps -p$$ -oppid=)" -ocomm=) =~ "tmux" ]]; then
         update_tmux_ssh "${*:$#}"
         command ssh "$@"

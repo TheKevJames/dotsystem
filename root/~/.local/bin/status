@@ -38,7 +38,7 @@ GEMOJI="${LOOKUP[${EMOJI}]}"
 
 echo "Setting Google Chat status..."
 curl -sS -XPATCH \
-  -H "Authorization: Bearer ${TOKEN}" \
-  -H "X-Goog-User-Project: ${QUOTA_PROJECT}" \
-  --json '{"customStatus": {"text": "'"${MESSAGE}"'", "emoji": {"unicode": "'"${GEMOJI}"'"}, "ttl": "28800s"}}' \
-  "https://chat.googleapis.com/v1/users/me/availability?updateMask=customStatus"
+    -H "Authorization: Bearer ${TOKEN}" \
+    -H "X-Goog-User-Project: ${QUOTA_PROJECT}" \
+    --json '{"customStatus": {"text": "'"${MESSAGE}"'", "emoji": {"unicode": "'"${GEMOJI}"'"}, "ttl": "28800s"}}' \
+    "https://chat.googleapis.com/v1/users/me/availability?updateMask=customStatus"
