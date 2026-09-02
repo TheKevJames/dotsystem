@@ -12,6 +12,8 @@ Help with Git operations and best practices.
 * Prefer `gh` commands over raw `git` commands for GitHub-specific operations (issues, PRs, releases)
 * Use `gh repo view` to quickly inspect repository details
 * Use `gh pr checkout NUMBER` to checkout the branch corresponding to a given PR number
+* Use `gh pr checks --watch --fail-fast` as a single blocking call to wait on Github Actions CI status for a PR
+* Use `gh run watch <run-id>` to wait on a single CI test
 * Check `gh --help` for discovering subcommands and capabilities
 
 ## Commit Messages

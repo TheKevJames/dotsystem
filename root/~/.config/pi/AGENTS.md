@@ -3,11 +3,17 @@
 - Follow existing project conventions
 - Use meaningful variable names
 - Keep functions under ~50 lines
-- Add comments only where they will be useful later to future people reading the code: do not re-state what the code does, or reference why it is being added (git log already does that), but instead only explain complicated gotchas or non-obvious reasons why the code should not change, assuming that experienced and high-level engineers are the target audience
-- Comments should not refer to previous versions, eg. never add a comment stating how the code was before your change
 - Only rename imports (using `as`) when required to solve naming collisions
 - Before implementing a feature as a special case, ask: "is this actually the general rule applied to a new domain?" If yes, implement the general rule and remove the special case, even if it's more work
 - Helper scripts should live in "bin/"
+- Prevent bad data from entering the system, don't program defenses against that bad data in each function
+
+### Comments
+- Only add comments where they will be useful as additional context for future people reading the code
+- Do not re-state what the code does or explain why it was added (use the git commit message for this)
+- Explain complicated gotchas and non-obvious reasons why the code should not changed
+- Assume your audience is experienced and high-level engineers
+- Do not refer to previous versions, eg. never add a comment stating how the code was before your change
 
 ## Git
 - Conventional Commits: feat/fix/refactor/docs/test/chore
@@ -17,20 +23,13 @@
 - Naming: when creating branches, prefix them with "kjames/"
 - Use stacked PRs where appropriate
 
-## Safety
-- Never hardcode secrets or API keys
-- Always validate user input
-- Handle errors explicitly, no silent failures
-- It's better to prevent bad data from entering the system than to program defenses against that bad data at each function
-
 ## Workflow
-- Read before write — understand context first
+- Read before write — understand context first. Re-read the exact target region immediately before an `edit`, especially for a file you edited earlier this session
 - Minimal changes — don't refactor unrelated code
-- Verify after changes — run tests or check output
+- Verify after changes — run linters, tests, and check output
 - Ask before chosing a new approach - do not assume my preferences
 - Do not install packages globally or configure my environment - ask me if you think you need to do this. You may make use of and install to local, git-controlled environments, such as running `poetry sync` and using the associated venv
 - If you ever run into issues where you think the environment is not set up properly, for example where you can't run tests, can't import a library from my codebase, can't run an interpreter, etc, ask me how to proceed
-- Use `prek run -a` after any changes to validate
 - Never remove `TODO` comments without asking me, unless you are solving that particular TODO
 - Never say 'applied/implemented/done' unless you can immediately cite: (a) tool output confirming the edit, and (b) git diff (or re-read of the edited block)
 - When a task can be solved with a built-in feature of the tool/framework, prefer that over custom workarounds
@@ -40,10 +39,12 @@
 - When asked to fix X, apply the minimal targeted fix — do not broaden scope without asking
 - Transient / flaky test failures should always be marked for investigation - do not interrupt your current work, but suggest it for immediate follow-up once you're done
 - Update docs, TODOs, diagrams, changelogs, etc after changing anything they refer to
+- For independent read-only investigation across multiple repos/services, fan out with parallel subagents before implementing
 
 ## Tool Use
 - Use the bash tool's `timeout` parameter when useful
 - Read targeted ranges of files using the read tool with `offset` and `limit`
+- For multi-line file content or scripts, use the `write` tool (or a `bin/` helper), not `cat <<EOF` / `echo` with embedded quotes
 
 ## Testing and Linting
 - use `prek` for linting and static analysis
@@ -72,9 +73,6 @@
 - Prefer typed locals over cast for solving upstream typehint issues
 - Prefer importing modules instead of classes or functions, unless you are importing from `typing` or `collections.abc`
 
-### Redis
-Refer to `https://redis.antirez.com/` when working with redis.
-
 # System Features
 You have access to the following additional shell tools that will help you find and discover things:
 
@@ -101,3 +99,12 @@ shellcheck
 sqlite3
 yq
 ```
+
+## Docs-First Principle
+
+Before implementing a workaround, building a regex hack, or guessing at tool/framework API behavior:
+
+1. **Search documentation first.** Use the context7 skill or read official docs to check whether a built-in feature already solves the problem.
+2. **Verify assumptions.** Do not assume system state, API limits, or framework behavior - look it up or test it. If you cannot verify, say so explicitly rather than guessing.
+3. **Prefer built-in features.** If a framework provides a purpose-built solution (eg. stage.truncate, lifecycle ignore_changes), always prefer it over custom workarounds.
+4. **Admit uncertainty.** When you don't know something, say "I'm not sure — let me check" rather than confidently stating something that might be wrong.
