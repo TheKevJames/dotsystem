@@ -21,41 +21,8 @@
     "google/gemini-3.7-flash"
   ],
   "hideThinkingBlock": false,
-  "packages": [
-    "npm:pi-subagents"
-  ],
+  "packages": [],
   "skills": [
-     "~/.config/matt-pocock/skills"
-  ],
-  "subagents": {
-    "agentOverrides": {
-      "delegate": {
-        "inheritSkills": true
-      },
-      "advisor": {
-        "disabled": true
-      },
-      "context-builder": {
-        "disabled": true
-      },
-      "oracle": {
-        "disabled": true
-      },
-      "planner": {
-        "disabled": true
-      },
-      "researcher": {
-        "inheritSkills": true
-      },
-      "reviewer": {
-        "disabled": true
-      },
-      "scout": {
-        "disabled": true
-      },
-      "worker": {
-        "disabled": true
-      }
-    }
-  }
+    "~/.config/matt-pocock/skills"
+  ]
 }
