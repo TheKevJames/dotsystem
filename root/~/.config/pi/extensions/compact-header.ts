@@ -1,13 +1,9 @@
-// This file is vendored, run ./vendor to update it.
-// Last Update: 2026-07-17
-// Commit Hash: e609f5d5c935079e36c88944252b168ff0907a27
-//
 /**
  * oh-pi Compact Header — table-style startup info with dynamic column widths
  */
-import type { ExtensionAPI } from "@mariozechner/pi-coding-agent";
-import { VERSION } from "@mariozechner/pi-coding-agent";
-import { truncateToWidth, visibleWidth } from "@mariozechner/pi-tui";
+import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
+import { VERSION } from "@earendil-works/pi-coding-agent";
+import { truncateToWidth, visibleWidth } from "@earendil-works/pi-tui";
 
 export default function (pi: ExtensionAPI) {
   pi.on("session_start", async (_event, ctx) => {
@@ -24,7 +20,6 @@ export default function (pi: ExtensionAPI) {
         const model = ctx.model ? `${ctx.model.id}` : "no model";
         const thinking = pi.getThinkingLevel();
         const provider = ctx.model?.provider ?? "";
-        // TODO(thekevjames): un-vendor this file
         const configs = ctx.getSystemPrompt()
           .split('\n')
           .filter(line => /^<project_instructions path=".*">$/.test(line))

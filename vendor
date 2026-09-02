@@ -15,12 +15,6 @@ SOURCES=()
 SOURCES["root/~/.config/zsh/plugins/async-git-prompt.plugin.zsh"]="async-git-prompt.plugin.zsh"
 REPOS["pawel-slowik/zsh-async-git-prompt"]=$(declare -p SOURCES)
 
-# TODO: vendor the skills (context7, debug-helper, git-workflow, web-fetch, web-search) without breaking markdown
-SOURCES=()
-SOURCES["root/~/.config/pi/extensions/compact-header.ts"]="pi-package/extensions/compact-header.ts"
-SOURCES["root/~/.config/pi/extensions/custom-footer.ts"]="pi-package/extensions/custom-footer.ts"
-REPOS["telagod/oh-pi"]=$(declare -p SOURCES)
-
 for repo in "${!REPOS[@]}"; do
     [ "${repo}" == "telagod/oh-pi" ] && branch="main" || branch="master"
     SHA=$(gh api "repos/${repo}/commits/${branch}" -q '.sha')
