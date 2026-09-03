@@ -6,17 +6,11 @@ declare -A REPO_FOLDERS
 
 # Vendor a single file: $1 local path, $2 remote path, $3 repo, $4 sha
 vendor_file() {
-    local fname="$1" rpath="$2" repo="$3" sha="$4" cc
+    local fname="$1" rpath="$2" repo="$3" sha="$4"
     echo "Updating ${fname} from ${repo}..."
     mkdir -p "$(dirname "${fname}")"
-    [ "${fname##*.}" == "ts" ] && cc="//" || cc="#"
-    {
-        echo "${cc} This file is vendored, run ./vendor to update it."
-        echo "${cc} Last Update: $(date +'%Y-%m-%d')"
-        echo "${cc} Commit Hash: ${sha}"
-        echo "${cc}"
-    } > "${fname}"
-    curl -s "https://raw.githubusercontent.com/${repo}/${sha}/${rpath}" >> "${fname}"
+
+    curl -s "https://raw.githubusercontent.com/${repo}/${sha}/${rpath}" > "${fname}"
 
     # TODO: would be great to do this via override file
     if [[ "${fname}" == "root/~/.config/zsh/plugins/async-git-prompt.plugin.zsh" ]]; then
@@ -34,25 +28,33 @@ SOURCES["root/~/.config/zsh/plugins/completion.zsh"]="lib/completion.zsh"
 SOURCES["root/~/.config/zsh/plugins/extract.plugin.zsh"]="plugins/extract/extract.plugin.zsh"
 SOURCES["root/~/.config/zsh/plugins/shrink-path.plugin.zsh"]="plugins/shrink-path/shrink-path.plugin.zsh"
 FOLDERS=()
-REPO_SOURCES["ohmyzsh/ohmyzsh"]=$(declare -p SOURCES)
-REPO_FOLDERS["ohmyzsh/ohmyzsh"]=$(declare -p FOLDERS)
+REPO_SOURCES["ohmyzsh/ohmyzsh:master"]=$(declare -p SOURCES)
+REPO_FOLDERS["ohmyzsh/ohmyzsh:master"]=$(declare -p FOLDERS)
 
 SOURCES=()
 SOURCES["root/~/.config/zsh/plugins/async-git-prompt.plugin.zsh"]="async-git-prompt.plugin.zsh"
 FOLDERS=()
-REPO_SOURCES["pawel-slowik/zsh-async-git-prompt"]=$(declare -p SOURCES)
-REPO_FOLDERS["pawel-slowik/zsh-async-git-prompt"]=$(declare -p FOLDERS)
+REPO_SOURCES["pawel-slowik/zsh-async-git-prompt:master"]=$(declare -p SOURCES)
+REPO_FOLDERS["pawel-slowik/zsh-async-git-prompt:master"]=$(declare -p FOLDERS)
 
-for repo in "${!REPO_SOURCES[@]}"; do
-    [ "${repo}" == "telagod/oh-pi" ] && branch="main" || branch="master"
+SOURCES=()
+FOLDERS=()
+FOLDERS["root/~/.config/pi/skills/vendor/grilling"]="skills/productivity/grilling"
+FOLDERS["root/~/.config/pi/skills/vendor/wizard"]="skills/engineering/wizard"
+REPO_SOURCES["mattpocock/skills:main"]=$(declare -p SOURCES)
+REPO_FOLDERS["mattpocock/skills:main"]=$(declare -p FOLDERS)
+
+for repo_ref in "${!REPO_SOURCES[@]}"; do
+    repo="${repo_ref%:*}"
+    branch="${repo_ref##*:}"
     SHA=$(gh api "repos/${repo}/commits/${branch}" -q '.sha')
 
-    eval "${REPO_SOURCES["${repo}"]}"
+    eval "${REPO_SOURCES["${repo_ref}"]}"
     for fname in "${!SOURCES[@]}"; do
         vendor_file "${fname}" "${SOURCES[${fname}]}" "${repo}" "${SHA}"
     done
 
-    eval "${REPO_FOLDERS["${repo}"]}"
+    eval "${REPO_FOLDERS["${repo_ref}"]}"
     if [ "${#FOLDERS[@]}" -gt 0 ]; then
         TREE=$(gh api "repos/${repo}/git/trees/${SHA}?recursive=1" \
             -q '.tree[] | select(.type=="blob") | .path')

@@ -29,7 +29,7 @@ repos:
       - id: check-json
       - id: check-merge-conflict
       - id: check-shebang-scripts-are-executable
-        exclude: 'root/etc/pulse/default.pa'
+        exclude: 'root/etc/pulse/default.pa|root/~/.config/pi/skills/vendor'
       - id: check-symlinks
       - id: check-toml
       - id: check-vcs-permalinks
@@ -259,6 +259,7 @@ repos:
           # TODO: fix E005, E010, E040
           # E010: Allow inline if-elif-fi blocks
           - E005,E010,E011,E040
+        exclude: root/~/.config/pi/skills/vendor
   - repo: https://github.com/shellcheck-py/shellcheck-py
     rev: v0.11.0.1-1
     hooks:
@@ -267,7 +268,7 @@ repos:
           - -x
           - -e
           - SC1091
-        exclude: '^(root/~/.config/tmuxifier/layouts/.*)|(root/~/.config/zsh/dropins/prompt.zsh)$'
+        exclude: '^(root/~/.config/tmuxifier/layouts/.*)|(root/~/.config/zsh/dropins/prompt.zsh|root/~/.config/pi/skills/vendor/.*)$'
   - repo: https://github.com/jumanjihouse/pre-commit-hooks
     rev: 3.0.0
     hooks:

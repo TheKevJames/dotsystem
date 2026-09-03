@@ -1,7 +1,3 @@
-# This file is vendored, run ./vendor to update it.
-# Last Update: 2026-09-03
-# Commit Hash: 9112b53fa8b5ab556c7c893aa8be8a247ac512a0
-#
 alias x=extract
 
 extract() {
