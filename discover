@@ -6,6 +6,7 @@ HOME = pathlib.Path.home()
 ROOT = pathlib.Path(__file__).parent / 'root' / '~'
 FOLDERS = [
     '.config/nvim',
+    '.config/pi/agents',
     '.config/pi/extensions',
     '.config/pi/prompts',
     '.config/pi/skills',
