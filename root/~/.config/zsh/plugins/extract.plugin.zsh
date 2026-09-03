@@ -1,6 +1,6 @@
 # This file is vendored, run ./vendor to update it.
-# Last Update: 2026-07-17
-# Commit Hash: 677a4592b18c08ddea737f8aca70bac0e9fc9313
+# Last Update: 2026-09-03
+# Commit Hash: 9112b53fa8b5ab556c7c893aa8be8a247ac512a0
 #
 alias x=extract
 
@@ -106,7 +106,7 @@ EOF
       (*.tar.lrz) (( $+commands[lrzuntar] )) && lrzuntar "$full_path" ;;
       (*.gz) (( $+commands[pigz] )) && pigz -cdk "$full_path" > "${file:t:r}" || gunzip -ck "$full_path" > "${file:t:r}" ;;
       (*.bz2) (( $+commands[pbzip2] )) && pbzip2 -d "$full_path" || bunzip2 "$full_path" ;;
-      (*.xz) unxz "$full_path" ;;
+      (*.xz) xzcat "$full_path" > "${file:t:r}" ;;
       (*.lrz) (( $+commands[lrunzip] )) && lrunzip "$full_path" ;;
       (*.lz4) lz4 -d "$full_path" ;;
       (*.lzma) unlzma "$full_path" ;;
