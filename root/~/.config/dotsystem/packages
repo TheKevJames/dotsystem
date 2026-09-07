@@ -113,11 +113,15 @@
   fava
   local = ~/src/personal/dotsystem/scripts
   local = ~/src/personal/tools/task
+  mypy
   neovim-remote = nvr
   poetry
-  prek
   pre-commit
+  prek
+  ruff
   shellcheck-py = shellcheck
+  tox
+  uv
   yq
 
 ; anything with a manual install process defined in ./sync
