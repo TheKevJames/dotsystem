@@ -108,9 +108,9 @@
 ; python tools, installed via pipx
 [pipx]
   beancount = bean-check
-  beancount-importer = bean-import
   beanquery = bean-query
   fava
+  local = ~/src/personal/beancount-importer
   local = ~/src/personal/dotsystem/scripts
   local = ~/src/personal/tools/task
   mypy
