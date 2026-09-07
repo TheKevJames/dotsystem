@@ -111,6 +111,7 @@
   beancount-importer = bean-import
   beanquery = bean-query
   fava
+  local = ~/src/personal/dotsystem/scripts
   neovim-remote = nvr
   poetry
   prek

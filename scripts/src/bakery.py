@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 # pylint: disable=too-many-lines
 """
 Control plane for the pi bakery extension.

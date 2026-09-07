@@ -1,0 +1,27 @@
+[project]
+name = "dotsystem-scripts"
+version = "0.1.0"
+description = "personal scripts, exposed as commands"
+requires-python = ">=3.11"
+
+[project.scripts]
+bakery = "src.bakery:main"
+quickfix-pre-commit = "src.quickfix_pre_commit:main"
+
+[tool.poetry]
+packages = [{ include = "src" }]
+exclude = ["src/bash"]
+
+[tool.poetry.build]
+script = "build.py"
+generate-setup-file = false
+
+[tool.poetry.scripts]
+git-wips = { reference = "build/git-wips", type = "file" }
+retry = { reference = "build/retry", type = "file" }
+tmpenv = { reference = "build/tmpenv", type = "file" }
+todo = { reference = "build/todo", type = "file" }
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

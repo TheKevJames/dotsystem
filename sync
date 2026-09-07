@@ -331,6 +331,12 @@ if git config -f "${PACKAGE_CONFIG}" --get-regexp 'pipx\..*' >/dev/null; then
         IFS=' ' read -ra fields <<< "$package"
         pkg="${fields[0]#pipx.}"
         binary="${fields[1]:-${pkg}}"
+        # N.B. entries named `local` carry a filesystem path as their value and
+        # are reinstalled every sync so repo edits always propagate.
+        if [[ "${pkg}" == "local" ]]; then
+            pipx install --force "${binary/#\~/$HOME}"
+            continue
+        fi
         if ! which "${binary}" >/dev/null 2>&1; then
             pipx install "${pkg}"
             # TODO: support injecting in spec
