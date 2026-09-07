@@ -21,12 +21,19 @@
  *   - { type: "get_message" }
  *   - { type: "get_status" }
  *   - { type: "shutdown", force?: boolean }
+ *   - { type: "command", name: "new"|"clone"|"reload" }
+ *
+ *   `command` runs a built-in pi control command that has no headless
+ *   equivalent unless routed through a real command handler. It is dispatched
+ *   as the internal `/bakery-cmd` command so it runs in an
+ *   ExtensionCommandContext, then replies with the resulting session id.
  *
  *   Responses are JSON objects with { type: "response", command, success, data?, error? }
  */
 
 import type {
   ExtensionAPI,
+  ExtensionCommandContext,
   ExtensionContext,
 } from "@earendil-works/pi-coding-agent";
 import { promises as fs } from "node:fs";
@@ -81,11 +88,22 @@ interface RpcShutdownCommand {
   id?: string;
 }
 
+interface RpcControlCommand {
+  type: "command";
+  name: string;
+  id?: string;
+}
+
 type RpcCommand =
   | RpcSendCommand
   | RpcGetMessageCommand
   | RpcGetStatusCommand
-  | RpcShutdownCommand;
+  | RpcShutdownCommand
+  | RpcControlCommand;
+
+// Built-in pi commands routed through `/bakery-cmd`. Each has an
+// ExtensionCommandContext method but no headless dispatch of its own.
+const BUILTIN_COMMANDS = new Set(["new", "clone", "reload"]);
 
 // ============================================================================
 // Socket State
@@ -99,6 +117,9 @@ interface SocketState {
   aliasTimer: ReturnType<typeof setInterval> | null;
   // Depth of open blocking UI prompts (confirm/select/input/editor/custom).
   promptDepth: number;
+  // Client connection awaiting a `command` reply, filled in by the deferred
+  // `/bakery-cmd` handler once the resulting session id is known.
+  pendingCommand: { socket: net.Socket; id?: string } | null;
 }
 
 // ============================================================================
@@ -265,6 +286,64 @@ function sessionStatus(state: SocketState, ctx: ExtensionContext): string {
   return "idle";
 }
 
+// Reply to the connection that issued the `command` RPC. The `new`/`clone`
+// replies fire from a `withSession` callback that runs after the old session
+// has been torn down, so this writes to the captured socket directly.
+function settlePendingCommand(
+  state: SocketState,
+  success: boolean,
+  data?: unknown,
+  error?: string,
+): void {
+  const pending = state.pendingCommand;
+  state.pendingCommand = null;
+  if (!pending) return;
+  writeResponse(pending.socket, {
+    type: "response",
+    command: "command",
+    success,
+    data,
+    error,
+    id: pending.id,
+  });
+}
+
+async function runBuiltinCommand(
+  state: SocketState,
+  ctx: ExtensionCommandContext,
+  name: string,
+): Promise<void> {
+  const withSession = async (replaced: ExtensionCommandContext) => {
+    settlePendingCommand(state, true, { sessionId: replaced.sessionManager.getSessionId() });
+  };
+
+  if (name === "reload") {
+    // Reply before reload tears this runtime down; ctx.reload() is terminal.
+    settlePendingCommand(state, true, { sessionId: ctx.sessionManager.getSessionId() });
+    await ctx.reload();
+    return;
+  }
+  if (name === "new") {
+    const result = await ctx.newSession({ withSession });
+    if (result.cancelled) settlePendingCommand(state, false, undefined, "new session cancelled");
+    return;
+  }
+  if (name === "clone") {
+    const leafId = ctx.sessionManager.getLeafId();
+    // Forking a session with no message history at its header entry tears
+    // down the headless process instead of resolving, so refuse it.
+    const hasHistory = ctx.sessionManager.getBranch().some((e) => e.type === "message");
+    if (!leafId || !hasHistory) {
+      settlePendingCommand(state, false, undefined, "nothing to clone yet");
+      return;
+    }
+    const result = await ctx.fork(leafId, { position: "at", withSession });
+    if (result.cancelled) settlePendingCommand(state, false, undefined, "clone cancelled");
+    return;
+  }
+  settlePendingCommand(state, false, undefined, `unsupported command: ${name}`);
+}
+
 async function handleCommand(
   pi: ExtensionAPI,
   state: SocketState,
@@ -360,6 +439,23 @@ async function handleCommand(
     return;
   }
 
+  // Run a built-in control command via the `/bakery-cmd` handler, which gets
+  // the ExtensionCommandContext this socket handler lacks.
+  if (command.type === "command") {
+    if (!BUILTIN_COMMANDS.has(command.name)) {
+      respond(false, "command", undefined, `unsupported command: ${command.name}`);
+      return;
+    }
+    const status = sessionStatus(state, ctx);
+    if (status !== "idle") {
+      respond(false, "command", undefined, `session is ${status}, not idle`);
+      return;
+    }
+    state.pendingCommand = { socket, id };
+    pi.sendUserMessage(`/bakery-cmd ${command.name}`, { expandPromptTemplates: true });
+    return;
+  }
+
   const unsupportedType = (command as { type: string }).type;
   respond(false, unsupportedType, undefined, `Unsupported command: ${unsupportedType}`);
 }
@@ -444,7 +540,13 @@ async function stopControlServer(state: SocketState): Promise<void> {
 
   const socketPath = state.socketPath;
   state.socketPath = null;
-  await new Promise<void>((resolve) => state.server?.close(() => resolve()));
+  // A pending `command` reply (new/clone) still needs its client connection,
+  // which runs after this shutdown; awaiting close() would deadlock on it.
+  if (state.pendingCommand) {
+    state.server.close();
+  } else {
+    await new Promise<void>((resolve) => state.server?.close(() => resolve()));
+  }
   state.server = null;
   await removeAliasesForSocket(socketPath);
   await removeSocket(socketPath);
@@ -473,7 +575,15 @@ export default function (pi: ExtensionAPI) {
     alias: null,
     aliasTimer: null,
     promptDepth: 0,
+    pendingCommand: null,
   };
+
+  pi.registerCommand("bakery-cmd", {
+    description: "internal: bakery control-plane command dispatch",
+    handler: async (args, ctx) => {
+      await runBuiltinCommand(state, ctx, args.trim());
+    },
+  });
 
   const refreshServer = async (ctx: ExtensionContext) => {
     await startControlServer(pi, state, ctx);

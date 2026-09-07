@@ -419,6 +419,21 @@ def do_kill(args: argparse.Namespace) -> int:
     return 0
 
 
+def do_cmd(args: argparse.Namespace) -> int:
+    command: dict[str, object] = {'type': 'command', 'name': args.name}
+    try:
+        response = rpc(resolve_socket(args.session), command, timeout=30.0)
+    except (OSError, ValueError) as error:
+        sys.exit(f'cannot reach session: {error}')
+    if not response.get('success'):
+        sys.exit(f'failed: {response.get("error") or "unknown error"}')
+    data = response.get('data')
+    session_id = data.get('sessionId') if isinstance(data, dict) else None
+    if isinstance(session_id, str):
+        print(session_id)
+    return 0
+
+
 def do_send(args: argparse.Namespace) -> int:
     command: dict[str, object] = {
         'type': 'send',
@@ -686,6 +701,13 @@ def build_parser() -> argparse.ArgumentParser:
         help='delivery mode when the session is busy (default: steer)',
     )
     send.set_defaults(func=do_send)
+
+    cmd = sub.add_parser('cmd', help='run a built-in pi command in a session')
+    cmd.add_argument('session', help='session id or name')
+    cmd.add_argument(
+        'name', choices=('new', 'clone', 'reload'), help='command to run'
+    )
+    cmd.set_defaults(func=do_cmd)
 
     pin = sub.add_parser('pin', help='pin a session under its /name')
     pin.add_argument(
