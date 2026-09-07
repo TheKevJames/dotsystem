@@ -104,7 +104,6 @@
 
 ; pi extensions, installed via pi
 [pi]
-  pi-subagents = npm:pi-subagents
 
 ; python tools, installed via pipx
 [pipx]
