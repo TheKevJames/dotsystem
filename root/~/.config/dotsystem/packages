@@ -112,6 +112,7 @@
   beanquery = bean-query
   fava
   local = ~/src/personal/dotsystem/scripts
+  local = ~/src/personal/tools/task
   neovim-remote = nvr
   poetry
   prek

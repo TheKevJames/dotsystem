@@ -1,2 +1,2 @@
 # shellcheck shell=bash
-export TASK_FILE="${HOME}/sync/vimwiki/todos.md"
+export TASK_FOLDER="${HOME}/sync/tasks"
