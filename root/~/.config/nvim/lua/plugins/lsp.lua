@@ -36,6 +36,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, opts)
     vim.keymap.set('n', '<leader>cf', function()
       if vim.bo[bufnr].filetype == 'beancount' then
+        vim.cmd('write')
         vim.cmd('silent !bean-format -i %')
         vim.cmd('edit')
         vim.cmd('redraw!')
