@@ -42,6 +42,7 @@
 
 ; packages from the OS package manager, OSX only
 [Darwin]
+  bun
   dust = dust  ; TODO: move to cargo?
   jira-cli = jira
   npm10 = npm
@@ -56,6 +57,7 @@
 ; packages from the OS package manager, Linux only
 [Linux]
   python3 = python3
+  ; TODO: bun
   ; TODO: syncthing
   ; TODO: npm
   ; TODO: jira-cli = jira
@@ -93,12 +95,13 @@
   tmuxifier = jimeh
   xdg-ninja = b3nj5m1n
 
-; js tools, installed via npm
-[npm]
+; js tools, installed via bun
+[bun]
   ; TODO: support for @-prefix
   ; @google/clasp = clasp
   ; @likec4/language-server = likec4-language-server
   ; @mariozechner/pi-coding-agent = pi
+  ; TODO: `npm uninstall -g @mariozechner/pi-coding-agent && bun add -g @mariozechner/pi-coding-agent`
   confluence-cli
   neovim = neovim-node-host
 

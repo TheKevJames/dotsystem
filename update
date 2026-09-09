@@ -27,6 +27,9 @@ cargo-upgrade
 echo "Upgrading pipx packages..."
 pipx upgrade-all
 
+echo "Upgrading bun packages..."
+bun update -g
+
 echo "Upgrading npm packages..."
 npm outdated -g --depth=0 --json | jq -r '. | keys[]' | xargs npm update -g
 

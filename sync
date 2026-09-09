@@ -256,6 +256,18 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     fi
 fi
 
+## Install bun packages
+if git config -f "${PACKAGE_CONFIG}" --get-regexp 'bun\..*' >/dev/null; then
+    while IFS=$'\r' read -r package; do
+        IFS=' ' read -ra fields <<< "$package"
+        pkg="${fields[0]#bun.}"
+        binary="${fields[1]:-${pkg}}"
+        if ! which "${binary}" >/dev/null 2>&1; then
+            bun add -g "${pkg}"
+        fi
+    done < <(git config -f "${PACKAGE_CONFIG}" --get-regexp 'bun\..*')
+fi
+
 ## Install cargo packages
 if git config -f "${PACKAGE_CONFIG}" --get-regexp 'cargo\..*' >/dev/null; then
     export CARGO_HOME="${XDG_DATA_HOME}/cargo"
