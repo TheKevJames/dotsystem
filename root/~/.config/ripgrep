@@ -8,6 +8,8 @@
 --glob=!*.js.map
 --glob=!*.min.css
 --glob=!*.min.js
+--glob=!.venv/
 --glob=!poetry.lock
 --glob=!poetry.rest.lock
+--glob=!uv.lock
 --glob=!venv/

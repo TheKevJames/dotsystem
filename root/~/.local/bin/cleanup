@@ -24,6 +24,11 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     fi
 fi
 
+read -rp "Clear pip cache? [Yn] " yn
+if [[ "${yn,,}" == "y" ]]; then
+    python3 -m pip cache purge
+fi
+
 read -rp "Clear poetry cache? [Yn] " yn
 if [[ "${yn,,}" == "y" ]]; then
     poetry cache clear --all
@@ -34,7 +39,7 @@ if [[ "${yn,,}" == "y" ]]; then
     pre-commit clean
 fi
 
-read -rp "Clear pip cache? [Yn] " yn
+read -rp "Clear uv cache? [Yn] " yn
 if [[ "${yn,,}" == "y" ]]; then
-    python3 -m pip cache purge
+    uv cache clean
 fi

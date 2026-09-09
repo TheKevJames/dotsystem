@@ -7,4 +7,6 @@
 --exclude=*.json
 --exclude=.git
 --exclude=.mypy_cache/*
+--exclude=.ruff_cache/*
+--exclude=.venv/*
 --exclude=venv/*

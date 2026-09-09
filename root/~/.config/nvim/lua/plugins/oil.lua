@@ -11,6 +11,8 @@ return {
         local HIDE = {
           ['__pycache__'] = true,
           ['.mypy_cache'] = true,
+          ['.ruff_cache'] = true,
+          ['.venv'] = true,
           ['..'] = true,
         }
         if (HIDE[name] == true) then return true end
