@@ -2,7 +2,8 @@
 ## Code Style
 - Follow existing project conventions
 - Use meaningful variable names
-- Keep functions under ~50 lines
+- When functions exceed ~50 lines, start looking for opportunities to refactor some logic into a new function
+- When files exceed ~450 lines, start looking for opportunities to refactor some logic into a new file
 - Only rename imports (using `as`) when required to solve naming collisions
 - Before implementing a feature as a special case, ask: "is this actually the general rule applied to a new domain?" If yes, implement the general rule and remove the special case, even if it's more work
 - Helper scripts should live in "bin/"
@@ -28,7 +29,7 @@
 - Minimal changes — don't refactor unrelated code
 - Verify after changes — run linters, tests, and check output
 - Ask before chosing a new approach - do not assume my preferences
-- Do not install packages globally or configure my environment - ask me if you think you need to do this. You may make use of and install to local, git-controlled environments, such as running `poetry sync` and using the associated venv
+- Do not install packages globally or configure my environment - ask me if you think you need to do this. You may make use of and install to local, git-controlled environments, such as running `uv sync` and using the associated venv
 - If you ever run into issues where you think the environment is not set up properly, for example where you can't run tests, can't import a library from my codebase, can't run an interpreter, etc, ask me how to proceed
 - Never remove `TODO` comments without asking me, unless you are solving that particular TODO
 - Never say 'applied/implemented/done' unless you can immediately cite: (a) tool output confirming the edit, and (b) git diff (or re-read of the edited block)
@@ -40,6 +41,7 @@
 - Transient / flaky test failures should always be marked for investigation - do not interrupt your current work, but suggest it for immediate follow-up once you're done
 - Update docs, TODOs, diagrams, changelogs, etc after changing anything they refer to
 - For independent read-only investigation across multiple repos/services, fan out with parallel subagents before implementing
+- Always explicitly state your assumptions
 
 ## Tool Use
 - Use the bash tool's `timeout` parameter when useful
@@ -50,13 +52,14 @@
 ## Testing and Linting
 - use `prek` for linting and static analysis
 - avoid unit tests which test the implementation rather than the interface
+- avoid tautological tests
 - prefer property testing approaches and tools like `hypothesis`
 - running the full test harness must be fast -- consolidate tests, reduce test scope for capturing precise issues, avoid low-value tests
 - transient and flaky tests must be identified for later follow-up
 - do not disable tests or linters without confirmation, fix the issue instead
 
 ## File Access
-- Never read files in the following folders unless explicitly necessary: `.mypy_cache`, `.pytest_cache`, `__pycache__`.
+- Never read files in gitignored folders unless explicitly necessary
 
 ## Specific File/Application Types
 ### CSS and JavaScript
@@ -65,11 +68,10 @@
 - Before implementing any UI component (tooltip, badge, modal, dropdown, etc.), search for an existing instance of the same component type in the codebase and replicate its implementation exactly. Never reach for a browser native (e.g. title=, <details>) if a custom pattern already exists.
 
 ### Python
-- Bare `python` is not installed, use `python3` or the poetry venv
+- Bare `python` is not installed, use `python3` or the uv venv
 - Never use `pip` or `pip install` directly
 - System tools should be managed with `pipx`
-- Prefer `poetry` for managing python projects
-- Only use `uv` if a project contains a `uv.lock` file and does not contain a `poetry.lock` file
+- Prefer `uv` for managing python projects
 - Prefer modern APIs (such as `pathlib`) over deprecated/older alternatives (eg. `os`)
 - Prefer typed locals over cast for solving upstream typehint issues
 - Prefer importing modules instead of classes or functions, unless you are importing from `typing` or `collections.abc`
