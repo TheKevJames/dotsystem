@@ -1,0 +1,26 @@
+deleted = [
+    ".github/workflows/dependencies.yml",
+]
+
+[templated.".github/settings.yml"]
+"repository.name" = { derive = "dirname", prompt = "Repository name" }
+"repository.description" = { prompt = "Repository description" }
+"repository.topics" = { prompt = "Topics" }
+"repository.default_branch" = { derive = "git-branch", prompt = "Default branch" }
+"branches[0].name" = { derive = "git-branch", prompt = "Default branch" }
+
+[features.docker]
+placement = "root"
+
+[features.python]
+placement = "subdir"
+exclude_hooks = ["flake8", "pylint", "ruff-check", "ruff-format"]
+
+[features.python.merge]
+"pyproject.toml" = ["tool.ty.rules", "dependency-groups.dev"]
+
+[features.shell]
+placement = "root"
+
+[features.terraform]
+placement = "root"

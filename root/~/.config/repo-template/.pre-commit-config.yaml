@@ -8,9 +8,6 @@ default_install_hook_types:
 default_language_version:
   python: python3.14
 
-# TODO: sync this with ./vendor
-exclude: '^root/~/.config/zsh/plugins/.*$'
-
 repos:
   - repo: https://github.com/compilerla/conventional-pre-commit
     rev: v4.4.0
@@ -25,7 +22,6 @@ repos:
     hooks:
       - id: remove-crlf
       - id: remove-tabs
-        exclude: '(%gconf.xml)|(vlcrc)|(Makefile)'
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v6.0.0
     hooks:
@@ -34,17 +30,14 @@ repos:
       - id: check-json
       - id: check-merge-conflict
       - id: check-shebang-scripts-are-executable
-        exclude: 'root/etc/pulse/default.pa|root/~/.config/pi/skills/vendor'
       - id: check-symlinks
       - id: check-toml
       - id: check-vcs-permalinks
       - id: check-xml
-        exclude: "%gconf.xml"
       - id: check-yaml
         args: [--allow-multiple-documents]
       - id: detect-private-key
       - id: end-of-file-fixer
-        exclude: 'root/~/.config/pi/settings.json'
       - id: mixed-line-ending
         args: [--fix=lf]
       - id: trailing-whitespace
@@ -73,7 +66,6 @@ repos:
           - -d try-except-raise
           - -d ungrouped-imports  # conflicts with ruff isort
           - -d wrong-import-order  # conflicts with ruff isort
-        exclude: '(^scripts/.*)'
   - repo: https://github.com/PyCQA/flake8
     rev: 7.3.0
     hooks:
@@ -97,7 +89,6 @@ repos:
           - --select=FCW,I90,IMR,N400
           - --ignore=IMR200
           - --imr241_exclude=collections.abc,typing
-        exclude: '(^scripts/.*)'
   # TODO: use ruff once more refurb rules are out of preview
   - repo: https://github.com/dosisod/refurb
     rev: v2.3.1
@@ -135,7 +126,6 @@ repos:
           # TRY301: Abstract raise to an inner function.
           - --ignore
           - D1,D203,D205,D212,D400,D401,D404,D407,D412,D413,E501,E741,TRY003,TRY301
-        exclude: '(^scripts/.*)'
       - id: ruff-format
         args:
           - --config
@@ -147,7 +137,6 @@ repos:
           # Silence the isort/formatter magic-comma incompatibility warning.
           - --config
           - lint.isort.split-on-trailing-comma = false
-        exclude: '(^scripts/.*)'
   - repo: https://github.com/henryiii/validate-pyproject-schema-store
     rev: 2026.09.08
     hooks:
@@ -197,29 +186,3 @@ repos:
       - id: rst-backticks
       - id: rst-directive-colons
       - id: rst-inline-touching-normal
-
-# shell
-  - repo: https://github.com/openstack/bashate
-    rev: 2.1.1
-    hooks:
-      - id: bashate
-        args:
-          - --max-line-length=80
-          - -i
-          # TODO: fix E005, E010, E040
-          # E010: Allow inline if-elif-fi blocks
-          - E005,E010,E011,E040
-        exclude: root/~/.config/pi/skills/vendor
-  - repo: https://github.com/shellcheck-py/shellcheck-py
-    rev: v0.11.0.1-1
-    hooks:
-      - id: shellcheck
-        args:
-          - -x
-          - -e
-          - SC1091
-        exclude: '^(root/~/.config/tmuxifier/layouts/.*)|(root/~/.config/zsh/dropins/prompt.zsh|root/~/.config/pi/skills/vendor/.*)$'
-  - repo: https://github.com/jumanjihouse/pre-commit-hooks
-    rev: 3.0.0
-    hooks:
-      - id: script-must-not-have-extension

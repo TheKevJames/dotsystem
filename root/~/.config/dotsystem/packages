@@ -121,6 +121,7 @@
   ruff
   shellcheck-py = shellcheck
   tox
+  ty
   uv
   yq
 

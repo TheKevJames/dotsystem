@@ -1,0 +1,5 @@
+{
+    "extends": [
+        "github>thekevjames/tools:personal",
+    ],
+}

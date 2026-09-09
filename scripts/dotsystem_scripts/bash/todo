@@ -8,12 +8,18 @@
 folder="${_arg_folder:-.}"
 
 echo "Finding TODO comments..."
-rg "TODO" -Tcsv "${folder}"
 rg "FIXME" -Tcsv "${folder}"
+rg "TODO" -Tcsv "${folder}"
 echo
 
 echo "Finding disabled warnings..."
 rg "filterwarnings" -tpy "${folder}"
 rg "filterwarnings" -ttoml "${folder}"
+echo
+
+echo "Finding disabled linters..."
+rg "# noqa:" -tpy "${folder}"
+rg "# pylint:" -tpy "${folder}"
+rg "# type:" -tpy "${folder}"
 
 # ]

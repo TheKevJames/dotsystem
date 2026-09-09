@@ -24,6 +24,8 @@ import termios
 import time
 from collections.abc import Callable
 
+from . import paths
+
 WAIT_POLL_INTERVAL = 0.25
 # pi runs an interactive TUI that exits immediately without a terminal, so a
 # headless session is spawned under a PTY sized like a normal terminal.
@@ -39,13 +41,9 @@ def bakery_dir() -> pathlib.Path:
     override = os.getenv('PI_CODING_AGENT_BAKERY_DIR', '').strip()
     if override:
         return pathlib.Path(override).resolve()
-    config = os.getenv('PI_CODING_AGENT_DIR', '').strip()
-    base = (
-        pathlib.Path(config)
-        if config
-        else pathlib.Path.home() / '.pi' / 'agent'
+    return paths.resolve_base(
+        'PI_CODING_AGENT_DIR', pathlib.Path.home() / '.pi' / 'agent', 'bakery'
     )
-    return (base / 'bakery').resolve()
 
 
 def is_safe_name(name: str) -> bool:
@@ -77,13 +75,12 @@ def resolve_socket(session: str) -> pathlib.Path:
 
 
 def sessions_dir() -> pathlib.Path:
-    state = os.getenv('XDG_STATE_HOME', '').strip()
-    base = (
-        pathlib.Path(state)
-        if state
-        else pathlib.Path.home() / '.local' / 'state'
+    return paths.resolve_base(
+        'XDG_STATE_HOME',
+        pathlib.Path.home() / '.local' / 'state',
+        'pi',
+        'sessions',
     )
-    return (base / 'pi' / 'sessions').resolve()
 
 
 def top_level_sessions() -> list[pathlib.Path]:

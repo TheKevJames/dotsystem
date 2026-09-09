@@ -1,0 +1,81 @@
+repository:
+  name: TEMPLATE
+  description: TEMPLATE
+  topics: TEMPLATE
+  private: false
+
+  has_issues: true
+  has_projects: false
+  has_wiki: false
+  has_downloads: false
+
+  default_branch: TEMPLATE
+  delete_branch_on_merge: true
+
+  allow_merge_commit: false
+  allow_rebase_merge: true
+  allow_squash_merge: true
+
+  enable_automated_security_fixes: true
+  enable_vulnerability_alerts: true
+
+# TODO: https://github.com/marketplace/actions/label-sync
+labels:
+  - name: bug
+    color: '#fc2929'
+    description: Fix existing functionality
+  - name: feature
+    color: '#84b6eb'
+    description: Add new functionality
+  - name: task
+    color: '#d93f0b'
+    description: Meta change to repo, CI, tooling, etc
+
+  - name: help wanted
+    color: '#159818'
+    description: Looking for outside help
+  - name: low-priority
+    color: '#fbca04'
+
+  - name: needs-triage
+    color: '#ededed'
+    description: Needs a maintainer to triage
+  - name: needs-info
+    color: '#cc317c'
+    description: Needs more information from the reporter
+  - name: ready-for-human
+    color: '#ededed'
+    description: Ticket ready for a human to tackle
+  - name: ready-for-agent
+    color: '#ededed'
+    description: Ticket ready for an agent to tackle
+  - name: wontfix
+    color: '#dbe19f'
+    description: Ticket closed as not planned
+
+  - name: blocked
+    color: '#dbe19f'
+  - name: in-progress
+    color: '#0052cc'
+  - name: in-review
+    color: '#5319e7'
+
+  - name: automerge
+    color: '#d913a6'
+
+branches:
+  - name: TEMPLATE
+    protection:
+      required_pull_request_reviews:
+        required_approving_review_count: 1
+        dismiss_stale_reviews: false
+        require_code_owner_reviews: true
+      required_status_checks:
+        strict: true
+        contexts:
+          # TODO: rebuild as GHA
+          - WIP
+          - dependency-review
+          - pre-commit
+      enforce_admins: true
+      required_linear_history: true

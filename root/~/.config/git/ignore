@@ -1,32 +1,20 @@
+# vim
 *~
 !~
 
-# cvs
-CVS/
-.cvsignore
-
 # linux
-.directory
+**/.directory
 
 # mac
-._*
-.DS_Store
-.Spotlight-V100
-.Trashes
-
-# mercurial
-.hg/
-.hgignore
+**/._*
+**/.DS_Store
+**/.Spotlight-V100
+**/.Trashes
 
 # pi
-.pi/
+**/.pi/
 
-# pyenv
-.python-version
-
-# sublime
-*.sublime-project
-*.sublime-workspace
-
-# svn
-.svn/
+# python
+**/.python-version
+**/.venv/
+**/__pycache__/*

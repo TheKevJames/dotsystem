@@ -1,0 +1,13 @@
+repos:
+  - repo: https://github.com/AleksaC/terraform-py
+    rev: v1.16.1
+    hooks:
+      - id: tf-validate
+  - repo: https://github.com/AleksaC/tffumpt
+    rev: v0.1.1
+    hooks:
+      - id: tffumpt
+  - repo: https://github.com/AleksaC/tflint-py
+    rev: v0.64.0
+    hooks:
+      - id: tflint
