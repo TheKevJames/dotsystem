@@ -41,6 +41,7 @@ GIT_STATUS_MAP=(
 	' M' 'changed'    # not updated, work tree changed since index
 	' D' 'changed'    # not updated, deleted in work tree
 	' T' 'changed'    # type changed in work tree, not staged
+	' A' 'changed'    # intent-to-add (git add -N), content not yet staged
 	'M ' 'staged'     # updated in index, index and work tree matches
 	'MM' 'changed'    # updated in index, work tree changed since index
 	'MD' 'changed'    # updated in index, deleted in work tree
@@ -108,7 +109,9 @@ function git_get_status() {
 			git_numbers[behind]=$RETURN_BEHIND
 		else
 			mapped_status=${GIT_STATUS_MAP[${chunk:0:2}]}
-			git_numbers[$mapped_status]=$((git_numbers[$mapped_status] + 1))
+			if [[ -n $mapped_status ]]; then
+				git_numbers[$mapped_status]=$((git_numbers[$mapped_status] + 1))
+			fi
 		fi
 		if [[ "${chunk:0:2}" == R* || "${chunk:0:2}" == C* ]]; then
 			chunk_index=$((chunk_index + 2))

@@ -114,6 +114,7 @@ return {
         'sqlls',
         'taplo',
         'terraform-ls',                    -- terraformls
+        -- 'ty',                           -- N.B. not enabled, ty is installed via pipx
         'yaml-language-server',            -- yamlls
       },
     },
