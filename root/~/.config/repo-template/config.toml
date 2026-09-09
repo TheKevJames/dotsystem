@@ -1,4 +1,5 @@
 deleted = [
+    ".github/workflows/dependencies.yaml",
     ".github/workflows/dependencies.yml",
 ]
 
