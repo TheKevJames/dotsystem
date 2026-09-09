@@ -20,6 +20,7 @@ echo
 echo "Finding disabled linters..."
 rg "# noqa:" -tpy "${folder}"
 rg "# pylint:" -tpy "${folder}"
+rg "# ty:" -tpy "${folder}"
 rg "# type:" -tpy "${folder}"
 
 # ]
