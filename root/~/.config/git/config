@@ -57,7 +57,7 @@
 
 [core]
     attributesfile = ~/.config/git/attributes
-    editor = nvim
+    editor = nvim +\"vertical te git diff --cached\" +\"wincmd h\"
     excludesfile = ~/.config/git/ignore
     ignorecase = false
     # TODO: fix delta block comments!
