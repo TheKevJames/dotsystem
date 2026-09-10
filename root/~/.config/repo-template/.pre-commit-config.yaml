@@ -88,7 +88,7 @@ repos:
           # IMR200: Imports should only happen on module level, not locally. Covered by pylint.
           - --select=FCW,I90,IMR,N400
           - --ignore=IMR200
-          - --imr241_exclude=collections.abc,typing
+          - --imr241_exclude=__future__,collections.abc,typing
   # TODO: use ruff once more refurb rules are out of preview
   - repo: https://github.com/dosisod/refurb
     rev: v2.3.1
