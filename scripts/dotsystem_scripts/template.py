@@ -22,6 +22,7 @@ import tomlkit
 import typer
 
 from . import nested
+from . import paths
 
 CONFIG_NAME = 'config.toml'
 FEATURES_DIRNAME = 'features'
@@ -61,14 +62,9 @@ class Placement(enum.StrEnum):
 
 
 def source_dir() -> pathlib.Path:
-    # TODO: swap to xdg paths after testing the script fully
-    # return paths.resolve_base(
-    #     'XDG_CONFIG_HOME', pathlib.Path.home() / '.config',
-    #     'repo-template',
-    # )
-    config = pathlib.Path.home() / 'src/personal/dotsystem/root/~/.config'
-    base = pathlib.Path(config) if config else pathlib.Path.home() / '.config'
-    return base / 'repo-template'
+    return paths.resolve_base(
+        'XDG_CONFIG_HOME', pathlib.Path.home() / '.config', 'repo-template'
+    )
 
 
 def features_config() -> dict[str, FeatureSpec]:
@@ -148,7 +144,7 @@ def delete_file(dest: pathlib.Path) -> None:
 
 
 def merge_toml(
-    src: pathlib.Path, dest: pathlib.Path, paths: list[str], *, add: bool
+    src: pathlib.Path, dest: pathlib.Path, paths_: list[str], *, add: bool
 ) -> None:
     if not add and not dest.exists():
         return
@@ -158,7 +154,7 @@ def merge_toml(
         if dest.exists()
         else tomlkit.document()
     )
-    for path in paths:
+    for path in paths_:
         segments = nested.parse_path(path)
         if add:
             nested.merge_at(target, source, segments)
