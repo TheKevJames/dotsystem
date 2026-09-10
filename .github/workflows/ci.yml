@@ -31,3 +31,5 @@ jobs:
         working-directory: scripts
       - run: uv run pytest
         working-directory: scripts
+        env:
+          XDG_CONFIG_HOME: ${{ github.workspace }}/root/~/.config
