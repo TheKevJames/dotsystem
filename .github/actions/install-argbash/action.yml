@@ -1,0 +1,18 @@
+name: install-argbash
+description: Install argbash so hatch can generate bash commands during build.
+
+inputs:
+  version:
+    description: argbash release version to install
+    default: 2.11.0
+
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      run: sudo apt-get update && sudo apt-get install -y autoconf
+    - shell: bash
+      run: |
+        curl -fsSL "https://github.com/matejak/argbash/archive/refs/tags/${{ inputs.version }}.tar.gz" | tar xz
+        sudo make -C "argbash-${{ inputs.version }}/resources" install PREFIX=/usr/local
+        rm -rf "argbash-${{ inputs.version }}"
