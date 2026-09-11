@@ -13,7 +13,7 @@
     "enabled": true,
     "maxRetries": 3
   },
-  "shellCommandPrefix": "export MANPAGER=cat",
+  "shellCommandPrefix": "export GIT_EDITOR=true\nexport MANPAGER=cat",
   "quietStartup": true,
   "lastChangelogVersion": "0.85.1",
   "enabledModels": [
