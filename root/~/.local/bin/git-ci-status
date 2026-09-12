@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+user="TheKevJames"
+
+read -r -d '' query <<'GRAPHQL'
+query($owner:String!,$repo:String!){
+  repository(owner:$owner,name:$repo){
+    defaultBranchRef{
+      target{
+        ... on Commit {
+          statusCheckRollup {
+            contexts(first:100){
+              nodes{
+                __typename
+                ... on CheckRun { name status conclusion }
+                ... on StatusContext { context state }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+GRAPHQL
+
+fail_states='FAILURE|ERROR|TIMED_OUT|CANCELLED|STARTUP_FAILURE|ACTION_REQUIRED'
+
+for repo in $(gh repo list "${user}" --limit 1000 --json name,isArchived -q '.[] | select(.isArchived | not) | .name' | sort); do
+    checks=$(gh api graphql -f owner="${user}" -f repo="${repo}" -f query="${query}" \
+        --jq '(.data.repository.defaultBranchRef.target.statusCheckRollup.contexts.nodes // [])[]
+            | "\(.name // .context):\t\(.conclusion // .state // .status)"')
+
+    if [ -z "${checks}" ]; then
+        status="no checks"
+    elif cut -f2 <<<"${checks}" | grep -qxE "${fail_states}"; then
+        status="failed"
+    else
+        status="passed"
+    fi
+
+    echo "${repo}: ${status}"
+
+    if [ "${status}" = "failed" ]; then
+        column -t -s $'\t' <<<"${checks}" | sed 's/^/  /'
+    fi
+done
