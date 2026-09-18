@@ -39,10 +39,13 @@ REPO_FOLDERS["pawel-slowik/zsh-async-git-prompt:master"]=$(declare -p FOLDERS)
 
 SOURCES=()
 FOLDERS=()
+FOLDERS["root/~/.config/pi/skills/vendor/codebase-design"]="skills/engineering/codebase-design"
 FOLDERS["root/~/.config/pi/skills/vendor/grilling"]="skills/productivity/grilling"
+FOLDERS["root/~/.config/pi/skills/vendor/improve-codebase-architecture"]="skills/engineering/improve-codebase-architecture"
 FOLDERS["root/~/.config/pi/skills/vendor/wizard"]="skills/engineering/wizard"
-REPO_SOURCES["mattpocock/skills:main"]=$(declare -p SOURCES)
-REPO_FOLDERS["mattpocock/skills:main"]=$(declare -p FOLDERS)
+# TODO: version management
+REPO_SOURCES["mattpocock/skills:v1.2.3"]=$(declare -p SOURCES)
+REPO_FOLDERS["mattpocock/skills:v1.2.3"]=$(declare -p FOLDERS)
 
 for repo_ref in "${!REPO_SOURCES[@]}"; do
     repo="${repo_ref%:*}"
