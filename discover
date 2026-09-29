@@ -39,6 +39,7 @@ def find(folder: str) -> Iterator[pathlib.Path]:
 
 
 def main() -> None:
+    # TODO: discover installed packages not in dotsystem config
     print('Discovering files in need of backup...')
 
     for folder in FOLDERS:
