@@ -1,6 +1,6 @@
 {
   "defaultProvider": "anthropic",
-  "defaultModel": "claude-opus-4-8",
+  "defaultModel": "claude-opus-5-5",
   "defaultThinkingLevel": "high",
   "theme": "dark",
   "enableSkillCommands": true,
@@ -15,10 +15,12 @@
   },
   "shellCommandPrefix": "export GIT_EDITOR=true\nexport MANPAGER=cat",
   "quietStartup": true,
-  "lastChangelogVersion": "0.85.1",
+  "lastChangelogVersion": "0.99.2",
   "enabledModels": [
+    "anthropic/claude-opus-5-5",
     "anthropic/claude-opus-4-8",
-    "google/gemini-3.7-flash"
+    "anthropic/claude-fable-5-1",
+    "anthropic/claude-sonnet-5-5"
   ],
   "hideThinkingBlock": false,
   "packages": [],
