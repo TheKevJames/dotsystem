@@ -331,7 +331,7 @@ if git config -f "${PACKAGE_CONFIG}" --get-regexp 'pi\..*' >/dev/null; then
         IFS=' ' read -ra fields <<< "$package"
         pkg="${fields[0]#pi.}"
         binary="${fields[1]:-${pkg}}"
-        if [[ ! -e "${XDG_CONFIG_HOME}/pi/npm/node_modules/${pkg}" ]]; then
+        if [[ ! -e "${PI_CODING_AGENT_DIR:-${HOME}/src/personal/bakery/interactive}/npm/node_modules/${pkg}" ]]; then
             pi install "${binary}"
         fi
     done < <(git config -f "${PACKAGE_CONFIG}" --get-regexp 'pi\..*')
