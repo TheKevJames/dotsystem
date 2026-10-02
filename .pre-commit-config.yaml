@@ -149,7 +149,7 @@ repos:
           - lint.isort.split-on-trailing-comma = false
         exclude: '(^scripts/.*)'
   - repo: https://github.com/henryiii/validate-pyproject-schema-store
-    rev: 2026.09.08
+    rev: 2026.09.30
     hooks:
       - id: validate-pyproject
   - repo: local
