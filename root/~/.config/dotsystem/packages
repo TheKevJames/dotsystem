@@ -96,6 +96,7 @@
   xdg-ninja = b3nj5m1n
 
 ; js tools, installed via bun
+; `local` entries are project dirs whose dependencies are installed in place
 [bun]
   ; TODO: support for @-prefix
   ; @google/clasp = clasp
@@ -103,6 +104,7 @@
   ; @mariozechner/pi-coding-agent = pi
   ; TODO: `npm uninstall -g @mariozechner/pi-coding-agent && bun add -g @mariozechner/pi-coding-agent`
   confluence-cli
+  local = ~/src/personal/bakery/pi
   neovim = neovim-node-host
 
 ; pi extensions, installed via pi
