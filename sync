@@ -325,6 +325,12 @@ if git config -f "${PACKAGE_CONFIG}" --get-regexp 'npm\..*' >/dev/null; then
         IFS=' ' read -ra fields <<< "$package"
         pkg="${fields[0]#npm.}"
         binary="${fields[1]:-${pkg}}"
+        # N.B. entries named `local` carry a project path as their value; its
+        # lockfile is reinstalled every sync so dependency bumps propagate.
+        if [[ "${pkg}" == "local" ]]; then
+            npm ci --prefix "${binary/#\\~/$HOME}" --no-audit --no-fund
+            continue
+        fi
         if ! which "${binary}" >/dev/null 2>&1; then
             npm install -g "${pkg}"
         fi

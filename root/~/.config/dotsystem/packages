@@ -96,7 +96,6 @@
   xdg-ninja = b3nj5m1n
 
 ; js tools, installed via bun
-; `local` entries are project dirs whose dependencies are installed in place
 [bun]
   ; TODO: support for @-prefix
   ; @google/clasp = clasp
