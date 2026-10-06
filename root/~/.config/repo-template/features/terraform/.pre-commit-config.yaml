@@ -4,7 +4,7 @@ repos:
     hooks:
       - id: tf-validate
   - repo: https://github.com/AleksaC/tffumpt
-    rev: v0.1.1
+    rev: v0.1.2
     hooks:
       - id: tffumpt
   - repo: https://github.com/AleksaC/tflint-py
