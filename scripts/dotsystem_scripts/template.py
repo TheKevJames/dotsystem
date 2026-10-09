@@ -4,8 +4,9 @@ Model and IO for the shared dotsystem repo template.
 Template data lives under $XDG_CONFIG_HOME/repo-template (falling back to
 ~/.config/repo-template); its tracked working copy is this repo's
 root/~/.config/repo-template. config.toml declares paths removed from the
-template (deleted from targets on sync), per-file templated strategies, and
-per-feature install metadata. This module reads that store and writes files
+template (deleted from targets on sync), seeded paths (created when missing,
+then owned by the target), per-file templated strategies, and per-feature
+install metadata. This module reads that store and writes files
 into targets; the feature engine and CLI build on it.
 """
 
@@ -93,6 +94,14 @@ def deleted_paths() -> list[str]:
     return deleted
 
 
+def seeded_paths() -> list[str]:
+    config = source_dir() / CONFIG_NAME
+    if not config.exists():
+        return []
+    seeded: list[str] = tomllib.loads(config.read_text()).get('seeded', [])
+    return seeded
+
+
 def templated_files() -> dict[str, Spec]:
     config = source_dir() / CONFIG_NAME
     if not config.exists():
@@ -123,6 +132,15 @@ def sync_file(content: str, dest: pathlib.Path) -> None:
     dest.parent.mkdir(parents=True, exist_ok=True)
     dest.write_text(content)
     typer.echo(f'Wrote {dest}')
+
+
+def seed_file(content: str, dest: pathlib.Path) -> None:
+    if dest.exists():
+        return
+
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    dest.write_text(content)
+    typer.echo(f'Seeded {dest}')
 
 
 def sync_yaml(data: object, dest: pathlib.Path) -> None:
