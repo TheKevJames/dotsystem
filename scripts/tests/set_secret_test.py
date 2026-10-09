@@ -1,5 +1,6 @@
 import json
 import pathlib
+import re
 import sys
 
 import pytest
@@ -8,6 +9,8 @@ import typer.testing
 from dotsystem_scripts import repo_template
 
 TOKEN = 'github_pat_example'
+# Under GITHUB_ACTIONS typer forces rich styling, splitting words like '--yes'.
+ANSI = re.compile(r'\x1b\[[0-9;]*m')
 
 # Mirrors the `gh` invocations and output shapes used by `github`; repos named
 # `*broken*` reject secrets the way gh does for missing admin access.
@@ -60,7 +63,7 @@ def test_piped_token_is_set_on_every_public_repo(gh_log: pathlib.Path) -> None:
     result = runner.invoke(repo_template.app, ['set-secret'], input=TOKEN)
     print(result.output)
     assert result.exit_code != 0
-    assert '--yes' in result.output
+    assert '--yes is required' in ANSI.sub('', result.output)
     assert not _calls(gh_log)
 
     result = runner.invoke(
