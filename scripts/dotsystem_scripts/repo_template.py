@@ -108,6 +108,7 @@ def sync(target: Target = pathlib.Path()) -> None:
     """Sync every template file into the target repo."""
     source = template.source_dir()
     templated = template.templated_files()
+    seeded = template.seeded_paths()
     # Sites live in the root config's exclude unions, which the loop rewrites;
     # capture them first or detection afterwards comes up empty.
     sites = {
@@ -125,6 +126,8 @@ def sync(target: Target = pathlib.Path()) -> None:
             features.sync_precommit(path, target / relative, sites)
         elif rel in templated:
             sync_templated(path, target / relative, templated[rel], target)
+        elif rel in seeded:
+            template.seed_file(path.read_text(), target / relative)
         else:
             template.sync_file(path.read_text(), target / relative)
     for name in template.deleted_paths():
