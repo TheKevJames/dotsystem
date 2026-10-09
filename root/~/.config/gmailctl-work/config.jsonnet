@@ -164,6 +164,7 @@ local rules = [
           { replyto: "no-reply@circleci.com" },
           { to: "ops@talkiq.com" },
         ]},
+        { subject: "Deployment review in gluru/overlord" },
       ],
     },
     actions: labelAndArchive("CI"),
