@@ -4,12 +4,15 @@ deleted = [
     ".github/workflows/dependencies.yml",
 ]
 
+seeded = [
+    ".github/rulesets/required-checks.json",
+]
+
 [templated.".github/settings.yml"]
 "repository.name" = { derive = "dirname", prompt = "Repository name" }
 "repository.description" = { prompt = "Repository description" }
 "repository.topics" = { prompt = "Topics" }
 "repository.default_branch" = { derive = "git-branch", prompt = "Default branch" }
-"branches[0].name" = { derive = "git-branch", prompt = "Default branch" }
 
 [features.docker]
 placement = "root"
