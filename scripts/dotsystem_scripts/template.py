@@ -1,9 +1,9 @@
 """
 Model and IO for the shared dotsystem repo template.
 
-Template data lives under $XDG_CONFIG_HOME/repo-template (falling back to
-~/.config/repo-template); its tracked working copy is this repo's
-root/~/.config/repo-template. config.toml declares paths removed from the
+Template data ships with this package under `templates/`, so an editable
+install reads the working tree and a regular install reads the snapshot taken
+at install time. config.toml declares paths removed from the
 template (deleted from targets on sync), seeded paths (created when missing,
 then owned by the target), per-file templated strategies, and per-feature
 install metadata. This module reads that store and writes files
@@ -23,7 +23,6 @@ import tomlkit
 import typer
 
 from . import nested
-from . import paths
 
 CONFIG_NAME = 'config.toml'
 FEATURES_DIRNAME = 'features'
@@ -63,9 +62,9 @@ class Placement(enum.StrEnum):
 
 
 def source_dir() -> pathlib.Path:
-    return paths.resolve_base(
-        'XDG_CONFIG_HOME', pathlib.Path.home() / '.config', 'repo-template'
-    )
+    # Assumes a filesystem install; a zipped package would need
+    # importlib.resources.as_file to materialise the directory.
+    return pathlib.Path(__file__).parent / 'templates'
 
 
 def features_config() -> dict[str, FeatureSpec]:

@@ -5,6 +5,7 @@ import typer
 import typer.testing
 
 from dotsystem_scripts import repo_template
+from dotsystem_scripts import template
 
 SEEDED = '.github/rulesets/required-checks.json'
 SYNCED = '.github/workflows/rulesets.yml'
@@ -14,7 +15,7 @@ SYNCED = '.github/workflows/rulesets.yml'
 def source_fixture(
     tmp_path: pathlib.Path, monkeypatch: pytest.MonkeyPatch
 ) -> pathlib.Path:
-    source = tmp_path / 'config' / 'repo-template'
+    source = tmp_path / 'templates'
     for rel, content in {
         'config.toml': f'seeded = ["{SEEDED}"]\n',
         SEEDED: '{"template": true}\n',
@@ -22,7 +23,7 @@ def source_fixture(
     }.items():
         (source / rel).parent.mkdir(parents=True, exist_ok=True)
         (source / rel).write_text(content)
-    monkeypatch.setenv('XDG_CONFIG_HOME', str(tmp_path / 'config'))
+    monkeypatch.setattr(template, 'source_dir', lambda: source)
     return source
 
 
