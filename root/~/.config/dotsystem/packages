@@ -51,6 +51,7 @@
   python312 = python3.12
   python313 = python3.13
   python314 = python3.14
+  python315 = python3.15
   syncthing
   ; TODO: aerospace  ; https://nikitabobko.github.io/AeroSpace/guide#manual-installation
 
