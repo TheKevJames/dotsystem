@@ -2,15 +2,20 @@ name: autoapproval
 
 on:
   pull_request_target:
-    types: [opened]
+    # base.json requires approval after the last push, so Renovate's rebases
+    # need a fresh approval.
+    types: [opened, reopened, synchronize]
 
 permissions: {}
 
 jobs:
   autoapproval:
     # Only PRs Renovate will automerge; everything else needs a human review.
+    # The sender check matters: collaborators can push to Renovate's branches,
+    # and those pushes must not be approved on Renovate's behalf.
     if: >-
       github.event.pull_request.user.login == 'renovate[bot]'
+      && github.event.sender.login == 'renovate[bot]'
       && contains(github.event.pull_request.body, '**Automerge**: Enabled')
     runs-on: ubuntu-26.04
     permissions:
