@@ -3,4 +3,20 @@
         "github>thekevjames/tools:personal",
         "github>thekevjames/tools//renovate/version-as-app.json5",
     ],
+    "customManagers": [
+        // Mirrors "Update dependencies in CI job parameters" from
+        // thekevjames/tools//renovate/custom.json5, whose patterns are anchored
+        // at the repo root and so miss the bundled repo-template copies.
+        {
+            "description": "Update dependencies in repo-template CI job parameters",
+            "managerFilePatterns": [
+                "/^scripts/dotsystem_scripts/templates/\\.github/workflows/[^/]*\\.yml$/",
+            ],
+            "customType": "regex",
+            "matchStrings": [
+                "# renovate: datasource=(?<datasource>.+?) depName=(?<depName>.+?)(?: versioning=(?<versioning>[a-z-]+?))?\\s+.*version: (?<currentValue>.+?)\\s",
+            ],
+            "versioningTemplate": "{{#if versioning}}{{versioning}}{{else}}semver{{/if}}",
+        },
+    ],
 }
