@@ -212,10 +212,7 @@ repos:
     rev: v0.11.0.1-1
     hooks:
       - id: shellcheck
-        args:
-          - -x
-          - -e
-          - SC1091
+        args: [-x]
         exclude: '^(root/~/.config/tmuxifier/layouts/.*)|(root/~/.config/zsh/dropins/prompt.zsh)$'
   - repo: https://github.com/jumanjihouse/pre-commit-hooks
     rev: 3.0.0
