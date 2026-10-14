@@ -106,6 +106,7 @@
   confluence-cli
   local = ~/src/personal/bakery/pi
   neovim = neovim-node-host
+  renovate
 
 ; pi extensions, installed via pi
 [pi]
