@@ -5,7 +5,7 @@ description = "personal scripts, exposed as commands"
 requires-python = ">=3.11"
 dependencies = [
     "ruamel.yaml==0.19.1",
-    "tomlkit==0.15.1",
+    "tomlkit==0.15.2",
     "typer==0.27.3",
 ]
 
