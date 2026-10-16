@@ -119,7 +119,7 @@
   local = ~/src/personal/bakery/bakery
   local = ~/src/personal/beancount-importer
   local = ~/src/personal/dotsystem/scripts
-  local = ~/src/personal/tools/task
+  local = ~/src/personal/task
   mypy
   neovim-remote = nvr
   poetry
