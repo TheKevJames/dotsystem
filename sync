@@ -245,7 +245,9 @@ done < \
     )
 
 # shellcheck disable=SC2294
-(( ${#packages[@]} )) && eval "${PACMAN_INSTALL}" "${packages[@]}"
+if (( ${#packages[@]} )); then
+    eval "${PACMAN_INSTALL}" "${packages[@]}"
+fi
 
 ## Configure OSX one-offs
 if [[ "$OSTYPE" == "darwin"* ]]; then
@@ -293,7 +295,9 @@ if git config -f "${PACKAGE_CONFIG}" --get-regexp 'cargo\..*' >/dev/null; then
             packages+=("${pkg}")
         fi
     done < <(git config -f "${PACKAGE_CONFIG}" --get-regexp 'cargo\..*')
-    (( ${#packages[@]} )) && cargo install "${packages[@]}"
+    if (( ${#packages[@]} )); then
+        cargo install "${packages[@]}"
+    fi
 fi
 
 ## Install git-based packages

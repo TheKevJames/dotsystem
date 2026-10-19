@@ -98,7 +98,9 @@ self-insert-redir() {
     integer l=$#LBUFFER
     zle self-insert
     # shellcheck disable=SC2004,SC2154
-    (( $l >= $#LBUFFER )) && LBUFFER[-1]=" ${LBUFFER[-1]}"
+    if (( $l >= $#LBUFFER )); then
+        LBUFFER[-1]=" ${LBUFFER[-1]}"
+    fi
 }
 zle -N self-insert-redir
 for op in \| \< \> \& ; do
