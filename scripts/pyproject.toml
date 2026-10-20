@@ -10,7 +10,6 @@ dependencies = [
 ]
 
 [project.scripts]
-quickfix-pre-commit = "dotsystem_scripts.quickfix_pre_commit:main"
 repo-template = "dotsystem_scripts.repo_template:app"
 
 [dependency-groups]
