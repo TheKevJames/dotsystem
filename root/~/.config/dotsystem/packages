@@ -116,7 +116,6 @@
   beancount = bean-check
   beanquery = bean-query
   fava
-  local = ~/src/personal/bakery/bakery
   local = ~/src/personal/beancount-importer
   local = ~/src/personal/dotsystem/scripts
   mypy
@@ -133,6 +132,7 @@
 
 ; python tools, installed via uv tool
 [uv]
+  local = ~/src/personal/bakery/bakery
   local = ~/src/personal/task
 
 ; anything with a manual install process defined in ./sync
