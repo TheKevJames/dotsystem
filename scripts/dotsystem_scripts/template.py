@@ -57,6 +57,7 @@ class Feature(enum.StrEnum):
 
 
 class Placement(enum.StrEnum):
+    ANY = 'any'
     ROOT = 'root'
     SUBDIR = 'subdir'
 
