@@ -27,12 +27,14 @@
 /* end: hide toolbar */
 
 /* begin: hide right-click menu options
- * TODO: on page, disable "Take Screenshot"
  * TODO: on page, disable "Back"
  * TODO: on page, disable "Forward"
  * TODO: on page, disable "Save Page As..."
  */
 #context-savelink {
+    display: none !important;
+}
+#context-take-screenshot {
     display: none !important;
 }
 /* end: hide right-click menu options */
