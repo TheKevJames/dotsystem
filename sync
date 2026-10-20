@@ -52,7 +52,6 @@ echo "  Skip Packages: ${SKIP}"
 source "${DIR}/root/~/.zshenv"
 source "${DIR}/root/~/.config/zsh/dropins/xdg.zsh"
 
-# TODO: add cleanups, eg. port reclaim and apt autoremove
 if which zypper >/dev/null; then
     PACMAN_REFRESH="sudo zypper refresh"
     PACMAN_INSTALL="sudo zypper install"

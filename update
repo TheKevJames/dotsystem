@@ -5,14 +5,19 @@ echo "Upgrading system packages..."
 if which zypper >/dev/null; then
     sudo zypper refresh
     sudo zypper update
+    sudo zypper packages --unneeded
+    # sudo zypper packages --unneeded | grep ^i | cut -d '|' -f 3 | xargs sudo zypper remove --clean-deps
 elif which port >/dev/null; then
     sudo port selfupdate
     sudo port upgrade outdated
+    sudo port reclaim
 elif which apt-get >/dev/null; then
     sudo apt-get update
     sudo apt-get upgrade
+    sudo apt-get autoremove
 elif which dnf >/dev/null; then
     sudo dnf upgrade
+    sudo dnf autoremove
 else
     echo "ERROR: could not determine package manager."
     exit 1
