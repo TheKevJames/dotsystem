@@ -119,7 +119,6 @@
   local = ~/src/personal/bakery/bakery
   local = ~/src/personal/beancount-importer
   local = ~/src/personal/dotsystem/scripts
-  local = ~/src/personal/task
   mypy
   neovim-remote = nvr
   poetry
@@ -131,6 +130,10 @@
   ty
   uv
   yq
+
+; python tools, installed via uv tool
+[uv]
+  local = ~/src/personal/task
 
 ; anything with a manual install process defined in ./sync
 ; TODO: most of these can be builtins a la cargo
