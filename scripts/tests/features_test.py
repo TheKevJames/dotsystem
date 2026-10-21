@@ -13,6 +13,7 @@ ROOT_FEATURES = [
     feature
     for feature in template.Feature
     if template.feature_placement(feature) is template.Placement.ROOT
+    and (template.feature_dir(feature) / template.PRECOMMIT_CONFIG).exists()
 ]
 
 
@@ -193,3 +194,35 @@ def test_placement_still_restricts_root_features(
         features.validate_placement(
             template.Feature.TERRAFORM, root, root / 'sub'
         )
+
+
+RELEASE = template.Feature.RELEASE
+
+
+def test_file_only_feature_is_detected_by_its_files_and_kept_by_sync(
+    tmp_path: pathlib.Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setattr(typer, 'prompt', lambda *a, **k: 'value')
+    root = _repo(tmp_path)
+    files = sorted(
+        path.relative_to(template.feature_dir(RELEASE))
+        for path in template.feature_dir(RELEASE).rglob('*')
+        if path.is_file()
+    )
+    print(files)
+    assert not features.installed_sites(root, RELEASE)
+    repo_template.sync(root)
+    assert not any((root / path).exists() for path in files)
+
+    # Any one of its files marks it installed; sync brings the rest.
+    first = template.feature_dir(RELEASE) / files[0]
+    (root / files[0]).parent.mkdir(parents=True, exist_ok=True)
+    (root / files[0]).write_text(first.read_text())
+    assert features.installed_sites(root, RELEASE) == ['.']
+    repo_template.sync(root)
+    assert all((root / path).is_file() for path in files)
+    assert _config(root) == BASE
+
+    features.apply_feature(RELEASE, root, root, add=False)
+    assert not any((root / path).exists() for path in files)
+    assert not features.installed_sites(root, RELEASE)
