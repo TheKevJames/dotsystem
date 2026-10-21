@@ -1,7 +1,9 @@
 name: autoapproval
 
 on:
-  pull_request_target:
+  # The job runs none of the pull request's code: it only approves Renovate's
+  # own pull requests, and needs the base repository's token to do so.
+  pull_request_target:  # zizmor: ignore[dangerous-triggers]
     types: [opened, reopened, synchronize]
 
 permissions: {}
