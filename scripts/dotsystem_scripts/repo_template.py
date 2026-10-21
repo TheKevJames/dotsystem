@@ -162,8 +162,8 @@ def remove_feature(
     features.apply_feature(feature, root, target, add=False)
 
 
-# Consumed by TheKevJames/tools/.github/workflows/_rulesets.yml.
-RULESETS_SECRET = 'RULESETS_TOKEN'
+# Consumed by TheKevJames/tools/.github/workflows/_repo-settings.yml.
+REPO_SETTINGS_SECRET = 'REPO_SETTINGS_TOKEN'
 
 
 def read_token(piped: bool) -> str:
@@ -189,7 +189,7 @@ def set_secret(
     ] = False,
 ) -> None:
     """
-    Set the rulesets admin token as a secret on every public repo.
+    Set the repo settings admin token as a secret on every public repo.
 
     Reads the token from a hidden prompt, or from stdin when piped (which
     requires --yes). Re-run to rotate it.
@@ -202,14 +202,15 @@ def set_secret(
     typer.echo('\n'.join(repos))
     if not yes:
         typer.confirm(
-            f'Set {RULESETS_SECRET} on these {len(repos)} repos?', abort=True
+            f'Set {REPO_SETTINGS_SECRET} on these {len(repos)} repos?',
+            abort=True,
         )
 
     token = read_token(piped)
     failures = 0
     for repo in repos:
         try:
-            github.set_actions_secret(repo, RULESETS_SECRET, token)
+            github.set_actions_secret(repo, REPO_SETTINGS_SECRET, token)
         except github.GhError as exc:
             failures += 1
             typer.echo(f'FAILED {repo}: {exc}', err=True)
