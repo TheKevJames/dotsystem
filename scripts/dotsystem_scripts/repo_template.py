@@ -3,7 +3,7 @@ Update a repo from the shared source of truth.
 
 Copies the template store into a target repo, filling templated variables and
 reconciling installed features. See `template` for the model/IO layer and
-`features` for the feature engine. Also distributes the repo secrets that
+`features` for the feature engine. Also distributes the secrets that
 templated workflows depend on.
 """
 
@@ -162,8 +162,10 @@ def remove_feature(
     features.apply_feature(feature, root, target, add=False)
 
 
-# Consumed by TheKevJames/tools/.github/workflows/_repo-settings.yml.
+# Consumed by TheKevJames/tools/.github/workflows/_repo-settings.yml, whose
+# reconcile job must name REPO_SETTINGS_ENVIRONMENT to read it.
 REPO_SETTINGS_SECRET = 'REPO_SETTINGS_TOKEN'
+REPO_SETTINGS_ENVIRONMENT = 'repo-settings'
 
 
 def read_token(piped: bool) -> str:
@@ -187,9 +189,24 @@ def set_secret(
     yes: Annotated[
         bool, typer.Option('--yes', '-y', help='skip the confirmation')
     ] = False,
+    prune_repo_secret: Annotated[
+        bool,
+        typer.Option(
+            '--prune-repo-secret',
+            help=(
+                f'also delete the repository-level {REPO_SETTINGS_SECRET}; '
+                'only once _repo-settings.yml reads it from the environment'
+            ),
+        ),
+    ] = False,
 ) -> None:
     """
-    Set the repo settings admin token as a secret on every public repo.
+    Set the repo settings admin token as an environment secret on each repo.
+
+    Every public repo gets the secret in its `repo-settings` environment,
+    which only the repo's default branch may deploy to, so workflows run from
+    any other branch cannot read it. The environment and its branch policy
+    are created or reset first; re-run after changing a default branch.
 
     Reads the token from a hidden prompt, or from stdin when piped (which
     requires --yes). Re-run to rotate it.
@@ -201,8 +218,10 @@ def set_secret(
     repos = github.public_repos()
     typer.echo('\n'.join(repos))
     if not yes:
+        prune = ' and delete the repo secret' if prune_repo_secret else ''
         typer.confirm(
-            f'Set {REPO_SETTINGS_SECRET} on these {len(repos)} repos?',
+            f'Set {REPO_SETTINGS_SECRET} in environment '
+            f'{REPO_SETTINGS_ENVIRONMENT}{prune} on these {len(repos)} repos?',
             abort=True,
         )
 
@@ -210,11 +229,19 @@ def set_secret(
     failures = 0
     for repo in repos:
         try:
-            github.set_actions_secret(repo, REPO_SETTINGS_SECRET, token)
+            branch = github.default_branch(repo)
+            github.ensure_environment(repo, REPO_SETTINGS_ENVIRONMENT, branch)
+            github.set_environment_secret(
+                repo, REPO_SETTINGS_ENVIRONMENT, REPO_SETTINGS_SECRET, token
+            )
+            pruned = prune_repo_secret and github.delete_actions_secret(
+                repo, REPO_SETTINGS_SECRET
+            )
         except github.GhError as exc:
             failures += 1
             typer.echo(f'FAILED {repo}: {exc}', err=True)
         else:
-            typer.echo(f'set {repo}')
+            note = ', deleted repo secret' if pruned else ''
+            typer.echo(f'set {repo} (deploys from {branch}{note})')
     if failures:
         raise typer.Exit(1)
