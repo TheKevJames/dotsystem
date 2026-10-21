@@ -6,6 +6,7 @@ deleted = [
 ]
 
 seeded = [
+    ".github/actions-policy.json",
     ".github/rulesets/required-checks.json",
 ]
 
