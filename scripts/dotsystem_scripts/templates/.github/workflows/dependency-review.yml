@@ -15,9 +15,6 @@ jobs:
       contents: read
       pull-requests: write  # for comment-summary-in-pr; runs no PR code
     steps:
-      - uses: actions/checkout@v7.0.1
-        with:
-          persist-credentials: false
       - uses: actions/dependency-review-action@v5.0.0
         with:
           fail-on-severity: low
