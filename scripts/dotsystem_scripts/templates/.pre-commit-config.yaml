@@ -178,6 +178,11 @@ repos:
         language: python
         additional_dependencies:
           - pyjson5==2.0.1
+  # Audits are opted in to by .github/zizmor.yml.
+  - repo: https://github.com/zizmorcore/zizmor-pre-commit
+    rev: v1.31.1
+    hooks:
+      - id: zizmor
 
 # rst
   - repo: https://github.com/pre-commit/pygrep-hooks
