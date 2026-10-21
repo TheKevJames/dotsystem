@@ -11,12 +11,6 @@ vendor_file() {
     mkdir -p "$(dirname "${fname}")"
 
     curl -s "https://raw.githubusercontent.com/${repo}/${sha}/${rpath}" > "${fname}"
-
-    # TODO: would be great to do this via override file
-    if [[ "${fname}" == "root/~/.config/zsh/plugins/async-git-prompt.plugin.zsh" ]]; then
-        sed -i~ 's#^GIT_PROMPT_FIFO_DIR=.*#GIT_PROMPT_FIFO_DIR="/tmp/zsh-git-prompt"#' "${fname}"
-        rm -f "${fname}~"
-    fi
 }
 
 declare -A SOURCES
@@ -30,12 +24,6 @@ SOURCES["root/~/.config/zsh/plugins/shrink-path.plugin.zsh"]="plugins/shrink-pat
 FOLDERS=()
 REPO_SOURCES["ohmyzsh/ohmyzsh:master"]=$(declare -p SOURCES)
 REPO_FOLDERS["ohmyzsh/ohmyzsh:master"]=$(declare -p FOLDERS)
-
-SOURCES=()
-SOURCES["root/~/.config/zsh/plugins/async-git-prompt.plugin.zsh"]="async-git-prompt.plugin.zsh"
-FOLDERS=()
-REPO_SOURCES["pawel-slowik/zsh-async-git-prompt:master"]=$(declare -p SOURCES)
-REPO_FOLDERS["pawel-slowik/zsh-async-git-prompt:master"]=$(declare -p FOLDERS)
 
 for repo_ref in "${!REPO_SOURCES[@]}"; do
     repo="${repo_ref%:*}"
