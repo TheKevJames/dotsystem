@@ -8,7 +8,7 @@ from dotsystem_scripts import repo_template
 from dotsystem_scripts import template
 
 SEEDED = '.github/rulesets/required-checks.json'
-SYNCED = '.github/workflows/rulesets.yml'
+SYNCED = '.github/workflows/repo-settings.yml'
 
 
 @pytest.fixture(name='source', scope='function')

@@ -85,5 +85,5 @@ def test_piped_token_is_set_on_every_public_repo(gh_log: pathlib.Path) -> None:
     ]
     for call in sets:
         assert call['stdin'] == TOKEN
-        assert repo_template.RULESETS_SECRET in call['args']
+        assert repo_template.REPO_SETTINGS_SECRET in call['args']
     assert not any(TOKEN in arg for c in calls for arg in c['args'])
