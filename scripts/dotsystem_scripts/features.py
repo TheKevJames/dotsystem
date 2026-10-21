@@ -7,7 +7,8 @@ regexes; a root feature merges a `.pre-commit-config.yaml` fragment (its repo
 blocks) into the shared root config. A feature placed "any" works as a subdir
 feature in a subdir, and at the root swaps its fragment's repo blocks in for
 the root config's own copies of its `exclude_hooks`. A feature is installed
-wherever any of those changes are present.
+wherever any of those changes are present; a root feature without a fragment
+(eg. one that only adds files) is installed wherever any of its files are.
 """
 
 import copy
@@ -190,7 +191,7 @@ def rebuild_root_fragments(
         if repo.get('repo') not in feature_urls:
             core.append(repo)
     strip_feature_markers(core, set(urls_by_feature))
-    for name in sorted(installed):
+    for name in sorted(installed & urls_by_feature.keys()):
         fragment = template.yaml.load(
             template.feature_dir(template.Feature(name))
             / template.PRECOMMIT_CONFIG
@@ -292,6 +293,18 @@ def root_install_present(
     return bool(urls & present)
 
 
+def files_present(feature: template.Feature, root: pathlib.Path) -> bool:
+    """Whether any file of a fragment-less feature exists under `root`."""
+    source = template.feature_dir(feature)
+    if (source / template.PRECOMMIT_CONFIG).exists():
+        return False
+    return any(
+        (root / path.relative_to(source)).is_file()
+        for path in source.rglob('*')
+        if path.is_file()
+    )
+
+
 def fragment_present(
     feature: template.Feature, config: comments.CommentedMap
 ) -> bool:
@@ -366,7 +379,10 @@ def installed_sites(
     config = template.yaml.load(config_path)
     placement = template.feature_placement(feature)
     if placement is template.Placement.ROOT:
-        return ['.'] if fragment_present(feature, config) else []
+        present = fragment_present(feature, config) or files_present(
+            feature, root
+        )
+        return ['.'] if present else []
     paths: set[str] = set()
     if placement is template.Placement.ANY and root_install_present(
         feature, config

@@ -3,21 +3,20 @@ Update a repo from the shared source of truth.
 
 Copies the template store into a target repo, filling templated variables and
 reconciling installed features. See `template` for the model/IO layer and
-`features` for the feature engine. Also distributes the repo secrets that
-templated workflows depend on.
+`features` for the feature engine. Also sets the credentials that templated
+workflows depend on (see `credentials`).
 """
 
 import pathlib
-import sys
 from collections.abc import Callable
 from typing import Annotated
 
 import typer
 from ruamel.yaml import comments
 
+from . import credentials
 from . import features
 from . import git
-from . import github
 from . import nested
 from . import template
 
@@ -162,59 +161,5 @@ def remove_feature(
     features.apply_feature(feature, root, target, add=False)
 
 
-# Consumed by TheKevJames/tools/.github/workflows/_repo-settings.yml.
-REPO_SETTINGS_SECRET = 'REPO_SETTINGS_TOKEN'
-
-
-def read_token(piped: bool) -> str:
-    if piped:
-        token = typer.get_text_stream('stdin').read()
-    else:
-        # typer.prompt returns Any; it is a str without a `type=` converter.
-        token = str(
-            typer.prompt(
-                'Fine-grained PAT (Administration: write)', hide_input=True
-            )
-        )
-    token = token.strip()
-    if not token:
-        raise typer.BadParameter('token is empty')
-    return token
-
-
-@app.command('set-secret')
-def set_secret(
-    yes: Annotated[
-        bool, typer.Option('--yes', '-y', help='skip the confirmation')
-    ] = False,
-) -> None:
-    """
-    Set the repo settings admin token as a secret on every public repo.
-
-    Reads the token from a hidden prompt, or from stdin when piped (which
-    requires --yes). Re-run to rotate it.
-    """
-    piped = not sys.stdin.isatty()
-    if piped and not yes:
-        raise typer.BadParameter('--yes is required when piping the token')
-
-    repos = github.public_repos()
-    typer.echo('\n'.join(repos))
-    if not yes:
-        typer.confirm(
-            f'Set {REPO_SETTINGS_SECRET} on these {len(repos)} repos?',
-            abort=True,
-        )
-
-    token = read_token(piped)
-    failures = 0
-    for repo in repos:
-        try:
-            github.set_actions_secret(repo, REPO_SETTINGS_SECRET, token)
-        except github.GhError as exc:
-            failures += 1
-            typer.echo(f'FAILED {repo}: {exc}', err=True)
-        else:
-            typer.echo(f'set {repo}')
-    if failures:
-        raise typer.Exit(1)
+app.command('set-secret')(credentials.set_secret)
+app.command('set-deploy-key')(credentials.set_deploy_key)

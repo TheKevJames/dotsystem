@@ -30,6 +30,10 @@ exclude_hooks = ["flake8", "pylint", "ruff-check", "ruff-format"]
 [features.python.merge]
 "pyproject.toml" = ["tool.ty.rules", "dependency-groups.dev"]
 
+# Detected by its files, as it has no pre-commit fragment.
+[features.release]
+placement = "root"
+
 [features.shell]
 placement = "root"
 

@@ -52,6 +52,7 @@ yaml.width = 4096
 class Feature(enum.StrEnum):
     DOCKER = 'docker'
     PYTHON = 'python'
+    RELEASE = 'release'
     SHELL = 'shell'
     TERRAFORM = 'terraform'
 
