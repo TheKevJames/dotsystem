@@ -17,8 +17,13 @@ seeded = [
 [features.docker]
 placement = "root"
 
+# A feature with placement "any" installs into a subdir or at the repo root. At
+# the root, its fragment's repo blocks replace the root config's copies of its
+# `exclude_hooks` instead of being copied alongside it. Both can be installed at
+# once: subdirs stay excluded from the `exclude_hooks` only, so the fragment's
+# other root hooks (eg. ty, uv-*) also run over them.
 [features.python]
-placement = "subdir"
+placement = "any"
 exclude_hooks = ["flake8", "pylint", "ruff-check", "ruff-format"]
 
 [features.python.merge]

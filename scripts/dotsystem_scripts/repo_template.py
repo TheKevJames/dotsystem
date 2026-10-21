@@ -141,7 +141,7 @@ def sync(target: Target = pathlib.Path()) -> None:
 def add_feature(
     feature: template.Feature, target: Target = pathlib.Path()
 ) -> None:
-    """Install a feature's templates, merges, and excludes into a subdir."""
+    """Install a feature's templates, merges, and hooks at the target."""
     root = repo_root(target)
     features.validate_placement(feature, root, target)
     features.apply_feature(feature, root, target, add=True)

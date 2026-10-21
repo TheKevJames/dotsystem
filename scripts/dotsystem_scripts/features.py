@@ -4,8 +4,10 @@ Feature engine: install, remove, and detect a feature in a target repo.
 A feature transforms the target's pre-commit config. A subdir feature carries
 its own copied config and unions its install site into named hooks' `exclude`
 regexes; a root feature merges a `.pre-commit-config.yaml` fragment (its repo
-blocks) into the shared root config. A feature is installed wherever any of
-those changes are present.
+blocks) into the shared root config. A feature placed "any" works as a subdir
+feature in a subdir, and at the root swaps its fragment's repo blocks in for
+the root config's own copies of its `exclude_hooks`. A feature is installed
+wherever any of those changes are present.
 """
 
 import copy
@@ -18,7 +20,9 @@ from ruamel.yaml import error
 from ruamel.yaml import scalarstring
 from ruamel.yaml import tokens
 
+from . import splice
 from . import template
+from . import trailing
 
 # One group per install site in a hook's `exclude` union, e.g.
 # `(^scripts/.*)|(^libs/foo/.*)`; the brackets keep it parseable back to paths.
@@ -53,10 +57,14 @@ def build_exclude(paths: set[str]) -> scalarstring.SingleQuotedScalarString:
 
 
 def assign_hook_exclude(hook: comments.CommentedMap, paths: set[str]) -> None:
+    # Comment lines after the hook hang off its last key, which `exclude` may
+    # become or stop being; keep them after the hook.
+    following = trailing.pop(hook)
     if paths:
         hook['exclude'] = build_exclude(paths)
     elif 'exclude' in hook:
         del hook['exclude']
+    trailing.push(hook, following)
 
 
 def edit_excludes(
@@ -201,6 +209,89 @@ def rebuild_root_fragments(
     config['repos'] = core
 
 
+def base_owned_repos(hook_ids: set[str]) -> list[comments.CommentedMap]:
+    """The base template's repo blocks, cut down to the `hook_ids` hooks."""
+    base = template.yaml.load(
+        template.source_dir() / template.PRECOMMIT_CONFIG
+    )
+    repos: list[comments.CommentedMap] = []
+    for repo in base.get('repos', []):
+        hooks = repo.get('hooks', [])
+        for idx in reversed(range(len(hooks))):
+            if hooks[idx].get('id') not in hook_ids:
+                del hooks[idx]
+        if hooks:
+            repos.append(repo)
+    return repos
+
+
+def splice_root_feature(
+    feature: template.Feature,
+    config: comments.CommentedMap,
+    rev_source: comments.CommentedMap,
+    *,
+    add: bool,
+) -> None:
+    """
+    Install a feature placed "any" at the root of `config`.
+
+    Every root hook the feature owns (its `exclude_hooks`, and its fragment's
+    hooks) is replaced by the fragment's repo blocks, or by the base
+    template's when `add` is False, so the result does not depend on what was
+    installed before. Revs come from `rev_source` where it has the repo, so
+    renovate bumps survive, and subdir sites stay excluded from the new hooks.
+    """
+    hook_ids = set(
+        template.features_config()[feature.value].get('exclude_hooks', [])
+    )
+    fragment = template.yaml.load(
+        template.feature_dir(feature) / template.PRECOMMIT_CONFIG
+    )
+    revs = {
+        repo['repo']: repo['rev']
+        for repo in rev_source.get('repos', [])
+        if 'repo' in repo and 'rev' in repo
+    }
+    sites = {
+        path
+        for hook in iter_hooks(config)
+        if hook.get('id') in hook_ids
+        for path in parse_exclude(hook.get('exclude', ''))
+    }
+    if 'repos' not in config:
+        config['repos'] = comments.CommentedSeq()
+    holes = splice.take_hooks(
+        config['repos'],
+        hook_ids | {hook['id'] for hook in iter_hooks(fragment)},
+    )
+    new: list[comments.CommentedMap] = []
+    for repo in fragment['repos'] if add else base_owned_repos(hook_ids):
+        block = copy.deepcopy(repo)
+        trailing.pop(block)
+        if 'rev' in block:
+            block['rev'] = revs.get(block['repo'], block['rev'])
+        for hook in block['hooks']:
+            if hook.get('id') in hook_ids:
+                assign_hook_exclude(hook, sites)
+        new.append(block)
+    splice.place_blocks(config['repos'], holes, new)
+
+
+def root_install_present(
+    feature: template.Feature, config: comments.CommentedMap
+) -> bool:
+    """Whether `config` has repos only `feature`'s root install brings."""
+    fragment_path = template.feature_dir(feature) / template.PRECOMMIT_CONFIG
+    base_path = template.source_dir() / template.PRECOMMIT_CONFIG
+    if not fragment_path.exists() or not base_path.exists():
+        return False
+    urls = fragment_urls(template.yaml.load(fragment_path)) - fragment_urls(
+        template.yaml.load(base_path)
+    )
+    present = {repo.get('repo') for repo in config.get('repos', [])}
+    return bool(urls & present)
+
+
 def fragment_present(
     feature: template.Feature, config: comments.CommentedMap
 ) -> bool:
@@ -244,14 +335,17 @@ def sync_precommit(
     )
     for feature in template.Feature:
         placement = template.feature_placement(feature)
-        if placement is not template.Placement.SUBDIR:
+        if placement is template.Placement.ROOT:
             continue
+        feature_sites = sites.get(feature.value) or set()
+        if '.' in feature_sites:
+            splice_root_feature(feature, config, existing, add=True)
         hook_ids = template.features_config()[feature.value].get(
             'exclude_hooks', []
         )
         for hook in iter_hooks(config):
             if hook.get('id') in hook_ids:
-                assign_hook_exclude(hook, sites.get(feature.value) or set())
+                assign_hook_exclude(hook, feature_sites - {'.'})
     installed = {
         feature.value
         for feature in template.Feature
@@ -265,19 +359,24 @@ def sync_precommit(
 def installed_sites(
     root: pathlib.Path, feature: template.Feature
 ) -> list[str]:
-    """Relpaths where `feature` is installed; a root feature sits at '.'."""
+    """Relpaths where `feature` is installed; a root install sits at '.'."""
     config_path = root / template.PRECOMMIT_CONFIG
     if not config_path.exists():
         return []
     config = template.yaml.load(config_path)
-    if template.feature_placement(feature) is template.Placement.ROOT:
+    placement = template.feature_placement(feature)
+    if placement is template.Placement.ROOT:
         return ['.'] if fragment_present(feature, config) else []
+    paths: set[str] = set()
+    if placement is template.Placement.ANY and root_install_present(
+        feature, config
+    ):
+        paths.add('.')
     hook_ids = template.features_config()[feature.value].get(
         'exclude_hooks', []
     )
     if not hook_ids:
-        return []
-    paths: set[str] = set()
+        return sorted(paths)
     for hook in iter_hooks(config):
         if hook.get('id') in hook_ids:
             paths.update(parse_exclude(hook.get('exclude', '')))
@@ -319,9 +418,10 @@ def apply_feature(
     *,
     add: bool,
 ) -> None:
-    """Install a feature into a subdir; `add`=False removes it."""
+    """Install a feature into a subdir or the root; `add`=False removes it."""
     config = template.features_config().get(feature.value, {})
     placement = template.feature_placement(feature)
+    at_root = subdir.resolve() == root.resolve()
     merges: dict[str, list[str]] = config.get('merge', {})
     source = template.feature_dir(feature)
     for path in sorted(source.rglob('*')):
@@ -337,11 +437,18 @@ def apply_feature(
         )
         if is_root_fragment:
             apply_fragment(feature, root / template.PRECOMMIT_CONFIG, add=add)
+        elif rel == template.PRECOMMIT_CONFIG and at_root:
+            root_config = template.yaml.load(dest)
+            splice_root_feature(feature, root_config, root_config, add=add)
+            template.sync_yaml(root_config, dest)
         elif rel in merges:
             template.merge_toml(path, dest, merges[rel], add=add)
         elif add:
             template.sync_file(path.read_text(), dest)
         else:
             template.delete_file(dest)
+    if at_root:
+        # A root install keeps its hooks' subdir excludes as they are.
+        return
     relpath = subdir.resolve().relative_to(root.resolve()).as_posix()
     edit_excludes(root, config.get('exclude_hooks', []), relpath, add=add)
