@@ -14,7 +14,6 @@
   entr
   gron = gron  ; TODO: verify on linux
   grpcurl = grpcurl  ; TODO: verify on linux
-  glow
   gmailctl
   gnupg2 = gpg  ; TODO: is this OS-specific?
   jq
@@ -54,10 +53,12 @@
   python315 = python3.15
   syncthing
   ; TODO: aerospace  ; https://nikitabobko.github.io/AeroSpace/guide#manual-installation
+  ; TODO: uv
 
 ; packages from the OS package manager, Linux only
 [Linux]
   python3 = python3
+  uv
   ; TODO: bun
   ; TODO: syncthing
   ; TODO: npm
