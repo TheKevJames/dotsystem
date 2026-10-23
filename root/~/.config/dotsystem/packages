@@ -25,7 +25,6 @@
 
   ; lang
   clang
-  pipx
 
   ; apps
   btop
@@ -106,29 +105,22 @@
 ; pi extensions, installed via pi
 [pi]
 
-; python tools, installed via pipx
-[pipx]
+; python tools, installed via uv tool
+[uv]
   beancount = bean-check
   beanquery = bean-query
   fava
+  local = ~/src/personal/bakery/bakery
   local = ~/src/personal/beancount-importer
   local = ~/src/personal/dotsystem/scripts
-  mypy
+  local = ~/src/personal/task
   neovim-remote = nvr
-  poetry
-  pre-commit
   prek
   ruff
   shellcheck-py = shellcheck
   tox
   ty
-  uv
   yq
-
-; python tools, installed via uv tool
-[uv]
-  local = ~/src/personal/bakery/bakery
-  local = ~/src/personal/task
 
 ; anything with a manual install process defined in ./sync
 ; TODO: most of these can be builtins a la cargo
@@ -143,4 +135,4 @@
 
   go
 
-  ; firefox  ; TODO: why is this disabled on dialbox-2?
+  firefox

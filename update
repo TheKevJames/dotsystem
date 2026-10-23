@@ -29,9 +29,6 @@ rustup update
 echo "Upgrading cargo packages..."
 cargo-upgrade
 
-echo "Upgrading pipx packages..."
-pipx upgrade-all
-
 echo "Upgrading uv tools..."
 uv tool upgrade --all
 

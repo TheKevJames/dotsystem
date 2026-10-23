@@ -58,8 +58,8 @@ vim.g.loaded_perl_provider = 0
 vim.g.loaded_ruby_provider = 0
 -- bun add -g neovim
 vim.g.node_host_prog = '~/.local/bin/neovim-node-host'
--- pipx install nvr
-vim.g.python3_host_prog = '~/.local/pipx/venvs/neovim-remote/bin/python3'
+-- uv tool install nvr
+vim.g.python3_host_prog = '~/.local/share/uv/tools/neovim-remote/bin/python3'
 
 vim.keymap.set('n', ';', ':')                           -- avoid hitting <shift>
 vim.keymap.set('n', '<space>', 'za')                    -- toggle current fold with <space>

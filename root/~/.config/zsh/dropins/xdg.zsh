@@ -35,4 +35,4 @@ alias cpan='cpan -j ${XDG_CONFIG_HOME}/cpan/Config.pm'
 alias lmms='lmms --config=${XDG_CONFIG_HOME}/lmms/config'
 alias wget='wget --hsts-file ${XDG_DATA_HOME}/wget/hsts'
 
-export PATH="${KREW_ROOT}/bin:${PYENV_ROOT}/shims:${CARGO_HOME}/bin:${GOPATH}/bin:${PATH}"
+export PATH="${PYENV_ROOT}/shims:${CARGO_HOME}/bin:${GOPATH}/bin:${PATH}"
