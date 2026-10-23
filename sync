@@ -505,6 +505,7 @@ if git config -f "${PACKAGE_CONFIG}" --get manual.go >/dev/null; then
     # TODO: consider switching to a subset implementation, only I *really* need
     # this for the emergency key...
     # Switching off would also let me purge golang...
+    # TODO: switch to ssh keysigning
     if [ ! -f "${GOPATH}/bin/passphrase2pgp" ]; then
         pathadd /usr/local/go/bin
         go install nullprogram.com/x/passphrase2pgp@v1.2.0
