@@ -493,51 +493,6 @@ if git config -f "${PACKAGE_CONFIG}" --get manual.go >/dev/null; then
     fi
 fi
 
-if git config -f "${PACKAGE_CONFIG}" --get manual.kubectl >/dev/null; then
-    if ! which kubectl >/dev/null; then
-        if [[ -f /etc/os-release ]] && grep -q debian /etc/os-release; then
-            # https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/#install-using-native-package-management
-            sudo apt-get update -qy
-            sudo apt-get install -qy ca-certificates curl
-            sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
-            echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
-            sudo apt-get update
-            sudo apt-get install kubectl
-        elif [[ -f /etc/os-release ]] && grep -q fedora /etc/os-release; then
-            cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
-[kubernetes]
-name=Kubernetes
-baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-\$basearch
-enabled=1
-gpgcheck=1
-gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
-EOF
-            sudo dnf install kubectl
-        else
-            eval "${PACMAN_INSTALL} kubectl"
-        fi
-    fi
-fi
-
-if git config -f "${PACKAGE_CONFIG}" --get manual.krew >/dev/null; then
-    if ! which kubectl-krew >/dev/null; then
-        export KREW_ROOT="${XDG_DATA_HOME}/krew"
-        (
-            set -x
-            cd "$(mktemp -d)" &&
-            OS="$(uname | tr '[:upper:]' '[:lower:]')" &&
-            ARCH="$(uname -m | sed -e 's/x86_64/amd64/' -e 's/\(arm\)\(64\)\?.*/\1\2/' -e 's/aarch64$/arm64/')" &&
-            KREW="krew-${OS}_${ARCH}" &&
-            curl -fsSLO "https://github.com/kubernetes-sigs/krew/releases/latest/download/${KREW}.tar.gz" &&
-            tar zxvf "${KREW}.tar.gz" &&
-            ./"$KREW" install krew
-        )
-
-        # TODO: install via packages list
-        kubectl krew install ctx deprecations mtail neat ns stern
-    fi
-fi
-
 if git config -f "${PACKAGE_CONFIG}" --get manual.meslo >/dev/null; then
     if [[ "$OSTYPE" == "darwin"* ]]; then
         path="/Library/Fonts/NerdFonts"
@@ -609,24 +564,6 @@ if [[ "${BOOTSTRAP}" == "y" ]]; then
     #     rm ~/.ssh/emergency
 fi
 
-echo "Installing shell completions..."
-if which kubectl >/dev/null; then
-    if which fzf >/dev/null; then
-        # Based on:
-        # https://github.com/junegunn/fzf/wiki/Examples#kubectl
-        # shellcheck disable=SC2016
-        kubectl completion zsh \
-            | sed 's#${requestComp} 2>/dev/null#${requestComp} 2>/dev/null | sed '"'"'$d'"'"' | fzf  --multi=0 #g' \
-            > "${XDG_CONFIG_HOME}/zsh/completions/kubectl.zsh"
-    else
-        kubectl completion zsh > "${XDG_CONFIG_HOME}/zsh/completions/kubectl.zsh"
-    fi
-fi
-
 echo "done."
 
-# TODO: consider installing tmate. port install tmate on osx
-# TODO: consider installing pv. port install pv on osx
-# TODO: secrets:
-# ngrok config add-authtoken <foo>
 # TODO: flatten if statements in config files (eg. `if [ "$(uname ..."` should be done in ./sync, not at terminal load time

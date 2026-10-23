@@ -29,17 +29,6 @@ function update_tmux_gcp {
     fi
 }
 
-function update_tmux_k8s {
-    if [[ ! -f "${XDG_CONFIG_HOME}/kube" ]]; then return; fi
-    K8S=$(awk '/current-context:/ {print $2}' "${XDG_CONFIG_HOME}/kube")
-    tmux set-option -g @custom_window_k8s_title "${K8S}"
-    if grep -E 'echelon|production' <(echo "${K8S}") >/dev/null; then
-        tmux set-option -g @custom_window_k8s_color 'red'
-    else
-        tmux set-option -g @custom_window_k8s_color 'green'
-    fi
-}
-
 function gcloud {
     if [[ "$*" == *" ssh "* ]]; then
         update_tmux_ssh "${@:$#}"
@@ -49,11 +38,6 @@ function gcloud {
         command gcloud "$@"
     fi
     update_tmux_gcp
-}
-
-function kubectl {
-    command kubectl "$@"
-    update_tmux_k8s
 }
 
 function ssh {
@@ -67,7 +51,6 @@ function ssh {
 }
 
 # TODO: run these once on tmux startup rather than on every new shell/pane.
-# They already re-run when a gcloud/kubectl command might change them, so
+# They already re-run when a gcloud command might change them, so
 # invoking them for each new pane is superfluous.
 update_tmux_gcp
-update_tmux_k8s

@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-set -euo pipefail
-
-NAME="${1?NAME is unset}"
-kubectl patch deployment "${NAME}" -p '{"spec":{"template":{"metadata":{"annotations":{"date":"'"$(date +'%s')"'"}}}}}'

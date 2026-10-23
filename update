@@ -55,10 +55,6 @@ for repo in $(git config -f ~/.config/dotsystem/packages --name-only --get-regex
     popd
 done
 
-echo "Upgrading kubectl plugins..."
-kubectl krew update
-kubectl krew upgrade
-
 echo "Upgrading neovim plugins..."
 nvim --headless '+Lazy! sync' +qa
 nvim --headless '+MasonUpdate' +qa

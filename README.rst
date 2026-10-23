@@ -66,7 +66,6 @@ The following are some extra fixes that I worked out before coming across
   ``Config.pm`` to XDG-compliant ones.
 - helm. Support by setting ``$HELM_HOME``.
 - irb. Partial support by setting ``$IRBRC``.
-- kubectl. Support by setting ``$KUBECONFIG`` and ``$KUBECACHEDIR``
 - theano. Support by setting ``$THEANORC`` and including ``base_compiledir`` in ``$THEANO_FLAGS``.
 
 Besides the ones ``xdg-ninja`` knows about, I'm also tracking:
