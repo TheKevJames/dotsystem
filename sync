@@ -282,8 +282,9 @@ if git config -f "${PACKAGE_CONFIG}" --get-regexp 'cargo\..*' >/dev/null; then
         TEMPFILE=$(mktemp)
         curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs > "${TEMPFILE}.sh"
         sh "${TEMPFILE}.sh" -y --no-modify-path
+        "#{CARGO_HOME}/bin/rustup" default stable
     fi
-    pathadd "${XDG_DATA_HOME}/cargo/bin"
+    pathadd "${CARGO_HOME}/bin"
 
     packages=()
     while IFS=$'\r' read -r package; do
@@ -594,6 +595,7 @@ fi
 if [[ "${BOOTSTRAP}" == "y" ]]; then
     echo "Setting default shell to zsh..."
     if [[ -f /etc/os-release ]] && grep -q fedora /etc/os-release; then
+        # TODO: why do I install this?
         sudo dnf install util-linux-user
     fi
     chsh -s "$(which zsh)"
