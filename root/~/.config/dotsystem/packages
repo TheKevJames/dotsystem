@@ -65,7 +65,6 @@
 [cargo]
   ast-grep = sg
   bat
-  cctui
   difftastic = difft
   eb
   eza
