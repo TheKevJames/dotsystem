@@ -369,7 +369,8 @@ if git config -f "${PACKAGE_CONFIG}" --get-regexp 'pipx\..*' >/dev/null; then
             # TODO: support injecting in spec
             if [[ "${binary}" == "nvr" ]]; then
                 # N.B. required by beancount-language-server
-                # Can we update our LSP config to use beancount from the PATH instead?
+                # TODO: can we update our LSP config to use beancount from the
+                # PATH instead?
                 pipx inject "${binary}" beancount
             fi
         fi
@@ -413,26 +414,6 @@ if git config -f "${PACKAGE_CONFIG}" --get manual.docker >/dev/null; then
             sudo apt-get install docker-ce docker-ce-cli containerd.io
         else
             eval "${PACMAN_INSTALL} docker"
-        fi
-    fi
-fi
-
-if git config -f "${PACKAGE_CONFIG}" --get manual.dropbox >/dev/null; then
-    if [[ "$OSTYPE" == "darwin"* ]]; then
-        if [[ ! -f "/Applications/Dropbox.app/Contents/MacOS/Dropbox" ]]; then
-            brew cask install dropbox
-        fi
-    elif ! which dropbox >/dev/null; then
-        if [[ -f /etc/os-release ]] && grep -q debian /etc/os-release; then
-            TEMPFILE=$(mktemp)
-            wget -c 'https://www.dropbox.com/download?dl=packages/ubuntu/dropbox_2020.03.04_amd64.deb' -O "${TEMPFILE}.deb"
-            sudo apt-get install "${TEMPFILE}.deb"
-        elif [[ -f /etc/os-release ]] && grep -q fedora /etc/os-release; then
-            TEMPFILE=$(mktemp)
-            wget -c 'https://www.dropbox.com/download?dl=packages/fedora/nautilus-dropbox-2020.03.04-1.fedora.x86_64.rpm' -O "${TEMPFILE}.rpm"
-            sudo dnf install "${TEMPFILE}.rpm"
-        else
-            eval "${PACMAN_INSTALL} dropbox"
         fi
     fi
 fi
