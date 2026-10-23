@@ -1,6 +1,0 @@
-[user]
-    email = kevin@talkiq.com
-    signingKey = 1477E0E9256D0DD5
-
-[url "git@github.com:talkiq/"]
-    insteadOf = "talkiq:"

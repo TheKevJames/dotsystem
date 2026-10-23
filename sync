@@ -612,12 +612,11 @@ if [[ "${BOOTSTRAP}" == "y" ]]; then
     echo "Importing gpg keys..."
     mkdir -p "${GNUPGHOME}" && chmod 700 "${GNUPGHOME}"
     pathadd "${XDG_DATA_HOME}/go/bin"
-    # TODO: configure emails in env
-    for email in "KevinJames@thekev.in" "kevin@talkiq.com" "kjames@dialpad.com"; do
-        echo "Creating key for ${email}..."
-        # TODO: give direct path to `GOPATH="${XDG_DATA_HOME}/go"` ?
-        passphrase2pgp -se -u "Kevin James <${email}>" | gpg --import
-    done
+    echo "Creating key for ${email}..."
+    # TODO: give direct path to `GOPATH="${XDG_DATA_HOME}/go"` ?
+    # N.B. sometimes this needs to be run twice to import private keys, see
+    # `gpg -k` vs `gpg -K`
+    passphrase2pgp -se -u "Kevin James <KevinJames@thekev.in>" | gpg --import
 
     # TODO: should I just add all keys?
     #     curl https://github.com/thekevjames.keys >> ~/.ssh/authorized_keys

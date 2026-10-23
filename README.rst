@@ -64,7 +64,6 @@ The following are some extra fixes that I worked out before coming across
 - arc. Support with ``--arcrc-file`` flag.
 - cpan. Partial support with ``-j`` flag and setting values in your
   ``Config.pm`` to XDG-compliant ones.
-- gmailctl. Support with ``--config`` flag.
 - helm. Support by setting ``$HELM_HOME``.
 - irb. Partial support by setting ``$IRBRC``.
 - kubectl. Support by setting ``$KUBECONFIG`` and ``$KUBECACHEDIR``
