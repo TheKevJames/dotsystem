@@ -2,14 +2,19 @@
 127.0.0.1       local
 127.0.0.1       localhost
 127.0.0.1       localhost.localdomain
-
-127.0.1.1       M4_HOSTNAME
-127.0.1.1       M4_HOSTNAME.localdomain
+127.0.0.1       localhost4
+127.0.0.1       localhost4.localdomain4
 
 255.255.255.255 broadcasthost
 
 # IPv6
-::1             localhost ipv6-localhost ipv6-loopback
+::1             localhost
+::1             localhost.localdomain
+::1             localhost6
+::1             localhost6.localdomain6
+::1             ipv6-localhost
+::1             ipv6-loopback
+
 fe00::0         ipv6-localnet
 ff00::0         ipv6-mcastprefix
 ff02::1         ipv6-allnodes

@@ -2,6 +2,7 @@
 ; if the binary doesn't match the package name, use:
 ;   $pkg = $binary
 [pkg]
+  ; build
   autoconf
   bison
   cmake
@@ -14,6 +15,7 @@
   gnupg2 = gpg  ; TODO: is this OS-specific?
   jq
   less
+  pinentry
   tar
   unzip
   wget
@@ -39,10 +41,7 @@
 ; packages from the OS package manager, OSX only
 [Darwin]
   bun
-  dust = dust  ; TODO: move to cargo?
   jira-cli = jira
-  npm10 = npm
-  pinentry
   python311 = python3.11
   python312 = python3.12
   python313 = python3.13
@@ -58,9 +57,7 @@
   uv
   ; TODO: bun
   ; TODO: syncthing
-  ; TODO: npm
   ; TODO: jira-cli = jira
-  ; TODO: pinentry  ; do we need this for gpg?
 
 ; rust tools, installed via cargo
 ; if any values are set, also install rustup/cargo

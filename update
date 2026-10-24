@@ -9,6 +9,16 @@ if [[ "${OSTYPE}" == "darwin"* ]]; then
 else
     sudo dnf upgrade --refresh
     sudo dnf autoremove
+
+    # sudo dnf autoremove
+    # sudo dnf system-upgrade clean
+    # sudo dnf clean packages
+
+    # sudo dnf upgrade --refresh
+    # sudo dnf system-upgrade download --releasever=45
+    # sudo dnf5 offline reboot
+
+    # sudo rpmconf -a  # TODO: dnf install rpmconf?
 fi
 
 echo "Upgrading rust..."
