@@ -48,31 +48,3 @@ When sunsetting a machine, there's not much that needs to be done:
 
     # nuke your homedir
     sudo rm -Prf ~
-
-XDG
----
-
-I am a huge fan of the `XDG Base Directory Spec`_. Unfortunately, many apps
-don't follow that spec unless they're coerced into it via env vars, CLI flags,
-etc. Some don't support it env then.
-
-I generally go through and try to keep things as clean as possible.
-`xdg-ninja`_ is a fantastic tool for this and has a great database of fixes.
-The following are some extra fixes that I worked out before coming across
-``xdg-ninja``... at some point, I'll open some PRs and move 'em over.
-
-- arc. Support with ``--arcrc-file`` flag.
-- cpan. Partial support with ``-j`` flag and setting values in your
-  ``Config.pm`` to XDG-compliant ones.
-- helm. Support by setting ``$HELM_HOME``.
-- irb. Partial support by setting ``$IRBRC``.
-- theano. Support by setting ``$THEANORC`` and including ``base_compiledir`` in ``$THEANO_FLAGS``.
-
-Besides the ones ``xdg-ninja`` knows about, I'm also tracking:
-
-- colima (``~/.colima``). `Broken on OSX`_.
-- lima (``~/.lima``).
-
-.. _Broken on OSX: https://github.com/abiosoft/colima/pull/757
-.. _XDG Base Directory Spec: https://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html
-.. _xdg-ninja: https://github.com/b3nj5m1n/xdg-ninja

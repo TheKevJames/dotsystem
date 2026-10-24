@@ -82,7 +82,6 @@ local function lsp_servers_from_config_dir()
   return servers
 end
 
--- TODO: switch to choosenim, then use nimls or nim_langserver
 vim.lsp.enable(lsp_servers_from_config_dir())
 
 return {

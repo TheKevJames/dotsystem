@@ -25,11 +25,14 @@
 
   ; lang
   clang
+  go
 
   ; apps
   btop
+  firefox
   gmailctl
   neovim = nvim
+  podman
   tmux
   zsh
 
@@ -123,16 +126,6 @@
   yq
 
 ; anything with a manual install process defined in ./sync
-; TODO: most of these can be builtins a la cargo
 [manual]
-  docker
-  krew
-  kubectl
-
-  meslo
-
   gcloud
-
-  go
-
-  firefox
+  meslo

@@ -52,26 +52,19 @@ echo "  Skip Packages: ${SKIP}"
 source "${DIR}/root/~/.zshenv"
 source "${DIR}/root/~/.config/zsh/dropins/xdg.zsh"
 
-if which zypper >/dev/null; then
-    PACMAN_REFRESH="sudo zypper refresh"
-    PACMAN_INSTALL="sudo zypper install"
-elif which port >/dev/null; then
-    PACMAN_REFRESH="sudo port sync"
-    PACMAN_INSTALL="sudo port install"
-elif which apt-get >/dev/null; then
-    PACMAN_REFRESH="sudo apt-get update"
-    PACMAN_INSTALL="sudo apt-get install"
-elif which dnf >/dev/null; then
-    PACMAN_REFRESH=":"
-    PACMAN_INSTALL="sudo dnf install"
-else
-    echo "ERROR: could not determine package manager."
-    if [[ "$OSTYPE" == "darwin"* ]]; then
+if [[ "${OSTYPE}" == "darwin"* ]]; then
+    if ! which port >/dev/null; then
         echo "ERROR: please install MacPorts from https://macports.org/install.php"
         echo "After installation, if this is a fresh machine, run:"
         echo "  xcodebuild -runFirstLaunch"
+        exit 1
     fi
-    exit 1
+
+    PACMAN_REFRESH="sudo port sync"
+    PACMAN_INSTALL="sudo port install"
+else
+    PACMAN_REFRESH=":"
+    PACMAN_INSTALL="sudo dnf install"
 fi
 
 if [[ "${BOOTSTRAP}" == "y" ]]; then
@@ -382,97 +375,26 @@ if git config -f "${PACKAGE_CONFIG}" --get-regexp 'uv\..*' >/dev/null; then
 fi
 
 ## Install packages with special manual requirements
-if git config -f "${PACKAGE_CONFIG}" --get manual.docker >/dev/null; then
-    if ! which docker >/dev/null; then
-        if [[ "$OSTYPE" == "darwin"* ]]; then
-            eval "${PACMAN_INSTALL}" colima docker docker-buildx-plugin docker-compose-plugin
-        elif [[ -f /etc/os-release ]] && grep -q Ubuntu /etc/os-release; then
-            # https://docs.docker.com/install/linux/docker-ce/ubuntu/
-            sudo apt-get update -qy
-            sudo apt-get install -qy apt-transport-https ca-certificates curl gnupg-agent software-properties-common
-            curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-            sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-            sudo apt-get update
-            sudo apt-get install docker-ce docker-ce-cli containerd.io
-        else
-            eval "${PACMAN_INSTALL} docker"
-        fi
-    fi
-fi
-
-if git config -f "${PACKAGE_CONFIG}" --get manual.firefox >/dev/null; then
-    if [[ "$OSTYPE" == "darwin"* ]]; then
-        if [[ ! -f "/Applications/Firefox.app/Contents/MacOS/firefox" ]]; then
-            brew cask install firefox
-        fi
-    else
-        if ! which firefox >/dev/null; then
-            eval "${PACMAN_INSTALL} firefox"
-        fi
-    fi
-fi
-
-if git config -f "${PACKAGE_CONFIG}" --get manual.ferdi >/dev/null; then
-    if ! which ferdi >/dev/null; then
-        TEMPFILE=$(mktemp)
-        if [[ "$OSTYPE" == "darwin"* ]]; then
-            brew cask install ferdi
-            sudo ln -s /Applications/Ferdi.app/Contents/MacOS/Ferdi /usr/local/bin/ferdi
-
-            mkdir -p ~/.config/Ferdi/recipes/dev/
-            git clone https://github.com/TheKevJames/franz-recipe-dialpad.git ~/.config/Ferdi/recipes/dev/dialpad
-        else
-            curl -fsSL "https://github.com/getferdi/ferdi/releases/download/v5.5.0/ferdi-5.5.0.tar.gz" > "${TEMPFILE}.tgz"
-            tar xzf "${TEMPFILE}.tgz" -C /opt/ferdi
-            sudo ln -s /opt/ferdi/Franz /usr/local/bin/ferdi
-
-            mkdir -p ~/Library/Application\ Support/Ferdi/recipes/dev/
-            git clone https://github.com/TheKevJames/franz-recipe-dialpad.git ~/Library/Application\ Support/Ferdi/recipes/dev/dialpad
-        fi
-    fi
-fi
-
 # TODO: support for "downloaded" packages in config spec
 if git config -f "${PACKAGE_CONFIG}" --get manual.gcloud >/dev/null; then
     if ! which gcloud >/dev/null; then
         TEMPFILE=$(mktemp)
         if [[ "$OSTYPE" == "darwin"* ]]; then
-            curl -fsSL "https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-darwin-arm.tar.gz" > "${TEMPFILE}.tgz"
+            curl -fsSL "https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-darwin-arm.tar.gz" > "${TEMPFILE}.tar.gz"
         else
-            curl -fsSL "https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-linux-x86_64.tar.gz" > "${TEMPFILE}.tgz"
+            curl -fsSL "https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-linux-$(uname -m).tar.gz" > "${TEMPFILE}.tar.gz"
         fi
-        tar xzf "${TEMPFILE}.tgz" -C "${XDG_SRC_HOME}"
+        tar -xf "${TEMPFILE}.tar.gz" -C "${XDG_SRC_HOME}"
     fi
 fi
 
-if git config -f "${PACKAGE_CONFIG}" --get manual.gitify >/dev/null; then
-    if [[ "$OSTYPE" == "darwin"* ]]; then
-        if [[ ! -f "/Applications/Gitify.app/Contents/MacOS/Gitify" ]]; then
-            brew cask install gitify
-        fi
-    fi
-fi
-
-if git config -f "${PACKAGE_CONFIG}" --get manual.go >/dev/null; then
-    if ! which go >/dev/null; then
-        if [[ -f /etc/os-release ]] && grep -q debian /etc/os-release; then
-            TEMPFILE=$(mktemp)
-            wget -c "https://go.dev/dl/go1.19.linux-amd64.tar.gz" -O "${TEMPFILE}.tar.gz"
-            sudo rm -rf /usr/local/go
-            sudo tar -C /usr/local -xzf "${TEMPFILE}.tar.gz"
-        else
-            eval "${PACMAN_INSTALL} go"
-        fi
-    fi
-
-    # TODO: consider switching to a subset implementation, only I *really* need
-    # this for the emergency key...
-    # Switching off would also let me purge golang...
-    # TODO: switch to ssh keysigning
-    if [ ! -f "${GOPATH}/bin/passphrase2pgp" ]; then
-        pathadd /usr/local/go/bin
-        go install nullprogram.com/x/passphrase2pgp@v1.2.0
-    fi
+# TODO: consider switching to a subset implementation, only I *really* need
+# this for the emergency key...
+# Switching off would also let me purge golang...
+# TODO: switch to ssh keysigning
+if [ ! -f "${GOPATH}/bin/passphrase2pgp" ]; then
+    pathadd /usr/local/go/bin
+    go install nullprogram.com/x/passphrase2pgp@v1.2.0
 fi
 
 if git config -f "${PACKAGE_CONFIG}" --get manual.meslo >/dev/null; then
@@ -484,28 +406,13 @@ if git config -f "${PACKAGE_CONFIG}" --get manual.meslo >/dev/null; then
 
     if [[ ! -f "${path}/MesloLGLNerdFont-Regular.ttf" ]]; then
         TEMPFILE=$(mktemp)
-        curl -fsSL https://github.com/ryanoasis/nerd-fonts/releases/latest/download/Meslo.tar.xz > "${TEMPFILE}.tar.xz"
+        # TODO: versioning
+        curl -fsSL "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.5.1/Meslo.tar.xz" > "${TEMPFILE}.tar.xz"
         sudo mkdir -p "${path}"
-        sudo tar xzf "${TEMPFILE}.tar.xz" -C "${path}"
+        sudo tar -xf "${TEMPFILE}.tar.xz" -C "${path}"
 
         if [[ "$OSTYPE" != "darwin"* ]]; then
             fc-cache -f "${path}"
-        fi
-    fi
-fi
-
-if git config -f "${PACKAGE_CONFIG}" --get manual.sublime-text >/dev/null; then
-    if [[ "$OSTYPE" == "darwin"* ]]; then
-        if [[ ! -f "/Applications/Sublime Text.app/Contents/MacOS/Sublime Text" ]]; then
-            brew cask install sublime-text
-            curl -fsSL "https://packagecontrol.io/Package Control.sublime-package" \
-                -o ~/"Library/Application Support/Sublime Text 3/Installed Packages/Package Control.sublime-package"
-        fi
-    else
-        if ! which subl >/dev/null; then
-            eval "${PACMAN_INSTALL} sublime-text"
-            curl -fsSL "https://packagecontrol.io/Package Control.sublime-package" \
-                -o ~/".config/sublime-text-3/Installed Packages/Package Control.sublime-package"
         fi
     fi
 fi
@@ -528,10 +435,10 @@ if [[ "${BOOTSTRAP}" == "y" ]]; then
     git remote set-url origin git@github.com:TheKevJames/dotsystem.git
 
     echo "Importing gpg keys..."
-    mkdir -p "${GNUPGHOME}" && chmod 700 "${GNUPGHOME}"
-    pathadd "${XDG_DATA_HOME}/go/bin"
-    echo "Creating key for ${email}..."
+    mkdir -p "${GNUPGHOME}"
+    chmod 700 "${GNUPGHOME}"
     # TODO: give direct path to `GOPATH="${XDG_DATA_HOME}/go"` ?
+    pathadd "${XDG_DATA_HOME}/go/bin"
     # N.B. sometimes this needs to be run twice to import private keys, see
     # `gpg -k` vs `gpg -K`
     passphrase2pgp -se -u "Kevin James <KevinJames@thekev.in>" | gpg --import
