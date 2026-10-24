@@ -20,7 +20,7 @@ function update_tmux_ssh {
 }
 
 function update_tmux_gcp {
-    GCP=$(cat ~/.config/gcloud/active_config)
+    GCP=$(cat ~/.config/gcloud/active_config 2>/dev/null || echo "N/A")
     tmux set-option -g @custom_window_gcp_title "${GCP}"
     if grep -E 'echelon|production' <(echo "${GCP}") >/dev/null; then
         tmux set-option -g @custom_window_gcp_color 'red'
