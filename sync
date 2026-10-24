@@ -317,12 +317,20 @@ if git config -f "${PACKAGE_CONFIG}" --get-regexp 'bun\..*' >/dev/null; then
         IFS=' ' read -ra fields <<< "$package"
         pkg="${fields[0]#bun.}"
         binary="${fields[1]:-${pkg}}"
+        # N.B. many packages use characters disallowed from git config field
+        # names, so we use a special "eval" value to give us a hint to parse
+        # differently
+        if [[ "${pkg}" == "eval" ]]; then
+            pkg="${fields[1]}"
+            binary="${fields[2]:-${pkg}}"
+        fi
         # N.B. entries named `local` carry a project path as their value; its
         # lockfile is reinstalled every sync so dependency bumps propagate.
         if [[ "${pkg}" == "local" ]]; then
             bun install --frozen-lockfile --cwd "${binary/#\~/$HOME}"
             continue
         fi
+
         if ! which "${binary}" >/dev/null 2>&1; then
             bun add -g "${pkg}"
         fi
@@ -413,14 +421,13 @@ if git config -f "${PACKAGE_CONFIG}" --get-regexp 'uv\..*' >/dev/null; then
         IFS=' ' read -ra fields <<< "$package"
         pkg="${fields[0]#uv.}"
         binary="${fields[1]:-${pkg}}"
-        # N.B. `local` entries are installed as editable to pick up local changes.
+        # N.B. entries named `local` carry a project path as their value; its
+        # lockfile is reinstalled every sync so dependency bumps propagate.
         if [[ "${pkg}" == "local" ]]; then
-            # TODO: I want `task` to be a non-editable install. Decide whether
-            # I should special-case this or switch to non-editable installs
-            # everywhere.
-            uv tool install "${binary/#\~/$HOME}"
+            uv tool install --force "${binary/#\~/$HOME}"
             continue
         fi
+
         if ! which "${binary}" >/dev/null 2>&1; then
             # TODO: support injecting in spec
             if [[ "${binary}" == "nvr" ]]; then
