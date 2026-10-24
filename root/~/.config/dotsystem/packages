@@ -122,3 +122,5 @@
   bun
   gcloud
   meslo
+  ; curl -o git-jump https://raw.githubusercontent.com/git/git/master/contrib/git-jump/git-jump
+  ; curl -o git-contacts https://raw.githubusercontent.com/git/git/master/contrib/contacts/git-contacts
