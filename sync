@@ -250,6 +250,67 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     fi
 fi
 
+## Install packages with special manual requirements
+if git config -f "${PACKAGE_CONFIG}" --get manual.bun >/dev/null; then
+    if ! which bun >/dev/null; then
+        if [[ "$OSTYPE" == "darwin"* ]]; then
+            # TODO: switch to self-managed install
+            eval "${PACMAN_INSTALL}" bun
+        else
+            TEMPDIR=$(mktemp -d)
+            TEMPFILE=$(mktemp)
+
+            TARGET="bun-linux-x64"
+            curl -fsSL "https://github.com/oven-sh/bun/releases/latest/download/${TARGET}.zip" >"${TEMPFILE}.zip"
+            unzip -oqd "${TEMPDIR}" "${TEMPFILE}.zip"
+            mv "${TEMPDIR}/${TARGET}/bun" "${XDG_BIN_HOME}/bun"
+            chmod a+x "${XDG_BIN_HOME}/bun"
+        fi
+    fi
+fi
+
+if git config -f "${PACKAGE_CONFIG}" --get manual.gcloud >/dev/null; then
+    if ! which gcloud >/dev/null; then
+        TEMPFILE=$(mktemp)
+        if [[ "$OSTYPE" == "darwin"* ]]; then
+            curl -fsSL "https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-darwin-arm.tar.gz" >"${TEMPFILE}.tar.gz"
+        else
+            curl -fsSL "https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-linux-$(uname -m).tar.gz" >"${TEMPFILE}.tar.gz"
+        fi
+        tar -xf "${TEMPFILE}.tar.gz" -C "${XDG_SRC_HOME}"
+    fi
+fi
+
+# TODO: consider switching to a subset implementation, only I *really* need
+# this for the emergency key...
+# Switching off would also let me purge golang...
+# TODO: switch to ssh keysigning
+if [ ! -f "${GOPATH}/bin/passphrase2pgp" ]; then
+    pathadd /usr/local/go/bin
+    go install nullprogram.com/x/passphrase2pgp@v1.2.0
+fi
+
+if git config -f "${PACKAGE_CONFIG}" --get manual.meslo >/dev/null; then
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        path="/Library/Fonts/NerdFonts"
+    else
+        path="/usr/local/share/fonts/NerdFonts"
+    fi
+
+    if [[ ! -f "${path}/MesloLGLNerdFont-Regular.ttf" ]]; then
+        TEMPFILE=$(mktemp)
+        # TODO: versioning
+        curl -fsSL "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.5.1/Meslo.tar.xz" > "${TEMPFILE}.tar.xz"
+        sudo mkdir -p "${path}"
+        sudo tar -xf "${TEMPFILE}.tar.xz" -C "${path}"
+
+        if [[ "$OSTYPE" != "darwin"* ]]; then
+            fc-cache -f "${path}"
+        fi
+    fi
+fi
+
+
 ## Install bun packages
 if git config -f "${PACKAGE_CONFIG}" --get-regexp 'bun\..*' >/dev/null; then
     while IFS=$'\r' read -r package; do
@@ -372,49 +433,6 @@ if git config -f "${PACKAGE_CONFIG}" --get-regexp 'uv\..*' >/dev/null; then
             fi
         fi
     done < <(git config -f "${PACKAGE_CONFIG}" --get-regexp 'uv\..*')
-fi
-
-## Install packages with special manual requirements
-# TODO: support for "downloaded" packages in config spec
-if git config -f "${PACKAGE_CONFIG}" --get manual.gcloud >/dev/null; then
-    if ! which gcloud >/dev/null; then
-        TEMPFILE=$(mktemp)
-        if [[ "$OSTYPE" == "darwin"* ]]; then
-            curl -fsSL "https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-darwin-arm.tar.gz" > "${TEMPFILE}.tar.gz"
-        else
-            curl -fsSL "https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-linux-$(uname -m).tar.gz" > "${TEMPFILE}.tar.gz"
-        fi
-        tar -xf "${TEMPFILE}.tar.gz" -C "${XDG_SRC_HOME}"
-    fi
-fi
-
-# TODO: consider switching to a subset implementation, only I *really* need
-# this for the emergency key...
-# Switching off would also let me purge golang...
-# TODO: switch to ssh keysigning
-if [ ! -f "${GOPATH}/bin/passphrase2pgp" ]; then
-    pathadd /usr/local/go/bin
-    go install nullprogram.com/x/passphrase2pgp@v1.2.0
-fi
-
-if git config -f "${PACKAGE_CONFIG}" --get manual.meslo >/dev/null; then
-    if [[ "$OSTYPE" == "darwin"* ]]; then
-        path="/Library/Fonts/NerdFonts"
-    else
-        path="/usr/local/share/fonts/NerdFonts"
-    fi
-
-    if [[ ! -f "${path}/MesloLGLNerdFont-Regular.ttf" ]]; then
-        TEMPFILE=$(mktemp)
-        # TODO: versioning
-        curl -fsSL "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.5.1/Meslo.tar.xz" > "${TEMPFILE}.tar.xz"
-        sudo mkdir -p "${path}"
-        sudo tar -xf "${TEMPFILE}.tar.xz" -C "${path}"
-
-        if [[ "$OSTYPE" != "darwin"* ]]; then
-            fc-cache -f "${path}"
-        fi
-    fi
 fi
 
 # Complete post-installation bootstrapping operations
