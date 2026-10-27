@@ -314,6 +314,10 @@ fi
 
 ## Install bun packages
 if git config -f "${PACKAGE_CONFIG}" --get-regexp 'bun\..*' >/dev/null; then
+    export BUN_INSTALL_GLOBAL_DIR="${XDG_DATA_HOME}/bun"
+    export BUN_INSTALL_BIN="${XDG_BIN_HOME}"
+    pathadd "${XDG_BIN_HOME}"
+
     while IFS=$'\r' read -r package; do
         IFS=' ' read -ra fields <<< "$package"
         pkg="${fields[0]#bun.}"
