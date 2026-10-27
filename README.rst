@@ -8,26 +8,9 @@ Clone and run. To update configuration, pull and run. Changes will prompt you.
 
 .. code-block:: console
 
-    git clone https://github.com/thekevjames/dotsystem.git
-    cd ./dotsystem
-    ./sync [--force] [--skip-packages]
-
-New Machines
-------------
-
-If you're provisioning a new machine from scratch, there's some extra steps
-that have to be done outside of ``./sync`` to make your machine entirely
-bootstrap-able:
-
-.. code-block:: console
-
-    # OSX only: disable SIP by booting into recovery mode (intel: hold cmd-r on boot, m1: hold power button)
-    csrutil disable
-
-    # clone the dotsystem repo and do the initial sync
     git clone https://github.com/thekevjames/dotsystem.git ~/src/personal/dotsystem
     cd ~/src/personal/dotsystem
-    ./sync --force
+    ./sync [--force] [--skip-packages]
 
 Old Machines
 ------------
