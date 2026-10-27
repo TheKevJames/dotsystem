@@ -437,6 +437,14 @@ if [[ "${BOOTSTRAP}" == "y" ]]; then
     pathadd "${XDG_BIN_HOME}"
     prek install
 
+    echo "Binding pinentry to a common path..."
+    if [[ "${OSTYPE}" == "darwin"* ]]; then
+        pinentry="/opt/local/bin/pinentry"
+    else
+        pinentry="/usr/sbin/pinentry"
+    fi
+    ln -s "${pinentry}" "${XDG_BIN_HOME}/pinentry"
+
     echo "Importing gpg keys..."
     mkdir -p "${GNUPGHOME}"
     chmod 700 "${GNUPGHOME}"
