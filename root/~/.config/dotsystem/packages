@@ -28,10 +28,10 @@
   ; lang
   clang
   go
+  uv
 
   ; apps
   btop
-  firefox
   gmailctl
   neovim = nvim
   podman
@@ -48,13 +48,14 @@
   python314 = python3.14
   python315 = python3.15
   ; TODO: aerospace  ; https://nikitabobko.github.io/AeroSpace/guide#manual-installation
-  ; TODO: uv
+  ; TODO: firefox  ; https://www.firefox.com/en-CA/download/mac
 
 ; packages from the OS package manager, Linux only
 [Linux]
+  firefox
   python3 = python3
-  uv
   ; TODO: jira-cli = jira
+  ; TODO: tmux-pasteboard?
 
 ; rust tools, installed via cargo
 ; if any values are set, also install rustup/cargo
@@ -91,7 +92,8 @@
 [bun]
   confluence-cli
   eval = "@google/clasp clasp"
-  eval = "@likec4/language-server likec4-language-server"
+  ; TODO: `bun remove -g @likec4/language-server`
+  eval = "@likec4/lsp likec4-lsp"
   eval = "@earendil-works/pi-coding-agent pi"
   local = ~/src/personal/bakery/pi
   neovim = neovim-node-host
