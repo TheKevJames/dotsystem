@@ -6,7 +6,6 @@
   autoconf
   bison
   cmake
-  m4
   make
 
   ; utils

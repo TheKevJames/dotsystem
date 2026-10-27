@@ -11,15 +11,7 @@ FOLDERS = [
     '.local/bin',
 ]
 # TODO: synchronize this list with packagers installed by ./sync
-IGNORE = {
-    'aerospace',
-    'circleci',
-    'git-standup',
-    'gog',
-    'lazy-lock.json',
-    'logcli',
-    'observe',
-}
+IGNORE = {'aerospace', 'circleci', 'git-standup', 'gog', 'lazy-lock.json'}
 
 
 def find(folder: str) -> Iterator[pathlib.Path]:
@@ -27,9 +19,7 @@ def find(folder: str) -> Iterator[pathlib.Path]:
         if not file.is_file() or file.is_symlink() or file.name in IGNORE:
             continue
 
-        sourcefile = ROOT / file.relative_to(HOME)
-        m4file = sourcefile.with_suffix(f'{sourcefile.suffix}.m4')
-        if not any(x.exists() for x in (sourcefile, m4file)):
+        if not (ROOT / file.relative_to(HOME)).exists():
             if not file.name.startswith('nobackup-'):
                 yield file
 
