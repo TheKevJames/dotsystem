@@ -41,7 +41,7 @@ function gcloud {
 }
 
 function ssh {
-    if [[ $(ps -p "$(ps -p$$ -oppid=)" -ocomm=) =~ "tmux" ]]; then
+    if [[ $(ps -p "$(ps -p$$ -oppid= | xargs)" -ocomm=) =~ "tmux" ]]; then
         update_tmux_ssh "${*:$#}"
         command ssh "$@"
         update_tmux_ssh
