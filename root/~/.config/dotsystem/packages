@@ -42,6 +42,7 @@
 ; packages from the OS package manager, OSX only
 [Darwin]
   jira-cli = jira
+  npm12 = npm  ; TODO: linux as well
   python311 = python3.11
   python312 = python3.12
   python313 = python3.13
