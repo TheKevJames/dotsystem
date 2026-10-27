@@ -459,10 +459,13 @@ if [[ "${BOOTSTRAP}" == "y" ]]; then
     echo "Importing gpg keys..."
     mkdir -p "${GNUPGHOME}"
     chmod 700 "${GNUPGHOME}"
+    # N.B. forces a config reload, eg. to grab our gpg-agent.conf changes
+    gpgconf --kill gpg-agent
     # TODO: give direct path to `GOPATH="${XDG_DATA_HOME}/go"` ?
     pathadd "${XDG_DATA_HOME}/go/bin"
     # N.B. sometimes this needs to be run twice to import private keys, see
     # `gpg -k` vs `gpg -K`
+    # Might need to `gpg --edit-key ...`, `trust`, `5`, `quit`
     passphrase2pgp -se -u "Kevin James <KevinJames@thekev.in>" | gpg --import
 
     # TODO: should I just add all keys?
