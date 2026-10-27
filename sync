@@ -63,9 +63,11 @@ if [[ "${OSTYPE}" == "darwin"* ]]; then
 
     PACMAN_REFRESH="sudo port sync"
     PACMAN_INSTALL="sudo port install"
+    PACMAN_REMOVE="sudo port uninstall"
 else
     PACMAN_REFRESH=":"
     PACMAN_INSTALL="sudo dnf install"
+    PACMAN_REMOVE="sudo dnf remove"
 fi
 
 if [[ "${BOOTSTRAP}" == "y" ]]; then
@@ -378,6 +380,12 @@ fi
 
 ## Install uv tools
 if git config -f "${PACKAGE_CONFIG}" --get-regexp 'uv\..*' >/dev/null; then
+    if [[ ! -f "${XDG_BIN_HOME}/uv" ]]; then
+        uv tool install uv
+        eval "${PACMAN_REMOVE}" uv
+    fi
+    pathadd "${XDG_BIN_HOME}"
+
     while IFS=$'\r' read -r package; do
         IFS=' ' read -ra fields <<< "$package"
         pkg="${fields[0]#uv.}"
