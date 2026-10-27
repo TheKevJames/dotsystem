@@ -33,9 +33,6 @@ uv tool upgrade --all
 echo "Upgrading bun packages..."
 bun update -g
 
-echo "Upgrading npm packages..."
-npm outdated -g --depth=0 --json | jq -r '. | keys[]' | xargs npm update -g
-
 echo "Upgrading pi and extensions..."
 pi update --all
 
@@ -54,6 +51,5 @@ echo "Upgrading neovim plugins..."
 nvim --headless '+Lazy! sync' +qa
 nvim --headless '+MasonUpdate' +qa
 nvim --headless '+MasonToolsUpdateSync' +qa
-nvim --headless '+TSUpdateSync' +qa
 
 echo "done."
