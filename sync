@@ -339,6 +339,8 @@ if git config -f "${PACKAGE_CONFIG}" --get-regexp 'cargo\..*' >/dev/null; then
         fi
     done < <(git config -f "${PACKAGE_CONFIG}" --get-regexp 'cargo\..*')
     if (( ${#packages[@]} )); then
+        # TODO: consider calling with `--locked` -- and update cargo-upgrade as
+        # well if so
         cargo install "${packages[@]}"
     fi
 fi
@@ -420,7 +422,7 @@ fi
 if [[ "${BOOTSTRAP}" == "y" ]]; then
     echo "Setting default shell to zsh..."
     if [[ -f /etc/os-release ]] && grep -q fedora /etc/os-release; then
-        # TODO: why do I install this?
+        # N.B. includes chsh
         sudo dnf install util-linux-user
     fi
     chsh -s "$(which zsh)"

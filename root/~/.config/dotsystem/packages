@@ -41,7 +41,7 @@
 ; packages from the OS package manager, OSX only
 [Darwin]
   jira-cli = jira
-  npm12 = npm  ; TODO: linux as well
+  npm12 = npm  ; required on OSX only for installing various neovim packages
   python311 = python3.11
   python312 = python3.12
   python313 = python3.13
@@ -55,7 +55,6 @@
   firefox
   python3 = python3
   ; TODO: jira-cli = jira
-  ; TODO: tmux-pasteboard?
 
 ; rust tools, installed via cargo
 ; if any values are set, also install rustup/cargo

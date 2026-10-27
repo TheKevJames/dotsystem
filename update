@@ -51,5 +51,6 @@ echo "Upgrading neovim plugins..."
 nvim --headless '+Lazy! sync' +qa
 nvim --headless '+MasonUpdate' +qa
 nvim --headless '+MasonToolsUpdateSync' +qa
+nvim --headless '+TSUpdate' +qa
 
 echo "done."
