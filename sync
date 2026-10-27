@@ -177,7 +177,6 @@ done 3< <(find "${DIR}/root" -type f -print0)
 
 ## Configure OSX one-offs
 if [[ "$OSTYPE" == "darwin"* ]]; then
-    sudo cp "${XDG_CONFIG_HOME}"/osx/in.thekev.caffeinate.plist /Library/LaunchAgents/in.thekev.caffeinate.plist
     bash "${XDG_CONFIG_HOME}/osx/config"
 fi
 

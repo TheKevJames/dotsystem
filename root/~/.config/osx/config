@@ -1,4 +1,9 @@
 #!/usr/bin/env bash
+# shellcheck disable=SC2140
+# SC2140: breaks on nested plutil keys
+set -euo pipefail
+
+
 # UI
 ## dark mode
 defaults write "Apple Global Domain" AppleInterfaceStyle -string "Dark"
@@ -82,15 +87,29 @@ defaults write NSGlobalDomain NSAutomaticPeriodSubstitutionEnabled -bool false
 ## disable autocorrect
 defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
 
+## Terminal
+# TODO: figure out a way to do the following configs via script:
+# * Background Color > opacity > 100%
+# * Font > "MesloLGS Nerd Font Regular 11"
+defaults export com.apple.Terminal - |
+    plutil -replace "Default Window Settings" -string "Clear Dark" -o - - |
+    plutil -replace "Window Settings"."Clear Dark".CommandString -string "tmux a -t default" -o - - |
+    plutil -replace "Window Settings"."Clear Dark".RunCommandAsShell -integer 0 -o - - |
+    plutil -replace "Window Settings"."Clear Dark".warnOnShellCloseAction -integer 2 -o - - |
+    defaults import com.apple.Terminal -
+
 # Misc
 ## replace ActivityMonitor icon with CPU monitor
 defaults write com.apple.ActivityMonitor IconType -int 5
 ## show all in ActivityMonitor
 defaults write com.apple.ActivityMonitor ShowCategory -int 0
 ## enable infinite caffeination
-# TODO: fix caffeinate service loading
-# sudo launchctl load /Library/LaunchAgents/in.thekev.caffeinate.plist
-
-# TODO: configure Terminal.app
-# tmux a
-# MesloLGM Nerd Font 11
+if ! launchctl print "gui/$(id -u)" | grep "in.thekev.caffeinate" >/dev/null; then
+    launchctl bootstrap "gui/$(id -u)" ~/.config/osx/in.thekev.caffeinate.plist
+    launchctl kickstart -k "gui/$(id -u)/in.thekev.caffeinate"
+fi
+## enable syncthing
+if ! launchctl print "gui/$(id -u)" | grep "net.syncthing.syncthing" >/dev/null; then
+    launchctl bootstrap "gui/$(id -u)" ~/.config/osx/net.syncthing.syncthing.plist
+    launchctl kickstart -k "gui/$(id -u)/net.syncthing.syncthing"
+fi
