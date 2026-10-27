@@ -67,10 +67,19 @@ gaps.outer.top =        0
 gaps.outer.right =      0
 
 # See: https://nikitabobko.github.io/AeroSpace/guide#on-window-detected-callback
+# Use `aerospace list-apps` to get app-bundle-id values of running apps
 on-window-detected = [
     {
         if = 'test %{app-bundle-id} = com.apple.Terminal',
         run = ['layout tiles', 'move-node-to-workspace 1'],
+    },
+    {
+        if = 'test %{app-bundle-id} = com.mozilla.firefox',
+        run = ['layout tiles', 'move-node-to-workspace 2'],
+    },
+    {
+        if = 'test %{app-bundle-id} = com.spotify.client',
+        run = ['layout tiles', 'move-node-to-workspace 7'],
     },
 ]
 

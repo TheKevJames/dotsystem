@@ -49,12 +49,14 @@
   python315 = python3.15
   ; TODO: aerospace  ; https://nikitabobko.github.io/AeroSpace/guide#manual-installation
   ; TODO: firefox  ; https://www.firefox.com/en-CA/download/mac
+  ; TODO: spotify  ; https://open.spotify.com/download
 
 ; packages from the OS package manager, Linux only
 [Linux]
   firefox
   python3 = python3
   ; TODO: jira-cli = jira
+  ; TODO: spotify
 
 ; rust tools, installed via cargo
 ; if any values are set, also install rustup/cargo
@@ -91,7 +93,6 @@
 [bun]
   confluence-cli
   eval = "@google/clasp clasp"
-  ; TODO: `bun remove -g @likec4/language-server`
   eval = "@likec4/lsp likec4-lsp"
   eval = "@earendil-works/pi-coding-agent pi"
   local = ~/src/personal/bakery/pi
@@ -123,5 +124,6 @@
   bun
   gcloud
   meslo
+  ; TODO: install these git extensions (and include man pages/etc)
   ; curl -o git-jump https://raw.githubusercontent.com/git/git/master/contrib/git-jump/git-jump
   ; curl -o git-contacts https://raw.githubusercontent.com/git/git/master/contrib/contacts/git-contacts
