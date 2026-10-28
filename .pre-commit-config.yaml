@@ -17,6 +17,19 @@ repos:
     rev: v8.30.1
     hooks:
       - id: gitleaks
+  - repo: https://github.com/python-jsonschema/check-jsonschema
+    rev: 0.39.0
+    hooks:
+      - id: check-circle-ci
+      - id: check-github-workflows
+      - id: check-renovate
+        language: python
+        additional_dependencies:
+          - pyjson5==2.0.1
+  - repo: https://github.com/zizmorcore/zizmor-pre-commit
+    rev: v1.31.1
+    hooks:
+      - id: zizmor
   - repo: https://github.com/Lucas-C/pre-commit-hooks
     rev: v1.5.6
     hooks:
@@ -174,17 +187,6 @@ repos:
         entry: '@pytest\.fixture( |\n|(\(\)))'
         language: pygrep
         types: [python]
-
-# json
-  - repo: https://github.com/python-jsonschema/check-jsonschema
-    rev: 0.39.0
-    hooks:
-      - id: check-circle-ci
-      - id: check-github-workflows
-      - id: check-renovate
-        language: python
-        additional_dependencies:
-          - pyjson5==2.0.1
 
 # rst
   - repo: https://github.com/pre-commit/pygrep-hooks
