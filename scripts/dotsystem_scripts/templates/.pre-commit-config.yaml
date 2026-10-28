@@ -5,9 +5,6 @@ default_install_hook_types:
   - post-rewrite
   - pre-commit
 
-default_language_version:
-  python: python3.15
-
 repos:
   - repo: https://github.com/compilerla/conventional-pre-commit
     rev: v4.4.0

@@ -34,6 +34,14 @@ repos:
         types: [python]
         require_serial: true
         args:
+          # https://www.flake8rules.com/
+          # Restrict flake8 to plugins with no ruff equivalent; core
+          # pyflakes/pycodestyle (E/W/F) are handled by ruff.
+          # FCW: flake8-complicated-walrus
+          # I90: flake8-requirements
+          # IMR: flake8-import-restrictions
+          # N400: flake8-broken-line
+          # IMR200: Imports should only happen on module level, not locally. Covered by pylint.
           - --select=FCW,I90,IMR,N400
           - --ignore=IMR200
           - --per-file-ignores=tests/*:I900 hatch_build.py:I900
@@ -61,10 +69,17 @@ repos:
           - --preview
           - --config
           - lint.mccabe.max-complexity = 10
+          # Codes owned by flake8 plugins with no ruff equivalent; keeps
+          # RUF100 from stripping their noqa directives.
           - --config
           - lint.external = ['FCW', 'I90', 'IMR', 'N400']
           - --config
           - lint.isort.force-single-line = true
+          # D1,D203,D205,D212,D400,D401,D404,D407,D412,D413: pydocstyle opinions.
+          # E501: Line too long. Covered by ruff format.
+          # E741: Do not use variables named 'I', 'O', or 'l'.
+          # TRY003: Avoid long messages outside the exception class.
+          # TRY301: Abstract raise to an inner function.
           - --ignore
           - D1,D203,D205,D212,D400,D401,D404,D407,D412,D413,E501,E741,TRY003,TRY301
       - id: ruff-format
@@ -75,6 +90,7 @@ repos:
           - format.quote-style = 'single'
           - --config
           - format.skip-magic-trailing-comma = true
+          # Silence the isort/formatter magic-comma incompatibility warning.
           - --config
           - lint.isort.split-on-trailing-comma = false
   - repo: https://github.com/astral-sh/uv-pre-commit
