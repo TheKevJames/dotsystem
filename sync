@@ -98,6 +98,7 @@ if [[ "${BOOTSTRAP}" == "y" ]]; then
 
     echo "Creating ~/.ssh/id_ed25519..."
     ssh-keygen -o -a 100 -t ed25519 -C "KevinJames@thekev.in" -f ~/.ssh/id_ed25519
+    echo "KevinJames@thekev.in namespaces=\"git\" $(cat  ~/.ssh/id_ed25519.pub)" > ~/.ssh/allowed_signers
 fi
 
 # Helpers
@@ -255,7 +256,6 @@ fi
 # TODO: consider switching to a subset implementation, only I *really* need
 # this for the emergency key...
 # Switching off would also let me purge golang...
-# TODO: switch to ssh keysigning
 if [ ! -f "${GOPATH}/bin/passphrase2pgp" ]; then
     pathadd /usr/local/go/bin
     go install nullprogram.com/x/passphrase2pgp@v1.2.0
@@ -444,21 +444,10 @@ if [[ "${BOOTSTRAP}" == "y" ]]; then
     fi
     ln -s "${pinentry}" "${XDG_BIN_HOME}/pinentry"
 
-    echo "Importing gpg keys..."
-    mkdir -p "${GNUPGHOME}"
-    chmod 700 "${GNUPGHOME}"
-    # N.B. forces a config reload, eg. to grab our gpg-agent.conf changes
-    gpgconf --kill gpg-agent
-    # TODO: give direct path to `GOPATH="${XDG_DATA_HOME}/go"` ?
-    pathadd "${XDG_DATA_HOME}/go/bin"
-    # N.B. sometimes this needs to be run twice to import private keys, see
-    # `gpg -k` vs `gpg -K`
-    # Might need to `gpg --edit-key ...`, `trust`, `5`, `quit`
-    passphrase2pgp -se -u "Kevin James <KevinJames@thekev.in>" | gpg --import
-
     # TODO: should I just add all keys?
     #     curl https://github.com/thekevjames.keys >> ~/.ssh/authorized_keys
     echo "Adding emergency backup key to ~/.ssh/authorized_keys..."
+    pathadd "${GOPATH}/bin"
     passphrase2pgp -u emergency -f ssh -p >> ~/.ssh/authorized_keys
     # To regain access to a machine if all goes wrong:
     #     (umask 077; passphrase2pgp -u emergency -f ssh > ~/.ssh/emergency)

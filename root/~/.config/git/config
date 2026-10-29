@@ -66,6 +66,12 @@
 [credential]
     helper = cache --timeout=3600 --socket=~/.local/share/git/creds.sock
 
+[delta]
+    dark = true
+    syntax-theme = gruvbox-dark
+    navigate = true
+    line-numbers = true
+
 [diff]
     algorithm = histogram
     colorMoved = default
@@ -90,6 +96,12 @@
 
 [fetch]
     prune = true
+
+[gpg]
+    format = ssh
+
+[gpg "ssh"]
+    allowedSignersFile = ~/.ssh/allowed_signers
 
 [init]
     defaultBranch = main
@@ -130,19 +142,13 @@
 [rerere]
     enabled = true
 
+[tag]
+    gpgsign = true
+
 [user]
     email = KevinJames@thekev.in
     name = Kevin James
-    signingKey = B2B0BD2FE4EE84C5
+    signingKey = ~/.ssh/id_ed25519.pub
 
 [web]
     browser = firefox
-
-[delta]
-    dark = true
-    syntax-theme = gruvbox-dark
-    navigate = true
-    line-numbers = true
-
-[hub]
-    protocol = ssh

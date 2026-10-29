@@ -11,10 +11,8 @@
   ; utils
   curl
   entr
-  gnupg2 = gpg
   jq
   less
-  pinentry
   tar
   unzip
   wget
