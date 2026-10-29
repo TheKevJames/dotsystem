@@ -48,9 +48,9 @@ for repo in $(git config -f ~/.config/dotsystem/packages --name-only --get-regex
 done
 
 echo "Upgrading neovim plugins..."
-nvim --headless '+Lazy! sync' +qa
-nvim --headless '+MasonUpdate' +qa
-nvim --headless '+MasonToolsUpdateSync' +qa
-nvim --headless '+TSUpdate' +qa
+nvim --headless '+Lazy! sync' +qa; echo
+nvim --headless '+MasonUpdate' +qa; echo
+nvim --headless '+MasonToolsUpdateSync' +qa; echo
+nvim --headless '+TSUpdate' +qa; echo
 
 echo "done."
