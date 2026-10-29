@@ -214,12 +214,17 @@ fi
 
 ## Configure OSX one-offs
 if [[ "$OSTYPE" == "darwin"* ]]; then
-    # force override of OSX's way out-of-date builtin
+    # force override of OSX's way out-of-date builtins
+    if [[ ! -f "/opt/local/bin/bash" ]]; then
+        sudo port install bash
+        echo "/opt/local/bin/bash" | sudo tee -a /etc/shells
+    fi
     if [[ ! -f "/opt/local/bin/zsh" ]]; then
         sudo port install zsh
         echo "/opt/local/bin/zsh" | sudo tee -a /etc/shells
-        pathadd "/opt/local/bin"
     fi
+
+    pathadd "/opt/local/bin"
 fi
 
 ## Install packages with special manual requirements
