@@ -98,7 +98,7 @@ if [[ "${BOOTSTRAP}" == "y" ]]; then
 
     echo "Creating ~/.ssh/id_ed25519..."
     ssh-keygen -o -a 100 -t ed25519 -C "KevinJames@thekev.in" -f ~/.ssh/id_ed25519
-    echo "KevinJames@thekev.in namespaces=\"git\" $(cat  ~/.ssh/id_ed25519.pub)" > ~/.ssh/allowed_signers
+    echo "KevinJames@thekev.in namespaces=\"git\" $(cat ~/.ssh/id_ed25519.pub)" > ~/.ssh/allowed_signers
 fi
 
 # Helpers
@@ -251,14 +251,6 @@ if git config -f "${PACKAGE_CONFIG}" --get manual.gcloud >/dev/null; then
         fi
         tar -xf "${TEMPFILE}.tar.gz" -C "${XDG_SRC_HOME}"
     fi
-fi
-
-# TODO: consider switching to a subset implementation, only I *really* need
-# this for the emergency key...
-# Switching off would also let me purge golang...
-if [ ! -f "${GOPATH}/bin/passphrase2pgp" ]; then
-    pathadd /usr/local/go/bin
-    go install nullprogram.com/x/passphrase2pgp@v1.2.0
 fi
 
 if git config -f "${PACKAGE_CONFIG}" --get manual.meslo >/dev/null; then
@@ -444,15 +436,12 @@ if [[ "${BOOTSTRAP}" == "y" ]]; then
     fi
     ln -s "${pinentry}" "${XDG_BIN_HOME}/pinentry"
 
-    # TODO: should I just add all keys?
-    #     curl https://github.com/thekevjames.keys >> ~/.ssh/authorized_keys
     echo "Adding emergency backup key to ~/.ssh/authorized_keys..."
-    pathadd "${GOPATH}/bin"
-    passphrase2pgp -u emergency -f ssh -p >> ~/.ssh/authorized_keys
+    uv run https://raw.githubusercontent.com/TheKevJames/tools/refs/heads/master/deterministic-ssh/cli.py >> ~/.ssh/authorized_keys
     # To regain access to a machine if all goes wrong:
-    #     (umask 077; passphrase2pgp -u emergency -f ssh > ~/.ssh/emergency)
-    #     ssh-copy-id -i ~/.ssh/id_ed25519 -o 'IdentityFile ~/.ssh/emergency' important.example.com
-    #     rm ~/.ssh/emergency
+    #     uv run https://raw.githubusercontent.com/TheKevJames/tools/refs/heads/master/deterministic-ssh/cli.py --private | ssh-add -
+    #     ssh-copy-id -i ~/.ssh/id_ed25519 user@host
+    #     ssh-add -D
 fi
 
 echo "done."

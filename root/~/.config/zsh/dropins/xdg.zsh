@@ -1,7 +1,6 @@
 # shellcheck shell=bash
 export CARGO_HOME="${XDG_DATA_HOME}/cargo"
 export GNUPGHOME="${XDG_CONFIG_HOME}/gnupg"
-export GOPATH="${XDG_DATA_HOME}/go"
 export ICEAUTHORITY="${XDG_RUNTIME_DIR}/ICEauthority"  # NOTE: also must be set in /etc/environment
 export INPUTRC="${XDG_CONFIG_HOME}/inputrc"
 export LESSHISTFILE="${XDG_DATA_HOME}/less/history"
@@ -16,4 +15,4 @@ export SQLITE_HISTORY="${XDG_DATA_HOME}/sqlite/history"
 
 alias wget='wget --hsts-file ${XDG_DATA_HOME}/wget/hsts'
 
-export PATH="${XDG_SRC_HOME}/google-cloud-sdk/bin:${CARGO_HOME}/bin:${GOPATH}/bin:${PATH}"
+export PATH="${XDG_SRC_HOME}/google-cloud-sdk/bin:${CARGO_HOME}/bin:${PATH}"

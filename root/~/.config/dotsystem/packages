@@ -24,7 +24,6 @@
 
   ; lang
   clang
-  go
   uv
 
   ; apps
