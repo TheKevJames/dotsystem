@@ -25,9 +25,6 @@ fi
 # Use emacs key bindings
 bindkey -e
 
-# [Esc-w] - Kill from the cursor to the mark
-bindkey '\ew' kill-region
-
 # [Ctrl-r] - search backward incrementally for a specified string. Augmented with fzf.
 fzf-history-widget-accept() {
     fzf-history-widget
