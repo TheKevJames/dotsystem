@@ -9,7 +9,7 @@ export PSQLRC="${XDG_CONFIG_HOME}/psqlrc"
 export PYLINTHOME="${XDG_DATA_HOME}/pylint"
 export PYTHONSTARTUP="/etc/pythonstart"
 export REDISCLI_HISTFILE="${XDG_DATA_HOME}/redis/history"
-export RIPGREP_CONFIG_PATH="${XDG_CONFIG_HOME}/ripgrep"
+export RIPGREP_CONFIG_PATH="${XDG_CONFIG_HOME}/rg/ignore"
 export RUSTUP_HOME="${XDG_DATA_HOME}/rustup"
 export SQLITE_HISTORY="${XDG_DATA_HOME}/sqlite/history"
 

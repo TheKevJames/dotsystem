@@ -1,14 +1,12 @@
-# Search hidden files by default, --no-hidden to override.
 --hidden
-# ...except the git dir
---glob=!.git/
---glob=!.terraform/
-# also ignore:
 --glob=!*.ipynb
 --glob=!*.js.map
 --glob=!*.min.css
 --glob=!*.min.js
+--glob=!.git/
+--glob=!.terraform/
 --glob=!.venv/
+--glob=!package-lock.json
 --glob=!poetry.lock
 --glob=!poetry.rest.lock
 --glob=!uv.lock
