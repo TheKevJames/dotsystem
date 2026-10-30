@@ -5,7 +5,6 @@ import pathlib
 import readline
 import rlcompleter
 import sys
-import traceback
 
 XDG_STATE_HOME = pathlib.Path(
     os.environ.get('XDG_STATE_HOME', pathlib.Path.home() / '.local' / 'state')
@@ -17,9 +16,12 @@ HISTORY.touch()
 readline.set_history_length(10000)
 try:
     readline.read_history_file(HISTORY)
-except Exception:
-    print('Error reading history:')
-    traceback.print_exc()
+except PermissionError:
+    # ignore the libedit empty-file bug on macOS
+    if HISTORY.lstat().st_size > 13:
+        # not actually empty, maybe a real issue?
+        raise
+
 
 # Enable tab-completion
 readline.parse_and_bind('tab: complete')
