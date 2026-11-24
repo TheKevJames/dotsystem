@@ -27,7 +27,7 @@ repos:
         additional_dependencies:
           - pyjson5==2.0.1
   - repo: https://github.com/zizmorcore/zizmor-pre-commit
-    rev: v1.33.0
+    rev: v1.33.1
     hooks:
       - id: zizmor
   - repo: https://github.com/Lucas-C/pre-commit-hooks
